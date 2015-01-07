@@ -5308,6 +5308,12 @@ a.list-group-item-danger.active:focus {
 .panel-default > .panel-footer + .panel-collapse > .panel-body {
     border-bottom-color: #dddddd;
 }
+.panel-tile-large {
+    min-height: 400px;
+}
+.panel-tile-small {
+    min-height: 150px;
+}
 .panel-primary {
     border-color: #008cba;
 }

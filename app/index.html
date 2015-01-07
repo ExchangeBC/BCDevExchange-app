@@ -19,7 +19,7 @@
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
-        <a href="#/view1" class="navbar-brand">BCDevX</a>
+        <a href="#/home" class="navbar-brand">BCDevX</a>
         <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -77,64 +77,7 @@
       </div>
     </div>-->
 
-    <!--<div ng-view></div>-->
-
-    <div class="row">
-      <div class="col-lg-4">
-        <div class="panel panel-default">
-          <a href="#/view1">
-            <div class="panel-body">
-              <img class="img-responsive center-block" src="img/bcdevx-logo-big.png" alt="BCDevX">
-              <h2 class="text-center">Learn More</h2>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="panel panel-default">
-          <a href="http://www.data.gov.bc.ca/">
-            <div class="panel-body">
-              <img class="img-responsive center-block" src="img/ckan-logo-big.png" alt="CKAN">
-              <h2 class="text-center">Explore Data, APIs & Apps in the Catalogue</h2>
-            </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="panel panel-default">
-          <a href="http://github.com/BCDevX">
-            <div class="panel-body">
-              <img class="img-responsive center-block" src="img/github-logo.png" alt="GitHub">
-              <h2 class="text-center">Join Us on GitHub</h2>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-4">
-        <div class="well">
-          <form class="form-inline">
-            <fieldset>
-              <div class="form-group">
-                  <input type="text" class="form-control" id="inputEmail" placeholder="Email">
-              </div>
-              <div class="form-group">
-                  <button type="submit" class="btn btn-primary">Sign Me Up</button>
-              </div>
-            </fieldset>
-          </form>
-        </div>
-      </div>
-
-      <div class="col-lg-4">
-          <a href="#" class="btn btn-default btn-lg btn-block"><h1>Read the Blog</h1></a>
-      </div>
-      <div class="col-lg-4">
-          <a href="#" class="btn btn-default btn-lg btn-block"><h1>Get Involved</h1></a>
-      </div>
-    </div>
-
+    <div ng-view></div>
 
     <footer>
       <div class="row">
@@ -159,8 +102,11 @@
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="app.js"></script>
-  <script src="view1/view1.js"></script>
-  <script src="view2/view2.js"></script>
+  <script src="home/home.js"></script>
+  <script src="learn/learn.js"></script>
+  <script src="community/community.js"></script>
+  <script src="links/links.js"></script>
+  <script src="participate/participate.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
