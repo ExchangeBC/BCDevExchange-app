@@ -1219,7 +1219,7 @@ a.bg-danger:hover {
 .splash {
     padding: 9em 0 2em;
     background-color: #141d27;
-    background-image: url(./img/header2.jpg);
+    background-image: url(./img/header2-small.jpg);
     background-size: cover;
     /*background-attachment: fixed;*/
     background-repeat: no-repeat;
