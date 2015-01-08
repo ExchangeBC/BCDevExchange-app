@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', [
+var app = angular.module('myApp', [
   'ngRoute',
   'myApp.home',
   'myApp.learn',
@@ -13,3 +13,10 @@ angular.module('myApp', [
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/home'});
 }]);
+
+app.controller('IndexCtrl', function($scope, $location, $anchorScroll) {
+  $scope.scrollTo = function(id) {
+    $location.hash(id);
+    $anchorScroll();
+  }
+});
