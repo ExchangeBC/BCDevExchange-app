@@ -2,9 +2,9 @@
   "name": "BCDevX.github.io",
   "description": "Organization site for BCDevX",
   "version": "0.0.0",
-  "homepage": "https://github.com/BCDevX/BCDevX.github.io",
+  "homepage": "http://bcdevx.org",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "dependencies": {
     "angular": "1.2.x",
     "angular-route": "1.2.x",
