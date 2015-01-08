@@ -7,3 +7,4 @@ tmp
 .idea
 /.grunt
 /app/CNAME
+/npm-debug.log
