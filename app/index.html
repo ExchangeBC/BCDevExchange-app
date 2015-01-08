@@ -16,7 +16,7 @@
 </head>
 <body>
 
-  <div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <a href="#/home" class="navbar-brand">BCDevX</a>
@@ -54,47 +54,33 @@
   <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-  <div class="container">
 
-    <div class="page-header" id="banner">
-      <div class="row">
-        <div class="col-lg-8 col-md-7 col-sm-6">
+  <!--<div class="row">
+    <div class="col-lg-12">
+      <div class="bs-component">
+        <div class="jumbotron">
           <h1>BCDevX</h1>
-          <p class="lead">British Columbia Developer Exchange</p>
+          <p>British Columbia Developer Exchange</p>
+          <p><a class="btn btn-primary btn-lg">Learn more</a></p>
         </div>
       </div>
     </div>
+  </div>-->
 
-    <!--<div class="row">
-      <div class="col-lg-12">
-        <div class="bs-component">
-          <div class="jumbotron">
-            <h1>BCDevX</h1>
-            <p>British Columbia Developer Exchange</p>
-            <p><a class="btn btn-primary btn-lg">Learn more</a></p>
-          </div>
-        </div>
-      </div>
-    </div>-->
+  <div ng-view></div>
 
-    <div ng-view></div>
-
-    <footer>
+  <footer class="footer-padded">
+    <div class="container">
       <div class="row">
         <div class="col-lg-12">
           <p>Not an official BC Government website.</p>
         </div>
       </div>
+    </div>
 
-      <div class="row">
-        <div class="col-lg-12">
-          <div>BCDevX: v<span app-version></span></div>
-        </div>
-      </div>
+  </footer>
 
-    </footer>
 
-  </div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>

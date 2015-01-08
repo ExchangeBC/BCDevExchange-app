@@ -1216,6 +1216,34 @@ a.bg-danger:hover {
     margin: 42px 0 21px;
     border-bottom: 1px solid #dddddd;
 }
+.splash {
+    padding: 9em 0 2em;
+    background-color: #141d27;
+    background-image: url(./img/header.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    color: #fff;
+    text-align: center;
+}
+.splash h1 {
+    font-size: 4em
+}
+.content {
+    padding-bottom: 9.5px;
+    margin: 42px 0 21px;
+    border-bottom: 1px solid #dddddd;
+}
+.content-right-align {
+    text-align: right;
+}
+.content-left-align {
+    text-align: left;
+}
+.content-first {
+    padding: 4em 0 3em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: #eaf1f1
+}
 ul,
 ol {
     margin-top: 0;
@@ -6646,4 +6674,7 @@ input[type="checkbox"] {
 }
 .modal .close {
     color: #222222;
+}
+.footer-padded {
+    margin-top: 50px;
 }
