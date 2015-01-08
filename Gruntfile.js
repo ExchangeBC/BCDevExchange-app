@@ -2,6 +2,12 @@ module.exports = function(grunt) {
 
     // Project configuration.
     grunt.initConfig({
+        'copy': {
+            main: {
+                src: 'deployment_config/GitHub.io.CNAME.txt',
+                dest: 'app/CNAME'
+            }
+        },
         'gh-pages': {
             options: {
                 base: 'app',
@@ -10,21 +16,16 @@ module.exports = function(grunt) {
 
             },
             src: ['**']
-        },
-        'rename': {
-            'CNAME': {
-                src: 'deployment_config/Github.io.CNAME',
-                dest: 'app/CNAME'
-            }
         }
+
     });
 
-    grunt.loadNpmTasks('grunt-rename');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     // Load gh-pages add-on
     grunt.loadNpmTasks('grunt-gh-pages');
 
     // Default task(s).
-    grunt.registerTask('default', ['rename', 'gh-pages']);
+    grunt.registerTask('default', ['copy', 'gh-pages']);
 
 };
