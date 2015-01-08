@@ -8,7 +8,8 @@ var app = angular.module('myApp', [
   'myApp.community',
   'myApp.links',
   'myApp.participate',
-  'myApp.version'
+  'myApp.version',
+  'myApp.licenses'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/home'});
