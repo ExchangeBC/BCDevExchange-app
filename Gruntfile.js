@@ -4,7 +4,10 @@ module.exports = function(grunt) {
     grunt.initConfig({
         'gh-pages': {
             options: {
-                base: 'app'
+                base: 'app',
+                repo: 'https://github.com/BCDevX/BCDevX.github.io.git',
+                branch: 'master'
+
             },
             src: ['**']
         }
