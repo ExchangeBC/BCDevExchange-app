@@ -11,8 +11,8 @@ module.exports = function(grunt) {
             },
             src: ['**']
         },
-        rename: {
-            moveThis: {
+        'rename': {
+            'CNAME': {
                 src: 'deployment_config/Github.io.CNAME',
                 dest: 'app/CNAME'
             }
@@ -25,6 +25,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-gh-pages');
 
     // Default task(s).
-    grunt.registerTask('default', ['gh-pages']);
+    grunt.registerTask('default', ['rename', 'gh-pages']);
 
 };
