@@ -1,9 +1,18 @@
 # BCDevX Organization Web Site #
-> todo add description
+The organization page for BCDevX.  This is a browser only custom web app that uses:
+
+-  AngularJS 
+-  Bootstrap
+
+This app does not call any APIs, yet...
 
 ## Development ##
 
-> todo add development environment setup 
+You'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads). Clone this repo from GitHub, change directory to the repo root and:
+
+`$ npm install `
+
+We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development.  
 
 ## Deployment ##
 
