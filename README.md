@@ -1,9 +1,9 @@
-# BCDevX Organziation Web SIte #
+# BCDevX Organization Web Site #
 > todo add description
 
-## Developement ##
+## Development ##
 
-> todo add develpoment environment setup 
+> todo add development environment setup 
 
 ## Deployment ##
 
