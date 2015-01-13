@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.links', ['ngRoute'])
+angular.module('bcdevxApp.links', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/links', {

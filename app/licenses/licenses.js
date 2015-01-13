@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.licenses', ['ngRoute'])
+angular.module('bcdevxApp.licenses', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/licenses', {

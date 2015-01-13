@@ -1,15 +1,15 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var app = angular.module('myApp', [
+var app = angular.module('bcdevxApp', [
   'ngRoute',
-  'myApp.home',
-  'myApp.learn',
-  'myApp.community',
-  'myApp.links',
-  'myApp.participate',
-  'myApp.version',
-  'myApp.licenses'
+  'bcdevxApp.home',
+  'bcdevxApp.learn',
+  'bcdevxApp.community',
+  'bcdevxApp.links',
+  'bcdevxApp.participate',
+  'bcdevxApp.version',
+  'bcdevxApp.licenses'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/home'});

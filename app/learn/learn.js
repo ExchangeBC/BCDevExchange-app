@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.learn', ['ngRoute'])
+angular.module('bcdevxApp.learn', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/learn', {

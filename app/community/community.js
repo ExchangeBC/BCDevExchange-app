@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.community', ['ngRoute'])
+angular.module('bcdevxApp.community', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/community', {

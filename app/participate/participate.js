@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.participate', ['ngRoute'])
+angular.module('bcdevxApp.participate', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/participate', {
