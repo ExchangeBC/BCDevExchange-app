@@ -6691,3 +6691,16 @@ input[type="checkbox"] {
 .footer-padded {
     margin-top: 50px;
 }
+.padded-icon {
+    padding: 0px 4px 0px 4px;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    display: inline-block;
+    max-width: 100%;
+    max-height: 25px;
+    height: auto;
+}
+.padded-icon-navbar {
+    max-height: 19px;
+}
