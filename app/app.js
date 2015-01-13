@@ -4,10 +4,6 @@
 var app = angular.module('bcdevxApp', [
   'ngRoute',
   'bcdevxApp.home',
-  'bcdevxApp.learn',
-  'bcdevxApp.community',
-  'bcdevxApp.links',
-  'bcdevxApp.participate',
   'bcdevxApp.version',
   'bcdevxApp.licenses'
 ]).
