@@ -6,6 +6,8 @@ The organization page for BCDevX.  This is a browser only custom web app that us
 
 This app does not call any APIs, yet...
 
+*We are open to pull requests!*
+
 ## Development ##
 
 You'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads). Clone this repo from GitHub, change directory to the repo root and:
@@ -23,4 +25,6 @@ To deploy you must first have your development environment setup on your worksta
 For each deployment, the /app/* folder is pushed to the BCDevX.github.io repo master branch.  In a shell from the root of the source code, use the command:
 
 `$ grunt`
+
+
    
