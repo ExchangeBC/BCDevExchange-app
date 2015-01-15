@@ -11,7 +11,7 @@ module.exports = function(grunt) {
         'gh-pages': {
             options: {
                 base: 'app',
-                repo: 'https://github.com/BCDevX/BCDevX.github.io.git',
+                repo: 'git@github.com:BCDevX/BCDevX.github.io.git',
                 branch: 'master'
 
             },
