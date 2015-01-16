@@ -26,7 +26,17 @@ module.exports = function(grunt) {
                 // Path to save out the built file.
                 "outputFile": "app/js/modernizr-custom.js"
             }
-        }});
+        },
+        cdnify: {
+            options: {
+                cdn: require('google-cdn-data')
+            },
+            dist: {
+                html: ['app/*.html']
+            }
+        }
+
+    });
 
     grunt.loadNpmTasks('grunt-contrib-copy');
 
@@ -35,7 +45,9 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks("grunt-modernizr");
 
+    grunt.loadNpmTasks('grunt-google-cdn');
+
     // Default task(s).
-    grunt.registerTask('default', ['copy', 'modernizr', 'gh-pages']);
+    grunt.registerTask('default', ['copy', 'modernizr', 'gh-pages']); //'gh-pages'
 
 };
