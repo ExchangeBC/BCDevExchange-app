@@ -16,16 +16,26 @@ module.exports = function(grunt) {
 
             },
             src: ['**']
-        }
+        },
+        modernizr: {
 
-    });
+            dist: {
+                // [REQUIRED] Path to the build you're using for development.
+                "devFile": "app/bower_components/modernizr/modernizr.js",
+
+                // Path to save out the built file.
+                "outputFile": "app/js/modernizr-custom.js"
+            }
+        }});
 
     grunt.loadNpmTasks('grunt-contrib-copy');
 
     // Load gh-pages add-on
     grunt.loadNpmTasks('grunt-gh-pages');
 
+    grunt.loadNpmTasks("grunt-modernizr");
+
     // Default task(s).
-    grunt.registerTask('default', ['copy', 'gh-pages']);
+    grunt.registerTask('default', ['copy', 'modernizr', 'gh-pages']);
 
 };
