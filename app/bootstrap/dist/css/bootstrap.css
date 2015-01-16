@@ -7662,6 +7662,75 @@ input[type='checkbox']
 {
     color: #222;
 }
+.splash
+{
+    min-height: 752px;
+    padding: 9em 0 2em;
+
+    text-align: left;
+
+    color: #fff;
+    background-color: #222;
+    background-image: url(../../../img/header2-small.jpg);
+  /*background-attachment: fixed;*/
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+}
+.content
+{
+    margin: 42px 0 21px;
+    padding-bottom: 9.5px;
+
+    border-bottom: 1px solid #ddd;
+}
+.content-no-border
+{
+    border-bottom: none;
+}
+.content-right-align
+{
+    text-align: right;
+}
+.content-left-align
+{
+    text-align: left;
+}
+.content-center-align
+{
+    text-align: center;
+}
+.content-background-color
+{
+    padding: 4em 0 3em;
+
+    background-color: rgba(0, 140, 186, .3);
+}
+.row-padded
+{
+    margin-top: 270px;
+}
+.footer-padded
+{
+    margin-top: 50px;
+}
+.padded-icon
+{
+    display: inline-block;
+
+    max-width: 100%;
+    height: auto;
+    max-height: 25px;
+    padding: 0 4px;
+
+    -webkit-transition: all .2s ease-in-out;
+         -o-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
+}
+.padded-icon-icon-navbar
+{
+    max-height: 19px;
+}
 .clearfix:before,
 .clearfix:after,
 .container:before,

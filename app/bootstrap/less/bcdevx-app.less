@@ -1,0 +1,74 @@
+// top banner =================
+
+.splash {
+  padding: @splash-top-padding @splash-right-left-padding @splash-bottom-padding;
+  background-color: @gray-darker;
+  background-image: url(../../../img/header2-small.jpg);
+  background-size: cover;
+  /*background-attachment: fixed;*/   //enable this if you want the image to stay fixed while page scrolls
+  background-repeat: no-repeat;
+  background-position: top center;
+  color: @splash-color;
+  text-align: left;
+  min-height: @splash-min-height;
+}
+
+// content ================
+
+.content {
+  padding-bottom: @content-bottom-padding;
+  margin: @content-top-margin @content-right-left-margin @content-bottom-margin;
+  border-bottom: 1px solid @content-border-color;
+
+  &-no-border {
+    border-bottom: none;
+  }
+
+  &-right-align {
+    text-align: right;
+  }
+
+  &-left-align {
+    text-align: left;
+  }
+
+  &-center-align {
+    text-align: center;
+  }
+
+  &-background-color {
+    padding: @content-colored-top-padding @content-colored-right-left-padding @content-colored-bottom-padding;
+    background-color: @content-colored-bg;
+  }
+
+}
+
+// rows =================
+
+.row-padded {
+  margin-top: @row-spacer;
+}
+
+// footers ============
+
+.footer-padded {
+  margin-top: @footer-top-margin;
+}
+
+// icons =================
+
+.padded-icon {
+  padding: @icon-top-bottom-padding @icon-right-left-padding;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+  max-width: 100%;
+  max-height: @icon-max-height;
+  height: auto;
+
+  &-icon-navbar {
+    max-height: @icon-navbar-max-height;
+  }
+
+}
