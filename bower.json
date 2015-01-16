@@ -12,7 +12,6 @@
     "angular-mocks": "~1.2.x",
     "jquery": "~1.11.2",
     "bootstrap": "~3.1.1",
-    "respond-minmax": "~1.4.2",
-    "modernizr": "~2.8.3"
+    "respond-minmax": "~1.4.2"
   }
 }

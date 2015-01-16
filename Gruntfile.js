@@ -21,7 +21,7 @@ module.exports = function(grunt) {
 
             dist: {
                 // [REQUIRED] Path to the build you're using for development.
-                "devFile": "app/bower_components/modernizr/modernizr.js",
+                "devFile": "remote",
 
                 // Path to save out the built file.
                 "outputFile": "app/js/modernizr-custom.js"
@@ -47,7 +47,9 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-google-cdn');
 
+    grunt.registerTask('build', 'modernizr');
+
     // Default task(s).
-    grunt.registerTask('default', ['copy', 'modernizr', 'gh-pages']); //'gh-pages'
+    grunt.registerTask('default', ['copy', 'gh-pages']); //'gh-pages'
 
 };
