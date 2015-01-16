@@ -15,7 +15,10 @@ module.exports = function(grunt) {
                 branch: 'master'
 
             },
-            src: ['**']
+            src: [
+                '**',
+                '!bootstrap/node_modules/**'
+            ]
         },
         modernizr: {
 
