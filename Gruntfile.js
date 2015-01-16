@@ -16,6 +16,24 @@ module.exports = function(grunt) {
 
             },
             src: ['**']
+        },
+        modernizr: {
+
+            dist: {
+                // [REQUIRED] Path to the build you're using for development.
+                "devFile": "app/bower_components/modernizr/modernizr.js",
+
+                // Path to save out the built file.
+                "outputFile": "app/js/modernizr-custom.js"
+            }
+        },
+        cdnify: {
+            options: {
+                cdn: require('google-cdn-data')
+            },
+            dist: {
+                html: ['app/*.html']
+            }
         }
 
     });
@@ -25,7 +43,11 @@ module.exports = function(grunt) {
     // Load gh-pages add-on
     grunt.loadNpmTasks('grunt-gh-pages');
 
+    grunt.loadNpmTasks("grunt-modernizr");
+
+    grunt.loadNpmTasks('grunt-google-cdn');
+
     // Default task(s).
-    grunt.registerTask('default', ['copy', 'gh-pages']);
+    grunt.registerTask('default', ['copy', 'modernizr', 'gh-pages']); //'gh-pages'
 
 };
