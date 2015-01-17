@@ -11,8 +11,4 @@ config(['$routeProvider', function($routeProvider) {
 }]);
 
 app.controller('IndexCtrl', function($scope, $location, $anchorScroll) {
-  $scope.scrollTo = function(id) {
-    $location.hash(id);
-    $anchorScroll();
-  }
 });
