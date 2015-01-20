@@ -1,12 +1,14 @@
 {
-  "name": "BCDevX.github.io",
+  "name": "BCDevX",
   "private": true,
   "version": "0.0.0",
   "description": "Organization site for BCDevX",
   "repository": "https://github.com/BCDevX/BCDevX.github.io",
   "license": "MIT",
+  "main": "index.js",
   "devDependencies": {
     "bower": "^1.3.1",
+    "express": "^4.0.0",
     "google-cdn-data": "^0.1.16",
     "grunt": "^0.4.5",
     "grunt-contrib-copy": "^0.7.0",
@@ -22,7 +24,7 @@
   "scripts": {
     "postinstall": "bower install",
     "prestart": "npm install",
-    "start": "http-server -a localhost -p 8000 -c-1",
+    "start": "node index.js",
     "pretest": "npm install",
     "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js  --single-run",
@@ -31,5 +33,8 @@
     "preprotractor": "npm run update-webdriver",
     "protractor": "protractor e2e-tests/protractor.conf.js",
     "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + sed(/sourceMappingURL=angular-loader.min.js.map/,'sourceMappingURL=bower_components/angular-loader/angular-loader.min.js.map','app/bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\""
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
