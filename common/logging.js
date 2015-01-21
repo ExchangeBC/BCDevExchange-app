@@ -21,7 +21,7 @@ function Logging() {
     };
 
     if (process.env.NODE_ENV == 'production') {
-        
+
         this.logger = new winston.Logger({
             transports: [new winston.transports.Logentries({token: 'f8c89aff-0de8-4ef5-b8b8-b977644c89b1'})],
             levels: customLevels.levels

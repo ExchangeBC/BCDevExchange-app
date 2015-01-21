@@ -10,7 +10,6 @@
     "bower": "^1.3.1",
     "express": "^4.0.0",
     "google-cdn-data": "^0.1.16",
-    "le_node": "^0.2.1",
     "winston": "^0.8.3",
     "winston-logentries": "^1.0.1"
   },
