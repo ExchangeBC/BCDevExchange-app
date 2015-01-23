@@ -15,8 +15,8 @@ passport.deserializeUser(function(obj, done) {
 
 // use GitHubStrategy with Passport
 passport.use(new GitHubStrategy({
-        clientID: config.github.clientID,
-        clientSecret: config.github.clientSecret,
+        clientID: (process.env.GH_CLIENT_ID || config.github.clientID),
+        clientSecret: (process.env.GH_CLIENT_SECRET || config.github.clientSecret),
         callbackURL: config.github.callbackURL
     },
     function(accessToken, refreshToken, profile, done) {
