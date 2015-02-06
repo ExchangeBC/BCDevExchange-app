@@ -7688,23 +7688,26 @@ input[type='checkbox']
 {
     border-bottom: none;
 }
-.content-right-align
-{
-    text-align: right;
-}
-.content-left-align
-{
-    text-align: left;
-}
-.content-center-align
-{
-    text-align: center;
-}
 .content-background-color
 {
     padding: 4em 0 3em;
 
     background-color: rgba(0, 140, 186, .3);
+}
+.features-xl .glyphicon,
+.features-xl .fa
+{
+    font-size: 150px;
+}
+.features-lg .glyphicon,
+.features-lg .fa
+{
+    font-size: 125px;
+}
+.features-md .glyphicon,
+.features-md .fa
+{
+    font-size: 100px;
 }
 .row-padded
 {
