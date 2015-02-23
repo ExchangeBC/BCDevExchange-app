@@ -4,7 +4,6 @@
 var app = angular.module('bcdevxApp', [
   'ngRoute',
   'bcdevxApp.home',
-  'bcdevxApp.licenses',
   'bcdevxApp.auth'
 ]).
 config(['$routeProvider', function($routeProvider) {
