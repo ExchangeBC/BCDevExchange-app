@@ -8,3 +8,4 @@ tmp
 /.grunt
 /app/CNAME
 npm-debug.log
+/config/local.json
