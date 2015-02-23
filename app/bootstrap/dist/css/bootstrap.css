@@ -7665,7 +7665,7 @@ input[type='checkbox']
 .splash
 {
     min-height: 752px;
-    padding: 9em 0 2em;
+    padding: 1em 0 2em;
 
     text-align: left;
 
@@ -7676,6 +7676,18 @@ input[type='checkbox']
     background-repeat: no-repeat;
     background-position: top center;
     background-size: cover;
+}
+.splash h1
+{
+    font-size: 56px;
+
+    display: inline-block;
+
+    border-bottom: 1px solid #008cba;
+}
+.splash .lead
+{
+    color: #afafaf;
 }
 .content
 {
