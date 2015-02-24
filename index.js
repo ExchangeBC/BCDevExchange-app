@@ -1,8 +1,10 @@
 var express = require('express');
+var session = require('express-session');
 var logger = require('./common/logging.js').logger;
 var config = require('config');
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
+var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
 // Passport session setup
 passport.serializeUser(function(user, done) {
@@ -30,6 +32,23 @@ passport.use(new GitHubStrategy({
 ));
 
 
+// use LinkedInStrategy with Passport
+passport.use(new LinkedInStrategy({
+    clientID: (process.env.LI_CLIENT_ID || config.linkedin.clientID),
+    clientSecret: (process.env.LI_CLIENT_SECRET || config.linkedin.clientSecret),
+    callbackURL: config.linkedin.callbackURL,
+    scope: ['r_fullprofile'],
+    state: true
+}, function(accessToken, refreshToken, profile, done) {
+        // asynchronous verification
+        process.nextTick(function () {
+            // return the user's LinkedIn profile to represent the logged-in user
+            logger.info("logged in as " + profile.displayName);
+            return done(null, profile);
+        });
+    }
+));
+
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
@@ -37,7 +56,12 @@ app.set('port', (process.env.PORT || 5000));
 
 // initialize passport and use passport.session() to support persistent login sessions
 app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.session());
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true
+}));
 
 app.use(express.static(__dirname + '/app'));
 
@@ -64,6 +88,26 @@ app.get('/auth/github/callback',
     function(req, res) {
         res.redirect('/');
     });
+
+
+// GET /auth/linkedin
+// use passport.authenticate() as route middleware to authenticate the request
+app.get('/auth/linkedin',
+    passport.authenticate('linkedin'),
+    function(req, res) {
+        //the request will be redirected to linkedin for auth, so this function will not be called
+    });
+
+// GET /auth/linkedin/callback
+// use passport.authenticate() as route middleware to authenticate the request
+// if auth fails, the user will be redirected back to the login page
+// otherwise, the primary route function will be called which will redirect the user to the home page
+app.get('/auth/linkedin/callback',
+    passport.authenticate('linkedin', {
+        successRedirect: '/',
+        failureRedirect: '/#/login'
+    }));
+
 
 
 app.listen(app.get('port'), function() {
