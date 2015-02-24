@@ -13,8 +13,7 @@
     "google-cdn-data": "^0.1.16",
     "passport": "^0.2.1",
     "passport-github": "^0.1.5",
-    "winston": "^0.8.3",
-    "winston-logentries": "^1.0.1"
+    "winston": "^0.8.3"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
