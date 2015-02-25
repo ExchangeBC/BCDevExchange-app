@@ -2,12 +2,6 @@ module.exports = function(grunt) {
 
     // Project configuration.
     grunt.initConfig({
-        'copy': {
-            main: {
-                src: 'deployment_config/GitHub.io.CNAME.txt',
-                dest: 'app/CNAME'
-            }
-        },
         'gh-pages': {
             options: {
                 base: 'app',
@@ -53,6 +47,6 @@ module.exports = function(grunt) {
     grunt.registerTask('build', 'modernizr');
 
     // Default task(s).
-    grunt.registerTask('default', ['copy', 'gh-pages']); //'gh-pages'
+    grunt.registerTask('default', ['gh-pages']); //'gh-pages'
 
 };
