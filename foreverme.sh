@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APPLICATION_PATH="/home/bcdevteam/apps/bcdevexchange/index.js"
+APPLICATION_PATH="/home/bcdevteam/apps/bcdevexchange/server.js"
 WORKING_DIR="/home/bcdevteam/apps/bcdevexchange"
 PIDFILE="/var/run/bcdevexchange.pid"
 LOG="/var/log/bcdevexchange-forever.log"
