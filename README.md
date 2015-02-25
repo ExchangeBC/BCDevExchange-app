@@ -1,5 +1,5 @@
-# BCDevX Organization Web Site #
-The organization page for BCDevX.  This is a browser only custom web app that uses:
+# BCDevExchange Organization Web Site #
+The organization page for the BCDevExchange experiment.  This is a browser only custom web app that uses:
 
 -  AngularJS 
 -  Bootstrap
