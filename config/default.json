@@ -29,11 +29,11 @@ The local files are intended to not be tracked in your version control system. E
   "github": {
     "clientID": "overwrite_clientID",
     "clientSecret": "overwrite_clientSecret",
-    "callbackURL": "http://bcdevx.org/auth/github/callback"
+    "callbackURL": "http://bcdevexchange.org/auth/github/callback"
   },
   "linkedin": {
     "clientID": "overwrite_clientID",
     "clientSecret": "overwrite_clientSecret",
-    "callbackURL": "http://bcdevx.org/auth/linkedin/callback"
+    "callbackURL": "http://bcdevexchange.org/auth/linkedin/callback"
   }
 }
