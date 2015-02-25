@@ -5,6 +5,7 @@ var config = require('config');
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+var db = require('./app/models/db');
 
 // Passport session setup
 passport.serializeUser(function(user, done) {
