@@ -21,7 +21,7 @@ module.exports = function(grunt) {
                 "devFile": "remote",
 
                 // Path to save out the built file.
-                "outputFile": "app/js/modernizr-custom.js"
+                "outputFile": "public/js/modernizr-custom.js"
             }
         },
         cdnify: {
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
                 cdn: require('google-cdn-data')
             },
             dist: {
-                html: ['app/*.html']
+                html: ['public/*.html']
             }
         }
 
