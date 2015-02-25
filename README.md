@@ -16,15 +16,16 @@ You'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads)
 
 We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development.  
 
-## Deployment ##
+## Server Deployment ##
 
-To deploy you must first have your development environment setup on your workstation.  In addition, the grunt-cli installed globally:
+First time setup, you'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads).
+`$ npm install BCDevExchange/BCDevExchange#master`
+or for the Discovery branch
+`$ npm install BCDevExchange/BCDevExchange#discovery`
+or
+`$ npm install BCDevExchange/BCDevExchange#anytagreleaseetc`
 
-`$ npm install -g grunt-cli`
-
-For each deployment, the /app/* folder is pushed to the BCDevX.github.io repo master branch.  In a shell from the root of the source code, use the command:
-
-`$ grunt`
-
+Once setup and looking for new update to latest, use:
+`$ npm update`
 
    
