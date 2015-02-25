@@ -1,8 +1,8 @@
 {
-  "name": "BCDevX.github.io",
-  "description": "Organization site for BCDevX",
+  "name": "BCDevExchange",
+  "description": "Organization site for BCDevExchange",
   "version": "0.0.0",
-  "homepage": "http://bcdevx.org",
+  "homepage": "http://bcdevexchange.org",
   "license": "MIT",
   "private": false,
   "dependencies": {

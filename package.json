@@ -1,9 +1,9 @@
 {
-  "name": "BCDevX",
+  "name": "BCDevExchange",
   "private": true,
   "version": "0.0.0",
-  "description": "Organization site for BCDevX",
-  "repository": "https://github.com/BCDevX/BCDevX.github.io",
+  "description": "Organization site for BCDevExchange",
+  "repository": "https://github.com/BCDevExchange/BCDevExchange-app",
   "license": "MIT",
   "main": "server.js",
   "dependencies": {
