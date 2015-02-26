@@ -1,19 +1,16 @@
 #!/bin/bash
-
-APPLICATION_PATH="/home/bcdevteam/apps/bcdevexchange/server.js"
-WORKING_DIR="/home/bcdevteam/apps/bcdevexchange"
-PIDFILE="/var/run/bcdevexchange.pid"
-LOG="/var/log/bcdevexchange-forever.log"
-STDOUT="/var/log/bcdevexchange-stdout.log"
-STDERR="/var/log/bcdevexchange-stderr.log"
+cwd=$(pwd)
+APPLICATION_PATH=$cwd"/server.js"
+LOG=$cwd"/log/forever.log"
+STDOUT=$cwd"/log/stdout.log"
+STDERR=$cwd"/log/stderr.log"
 MIN_UPTIME="5000"
 SPIN_SLEEP_TIME="2000"
 
 export NODE_ENV=production
-export NODE_CONFIG_DIR="/home/bcdevteam/apps/bcdevexchange/config"
+export NODE_CONFIG_DIR=$cwd"/config"
 
 forever \
-      --pidFile $PIDFILE \
       -a \
 	  -v \
       -l $LOG \
