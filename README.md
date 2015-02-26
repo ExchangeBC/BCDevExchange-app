@@ -28,7 +28,6 @@ You'll want to create a local configuration file in config called:
 `./config/local.json`
 
 Starting the NodeJS server in forever mode:
-`cd BCDevExchange`
 `./foreverme.sh`
 
 Stdout, stderr and forever logs are here:
