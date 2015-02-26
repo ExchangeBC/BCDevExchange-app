@@ -19,9 +19,7 @@ We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development.
 ## Server Deployment ##
 
 First time setup, you'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads).
-
-`git clone git://github.com/BCDevExchange/BCDevExchange-app.git`
-`git checkout -b <master or discovery>`
+`git clone --branch <master or discovery> git://github.com/BCDevExchange/BCDevExchange-app.git`
 `npm install`
 `chmod +x foreverme.sh`
 
