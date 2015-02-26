@@ -46,6 +46,7 @@ The local files are intended to not be tracked in your version control system. E
     "callbackURL": "http://bcdevexchange.org/auth/linkedin/callback"
   },
   "mongodb": {
-    "connectionString": "overwrite_connectionString"
+    "connectionString": "mongodb://localhost/lab",
+    "sessionStoreUrl": "mongodb://localhost/session-store"
   }
 }

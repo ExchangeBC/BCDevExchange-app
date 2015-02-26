@@ -1,5 +1,6 @@
 var express = require('express');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var logger = require('./common/logging.js').logger;
 var config = require('config');
 var passport = require('passport');
@@ -61,7 +62,8 @@ app.use(passport.initialize());
 app.use(session({
     secret: config.http.session.secret,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: new MongoStore({ url: config.mongodb.sessionStoreUrl })
 }));
 
 app.use(express.static(__dirname + '/public', {"maxage": config.http.static.maxage}));
