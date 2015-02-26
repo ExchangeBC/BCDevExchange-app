@@ -1,0 +1,1 @@
+This is foreverme.sh configs NodeJS puts all the logs for this app.
