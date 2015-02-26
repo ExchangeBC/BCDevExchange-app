@@ -12,7 +12,7 @@ This app does not call any APIs, yet...
 
 You'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads). Clone this repo from GitHub, change directory to the repo root and:
 
-`$ npm install `
+`npm install `
 
 We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development.  
 
@@ -20,12 +20,24 @@ We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development.
 
 First time setup, you'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads).
 
-For the up to date live version:
-`$ npm install git://github.com/BCDevExchange/BCDevExchange-app.git#master`
-Or for the Discovery version:
-`$ npm install git://github.com/BCDevExchange/BCDevExchange-app.git#discovery`
-Or if you needed a special release:
-`$ npm install git://github.com/BCDevExchange/BCDevExchange-app.git#discovery`
+`git clone git://github.com/BCDevExchange/BCDevExchange-app.git`
+`git checkout -b <master or discovery>`
+`npm install`
+`chmod +x foreverme.sh`
+
+You'll want to create a local configuration file in config called:
+`./config/local.json`
+
+Starting the NodeJS server in forever mode:
+`cd BCDevExchange`
+`./foreverme.sh`
+
+Stdout, stderr and forever logs are here:
+`log/`
+
+Updating deployment:
+`git pull`
+
+Forever will auto restart NodeJS.
 
 
-   
