@@ -51,14 +51,14 @@ passport.use(new LinkedInStrategy({
 
 var app = express();
 
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (config.http.port || 5000));
 
 
 // initialize passport and use passport.session() to support persistent login sessions
 app.use(passport.initialize());
 //app.use(passport.session());
 app.use(session({
-    secret: 'keyboard cat',
+    secret: config.http.session.secret,
     resave: false,
     saveUninitialized: true
 }));

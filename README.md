@@ -19,11 +19,13 @@ We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development.
 ## Server Deployment ##
 
 First time setup, you'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads).
-`$ npm install BCDevExchange/BCDevExchange#master`
-or for the Discovery branch
-`$ npm install BCDevExchange/BCDevExchange#discovery`
-or
-`$ npm install BCDevExchange/BCDevExchange#anytagreleaseetc`
+
+For the up to date live version:
+`$ npm install --save git://github.com/BCDevExchange/BCDevExchange-app.git#master`
+Or for the Discovery version:
+`$ npm install --save git://github.com/BCDevExchange/BCDevExchange-app.git#discovery`
+Or if you needed a special release:
+`$ npm install --save git://github.com/BCDevExchange/BCDevExchange-app.git#discovery`
 
 Once setup and looking for new update to latest, use:
 `$ npm update`
