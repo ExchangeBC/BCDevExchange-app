@@ -30,6 +30,9 @@ The local files are intended to not be tracked in your version control system. E
       "port": 5000,
       "session": {
           "secret": "change me in local.json"
+      },
+      "static": {
+        "maxage": "1h"
       }
   },
   "github": {

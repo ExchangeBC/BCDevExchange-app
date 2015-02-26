@@ -64,7 +64,7 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public', {"maxage": config.http.static.maxage}));
 
 
 // ===== authentication page routing ======
