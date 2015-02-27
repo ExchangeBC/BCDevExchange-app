@@ -35,7 +35,7 @@ Stdout, stderr and forever logs are here:
 
 Updating deployment:
 `git pull`
-
+`npm install`
 Forever will auto restart NodeJS.
 
 
