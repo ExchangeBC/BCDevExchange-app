@@ -7786,6 +7786,12 @@ body
         padding-top: 5px;
     }
 }
+[ng\:cloak],
+[ng-cloak],
+.ng-cloak
+{
+    display: none;
+}
 .clearfix:before,
 .clearfix:after,
 .container:before,
