@@ -26,6 +26,15 @@ The default.EXT file is designed to contain all configuration parameters from wh
 The local files are intended to not be tracked in your version control system. External configuration management tools can write these files upon application deployment, before application loading.
  */
 {
+  "http": {
+      "port": 5000,
+      "session": {
+          "secret": "change me in local.json"
+      },
+      "static": {
+        "maxage": "1h"
+      }
+  },
   "github": {
     "clientID": "overwrite_clientID",
     "clientSecret": "overwrite_clientSecret",
@@ -37,6 +46,10 @@ The local files are intended to not be tracked in your version control system. E
     "callbackURL": "http://bcdevexchange.org/auth/linkedin/callback"
   },
   "mongodb": {
-    "connectionString": "overwrite_connectionString"
+    "connectionString": "mongodb://localhost/lab",
+    "sessionStoreUrl": "mongodb://localhost/session-store"
+  },
+  "display": {
+      "discoveryBanner": false
   }
 }

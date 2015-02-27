@@ -1,5 +1,6 @@
 var express = require('express');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var logger = require('./common/logging.js').logger;
 var config = require('config');
 var passport = require('passport');
@@ -114,19 +115,20 @@ passport.use(new LinkedInStrategy({
 
 var app = express();
 
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (config.http.port || 5000));
 
 
 // initialize passport and use passport.session() to support persistent login sessions
 app.use(passport.initialize());
 //app.use(passport.session());
 app.use(session({
-    secret: 'keyboard cat',
+    secret: config.http.session.secret,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: new MongoStore({ url: config.mongodb.sessionStoreUrl })
 }));
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public', {"maxage": config.http.static.maxage}));
 
 
 // ===== authentication page routing ======

@@ -7746,6 +7746,31 @@ input[type='checkbox']
 {
     max-height: 19px;
 }
+body
+{
+    padding-bottom: 70px;
+}
+.navbar-displayBanner
+{
+    background-color: yellow;
+}
+.navbar-title-displayBanner
+{
+    font-size: 300%;
+}
+@media (max-width: 767px)
+{
+    .navbar-title-displayBanner
+    {
+        font-size: 200%;
+    }
+}
+.navbar-text-displayBanner
+{
+    font-size: 125%;
+
+    padding-top: 5px;
+}
 .clearfix:before,
 .clearfix:after,
 .container:before,

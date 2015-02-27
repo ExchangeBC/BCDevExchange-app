@@ -12,19 +12,30 @@ This app does not call any APIs, yet...
 
 You'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads). Clone this repo from GitHub, change directory to the repo root and:
 
-`$ npm install `
+`npm install `
 
 We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development.  
 
-## Deployment ##
+## Server Deployment ##
 
-To deploy you must first have your development environment setup on your workstation.  In addition, the grunt-cli installed globally:
+First time setup, you'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads).
+`git clone --branch <master or discovery> git://github.com/BCDevExchange/BCDevExchange-app.git`
+`cd BCDevExchange`
+`npm install`
+`chmod +x foreverme.sh`
 
-`$ npm install -g grunt-cli`
+You'll want to create a local configuration file in config called:
+`./config/local.json`
 
-For each deployment, the /app/* folder is pushed to the BCDevX.github.io repo master branch.  In a shell from the root of the source code, use the command:
+Starting the NodeJS server in forever mode:
+`./foreverme.sh`
 
-`$ grunt`
+Stdout, stderr and forever logs are here:
+`log/`
+
+Updating deployment:
+`git pull`
+
+Forever will auto restart NodeJS.
 
 
-   
