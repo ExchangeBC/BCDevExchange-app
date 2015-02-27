@@ -6,6 +6,8 @@ var config = require('config');
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+
+// set up db connection
 var db = require('./app/models/db');
 
 // Passport session setup
@@ -23,12 +25,42 @@ passport.use(new GitHubStrategy({
         clientSecret: (process.env.GH_CLIENT_SECRET || config.github.clientSecret),
         callbackURL: config.github.callbackURL
     },
-    function(accessToken, refreshToken, profile, done) {
+    function(accessToken, refreshToken, extProfile, done) {
         // asynchronous verification
         process.nextTick(function () {
             // return the user's GitHub profile to represent the logged-in user
-            logger.info("logged in as " + profile.displayName);
-            return done(null, profile);
+            logger.info("logged in as " + extProfile.displayName + " from " + extProfile.provider);
+
+            db.Account.findOne({'identities.identifier': extProfile.id})
+                .populate('identities.origin profiles')
+                .exec(function (err, account){
+                    if (err) {
+                        logger.error(err);
+                    }
+
+                    if (account) {
+                        var originExists = false;
+                        for (var i = 0; i < account.identities.length; i++) {
+                            if (account.identities[i].origin.name == extProfile.provider) {
+                                originExists = true;
+                                break;
+                            }
+                        }
+
+                        if (!originExists) {
+                            db.addIdentity(account, extProfile);
+                        }
+
+                    } else {
+
+                        db.createAccount(extProfile);
+
+                    }
+
+                    return done(null, extProfile);
+
+                });
+
         });
     }
 ));
@@ -41,12 +73,42 @@ passport.use(new LinkedInStrategy({
     callbackURL: config.linkedin.callbackURL,
     scope: ['r_fullprofile'],
     state: true
-}, function(accessToken, refreshToken, profile, done) {
+}, function(accessToken, refreshToken, extProfile, done) {
         // asynchronous verification
         process.nextTick(function () {
             // return the user's LinkedIn profile to represent the logged-in user
-            logger.info("logged in as " + profile.displayName);
-            return done(null, profile);
+            logger.info("logged in as " + extProfile.displayName + " from " + extProfile.provider);
+
+            db.Account.findOne({'identities.identifier': extProfile.id})
+                .populate('identities.origin profiles')
+                .exec(function (err, account){
+                    if (err) {
+                        logger.error(err);
+                    }
+
+                    if (account) {
+                        var originExists = false;
+                        for (var i = 0; i < account.identities.length; i++) {
+                            if (account.identities[i].origin.name == extProfile.provider) {
+                                originExists = true;
+                                break;
+                            }
+                        }
+
+                        if (!originExists) {
+                            db.addIdentity(account, extProfile);
+                        }
+
+                    } else {
+
+                        db.createAccount(extProfile);
+
+                    }
+
+                    return done(null, extProfile);
+
+                });
+
         });
     }
 ));
@@ -65,6 +127,9 @@ app.use(session({
     saveUninitialized: true,
     store: new MongoStore({ url: config.mongodb.sessionStoreUrl })
 }));
+
+// ===== Static file for all files in public =====
+app.use(express.static(__dirname + '/public', {"maxage": config.http.static.maxage}));
 
 // ===== Low level conf for client side ======
 app.get("/config",
@@ -93,7 +158,7 @@ app.get('/auth/github/callback',
         failureRedirect: '/login'
     }),
     function(req, res) {
-        res.redirect('/');
+        res.redirect('/#/account?id=' + req.user.id);
     });
 
 
@@ -111,12 +176,19 @@ app.get('/auth/linkedin',
 // otherwise, the primary route function will be called which will redirect the user to the home page
 app.get('/auth/linkedin/callback',
     passport.authenticate('linkedin', {
-        successRedirect: '/',
         failureRedirect: '/#/login'
-    }));
+    }),
+    function(req, res) {
+        res.redirect('/#/account?id=' + req.user.id);
+    });
 
 
-app.use(express.static(__dirname + '/public', {"maxage": config.http.static.maxage}));
+
+app.get('/account/:id', function(req, res) {
+    db.getAccount({'identities.identifier': req.params.id}, res);
+})
+
+
 
 app.listen(app.get('port'), function() {
     logger.info("Node app is running on port " + app.get('port'));
