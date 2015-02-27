@@ -9,27 +9,23 @@
             <form novalidate>
                 <div class="form-group">
                     <label for="displayName">Account Name: </label>
-                    <input id="displayName" type="text" class="form-control" ng-model="" readonly />
-                </div>
-                <div class="form-group">
-                    <label for="contactEmail">Email: </label>
-                    <input id="contactEmail" type="email" class="form-control" ng-model="" readonly />
+                    <input id="displayName" type="text" class="form-control" ng-model="account.profiles[0].name.value" readonly />
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" ng-model="" readonly />Yes, please keep me up to date about the BCDevExchange Experiment
+                        <input type="checkbox" ng-model="account.profiles[0].contactPreferences.notifyMeOfAllUpdates" />Yes, please keep me up to date about the BCDevExchange Experiment
                     </label>
 
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" ng-model="" readonly />Yes, share my profile with the rest of the community so I can be contacted about potential opportunities
+                        <input type="checkbox" ng-model="account.profiles[0].visible" />Yes, share my profile with the rest of the community so I can be contacted about potential opportunities
                     </label>
 
                 </div>
                 <div class="form-group">
                     <label for="source">Source: </label>
-                    <input id="source" type="text" class="form-control" ng-model="" readonly />
+                    <input id="source" type="text" class="form-control" ng-model="account.identities[0].origin.name" readonly />
                 </div>
             </form>
         </div>
