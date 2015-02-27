@@ -7748,17 +7748,19 @@ input[type='checkbox']
 }
 body
 {
-    padding-bottom: 70px;
+    padding-bottom: 75px;
 }
 .navbar-displayBanner
 {
+    border-top-width: 1px;
+    border-top-style: ridge;
     background-color: yellow;
 }
 .navbar-title-displayBanner
 {
     font-size: 300%;
 }
-@media (max-width: 767px)
+@media (max-width: 992px)
 {
     .navbar-title-displayBanner
     {
@@ -7770,6 +7772,19 @@ body
     font-size: 125%;
 
     padding-top: 5px;
+}
+@media (max-width: 1200px)
+{
+    .navbar-title-displayBanner
+    {
+        font-size: 200%;
+    }
+    .navbar-text-displayBanner
+    {
+        font-size: 80%;
+
+        padding-top: 5px;
+    }
 }
 .clearfix:before,
 .clearfix:after,

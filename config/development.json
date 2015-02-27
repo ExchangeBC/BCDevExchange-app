@@ -4,5 +4,8 @@
     "static": {
       "maxage": "0"
     }
+  },
+  "ui": {
+    "discoveryBanner": true
   }
 }

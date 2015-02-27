@@ -128,8 +128,15 @@ app.use(session({
     store: new MongoStore({ url: config.mongodb.sessionStoreUrl })
 }));
 
+// ===== Static file for all files in public =====
 app.use(express.static(__dirname + '/public', {"maxage": config.http.static.maxage}));
 
+// ===== Low level conf for client side ======
+app.get("/config",
+    function (req, res) {
+        res.send(config.ui);
+    }
+);
 
 // ===== authentication page routing ======
 
@@ -180,6 +187,7 @@ app.get('/auth/linkedin/callback',
 app.get('/account/:id', function(req, res) {
     db.getAccount({'identities.identifier': req.params.id}, res);
 })
+
 
 
 app.listen(app.get('port'), function() {
