@@ -1,0 +1,19 @@
+body {
+    padding-bottom: 70px;
+}
+
+.navbar-displayBanner {
+    background-color: yellow;
+}
+.navbar-title-displayBanner {
+    font-size: 300%;
+}
+@media(max-width:767px){
+    .navbar-title-displayBanner {
+        font-size: 200%;
+    }
+}
+.navbar-text-displayBanner {
+    padding-top: 5px;
+    font-size: 125%;
+}

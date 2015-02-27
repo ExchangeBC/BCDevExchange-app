@@ -12,3 +12,8 @@ config(['$routeProvider', function($routeProvider) {
 
 app.controller('IndexCtrl', function($scope, $location, $anchorScroll) {
 });
+
+// Init all popovers
+$(function () {
+    $('[data-toggle="popover"]').popover({html:true})
+})
