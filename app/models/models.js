@@ -1,3 +1,6 @@
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
 
 var attributeOriginDef = {
     identityOrigin: String, // where this attribute originated from
@@ -7,7 +10,7 @@ var attributeOriginDef = {
 
 var accountSchema = new Schema({
     identities: [{
-        origin: { type: Schema.Types.String, ref: 'Origin' }, // GitHub or LinkedIn
+        origin: { type: Schema.Types.ObjectId, ref: 'Origin' }, // GitHub or LinkedIn
         identifier: String, // User's identifier from origin
         attributes: [{ // a collection of identity attributes
             name: String,
@@ -20,7 +23,7 @@ var accountSchema = new Schema({
 var profileSchema = new Schema({
     type: String, // Individual or Organization
     name: attributeOriginDef, // display name for profile
-    visibility: String, // Public or Private
+    visible: Boolean, 
     contact: {
         email: attributeOriginDef
     },
@@ -30,6 +33,13 @@ var profileSchema = new Schema({
 });
 
 var originSchema = new Schema({
-   name: String, // Github or LinkedIn
-   miniIconUrl: String // URL to image
+    name: String, // github or linkedin
+    miniIconUrl: String // URL to image
 });
+
+
+module.exports = {
+    Account : mongoose.model('Account', accountSchema),
+    Profile : mongoose.model('Profile', profileSchema),
+    Origin : mongoose.model('Origin', originSchema)
+};
