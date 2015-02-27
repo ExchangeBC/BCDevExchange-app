@@ -66,8 +66,12 @@ app.use(session({
     store: new MongoStore({ url: config.mongodb.sessionStoreUrl })
 }));
 
-app.use(express.static(__dirname + '/public', {"maxage": config.http.static.maxage}));
-
+// ===== Low level conf for client side ======
+app.get("/config",
+    function (req, res) {
+        res.send(config.ui);
+    }
+);
 
 // ===== authentication page routing ======
 
@@ -112,6 +116,7 @@ app.get('/auth/linkedin/callback',
     }));
 
 
+app.use(express.static(__dirname + '/public', {"maxage": config.http.static.maxage}));
 
 app.listen(app.get('port'), function() {
     logger.info("Node app is running on port " + app.get('port'));

@@ -49,7 +49,7 @@ The local files are intended to not be tracked in your version control system. E
     "connectionString": "mongodb://localhost/lab",
     "sessionStoreUrl": "mongodb://localhost/session-store"
   },
-  "display": {
+  "ui": {
       "discoveryBanner": false
   }
 }

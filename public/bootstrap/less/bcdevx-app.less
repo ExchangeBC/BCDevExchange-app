@@ -86,16 +86,18 @@
 
 // bottom display banner
 body {
-  padding-bottom: 70px;
+  padding-bottom: 75px;
 }
 
 .navbar-displayBanner {
   background-color: yellow;
+  border-top-width: 1px;
+  border-top-style: ridge;
 }
 .navbar-title-displayBanner {
   font-size: 300%;
 }
-@media(max-width:767px){
+@media(max-width:@screen-md-min){
   .navbar-title-displayBanner {
     font-size: 200%;
   }
@@ -103,4 +105,13 @@ body {
 .navbar-text-displayBanner {
   padding-top: 5px;
   font-size: 125%;
+}
+@media(max-width:@screen-lg-min){
+  .navbar-title-displayBanner {
+    font-size: 200%;
+  }
+  .navbar-text-displayBanner {
+    padding-top: 5px;
+    font-size: 80%;
+  }
 }
