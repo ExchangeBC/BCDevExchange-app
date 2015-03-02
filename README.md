@@ -1,7 +1,7 @@
 # BCDevExchange Organization Web Site #
 [![BCDevExchangeProject](https://img.shields.io/badge/BC%20DevExchange%20Project-Discovery-yellow.svg)](http://lab.bcdevexchange.org) 
 
-<site style="display:none">
+<site>
 BCDevExchangeProject
 </site>
 
