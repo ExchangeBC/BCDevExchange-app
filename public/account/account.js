@@ -15,8 +15,14 @@ app.factory('Account', ['$resource', function($resource) {
 
 app.controller('AccountCtrl', ['$scope', '$location', 'Account', function($scope, $location, Account) {
 
-    var account = Account.get({id: $location.search().id}, function(data) {
+    Account.get({id: $location.search().id}, function(data) {
         $scope.account = data;
     });
+
+    $scope.update = function(account) {
+        Account.save({id: $location.search().id}, account, function() {
+            console.log("success");
+        })
+    }
 
 }]);

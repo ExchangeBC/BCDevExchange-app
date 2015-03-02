@@ -43,7 +43,7 @@ module.exports = {
               res.json(output);
       });
     },
-    createNewAccount : function (extProfile) {
+    createAccount : function (extProfile) {
         var origin = new models.Origin({
             name: extProfile.provider,
             miniIconUrl: ''

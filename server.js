@@ -1,6 +1,7 @@
 var express = require('express');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
+var bodyParser = require('body-parser');
 var logger = require('./common/logging.js').logger;
 var config = require('config');
 var passport = require('passport');
@@ -128,6 +129,8 @@ app.use(session({
     store: new MongoStore({ url: config.mongodb.sessionStoreUrl })
 }));
 
+app.use(bodyParser.json());
+
 // ===== Static file for all files in public =====
 app.use(express.static(__dirname + '/public', {"maxage": config.http.static.maxage}));
 
@@ -187,6 +190,33 @@ app.get('/auth/linkedin/callback',
 app.get('/account/:id', function(req, res) {
     db.getAccount({'identities.identifier': req.params.id}, res);
 })
+
+app.post('/account/:id', function(req, res) {
+    var acctData = req.body;
+
+    db.Account.findById(acctData._id)
+        .populate('identities.origin profiles')
+        .exec(function (err, account) {
+            if (err) {
+                logger.error(err);
+            }
+
+            if (account) {
+                account.profiles[0].visible = acctData.profiles[0].visible;
+                account.profiles[0].contactPreferences.notifyMeOfAllUpdates = acctData.profiles[0].contactPreferences.notifyMeOfAllUpdates;
+                account.profiles[0].save(function (err) {
+                    if (err) {
+                        logger.error(err);
+                    }
+
+                    res.json(account);
+
+                });
+            }
+        });
+
+
+});
 
 
 
