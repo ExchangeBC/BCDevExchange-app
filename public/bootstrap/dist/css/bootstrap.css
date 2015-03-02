@@ -7665,7 +7665,7 @@ input[type='checkbox']
 .splash
 {
     min-height: 550px;
-    padding: 1em 0 2em;
+    padding: 2.5em 0 2em;
 
     text-align: left;
 
@@ -7679,7 +7679,7 @@ input[type='checkbox']
 }
 .splash h1
 {
-    font-size: 56px;
+    font-size: 48px;
 
     display: inline-block;
 
