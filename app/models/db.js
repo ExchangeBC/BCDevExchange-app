@@ -89,6 +89,8 @@ module.exports = {
                 logger.error(err);
             }
         });
+
+        return user;
     },
     addIdentity : function (account, extProfile) {
         var origin = new models.Origin({
@@ -102,6 +104,8 @@ module.exports = {
         });
 
         account.identities.push(origin);
+
+        return account;
     }
 
 };

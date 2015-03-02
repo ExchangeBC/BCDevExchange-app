@@ -16,8 +16,8 @@ passport.serializeUser(function(user, done) {
     done(null, user);
 });
 
-passport.deserializeUser(function(obj, done) {
-    done(null, obj);
+passport.deserializeUser(function(user, done) {
+    done(null, user);
 });
 
 // use GitHubStrategy with Passport
@@ -35,6 +35,7 @@ passport.use(new GitHubStrategy({
             db.Account.findOne({'identities.identifier': extProfile.id})
                 .populate('identities.origin profiles')
                 .exec(function (err, account){
+                    var updatedAcct = account;
                     if (err) {
                         logger.error(err);
                     }
@@ -49,16 +50,16 @@ passport.use(new GitHubStrategy({
                         }
 
                         if (!originExists) {
-                            db.addIdentity(account, extProfile);
+                            updatedAcct = db.addIdentity(account, extProfile);
                         }
 
                     } else {
 
-                        db.createAccount(extProfile);
+                        updatedAcct = db.createAccount(extProfile);
 
                     }
 
-                    return done(null, extProfile);
+                    return done(null, updatedAcct);
 
                 });
 
@@ -83,6 +84,7 @@ passport.use(new LinkedInStrategy({
             db.Account.findOne({'identities.identifier': extProfile.id})
                 .populate('identities.origin profiles')
                 .exec(function (err, account){
+                    var updatedAcct = account;
                     if (err) {
                         logger.error(err);
                     }
@@ -97,16 +99,16 @@ passport.use(new LinkedInStrategy({
                         }
 
                         if (!originExists) {
-                            db.addIdentity(account, extProfile);
+                            updatedAcct = db.addIdentity(account, extProfile);
                         }
 
                     } else {
 
-                        db.createAccount(extProfile);
+                        updatedAcct = db.createAccount(extProfile);
 
                     }
 
-                    return done(null, extProfile);
+                    return done(null, updatedAcct);
 
                 });
 
@@ -118,16 +120,16 @@ var app = express();
 
 app.set('port', (config.http.port || 5000));
 
-
-// initialize passport and use passport.session() to support persistent login sessions
-app.use(passport.initialize());
-//app.use(passport.session());
 app.use(session({
     secret: config.http.session.secret,
     resave: false,
     saveUninitialized: true,
     store: new MongoStore({ url: config.mongodb.sessionStoreUrl })
 }));
+
+// initialize passport and use passport.session() to support persistent login sessions
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(bodyParser.json());
 
@@ -158,10 +160,10 @@ app.get('/auth/github',
 app.get('/auth/github/callback',
     passport.authenticate('github', {
         scope: ['user', 'repo'],
-        failureRedirect: '/login'
+        failureRedirect: '/#/login'
     }),
     function(req, res) {
-        res.redirect('/#/account?id=' + req.user.id);
+        res.redirect('/#/account?id=' + req.user.identities[0].identifier);
     });
 
 
@@ -182,16 +184,25 @@ app.get('/auth/linkedin/callback',
         failureRedirect: '/#/login'
     }),
     function(req, res) {
-        res.redirect('/#/account?id=' + req.user.id);
+        res.redirect('/#/account?id=' + req.user.identities[0].identifier);
     });
 
 
+// ===== logout routing ======
 
-app.get('/account/:id', function(req, res) {
+app.post('/logout', function(req, res) {
+    req.logOut();
+    res.send(200);
+});
+
+
+// ===== account page routing ======
+
+app.get('/account/:id', ensureAuthenticated, function(req, res) {
     db.getAccount({'identities.identifier': req.params.id}, res);
 })
 
-app.post('/account/:id', function(req, res) {
+app.post('/account/:id', ensureAuthenticated, function(req, res) {
     var acctData = req.body;
 
     db.Account.findById(acctData._id)
@@ -229,6 +240,9 @@ app.listen(app.get('port'), function() {
 // use this route middleware on any resource that needs to be protected
 // if the request is authenticated the request will proceed
 function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
-    res.redirect('/login');
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        res.send(401);
+    }
 }
