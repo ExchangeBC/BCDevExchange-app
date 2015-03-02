@@ -13,7 +13,7 @@ app.factory('Account', ['$resource', function($resource) {
     return $resource('/account/:id');
 }]);
 
-app.controller('AccountCtrl', ['$scope', '$location', 'Account', function($scope, $location, Account) {
+app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', 'Account', function($rootScope, $scope, $location, $window, Account) {
 
     Account.get({id: $location.search().id}, function(data) {
         $scope.account = data;
@@ -22,6 +22,7 @@ app.controller('AccountCtrl', ['$scope', '$location', 'Account', function($scope
     $scope.update = function(account) {
         Account.save({id: $location.search().id}, account, function() {
             console.log("success");
+            $window.location.href = $rootScope.config.labURL;
         })
     }
 
