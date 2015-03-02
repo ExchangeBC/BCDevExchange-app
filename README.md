@@ -1,4 +1,6 @@
 # BCDevExchange Organization Web Site #
+[![BCDevExchangeProject](https://img.shields.io/badge/BC%20DevExchange%20Project-Discovery-yellow.svg)](https://bcdevexchange.org/project)
+
 The organization page for the BCDevExchange experiment.  This is a browser only custom web app that uses:
 
 -  AngularJS 
