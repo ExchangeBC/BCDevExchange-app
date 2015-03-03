@@ -1,7 +1,7 @@
-# BC DevExchange Organization Web Site #
-[![BCDevExchangeProject](https://img.shields.io/badge/BC%20DevExchange%20Project-Discovery-yellow.svg)](http://lab.bcdevexchange.org)
+# BCDevExchange Organization Web Site #
+[![BCDevExchangeProject](https://img.shields.io/badge/BCDevExchange%20Project-Discovery-yellow.svg)](http://lab.bcdevexchange.org)
 
-The organization page for the BC DevExchange experiment.  This is a browser only custom web app that uses:
+The organization page for the BCDevExchange experiment.  This is a browser only custom web app that uses:
 
 -  AngularJS 
 -  Bootstrap
@@ -38,5 +38,5 @@ Once setup and looking for new update to latest, use:
 `$ npm update`
 
 ----------
-###### BC DevExchange Search Tags ######
+###### BCDevExchange Search Tags ######
 BCDevExchange-Project, BCDevExchange-Resource, BCDevExchange-Discovery
