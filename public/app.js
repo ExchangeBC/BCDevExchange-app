@@ -4,7 +4,8 @@ var app = angular.module('bcdevxApp', [
   'ngRoute',
   'bcdevxApp.home',
   'bcdevxApp.auth',
-  'bcdevxApp.account'
+  'bcdevxApp.account',
+  'bcdevxApp.resources'
 ])
    .config(['$routeProvider', function($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/home'});

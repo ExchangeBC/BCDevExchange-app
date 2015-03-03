@@ -7,6 +7,8 @@ var config = require('config');
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+var querystring = require('querystring');
+var request = require('request');
 
 // set up db connection
 var db = require('./app/models/db');
@@ -216,6 +218,22 @@ app.post('/account/:id', function(req, res) {
         });
 
 
+});
+
+app.get('/resources', function(req, res) {
+    request('http://' + config.bcdc.host + '/api/3/action/package_search?q=tags:' + config.bcdc.tagToSearch, function (error, response, body) {
+      var resourcesJson = { 'resources': [] }
+      if (!error && response.statusCode == 200) {
+        var json = JSON.parse(body);
+        resourcesJson['resources'] = json.result.results;
+      }
+
+      else if(error) {
+        logger.info('Error while fetching BCDC content (error code %s): %s', response.statusCode, body);
+      }
+
+      res.send(resourcesJson);
+    });
 });
 
 
