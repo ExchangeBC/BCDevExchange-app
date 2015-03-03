@@ -1,4 +1,8 @@
 # BCDevExchange Organization Web Site #
+[![BCDevExchangeProject](https://img.shields.io/badge/BC%20DevExchange%20Project-Discovery-yellow.svg)](http://lab.bcdevexchange.org) 
+
+BCDevExchangeProject
+
 The organization page for the BCDevExchange experiment.  This is a browser only custom web app that uses:
 
 -  AngularJS 
@@ -19,23 +23,27 @@ We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development.
 ## Server Deployment ##
 
 First time setup, you'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads).
+
 `git clone --branch <master or discovery> git://github.com/BCDevExchange/BCDevExchange-app.git`
 `cd BCDevExchange`
 `npm install`
 `chmod +x foreverme.sh`
 
 You'll want to create a local configuration file in config called:
+
 `./config/local.json`
 
 Starting the NodeJS server in forever mode:
+
 `./foreverme.sh`
 
 Stdout, stderr and forever logs are here:
+
 `log/`
 
 Updating deployment:
+
 `git pull`
 `npm install`
+
 Forever will auto restart NodeJS.
-
-
