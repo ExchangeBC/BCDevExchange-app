@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row page-header">
+        <div class="col-lg-12">
+            <h2>BCDevExchange Resource Discovery</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div ng-repeat="resource in resources">
+            <div class="resource">
+                <strong>{{ resource.title }}</strong>
+                <p>{{ resource.notes }}</p>
+                <div class="tag-list" ng-repeat="tag in resource.tags">
+                    <span class="label label-default">{{ tag.display_name }}</span>
+                </div>
+                <br/>
+                <a href="http://sandbox1.data.gov.bc.ca/dataset/{{ resource.name }}" class="btn btn-primary">View Resource</a>
+            </div>
+        </div>
+    </div>
+</div>

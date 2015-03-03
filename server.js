@@ -7,6 +7,8 @@ var config = require('config');
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+var querystring = require('querystring');
+var http = require('http');
 
 // set up db connection
 var db = require('./app/models/db');
@@ -216,6 +218,35 @@ app.post('/account/:id', function(req, res) {
         });
 
 
+});
+
+app.get('/resources', function(req, res) {
+    logger.info('/resources request');
+    var options = {
+      hostname: 'sandbox1.data.gov.bc.ca',
+      port: 80,
+      path: '/api/3/action/package_search?q=tags:BCDevExchange',
+      method: 'GET'
+    };
+    var req = http.request(options, function(rest)
+    {
+        var output = '';
+
+        rest.on('data', function (chunk) {
+            output += chunk;
+        });
+
+        rest.on('end', function() {
+            var obj = JSON.parse(output);
+            res.send(obj);
+        });
+    });
+
+    req.on('error', function(err) {
+        //res.send('error: ' + err.message);
+    });
+
+    req.end();
 });
 
 
