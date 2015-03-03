@@ -163,6 +163,9 @@ app.get('/auth/github/callback',
         failureRedirect: '/#/login'
     }),
     function(req, res) {
+        res.cookie('user', JSON.stringify({
+            'displayName': req.user.profiles[0].name.value
+        }));
         res.redirect('/#/account?id=' + req.user.identities[0].identifier);
     });
 

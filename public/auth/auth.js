@@ -1,11 +1,39 @@
 'use strict';
 
-angular.module('bcdevxApp.auth', ['ngRoute'])
+var app = angular.module('bcdevxApp.auth', ['ngRoute', 'ngCookies']);
 
-    .config(['$routeProvider', function($routeProvider) {
+app.config(['$routeProvider', function($routeProvider) {
 
-    }])
+}]);
 
-    .controller('AuthCtrl', [function() {
+app.factory( 'AuthService', ['$http', '$cookieStore', function($http, $cookieStore) {
 
-    }]);
+    var currentUser = $cookieStore.get('user') || null;
+
+    // Redirect to the given url (defaults to '/')
+    function redirect(url) {
+        url = url || '/';
+        $location.path(url);
+    }
+
+    var service = {
+        login: function(user) {
+            currentUser = user;
+        },
+        logout: function(redirectTo) {
+            $http.post('/logout').then(function() {
+                currentUser = null;
+                redirect(redirectTo);
+            });
+        },
+        isAuthenticated: function() {
+            return !!currentUser;
+        }
+    };
+
+    return service;
+}]);
+
+app.controller('AuthCtrl', [function() {
+
+}]);

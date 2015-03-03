@@ -10,8 +10,18 @@ var app = angular.module('bcdevxApp', [
 
 
         // check if user is connected
-        var checkLoggedIn = function($q, $timeout, $http, $location, $rootScope) {
-            return true;
+        var checkLoggedIn = function($q, $timeout, $location, AuthService) {
+            // initialize a new promise
+            var deferred = $q.defer();
+
+            if (AuthService.isAuthenticated()) {
+                $timeout(deferred.resolve, 0);
+            } else {
+                $timeout(function() {deferred.reject();}, 0);
+                $location.url('/login');
+            }
+
+            return deferred.promise;
         };
 
         $routeProvider
@@ -58,10 +68,7 @@ var app = angular.module('bcdevxApp', [
                 $rootScope.config = data;
             });
 
-        //logout function is available from any page
-        $rootScope.logout = function() {
-            $http.post('/logout');
-        };
+
 });
 
 app.controller('IndexCtrl', function($scope, $location, $anchorScroll) {
