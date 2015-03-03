@@ -6,7 +6,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.factory( 'AuthService', ['$http', '$cookieStore', function($http, $cookieStore) {
+app.factory( 'AuthService', ['$http', '$cookieStore', '$location', function($http, $cookieStore, $location) {
 
     var currentUser = $cookieStore.get('user') || null;
 

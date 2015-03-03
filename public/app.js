@@ -71,9 +71,11 @@ var app = angular.module('bcdevxApp', [
 
 });
 
-app.controller('IndexCtrl', function($scope, $location, $anchorScroll) {
-
-});
+app.controller('IndexCtrl', ['$scope', '$location', '$anchorScroll', 'AuthService', function($scope, $location, $anchorScroll, AuthService) {
+    $scope.logout = function() {
+        AuthService.logout();
+    };
+}]);
 
 // Init all popovers
 $(function () {
