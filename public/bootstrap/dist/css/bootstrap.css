@@ -7792,6 +7792,16 @@ body
 {
     display: none;
 }
+.resource
+{
+    overflow: hidden;
+
+    margin: 0 0 10px 0;
+}
+.resource .list-unstyled li
+{
+    margin: 5px 0;
+}
 .clearfix:before,
 .clearfix:after,
 .container:before,

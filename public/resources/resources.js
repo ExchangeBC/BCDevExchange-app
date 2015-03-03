@@ -16,7 +16,8 @@ angular.module('bcdevxApp.resources', ['ngRoute'])
 
     .controller('ResourcesCtrl', ['$rootScope', '$scope', '$location', '$window', 'ResourceList', function($rootScope, $scope, $location, $window, ResourceList) {
         ResourceList.get({}, function(data) {
-            console.log(data);
-            $scope.resources = data.result.results;
+
+            $scope.resources = data.resources;
+
         });
     }]);

@@ -8,7 +8,7 @@ var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 var querystring = require('querystring');
-var http = require('http');
+var request = require('request');
 
 // set up db connection
 var db = require('./app/models/db');
@@ -221,32 +221,19 @@ app.post('/account/:id', function(req, res) {
 });
 
 app.get('/resources', function(req, res) {
-    logger.info('/resources request');
-    var options = {
-      hostname: 'sandbox1.data.gov.bc.ca',
-      port: 80,
-      path: '/api/3/action/package_search?q=tags:BCDevExchange',
-      method: 'GET'
-    };
-    var req = http.request(options, function(rest)
-    {
-        var output = '';
+    request('http://' + config.bcdc.host + '/api/3/action/package_search?q=tags:' + config.bcdc.tagToSearch, function (error, response, body) {
+      var resourcesJson = { 'resources': [] }
+      if (!error && response.statusCode == 200) {
+        var json = JSON.parse(body);
+        resourcesJson['resources'] = json.result.results;
+      }
 
-        rest.on('data', function (chunk) {
-            output += chunk;
-        });
+      else if(error) {
+        logger.info('Error while fetching BCDC content (error code %s): %s', response.statusCode, body);
+      }
 
-        rest.on('end', function() {
-            var obj = JSON.parse(output);
-            res.send(obj);
-        });
+      res.send(resourcesJson);
     });
-
-    req.on('error', function(err) {
-        //res.send('error: ' + err.message);
-    });
-
-    req.end();
 });
 
 
