@@ -1,5 +1,5 @@
 # BCDevExchange Organization Web Site #
-[![BCDevExchangeProject](https://img.shields.io/badge/BC%20DevExchange%20Project-Discovery-yellow.svg)](http://lab.bcdevexchange.org) BCDevExchange-BC
+[![BCDevExchangeProject](https://img.shields.io/badge/BC%20DevExchange%20Project-Discovery-yellow.svg)](http://lab.bcdevexchange.org)
 
 The organization page for the BCDevExchange experiment.  This is a browser only custom web app that uses:
 
@@ -32,4 +32,5 @@ Or if you needed a special release:
 Once setup and looking for new update to latest, use:
 `$ npm update`
 
-Tags
+###### BC DevExchange Search Tags ######
+BCDevExchange-Project, BCDevExchange-Resource, BCDevExchange-Discovery
