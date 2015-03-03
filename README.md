@@ -1,7 +1,7 @@
-# BCDevExchange Organization Web Site #
+# BC DevExchange Organization Web Site #
 [![BCDevExchangeProject](https://img.shields.io/badge/BC%20DevExchange%20Project-Discovery-yellow.svg)](http://lab.bcdevexchange.org)
 
-The organization page for the BCDevExchange experiment.  This is a browser only custom web app that uses:
+The organization page for the BC DevExchange experiment.  This is a browser only custom web app that uses:
 
 -  AngularJS 
 -  Bootstrap
@@ -23,10 +23,15 @@ We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development.
 First time setup, you'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads).
 
 For the up to date live version:
+
 `$ npm install --save git://github.com/BCDevExchange/BCDevExchange-app.git#master`
+
 Or for the Discovery version:
+
 `$ npm install --save git://github.com/BCDevExchange/BCDevExchange-app.git#discovery`
+
 Or if you needed a special release:
+
 `$ npm install --save git://github.com/BCDevExchange/BCDevExchange-app.git#discovery`
 
 Once setup and looking for new update to latest, use:
