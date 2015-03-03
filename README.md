@@ -32,5 +32,6 @@ Or if you needed a special release:
 Once setup and looking for new update to latest, use:
 `$ npm update`
 
+----------
 ###### BC DevExchange Search Tags ######
 BCDevExchange-Project, BCDevExchange-Resource, BCDevExchange-Discovery
