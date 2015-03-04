@@ -7,7 +7,6 @@ var config = require('config');
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
-var querystring = require('querystring');
 var request = require('request');
 
 // set up db connection
