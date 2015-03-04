@@ -32,12 +32,12 @@
               <li><a href="#/resources">Resources</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>
+                <li show-on-logged-out>
                     <a href="#/login">Sign Up</a>
                 </li>
-                <li><a href="" ng-click="logout()">Log out</a></li>
-            </ul>
-
+                <li show-on-logged-in>
+                    <a href="" ng-click="logout()">Log Out</a>
+                </li>
         </div>
     </div>
 </div>

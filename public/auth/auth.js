@@ -6,9 +6,10 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.factory( 'AuthService', ['$http', '$cookieStore', '$location', function($http, $cookieStore, $location) {
+app.factory( 'AuthService', ['$http', '$cookieStore', '$location', '$rootScope', function($http, $cookieStore, $location, $rootScope) {
 
-    var currentUser = $cookieStore.get('user') || null;
+    $rootScope.user = $cookieStore.get('user') || null;
+
 
     // Redirect to the given url (defaults to '/')
     function redirect(url) {
@@ -18,16 +19,17 @@ app.factory( 'AuthService', ['$http', '$cookieStore', '$location', function($htt
 
     var service = {
         login: function(user) {
-            currentUser = user;
+            $rootScope.user = user;
         },
         logout: function(redirectTo) {
             $http.post('/logout').then(function() {
-                currentUser = null;
+                $rootScope.user = null;
+                $cookieStore.remove('user');
                 redirect(redirectTo);
             });
         },
         isAuthenticated: function() {
-            return !!currentUser;
+            return !!$rootScope.user;
         }
     };
 

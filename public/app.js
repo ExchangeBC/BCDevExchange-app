@@ -72,10 +72,41 @@ var app = angular.module('bcdevxApp', [
 
 });
 
+app.directive('showOnLoggedIn', ['$rootScope', 'AuthService', function($rootScope, AuthService) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var prevDisp = element.css('display');
+            $rootScope.$watch('user', function(user) {
+                if(!AuthService.isAuthenticated())
+                    element.css('display', 'none');
+                else
+                    element.css('display', prevDisp);
+            });
+        }
+    };
+}]);
+
+app.directive('showOnLoggedOut', ['$rootScope', 'AuthService', function($rootScope, AuthService) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var prevDisp = element.css('display');
+            $rootScope.$watch('user', function(user) {
+                if(AuthService.isAuthenticated())
+                    element.css('display', 'none');
+                else
+                    element.css('display', prevDisp);
+            });
+        }
+    };
+}]);
+
 app.controller('IndexCtrl', ['$scope', '$location', '$anchorScroll', 'AuthService', function($scope, $location, $anchorScroll, AuthService) {
     $scope.logout = function() {
         AuthService.logout();
     };
+
 }]);
 
 // Init all popovers
