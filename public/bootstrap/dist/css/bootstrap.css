@@ -7792,13 +7792,35 @@ body
 {
     display: none;
 }
-.resource
+.resource-list .resource
 {
     overflow: hidden;
 
+    padding: 20px 5px;
+}
+.resource-list .resource:nth-child(even)
+{
+    background-color: #f9f9f9;
+}
+.resource-list .resource h3
+{
+    line-height: 1;
+
+    margin-top: 0;
+}
+.resource-list .resource .tags
+{
     margin: 0 0 10px 0;
 }
-.resource .list-unstyled li
+.resource-list .resource .tags .label
+{
+    font-weight: 700;
+
+    margin-right: 5px;
+
+    color: #fff;
+}
+.resource-list .resource .list-unstyled li
 {
     margin: 5px 0;
 }

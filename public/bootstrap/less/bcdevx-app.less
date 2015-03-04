@@ -123,11 +123,32 @@ body {
 
 // resources ===========
 
-.resource {
-  margin: 0 0 10px 0;
-  overflow: hidden;
+.resource-list {
+  .resource {
+    padding: 20px 5px;
+    overflow: hidden;
 
-  .list-unstyled li {
-    margin: 5px 0;
+    &:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    h3 {
+      margin-top: 0;
+      line-height: 1;
+    }
+
+    .tags {
+      margin: 0 0 10px 0;
+
+      .label {
+        margin-right: 5px;
+        color: #fff;
+        font-weight: 700;
+      }
+    }
+
+    .list-unstyled li {
+      margin: 5px 0;
+    }
   }
 }
