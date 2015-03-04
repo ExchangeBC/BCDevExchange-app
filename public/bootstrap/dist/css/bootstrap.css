@@ -7746,6 +7746,98 @@ input[type='checkbox']
 {
     max-height: 19px;
 }
+.btn-github
+{
+    color: #fff;
+    border-color: #ccc;
+    background-color: #222;
+}
+.btn-github:hover,
+.btn-github:focus,
+.btn-github:active,
+.btn-github.active,
+.open .dropdown-toggle.btn-github
+{
+    color: #fff;
+    border-color: #adadad;
+    background-color: #0e0e0e;
+}
+.btn-github:active,
+.btn-github.active,
+.open .dropdown-toggle.btn-github
+{
+    background-image: none;
+}
+.btn-github.disabled,
+.btn-github[disabled],
+fieldset[disabled] .btn-github,
+.btn-github.disabled:hover,
+.btn-github[disabled]:hover,
+fieldset[disabled] .btn-github:hover,
+.btn-github.disabled:focus,
+.btn-github[disabled]:focus,
+fieldset[disabled] .btn-github:focus,
+.btn-github.disabled:active,
+.btn-github[disabled]:active,
+fieldset[disabled] .btn-github:active,
+.btn-github.disabled.active,
+.btn-github[disabled].active,
+fieldset[disabled] .btn-github.active
+{
+    border-color: #ccc;
+    background-color: #222;
+}
+.btn-github .badge
+{
+    color: #222;
+    background-color: #fff;
+}
+.btn-linkedin
+{
+    color: #fff;
+    border-color: #ccc;
+    background-color: #0077b5;
+}
+.btn-linkedin:hover,
+.btn-linkedin:focus,
+.btn-linkedin:active,
+.btn-linkedin.active,
+.open .dropdown-toggle.btn-linkedin
+{
+    color: #fff;
+    border-color: #adadad;
+    background-color: #005c8c;
+}
+.btn-linkedin:active,
+.btn-linkedin.active,
+.open .dropdown-toggle.btn-linkedin
+{
+    background-image: none;
+}
+.btn-linkedin.disabled,
+.btn-linkedin[disabled],
+fieldset[disabled] .btn-linkedin,
+.btn-linkedin.disabled:hover,
+.btn-linkedin[disabled]:hover,
+fieldset[disabled] .btn-linkedin:hover,
+.btn-linkedin.disabled:focus,
+.btn-linkedin[disabled]:focus,
+fieldset[disabled] .btn-linkedin:focus,
+.btn-linkedin.disabled:active,
+.btn-linkedin[disabled]:active,
+fieldset[disabled] .btn-linkedin:active,
+.btn-linkedin.disabled.active,
+.btn-linkedin[disabled].active,
+fieldset[disabled] .btn-linkedin.active
+{
+    border-color: #ccc;
+    background-color: #0077b5;
+}
+.btn-linkedin .badge
+{
+    color: #0077b5;
+    background-color: #fff;
+}
 body
 {
     padding-bottom: 75px;
