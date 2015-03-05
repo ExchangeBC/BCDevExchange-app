@@ -79,7 +79,7 @@ passport.use(new LinkedInStrategy({
     state: true
 }, function(accessToken, refreshToken, extProfile, done) {
         // asynchronous verification
-        process.nextTick(passportStrategySetup(extProfile, done));
+        passportStrategySetup(extProfile, done);
     }
 ));
 
@@ -106,6 +106,9 @@ function passportStrategySetup(extProfile, done) {
                     db.addIdentity(account, extProfile, function (err, updatedAcct) {
                         return done(null, updatedAcct);
                     });
+                }
+                else {
+                    return done(null, account);
                 }
 
             } else {
