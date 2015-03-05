@@ -6,7 +6,8 @@
     }
   },
   "ui": {
-    "discoveryBanner": true
+    "discoveryBanner": true,
+    "labURL": "http://localhost:8000"
   },
   "github": {
     "clientID": "f745a46f61387cca4f47",
