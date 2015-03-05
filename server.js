@@ -79,45 +79,45 @@ passport.use(new LinkedInStrategy({
     state: true
 }, function(accessToken, refreshToken, extProfile, done) {
         // asynchronous verification
-        process.nextTick(function () {
-            // return the user's LinkedIn profile to represent the logged-in user
-            logger.info("logged in as " + extProfile.displayName + " from " + extProfile.provider);
-
-            db.Account.findOne({'identities.identifier': extProfile.id})
-                .populate('identities.origin profiles')
-                .exec(function (err, account){
-                    if (err) {
-                        logger.error(err);
-                    }
-
-                    if (account) {
-                        var originExists = false;
-                        for (var i = 0; i < account.identities.length; i++) {
-                            if (account.identities[i].origin.name == extProfile.provider) {
-                                originExists = true;
-                                break;
-                            }
-                        }
-
-                        if (!originExists) {
-                            db.addIdentity(account, extProfile, function (err, updatedAcct) {
-                                return done(null, updatedAcct);
-                            });
-                        }
-
-                    } else {
-
-                        db.createAccount(extProfile, function (err, updatedAcct) {
-                            return done(null, updatedAcct);
-                        });
-
-                    }
-
-                });
-
-        });
+        process.nextTick(passportStrategySetup(extProfile, done));
     }
 ));
+
+function passportStrategySetup(extProfile, done) {
+    logger.info("logged in as " + extProfile.displayName + " from " + extProfile.provider);
+
+    db.Account.findOne({'identities.identifier': extProfile.id})
+        .populate('identities.origin profiles')
+        .exec(function (err, account){
+            if (err) {
+                logger.error(err);
+            }
+
+            if (account) {
+                var originExists = false;
+                for (var i = 0; i < account.identities.length; i++) {
+                    if (account.identities[i].origin.name == extProfile.provider) {
+                        originExists = true;
+                        break;
+                    }
+                }
+
+                if (!originExists) {
+                    db.addIdentity(account, extProfile, function (err, updatedAcct) {
+                        return done(null, updatedAcct);
+                    });
+                }
+
+            } else {
+
+                db.createAccount(extProfile, function (err, updatedAcct) {
+                    return done(null, updatedAcct);
+                });
+
+            }
+
+        });
+}
 
 var app = express();
 
@@ -200,21 +200,25 @@ app.get('/auth/linkedin/callback',
         failureRedirect: '/#/login'
     }),
     function(req, res) {
-        db.Profile.findById(req.user.profiles[0])
-            .exec(function (err, profile){
-                if (err) {
-                    logger.error(err);
-                    res.send(500);
-                }
-
-                if (profile) {
-                    res.cookie('user', JSON.stringify({
-                        'displayName': profile.name.value
-                    }));
-                    res.redirect('/#/account?id=' + req.user.identities[0].identifier);
-                }
-            });
+        loginCallbackHandler(req, res);
     });
+
+function loginCallbackHandler(req, res) {
+    db.Profile.findById(req.user.profiles[0])
+        .exec(function (err, profile){
+            if (err) {
+                logger.error(err);
+                res.send(500);
+            }
+
+            if (profile) {
+                res.cookie('user', JSON.stringify({
+                    'displayName': profile.name.value
+                }));
+                res.redirect('/#/account?id=' + req.user.identities[0].identifier);
+            }
+        });
+}
 
 
 // ===== logout routing ======
