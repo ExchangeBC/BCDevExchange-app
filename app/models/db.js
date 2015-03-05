@@ -43,7 +43,7 @@ module.exports = {
               res.json(output);
       });
     },
-    createAccount : function (extProfile) {
+    createAccount : function (extProfile, callback) {
         var origin = new models.Origin({
             name: extProfile.provider,
             miniIconUrl: ''
@@ -51,48 +51,52 @@ module.exports = {
         origin.save(function (err) {
             if (err) {
                 logger.error(err);
+                callback(err, null);
             }
+
+            var profile = new models.Profile({
+                type: 'Individual',
+                name: {
+                    identityOrigin: extProfile.provider, // where this attribute originated from
+                    attributeName: 'displayName', // name of attribute from origin
+                    value: extProfile.displayName // denormalized value
+                },
+                visible: true,
+                contact: {
+                    email: {}
+                },
+                contactPreferences: {
+                    notifyMeOfAllUpdates: true
+                }
+            });
+
+            profile.save(function (err) {
+                if (err) {
+                    logger.error(err);
+                    callback(err, null);
+                }
+
+                var user = new models.Account({
+                    identities: [{
+                        origin: origin,
+                        identifier: extProfile.id, // User's identifier from origin
+                        attributes: []
+                    }],
+                    profiles: [profile]
+                });
+                user.save(function (err) {
+                    if (err) {
+                        logger.error(err);
+                        callback(err, null);
+                    }
+
+                    callback(null, user);
+                });
+            });
         });
 
-        var profile = new models.Profile({
-            type: 'Individual',
-            name: {
-                identityOrigin: extProfile.provider, // where this attribute originated from
-                attributeName: 'displayName', // name of attribute from origin
-                value: extProfile.displayName // denormalized value
-            },
-            visible: true,
-            contact: {
-                email: {}
-            },
-            contactPreferences: {
-                notifyMeOfAllUpdates: true
-            }
-        });
-
-        profile.save(function (err) {
-            if (err) {
-                logger.error(err);
-            }
-        });
-
-        var user = new models.Account({
-            identities: [{
-                origin: origin,
-                identifier: extProfile.id, // User's identifier from origin
-                attributes: []
-            }],
-            profiles: [profile]
-        });
-        user.save(function (err) {
-            if (err) {
-                logger.error(err);
-            }
-        });
-
-        return user;
     },
-    addIdentity : function (account, extProfile) {
+    addIdentity : function (account, extProfile, callback) {
         var origin = new models.Origin({
             name: extProfile.provider,
             miniIconUrl: ''
@@ -100,12 +104,13 @@ module.exports = {
         origin.save(function (err) {
             if (err) {
                 logger.error(err);
+                callback(err, null);
             }
+
+            account.identities.push(origin);
+            callback(null, account);
         });
 
-        account.identities.push(origin);
-
-        return account;
     }
 
 };

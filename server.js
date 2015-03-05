@@ -36,7 +36,6 @@ passport.use(new GitHubStrategy({
             db.Account.findOne({'identities.identifier': extProfile.id})
                 .populate('identities.origin profiles')
                 .exec(function (err, account){
-                    var updatedAcct = account;
                     if (err) {
                         logger.error(err);
                     }
@@ -51,16 +50,18 @@ passport.use(new GitHubStrategy({
                         }
 
                         if (!originExists) {
-                            updatedAcct = db.addIdentity(account, extProfile);
+                            db.addIdentity(account, extProfile, function (err, updatedAcct) {
+                                return done(null, updatedAcct);
+                            });
                         }
 
                     } else {
 
-                        updatedAcct = db.createAccount(extProfile);
+                        db.createAccount(extProfile, function (err, updatedAcct) {
+                            return done(null, updatedAcct);
+                        });
 
                     }
-
-                    return done(null, updatedAcct);
 
                 });
 
@@ -85,7 +86,6 @@ passport.use(new LinkedInStrategy({
             db.Account.findOne({'identities.identifier': extProfile.id})
                 .populate('identities.origin profiles')
                 .exec(function (err, account){
-                    var updatedAcct = account;
                     if (err) {
                         logger.error(err);
                     }
@@ -100,16 +100,18 @@ passport.use(new LinkedInStrategy({
                         }
 
                         if (!originExists) {
-                            updatedAcct = db.addIdentity(account, extProfile);
+                            db.addIdentity(account, extProfile, function (err, updatedAcct) {
+                                return done(null, updatedAcct);
+                            });
                         }
 
                     } else {
 
-                        updatedAcct = db.createAccount(extProfile);
+                        db.createAccount(extProfile, function (err, updatedAcct) {
+                            return done(null, updatedAcct);
+                        });
 
                     }
-
-                    return done(null, updatedAcct);
 
                 });
 
@@ -164,10 +166,20 @@ app.get('/auth/github/callback',
         failureRedirect: '/#/login'
     }),
     function(req, res) {
-        res.cookie('user', JSON.stringify({
-            'displayName': req.user.profiles[0].name.value
-        }));
-        res.redirect('/#/account?id=' + req.user.identities[0].identifier);
+        db.Profile.findById(req.user.profiles[0])
+            .exec(function (err, profile){
+                if (err) {
+                    logger.error(err);
+                    res.send(500);
+                }
+
+                if (profile) {
+                    res.cookie('user', JSON.stringify({
+                        'displayName': profile.name.value
+                    }));
+                    res.redirect('/#/account?id=' + req.user.identities[0].identifier);
+                }
+            });
     });
 
 
@@ -188,10 +200,20 @@ app.get('/auth/linkedin/callback',
         failureRedirect: '/#/login'
     }),
     function(req, res) {
-        res.cookie('user', JSON.stringify({
-            'displayName': req.user.profiles[0].name.value
-        }));
-        res.redirect('/#/account?id=' + req.user.identities[0].identifier);
+        db.Profile.findById(req.user.profiles[0])
+            .exec(function (err, profile){
+                if (err) {
+                    logger.error(err);
+                    res.send(500);
+                }
+
+                if (profile) {
+                    res.cookie('user', JSON.stringify({
+                        'displayName': profile.name.value
+                    }));
+                    res.redirect('/#/account?id=' + req.user.identities[0].identifier);
+                }
+            });
     });
 
 
