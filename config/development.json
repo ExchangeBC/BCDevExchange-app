@@ -7,5 +7,15 @@
   },
   "ui": {
     "discoveryBanner": true
+  },
+  "github": {
+    "clientID": "f745a46f61387cca4f47",
+    "clientSecret": "",
+    "callbackURL": "http://localhost:8000/auth/github/callback"
+  },
+  "linkedin": {
+    "clientID": "75g4w5b338kf9h",
+    "clientSecret": "",
+    "callbackURL": "http://localhost:8000/auth/linkedin/callback"
   }
 }
