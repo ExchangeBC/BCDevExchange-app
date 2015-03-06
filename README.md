@@ -39,6 +39,8 @@ Or if you needed a special release:
 Once setup and looking for new update to latest, use:
 `$ npm update`
 
+## License ##
+Apache 2.0
 ----------
 ###### BCDevExchange Search Tags ######
 BCDevExchange-Project, BCDevExchange-Resource, BCDevExchange-Discovery
