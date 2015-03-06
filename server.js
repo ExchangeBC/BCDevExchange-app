@@ -161,7 +161,7 @@ function loginCallbackHandler(req, res) {
         .exec(function (err, profile){
             if (err) {
                 logger.error(err);
-                res.send(500);
+                res.sendStatus(500);
             }
 
             if (profile) {
