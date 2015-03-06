@@ -1,4 +1,0 @@
-# Tags
-BC
-Projects
-Resources
