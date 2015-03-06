@@ -1,4 +1,5 @@
 var express = require('express');
+var helmet = require('helmet');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var bodyParser = require('body-parser');
@@ -84,7 +85,9 @@ function passportStrategySetup(extProfile, done) {
         });
 }
 
+// Init express and put on our helmet (security protections)
 var app = express();
+app.use(helmet());
 
 app.set('port', (config.http.port || 5000));
 
