@@ -1,5 +1,6 @@
 # BCDevExchange Organization Web Site #
-[![BCDevExchangeProject](https://img.shields.io/badge/BCDevExchange%20Project-Discovery-yellow.svg)](http://lab.bcdevexchange.org)
+<a rel="discovery" href="https://github.com/BCDevExchange/docs/wiki/Project-States"><img alt="Being designed and built, but in the lab. May change, disappear, or be buggy." style="border-width:0" src="https://img.shields.io/badge/BCDevExchange-Discovery-yellow.svg" title="Being designed and built, but in the lab. May change, disappear, or be buggy." /></a>
+
 
 The organization page for the BCDevExchange experiment.  This is a browser only custom web app that uses:
 
