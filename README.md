@@ -9,7 +9,7 @@ The organization page for the BCDevExchange experiment.  This is a browser only 
 
 This app does not call any APIs, yet...
 
-*We are open to pull requests!*
+*We are open to pull requests! just check out our CONTRIBUTING.md for the details*
 
 ## Development ##
 
