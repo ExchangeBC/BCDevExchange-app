@@ -160,7 +160,7 @@ function loginCallbackHandler(req, res) {
         .exec(function (err, profile){
             if (err) {
                 logger.error(err);
-                res.send(500);
+                res.sendStatus(500);
             }
 
             if (profile) {
@@ -177,7 +177,7 @@ function loginCallbackHandler(req, res) {
 
 app.post('/logout', function(req, res) {
     req.logOut();
-    res.send(200);
+    res.sendStatus(200);
 });
 
 
@@ -244,6 +244,6 @@ function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     } else {
-        res.send(401);
+        res.sendStatus(401);
     }
 }
