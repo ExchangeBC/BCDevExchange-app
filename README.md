@@ -2,19 +2,20 @@
 <a rel="discovery" href="https://github.com/BCDevExchange/docs/wiki/Project-States"><img alt="Being designed and built, but in the lab. May change, disappear, or be buggy." style="border-width:0" src="https://img.shields.io/badge/BCDevExchange-Discovery-yellow.svg" title="Being designed and built, but in the lab. May change, disappear, or be buggy." /></a>
 
 
-The organization page for the BCDevExchange experiment.  This is a browser only custom web app that uses:
+The organization page for the BCDevExchange experiment.  This is a custom web app that uses:
 
 -  AngularJS 
 -  Bootstrap
-
-This app does not call any APIs, yet...
+-  NodeJS
+-  MongoDB
+-  nginx
 
 *We are open to pull requests! 
 Just check out our [CONTIBUTING.md](https://github.com/BCDevExchange/BCDevExchange-app/blob/master/CONTRIBUTING.md) for the details.*
 
 ## Development ##
 
-You'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads). Clone this repo from GitHub, change directory to the repo root and:
+You'll need [MongoDB](http://www.mongodb.org/), [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads). Clone this repo from GitHub, change directory to the repo root and:
 
 `$ npm install `
 
@@ -22,26 +23,42 @@ We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development.
 
 ## Server Deployment ##
 
-First time setup, you'll need, [nginx](http://nginx.org/) [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads).
+First time setup, you'll need, [nginx](http://nginx.org/) [NodeJS](http://nodejs.org/) and [MongoDB](http://www.mongodb.org/).
 
-For the up to date live version:
+`git clone --branch <master or discovery> git://github.com/BCDevExchange/BCDevExchange-app.git`
+`cd BCDevExchange`
+`npm install`
+`chmod +x foreverme.sh`
 
-`$ npm install --save git://github.com/BCDevExchange/BCDevExchange-app.git#master`
+You'll want to create a local configuration file in config called:
 
-Or for the Discovery version:
+`./config/local.json`
 
-`$ npm install --save git://github.com/BCDevExchange/BCDevExchange-app.git#discovery`
+Starting the NodeJS server in forever mode:
 
-Or if you needed a special release:
+`./foreverme.sh`
 
-`$ npm install --save git://github.com/BCDevExchange/BCDevExchange-app.git#discovery`
+Stdout, stderr and forever logs are here:
 
-Once setup and looking for new update to latest, use:
-`$ npm update`
+`log/`
 
-NGinx sample configs are provided in under 
 
-- /config/nginx
+Following regular nginx installation and feel free to use the sample configs are provided in under:
+
+`/config/nginx`
+
+Following regular MongoDB installation and create new DBs and user accounts.  These names, usernames and passwords must be configured in your:
+
+`/config/local.conf`
+
+Updating deployment:
+
+`git pull`
+`npm install`
+`forever restart <pid>`
+
+Use the forever commands to list, stop, restart the service.
+
 
 ## Server Sizing ##
 Performance for a Microsoft Azure Standard D1 (One Core) 4 GB RAM VM using a [Bitnami packaged Ubuntu VM] (https://bitnami.com/stack/mean).
