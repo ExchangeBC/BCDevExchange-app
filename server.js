@@ -102,8 +102,9 @@ app.use(passport.session());
 app.use(bodyParser.json());
 
 // ===== Static file for all files in public =====
-app.use(express.static(__dirname + '/public', {"maxage": config.http.static.maxage}));
-
+if (config.http.serveStatic) {
+	app.use(express.static(__dirname + '/public', {"maxage": config.http.static.maxage}));
+}
 // ===== Low level conf for client side ======
 app.get("/config",
     function (req, res) {
