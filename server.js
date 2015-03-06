@@ -104,7 +104,7 @@ app.use(passport.session());
 
 app.use(bodyParser.json());
 
-// ===== Static file for all files in public =====
+// ===== Static all files in public, only use locally as servers should use nginx =====
 if (config.http.serveStatic) {
 	app.use(express.static(__dirname + '/public', {"maxage": config.http.static.maxage}));
 }
