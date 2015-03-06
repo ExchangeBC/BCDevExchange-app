@@ -22,7 +22,7 @@ We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development.
 
 ## Server Deployment ##
 
-First time setup, you'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads).
+First time setup, you'll need, [nginx](http://nginx.org/) [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads).
 
 For the up to date live version:
 
@@ -38,6 +38,24 @@ Or if you needed a special release:
 
 Once setup and looking for new update to latest, use:
 `$ npm update`
+
+NGinx sample configs are provided in under 
+
+- /config/nginx
+
+## Server Sizing ##
+Performance for a Microsoft Azure Standard D1 (One Core) 4 GB RAM VM using a [Bitnami packaged Ubuntu VM] (https://bitnami.com/stack/mean).
+
+Static file serving (all Ngnix): 4000 req/sec
+
+<div style="width: 600px;">
+<iframe width='600' height='300' frameborder='0' src='//share.loader.io/reports/7940cbcd4747e7eb202861f55e277839/widget/results/238a6e401577ce80d5ed7e74e3fee577'></iframe>
+<div style="width: 100%; text-align: right;">
+<a href="http://loader.io/reports/7940cbcd4747e7eb202861f55e277839/results/238a6e401577ce80d5ed7e74e3fee577" target="_blank" style="padding: 0 10px 10px 0; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px;">View on loader.io</a>
+</div></div>
+
+
+Dynamic resource serving (NodeJS + MongoDB): TODO
 
 ## License
 
