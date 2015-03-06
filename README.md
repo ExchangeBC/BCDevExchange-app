@@ -1,26 +1,29 @@
 # BCDevExchange Organization Web Site #
-[![BCDevExchangeProject](https://img.shields.io/badge/BC%20DevExchange%20Project-Discovery-yellow.svg)](http://lab.bcdevexchange.org) 
+<a rel="discovery" href="https://github.com/BCDevExchange/docs/wiki/Project-States"><img alt="Being designed and built, but in the lab. May change, disappear, or be buggy." style="border-width:0" src="https://img.shields.io/badge/BCDevExchange-Discovery-yellow.svg" title="Being designed and built, but in the lab. May change, disappear, or be buggy." /></a>
 
-The organization page for the BCDevExchange experiment.  This is a browser only custom web app that uses:
+
+The organization page for the BCDevExchange experiment.  This is a custom web app that uses:
 
 -  AngularJS 
 -  Bootstrap
+-  NodeJS
+-  MongoDB
+-  nginx
 
-This app does not call any APIs, yet...
-
-*We are open to pull requests!*
+*We are open to pull requests! 
+Just check out our [CONTIBUTING.md](https://github.com/BCDevExchange/BCDevExchange-app/blob/master/CONTRIBUTING.md) for the details.*
 
 ## Development ##
 
-You'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads). Clone this repo from GitHub, change directory to the repo root and:
+You'll need [MongoDB](http://www.mongodb.org/), [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads). Clone this repo from GitHub, change directory to the repo root and:
 
-`npm install `
+`$ npm install `
 
 We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development.  
 
 ## Server Deployment ##
 
-First time setup, you'll need [NodeJS](http://nodejs.org/) and [GIT](http://git-scm.com/downloads).
+First time setup, you'll need, [nginx](http://nginx.org/) [NodeJS](http://nodejs.org/) and [MongoDB](http://www.mongodb.org/).
 
 `git clone --branch <master or discovery> git://github.com/BCDevExchange/BCDevExchange-app.git`
 `cd BCDevExchange`
@@ -39,9 +42,35 @@ Stdout, stderr and forever logs are here:
 
 `log/`
 
+
+Following regular nginx installation and feel free to use the sample configs are provided in under:
+
+`/config/nginx`
+
+Following regular MongoDB installation and create new DBs and user accounts.  These names, usernames and passwords must be configured in your:
+
+`/config/local.conf`
+
 Updating deployment:
 
 `git pull`
 `npm install`
+`forever restart <pid>`
 
-Forever will auto restart NodeJS.
+Use the forever commands to list, stop, restart the service.
+
+
+## Server Sizing ##
+Performance for a Microsoft Azure Standard D1 (One Core) 4 GB RAM VM using a [Bitnami packaged Ubuntu VM] (https://bitnami.com/stack/mean).
+
+Static file serving (all Ngnix): [4000 req/sec](http://loader.io/reports/7940cbcd4747e7eb202861f55e277839/results/90215bf18a137874d9fbc7cf9ca272ea)
+
+Dynamic resource serving (NodeJS + MongoDB): TODO
+
+## License
+
+Apache 2.0
+
+----------
+###### BCDevExchange Search Tags ######
+BCDevExchange-Project, BCDevExchange-Resource, BCDevExchange-Discovery
