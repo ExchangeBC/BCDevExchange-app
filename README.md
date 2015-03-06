@@ -46,14 +46,7 @@ NGinx sample configs are provided in under
 ## Server Sizing ##
 Performance for a Microsoft Azure Standard D1 (One Core) 4 GB RAM VM using a [Bitnami packaged Ubuntu VM] (https://bitnami.com/stack/mean).
 
-Static file serving (all Ngnix): 4000 req/sec
-
-<div style="width: 600px;">
-<iframe width='600' height='300' frameborder='0' src='//share.loader.io/reports/7940cbcd4747e7eb202861f55e277839/widget/results/238a6e401577ce80d5ed7e74e3fee577'></iframe>
-<div style="width: 100%; text-align: right;">
-<a href="http://loader.io/reports/7940cbcd4747e7eb202861f55e277839/results/238a6e401577ce80d5ed7e74e3fee577" target="_blank" style="padding: 0 10px 10px 0; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px;">View on loader.io</a>
-</div></div>
-
+Static file serving (all Ngnix): [4000 req/sec](http://loader.io/reports/7940cbcd4747e7eb202861f55e277839/results/90215bf18a137874d9fbc7cf9ca272ea)
 
 Dynamic resource serving (NodeJS + MongoDB): TODO
 
