@@ -27,10 +27,11 @@ The local files are intended to not be tracked in your version control system. E
  */
 {
   "http": {
-      "port": 5000,
+      "port": 8000,
       "session": {
           "secret": "change me in local.json"
-      }
+      },
+      "serveStatic": true
   },
   "github": {
     "clientID": "overwrite_clientID",

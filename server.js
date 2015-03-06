@@ -63,8 +63,9 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.use(express.static(__dirname + '/public'));
-
+if (config.http.serveStatic) {
+    app.use(express.static(__dirname + '/public'));
+}
 
 // ===== authentication page routing ======
 
