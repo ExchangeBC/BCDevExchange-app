@@ -1,6 +1,7 @@
 {
   "http": {
     "port": 8000,
+    "serveStatic": true,
     "static": {
       "maxage": "0"
     }
