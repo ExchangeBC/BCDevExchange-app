@@ -11,6 +11,7 @@
     "angular-loader": "1.2.x",
     "angular-mocks": "~1.2.x",
     "jquery": "~1.11.2",
-    "respond-minmax": "~1.4.2"
+    "respond-minmax": "~1.4.2",
+    "angulartics": "~0.17.2"
   }
 }
