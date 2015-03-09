@@ -64,7 +64,7 @@ function passportStrategySetup(extProfile, done) {
     logger.info("logged in as " + extProfile.displayName + " from " + extProfile.provider);
 
     db.Account.findOne({'identities.identifier': extProfile.id})
-        .populate('identities.origin profiles')
+        .populate('profiles')
         .exec(function (err, account){
             if (err) {
                 logger.error(err);
@@ -73,7 +73,7 @@ function passportStrategySetup(extProfile, done) {
             if (account) {
                 var originExists = false;
                 for (var i = 0; i < account.identities.length; i++) {
-                    if (account.identities[i].origin.name == extProfile.provider) {
+                    if (account.identities[i].origin == extProfile.provider) {
                         originExists = true;
                         break;
                     }

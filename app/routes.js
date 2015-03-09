@@ -111,7 +111,7 @@ module.exports = function(app, config, logger, db, passport) {
         var acctData = req.body;
 
         db.Account.findById(acctData._id)
-            .populate('identities.origin profiles')
+            .populate('profiles')
             .exec(function (err, account) {
                 if (err) {
                     logger.error(err);
