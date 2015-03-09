@@ -15,16 +15,13 @@
 'use strict';
 // Declare app level module which depends on views, and components
 var app = angular.module('bcdevxApp', [
-  'bcdevxApp.auth',
-  'angulartics',
-  'angulartics.google.analytics'
   'ngRoute',
-    'ngRoute',
   'bcdevxApp.home',
-    'bcdevxApp.home',
   'bcdevxApp.auth',
   'bcdevxApp.account',
-  'bcdevxApp.resources'
+  'bcdevxApp.resources',
+    'angulartics',
+    'angulartics.google.analytics'
 ])
    .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
 
@@ -104,12 +101,6 @@ app.directive('showOnLoggedIn', ['$rootScope', 'AuthService', function($rootScop
             });
         }
     };
-    'bcdevxApp.auth',
-    'angulartics',
-    'angulartics.google.analytics'
-]).
-config(['$routeProvider', function($routeProvider) {
-    $routeProvider.otherwise({redirectTo: '/home'});
 }]);
 
 app.directive('showOnLoggedOut', ['$rootScope', 'AuthService', function($rootScope, AuthService) {
@@ -138,6 +129,3 @@ app.controller('IndexCtrl', ['$scope', '$location', '$anchorScroll', 'AuthServic
 $(function () {
     $('[data-toggle="popover"]').popover({html:true})
 })
-
-app.controller('IndexCtrl', function($scope, $location, $anchorScroll) {
-});
