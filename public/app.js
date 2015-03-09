@@ -19,7 +19,9 @@ var app = angular.module('bcdevxApp', [
   'bcdevxApp.home',
   'bcdevxApp.auth',
   'bcdevxApp.account',
-  'bcdevxApp.resources'
+  'bcdevxApp.resources',
+    'angulartics',
+    'angulartics.google.analytics'
 ])
    .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
 
