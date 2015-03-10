@@ -35,6 +35,17 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
             console.log("success");
             $window.location.href = $rootScope.config.labURL;
         })
-    }
+    };
+
+    $scope.identityExists = function(identifier) {
+        var exists = false;
+        for( var i = 0; i < $scope.account.identities.length; i++ ) {
+            if ( $scope.account.identities[i].origin === identifier ) {
+                exists = true;
+                break;
+            }
+        }
+        return exists;
+    };
 
 }]);
