@@ -46,10 +46,9 @@ var models = require('./models');
 module.exports = {
     Account : models.Account,
     Profile : models.Profile,
-    Origin : models.Origin,
     getAccount : function(query, res) {
       models.Account.findOne(query)
-          .populate('identities.origin profiles')
+          .populate('profiles')
           .exec(function (err, output){
               if (err) {
                   logger.error(err);
@@ -58,72 +57,52 @@ module.exports = {
       });
     },
     createAccount : function (extProfile, callback) {
-        var origin = new models.Origin({
-            name: extProfile.provider,
-            miniIconUrl: ''
+
+        var profile = new models.Profile({
+            type: 'Individual',
+            name: {
+                identityOrigin: extProfile.provider, // where this attribute originated from
+                attributeName: 'displayName', // name of attribute from origin
+                value: extProfile.displayName // denormalized value
+            },
+            visible: true,
+            contact: {
+                email: {}
+            },
+            contactPreferences: {
+                notifyMeOfAllUpdates: true
+            }
         });
-        origin.save(function (err) {
+
+        profile.save(function (err) {
             if (err) {
                 logger.error(err);
                 callback(err, null);
             }
 
-            var profile = new models.Profile({
-                type: 'Individual',
-                name: {
-                    identityOrigin: extProfile.provider, // where this attribute originated from
-                    attributeName: 'displayName', // name of attribute from origin
-                    value: extProfile.displayName // denormalized value
-                },
-                visible: true,
-                contact: {
-                    email: {}
-                },
-                contactPreferences: {
-                    notifyMeOfAllUpdates: true
-                }
+            var user = new models.Account({
+                identities: [{
+                    origin: extProfile.provider,
+                    identifier: extProfile.id, // User's identifier from origin
+                    attributes: []
+                }],
+                profiles: [profile]
             });
-
-            profile.save(function (err) {
+            user.save(function (err) {
                 if (err) {
                     logger.error(err);
                     callback(err, null);
                 }
 
-                var user = new models.Account({
-                    identities: [{
-                        origin: origin,
-                        identifier: extProfile.id, // User's identifier from origin
-                        attributes: []
-                    }],
-                    profiles: [profile]
-                });
-                user.save(function (err) {
-                    if (err) {
-                        logger.error(err);
-                        callback(err, null);
-                    }
-
-                    callback(null, user);
-                });
+                callback(null, user);
             });
         });
 
     },
     addIdentity : function (account, extProfile, callback) {
-        var origin = new models.Origin({
-            name: extProfile.provider,
-            miniIconUrl: ''
-        });
-        origin.save(function (err) {
-            if (err) {
-                logger.error(err);
-                callback(err, null);
-            }
 
-            account.identities.push(origin);
-            callback(null, account);
-        });
+        account.identities.push({origin: extProfile.provider, identifier: extProfile.id});
+        callback(null, account);
 
     }
 
