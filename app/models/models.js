@@ -26,6 +26,8 @@ var accountSchema = new Schema({
     identities: [{
         origin: String, // GitHub or LinkedIn
         identifier: String, // User's identifier from origin
+        accessToken: String,
+        refreshToken: String,
         attributes: [{ // a collection of identity attributes
             name: String,
             value: String

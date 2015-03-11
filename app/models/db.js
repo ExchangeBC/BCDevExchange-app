@@ -56,7 +56,7 @@ module.exports = {
               res.json(output);
       });
     },
-    createAccount : function (extProfile, callback) {
+    createAccount : function (extProfile, accessToken, refreshToken, callback) {
 
         var profile = new models.Profile({
             type: 'Individual',
@@ -84,6 +84,8 @@ module.exports = {
                 identities: [{
                     origin: extProfile.provider,
                     identifier: extProfile.id, // User's identifier from origin
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
                     attributes: []
                 }],
                 profiles: [profile]
@@ -99,9 +101,9 @@ module.exports = {
         });
 
     },
-    addIdentity : function (account, extProfile, callback) {
+    addIdentity : function (account, extProfile, accessToken, refreshToken, callback) {
 
-        account.identities.push({origin: extProfile.provider, identifier: extProfile.id});
+        account.identities.push({origin: extProfile.provider, identifier: extProfile.id, accessToken: accessToken, refreshToken: refreshToken});
         account.save(function(err) {
             if (err) {
                 logger.error(err);

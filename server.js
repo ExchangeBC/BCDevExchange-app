@@ -81,7 +81,7 @@ function passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
                     return done(null, account);
                 } else {
                     // create a new account
-                    db.createAccount(extProfile, function (err, updatedAcct) {
+                    db.createAccount(extProfile, accessToken, refreshToken, function (err, updatedAcct) {
                         return done(null, updatedAcct);
                     });
                 }
@@ -100,7 +100,7 @@ function passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
                 }
 
                 if (account) {
-                    db.addIdentity(account, extProfile, function (err, updatedAcct) {
+                    db.addIdentity(account, extProfile, accessToken, refreshToken, function (err, updatedAcct) {
                         return done(null, updatedAcct);
                     });
                 } else {
