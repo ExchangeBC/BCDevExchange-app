@@ -40,10 +40,11 @@ passport.deserializeUser(function(user, done) {
 passport.use(new GitHubStrategy({
         clientID: (process.env.GH_CLIENT_ID || config.github.clientID),
         clientSecret: (process.env.GH_CLIENT_SECRET || config.github.clientSecret),
-        callbackURL: config.github.callbackURL
+        callbackURL: config.github.callbackURL,
+        passReqToCallback: true
     },
-    function(accessToken, refreshToken, extProfile, done) {
-        passportStrategySetup(extProfile, done);
+    function(req, accessToken, refreshToken, extProfile, done) {
+        passportStrategySetup(req, accessToken, refreshToken, extProfile, done);
     }
 ));
 
@@ -53,50 +54,69 @@ passport.use(new LinkedInStrategy({
     clientID: (process.env.LI_CLIENT_ID || config.linkedin.clientID),
     clientSecret: (process.env.LI_CLIENT_SECRET || config.linkedin.clientSecret),
     callbackURL: config.linkedin.callbackURL,
+    passReqToCallback: true,
     scope: ['r_fullprofile'],
     state: true
-}, function(accessToken, refreshToken, extProfile, done) {
-        passportStrategySetup(extProfile, done);
+}, function(req, accessToken, refreshToken, extProfile, done) {
+        passportStrategySetup(req, accessToken, refreshToken, extProfile, done);
     }
 ));
 
-function passportStrategySetup(extProfile, done) {
+function passportStrategySetup(req, accessToken, refreshToken, extProfile, done) {
     logger.info("logged in as " + extProfile.displayName + " from " + extProfile.provider);
 
-    db.Account.findOne({'identities.identifier': extProfile.id})
-        .populate('profiles')
-        .exec(function (err, account){
-            if (err) {
-                logger.error(err);
-            }
+    if (!req.user) {
+        // not logged in
+        // look for existing account
 
-            if (account) {
-                var originExists = false;
-                for (var i = 0; i < account.identities.length; i++) {
-                    if (account.identities[i].origin == extProfile.provider) {
-                        originExists = true;
-                        break;
-                    }
+        db.Account.findOne({'identities.identifier': extProfile.id, 'identities.origin': extProfile.provider})
+            .populate('profiles')
+            .exec(function (err, account){
+                if (err) {
+                    logger.error(err);
+                    return done(err, null);
                 }
 
-                if (!originExists) {
-                    db.addIdentity(account, extProfile, function (err, updatedAcct) {
+                if (account) {
+                    return done(null, account);
+                } else {
+                    // create a new account
+                    db.createAccount(extProfile, function (err, updatedAcct) {
                         return done(null, updatedAcct);
                     });
                 }
-                else {
-                    return done(null, account);
+
+            });
+
+    } else {
+        // logged in
+        // associate new identity to existing account
+
+        db.Account.findById(req.user._id)
+            .exec(function (err, account){
+                if (err) {
+                    logger.error(err);
+                    return done(err, null);
                 }
 
-            } else {
+                if (account) {
+                    db.addIdentity(account, extProfile, function (err, updatedAcct) {
+                        return done(null, updatedAcct);
+                    });
+                } else {
+                    // this shouldn't happen
+                    // TODO return error
+                }
 
-                db.createAccount(extProfile, function (err, updatedAcct) {
-                    return done(null, updatedAcct);
-                });
+            });
 
-            }
 
-        });
+
+
+
+    }
+
+
 }
 
 // Init express and put on our helmet (security protections)

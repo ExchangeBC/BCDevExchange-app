@@ -102,7 +102,14 @@ module.exports = {
     addIdentity : function (account, extProfile, callback) {
 
         account.identities.push({origin: extProfile.provider, identifier: extProfile.id});
-        callback(null, account);
+        account.save(function(err) {
+            if (err) {
+                logger.error(err);
+                callback(err, null);
+            }
+
+            callback(null, account);
+        });
 
     }
 
