@@ -29,14 +29,11 @@ See the License for the specific language governing permissions and limitations 
                                 {{ tag.display_name }}
                             </span>
                         </div>
-                        <p class="source text-muted">Source: BCDC, Last updated: {{ resource.record_last_modified }}</p>
+                        <p class="source text-muted">Source: {{ resource.catalogue.name }}, Last updated: {{ resource.record_last_modified }}</p>
                     </div>
                     <div class="col-md-3">
                         <ul class="list-unstyled">
-                            <li><a href="http://sandbox1.data.gov.bc.ca/dataset/{{ resource.name }}" class="btn btn-primary">View on BCDC</a></li>
-                            <li ng-repeat="resource_link in resource.resources">
-                                <a class="btn btn-default" href="{{ resource_link.url }}">{{ resource_link.name }}</a>
-                            </li>
+                            <li><a href="http://sandbox1.data.gov.bc.ca/dataset/{{ resource.name }}" class="btn btn-primary">View on {{ resource.catalogue.acronym }}</a></li>
                         </ul>
                     </div>
             </li>

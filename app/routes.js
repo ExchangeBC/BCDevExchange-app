@@ -11,7 +11,7 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and limitations under the License.
  */
-
+var async = require('async');
 var request = require('request');
 
 // simple route middleware to ensure user is authenticated
@@ -133,19 +133,70 @@ module.exports = function(app, config, logger, db, passport) {
     });
 
     app.get('/resources', function(req, res) {
-        request('http://' + config.bcdc.host + '/api/3/action/package_search?q=tags:' + config.bcdc.tagToSearch, function (error, response, body) {
-            var resourcesJson = { 'resources': [] }
-            if (!error && response.statusCode == 200) {
-                var json = JSON.parse(body);
-                resourcesJson['resources'] = json.result.results;
+        async.concat(config.catalogues, getCatalogueItems, function (err, results) {
+            if (err) res.sendStatus(500);
+            else {
+                var body = {"resources": results};
+                res.send(body);
             }
-
-            else if(error) {
-                logger.info('Error while fetching BCDC content (error code %s): %s', response.statusCode, body);
-            }
-
-            res.send(resourcesJson);
         });
     });
 
+    // Just gets items from CKAN v3 compatible APIs
+    function getCatalogueItems (catalogue, callback) {
+        request(catalogue.baseUrl + '/action/package_search?q=tags:' + catalogue.tagToSearch, function (error, response, body) {
+            if (!error &&
+                typeof response !== 'undefined' &&
+                response.statusCode == 200) {
+
+                var json = JSON.parse(body);
+
+                // remove extraneous info from result
+                async.concat(json.result.results, transformCKANResult, function (err, results) {
+                    copyCatalogue(catalogue, results);
+                    callback(err, results);
+                });
+            }
+            else if(error) {
+                logger.error('Error while fetching BCDC content: %s; body: %s', error, body);
+                callback(error);
+            }
+        });
+    }
+
+    function copyCatalogue (catalogue, results) {
+        for (var i = 0; i < results.length; i++) {
+            results[i].catalogue = {"name": catalogue.name,
+                "acronym": catalogue.acronym};
+        }
+    }
+
+    // Filter out data that doesn't appear on the site
+    function transformCKANResult (result, callback) {
+        var transformed = {
+            "title": result.title,
+            "notes": result.notes,
+            "tags": result.tags,
+            "record_last_modified": result.record_last_modified,
+            "resources": result.resources
+        };
+
+        // trim the tags
+        async.concat(result.tags, function(item, tagsCallback) {
+           tagsCallback(null, {"display_name": item.display_name,
+                "id": item.id})},
+           function (error, results) {
+                transformed.tags = results;
+           });
+
+        // trim the resources
+        async.concat(result.resources, function(item, resourceCallback) {
+            resourceCallback(null, {"name": item.name,
+                "url": item.url})},
+            function (error, results) {
+                transformed.resources = results;
+            });
+
+        callback(null, transformed);
+    }
 }
