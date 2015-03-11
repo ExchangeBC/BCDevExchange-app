@@ -20,7 +20,12 @@ See the License for the specific language governing permissions and limitations 
         </div>
     </div>
     <div class="content">
-        <form novalidate>
+        <div class="row">
+            <div class="col-xs-12">
+                <p>{{formLevelMessage}}</p>
+            </div>
+        </div>
+        <form novalidate ng-submit="update(account)">
             <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="form-group">
@@ -63,7 +68,7 @@ See the License for the specific language governing permissions and limitations 
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <input type="submit" class="btn btn-primary" ng-click="update(account)" value="Continue" />
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </form>

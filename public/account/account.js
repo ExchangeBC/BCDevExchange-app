@@ -26,15 +26,21 @@ app.factory('Account', ['$resource', function($resource) {
 
 app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', 'Account', function($rootScope, $scope, $location, $window, Account) {
 
+    $scope.formLevelMessage = '';
+    $scope.formError = false;
+
     Account.get({id: $location.search().id}, function(data) {
         $scope.account = data;
     });
 
     $scope.update = function(account) {
         Account.save({id: $location.search().id}, account, function() {
-            console.log("success");
-            $window.location.href = $rootScope.config.labURL;
-        })
+            $scope.formLevelMessage = "Successfully updated account details.";
+        },
+        function() {
+            $scope.formLevelMessage = "Unable to update account details at this time. Please try again later."
+            $scope.formError = true;
+        });
     };
 
     $scope.identityExists = function(identifier) {

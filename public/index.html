@@ -44,6 +44,9 @@ See the License for the specific language governing permissions and limitations 
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class='nav navbar-nav navbar-left'>
               <li><a href="#/resources">Resources</a></li>
+              <li show-on-logged-in>
+                <a href="{{config.labURL}}">Lab</a>
+              </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li show-on-logged-out>
@@ -52,6 +55,7 @@ See the License for the specific language governing permissions and limitations 
                 <li show-on-logged-in>
                     <a href="" ng-click="logout()">Log Out</a>
                 </li>
+            </ul>
         </div>
     </div>
 </div>
