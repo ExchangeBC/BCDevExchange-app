@@ -107,9 +107,8 @@ module.exports = function(app, config, logger, db, passport) {
 
     app.get('/account/:id', ensureAuthenticated, function(req, res) {
 
-        db.Account.findOne({'identities.identifier': req.params.id})
-            .populate('profiles')
-            .exec(function (err, account){
+        db.getAccountByIdentity(req.params.id, true,
+            function (err, account){
                 if (err) {
                     logger.error(err);
                     res.sendStatus(500);
@@ -168,9 +167,8 @@ module.exports = function(app, config, logger, db, passport) {
     app.post('/account/:id', ensureAuthenticated, function(req, res) {
         var acctData = req.body;
 
-        db.Account.findById(acctData._id)
-            .populate('profiles')
-            .exec(function (err, account) {
+        db.getAccountById(acctData._id, true,
+            function (err, account) {
                 if (err) {
                     logger.error(err);
                 }

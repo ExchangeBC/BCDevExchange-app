@@ -46,15 +46,27 @@ var models = require('./models');
 module.exports = {
     Account : models.Account,
     Profile : models.Profile,
-    getAccount : function(query, res) {
-      models.Account.findOne(query)
-          .populate('profiles')
-          .exec(function (err, output){
-              if (err) {
-                  logger.error(err);
-              }
-              res.json(output);
-      });
+    getAccountById : function(accountId, populateProfiles, callback) {
+        var query = models.Account.findById(accountId);
+
+        if (populateProfiles) {
+            query = query.populate('profiles');
+        }
+
+        query.exec(function (err, output) {
+            callback(err, output);
+        });
+    },
+    getAccountByIdentity : function(identifier, populateProfiles, callback) {
+        var query = models.Account.findOne({'identities.identifier': identifier});
+
+        if (populateProfiles) {
+            query = query.populate('profiles');
+        }
+
+        query.exec(function (err, output) {
+            callback(err, output);
+        });
     },
     createAccount : function (extProfile, accessToken, refreshToken, callback) {
 

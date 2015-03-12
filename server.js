@@ -69,9 +69,8 @@ function passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
         // not logged in
         // look for existing account
 
-        db.Account.findOne({'identities.identifier': extProfile.id, 'identities.origin': extProfile.provider})
-            .populate('profiles')
-            .exec(function (err, account){
+        db.getAccountByIdentity(extProfile.id, true,
+            function (err, account){
                 if (err) {
                     logger.error(err);
                     return done(err, null);
@@ -96,8 +95,8 @@ function passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
         // logged in
         // associate new identity to existing account
 
-        db.Account.findById(req.user._id)
-            .exec(function (err, account){
+        db.getAccountById(req.user._id, false,
+            function (err, account){
                 if (err) {
                     logger.error(err);
                     return done(err, null);
@@ -113,10 +112,6 @@ function passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
                 }
 
             });
-
-
-
-
 
     }
 
