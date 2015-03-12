@@ -114,23 +114,27 @@ module.exports = function(app, config, logger, db, passport) {
                     res.sendStatus(500);
                 }
 
-                var baseURL = "";
-                var appName = "";
+                var options = {};
                 var authContext = req.user.loggedInContext;
                 if (authContext == config.github.name) {
-                    baseURL = config.github.baseURL;
-                    appName = config.github.clientApplicationName;
+                    options = {
+                        url: config.github.baseURL + '/user',
+                        headers: {
+                            'User-Agent': config.github.clientApplicationName
+                        }
+                    };
                 } else if (authContext == config.linkedin.name) {
                     baseURL = config.linkedin.baseURL;
                     appName = config.linkedin.clientApplicationName;
-                }
 
-                var options = {
-                    url: baseURL + '/user',
-                    headers: {
-                        'User-Agent': appName
-                    }
-                };
+                    options = {
+                        url: config.linkedin.baseURL + '/people/~:(id,formatted-name)',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-li-format': 'json'
+                        }
+                    };
+                }
 
                 var accessToken = "";
                 for( var i = 0; i < req.user.identities.length; i++ ) {
@@ -147,11 +151,20 @@ module.exports = function(app, config, logger, db, passport) {
 
                         var json = JSON.parse(body);
 
-                        account.profiles[0].name = {
-                            identityOrigin: authContext,
-                            attributeName: 'name',
-                            value: json.name
-                        };
+                        // fill in details that aren't stored on our side
+                        if (authContext == config.github.name) {
+                            account.profiles[0].name = {
+                                identityOrigin: authContext,
+                                attributeName: 'name',
+                                value: json.name
+                            };
+                        } else if (authContext == config.linkedin.name) {
+                            account.profiles[0].name = {
+                                identityOrigin: authContext,
+                                attributeName: 'name',
+                                value: json.formattedName
+                            };
+                        }
 
                         res.send(account);
                     }
