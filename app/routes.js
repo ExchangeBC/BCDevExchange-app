@@ -25,21 +25,22 @@ function ensureAuthenticated(req, res, next) {
     }
 }
 
-function loginCallbackHandler(req, res, db, logger) {
-    db.Profile.findById(req.user.profiles[0])
-        .exec(function (err, profile){
-            if (err) {
-                logger.error(err);
-                res.sendStatus(500);
-            }
+function loginCallbackHandler(req, res, logger) {
 
-            if (profile) {
-                res.cookie('user', JSON.stringify({
-                    'displayName': profile.name.value
-                }));
-                res.redirect('/#/account?id=' + req.user.identities[0].identifier);
-            }
-        });
+    res.cookie('user', JSON.stringify({
+        'loggedIn': true
+    }));
+
+    var identifier = '';
+    for( var i = 0; i < req.user.identities.length; i++ ) {
+        if ( req.user.identities[i].origin === req.user.loggedInContext ) {
+            identifier = req.user.identities[i].identifier;
+            break;
+        }
+    }
+
+    res.redirect('/#/account?id=' + identifier);
+
 }
 
 module.exports = function(app, config, logger, db, passport) {
@@ -71,7 +72,7 @@ module.exports = function(app, config, logger, db, passport) {
             failureRedirect: '/#/login'
         }),
         function(req, res) {
-            loginCallbackHandler(req, res, db, logger);
+            loginCallbackHandler(req, res, logger);
         });
 
     // GET /auth/linkedin
@@ -91,21 +92,78 @@ module.exports = function(app, config, logger, db, passport) {
             failureRedirect: '/#/login'
         }),
         function(req, res) {
-            loginCallbackHandler(req, res, db, logger);
+            loginCallbackHandler(req, res, logger);
         });
 
     // ===== logout routing ======
 
     app.post('/logout', function(req, res) {
         req.logOut();
+        req.session.destroy();
         res.sendStatus(200);
     });
 
     // ===== account page routing ======
 
     app.get('/account/:id', ensureAuthenticated, function(req, res) {
-        db.getAccount({'identities.identifier': req.params.id}, res);
-    })
+
+        db.Account.findOne({'identities.identifier': req.params.id})
+            .populate('profiles')
+            .exec(function (err, account){
+                if (err) {
+                    logger.error(err);
+                    res.sendStatus(500);
+                }
+
+                var baseURL = "";
+                var appName = "";
+                var authContext = req.user.loggedInContext;
+                if (authContext == config.github.name) {
+                    baseURL = config.github.baseURL;
+                    appName = config.github.clientApplicationName;
+                } else if (authContext == config.linkedin.name) {
+                    baseURL = config.linkedin.baseURL;
+                    appName = config.linkedin.clientApplicationName;
+                }
+
+                var options = {
+                    url: baseURL + '/user',
+                    headers: {
+                        'User-Agent': appName
+                    }
+                };
+
+                var accessToken = "";
+                for( var i = 0; i < req.user.identities.length; i++ ) {
+                    if ( req.user.identities[i].identifier === req.params.id ) {
+                        accessToken = req.user.identities[i].accessToken;
+                        break;
+                    }
+                }
+
+                request(options, function (error, response, body) {
+                    if (!error &&
+                        typeof response !== 'undefined' &&
+                        response.statusCode == 200) {
+
+                        var json = JSON.parse(body);
+
+                        account.profiles[0].name = {
+                            identityOrigin: authContext,
+                            attributeName: 'name',
+                            value: json.name
+                        };
+
+                        res.send(account);
+                    }
+                    else if(error) {
+                        logger.error('Error while fetching user info', error, body);
+                        res.sendStatus(500);
+                    }
+                }).auth(null, null, true, accessToken);
+
+            });
+    });
 
     app.post('/account/:id', ensureAuthenticated, function(req, res) {
         var acctData = req.body;

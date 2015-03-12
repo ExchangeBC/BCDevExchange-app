@@ -53,12 +53,18 @@ The local files are intended to not be tracked in your version control system. E
   "github": {
     "clientID": "overwrite_clientID",
     "clientSecret": "overwrite_clientSecret",
-    "callbackURL": "http://bcdevexchange.org/auth/github/callback"
+    "callbackURL": "http://bcdevexchange.org/auth/github/callback",
+    "clientApplicationName": "BCDevExchange", // application name associated with the clientID in github settings
+    "baseURL": "https://api.github.com",
+    "name": "github"
   },
   "linkedin": {
     "clientID": "overwrite_clientID",
     "clientSecret": "overwrite_clientSecret",
-    "callbackURL": "http://bcdevexchange.org/auth/linkedin/callback"
+    "callbackURL": "http://bcdevexchange.org/auth/linkedin/callback",
+    "clientApplicationName": "", // application name associated with the clientID in linkedin settings
+    "baseURL": "",
+    "name": "linkedin"
   },
   "catalogues": [
     {

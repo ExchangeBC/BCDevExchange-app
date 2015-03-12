@@ -78,10 +78,14 @@ function passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
                 }
 
                 if (account) {
+                    // TODO update tokens in existing identity
+
+                    account.loggedInContext = extProfile.provider;
                     return done(null, account);
                 } else {
                     // create a new account
                     db.createAccount(extProfile, accessToken, refreshToken, function (err, updatedAcct) {
+                        updatedAcct.loggedInContext = extProfile.provider;
                         return done(null, updatedAcct);
                     });
                 }

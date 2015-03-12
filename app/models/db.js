@@ -60,11 +60,7 @@ module.exports = {
 
         var profile = new models.Profile({
             type: 'Individual',
-            name: {
-                identityOrigin: extProfile.provider, // where this attribute originated from
-                attributeName: 'displayName', // name of attribute from origin
-                value: extProfile.displayName // denormalized value
-            },
+            name: {},
             visible: true,
             contact: {
                 email: {}

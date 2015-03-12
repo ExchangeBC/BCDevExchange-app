@@ -27,7 +27,8 @@ See the License for the specific language governing permissions and limitations 
   "github": {
     "clientID": "f745a46f61387cca4f47",
     "clientSecret": "",
-    "callbackURL": "http://localhost:8000/auth/github/callback"
+    "callbackURL": "http://localhost:8000/auth/github/callback",
+    "clientApplicationName": "localhost BCDevExchange"
   },
   "linkedin": {
     "clientID": "75g4w5b338kf9h",

@@ -23,6 +23,7 @@ var attributeOriginDef = {
 };
 
 var accountSchema = new Schema({
+    loggedInContext: String,
     identities: [{
         origin: String, // GitHub or LinkedIn
         identifier: String, // User's identifier from origin
