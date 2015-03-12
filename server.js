@@ -95,6 +95,8 @@ function passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
         // logged in
         // associate new identity to existing account
 
+        var loggedInContext = req.user.loggedInContext;
+
         db.getAccountById(req.user._id, false,
             function (err, account){
                 if (err) {
@@ -104,6 +106,7 @@ function passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
 
                 if (account) {
                     db.addIdentity(account, extProfile, accessToken, refreshToken, function (err, updatedAcct) {
+                        account.loggedInContext = loggedInContext;
                         return done(null, updatedAcct);
                     });
                 } else {
