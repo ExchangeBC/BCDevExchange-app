@@ -13,8 +13,10 @@ See the License for the specific language governing permissions and limitations 
 -->
 
 <div class="container">
-    <div class="page-header" style="overflow: hidden;">
-        <h2>BCDevExchange Digital Resources</h2>
+    <div class="row page-header">
+        <div class="col-lg-12">
+            <h2>BCDevExchange Digital Resources</h2>
+        </div>
     </div>
     <div class="resource-list row">
         <div class="col-md-12">
@@ -28,27 +30,18 @@ See the License for the specific language governing permissions and limitations 
                                     {{ tag.display_name }}
                                 </span>
                             </div>
-                            <p class="source text-muted">Source: BCDC, Last updated: {{ resource.record_last_modified }}</p>
+                            <p class="source text-muted">Source: {{ resource.catalogue.name }}, Last updated: {{ resource.record_last_modified }}</p>
                         </div>
                         <div class="col-md-3">
                             <ul class="list-unstyled">
-                                <li><a href="http://sandbox1.data.gov.bc.ca/dataset/{{ resource.name }}" class="btn btn-primary">View on BCDC</a></li>
-                                <li ng-repeat="resource_link in resource.resources">
-                                    <a class="btn btn-default" href="{{ resource_link.url }}">{{ resource_link.name }}</a>
-                                </li>
+                                <li><a href="http://sandbox1.data.gov.bc.ca/dataset/{{ resource.name }}" class="btn btn-primary">View on {{ resource.catalogue.acronym }}</a></li>
                             </ul>
                         </div>
-                        <p class="source text-muted">Source: {{ resource.catalogue.name }}, Last updated: {{ resource.record_last_modified }}</p>
-                    </div>
-                    <div class="col-md-3">
-                        <ul class="list-unstyled">
-                            <li><a href="http://sandbox1.data.gov.bc.ca/dataset/{{ resource.name }}" class="btn btn-primary">View on {{ resource.catalogue.acronym }}</a></li>
-                        </ul>
-                    </div>
-            </li>
-            <li ng-if="resources.length == 0">
-                No resources available.
-            </li>
-        </ul>
+                </li>
+                <li ng-if="resources.length == 0">
+                    No resources available.
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
