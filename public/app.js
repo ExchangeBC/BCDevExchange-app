@@ -20,6 +20,7 @@ var app = angular.module('bcdevxApp', [
   'bcdevxApp.auth',
   'bcdevxApp.account',
   'bcdevxApp.resources',
+    'bcdevxApp.navigation',
     'angulartics',
     'angulartics.google.analytics'
 ])
@@ -88,40 +89,8 @@ var app = angular.module('bcdevxApp', [
 
 });
 
-app.directive('showOnLoggedIn', ['$rootScope', 'AuthService', function($rootScope, AuthService) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var prevDisp = element.css('display');
-            $rootScope.$watch('user', function(user) {
-                if(!AuthService.isAuthenticated())
-                    element.css('display', 'none');
-                else
-                    element.css('display', prevDisp);
-            });
-        }
-    };
-}]);
+app.controller('IndexCtrl', ['$anchorScroll', function($anchorScroll) {
 
-app.directive('showOnLoggedOut', ['$rootScope', 'AuthService', function($rootScope, AuthService) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var prevDisp = element.css('display');
-            $rootScope.$watch('user', function(user) {
-                if(AuthService.isAuthenticated())
-                    element.css('display', 'none');
-                else
-                    element.css('display', prevDisp);
-            });
-        }
-    };
-}]);
-
-app.controller('IndexCtrl', ['$scope', '$location', '$anchorScroll', 'AuthService', function($scope, $location, $anchorScroll, AuthService) {
-    $scope.logout = function() {
-        AuthService.logout();
-    };
 
 }]);
 
