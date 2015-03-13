@@ -22,13 +22,14 @@ var app = angular.module('bcdevxApp', [
   'bcdevxApp.resources',
     'bcdevxApp.navigation',
     'angulartics',
-    'angulartics.google.analytics'
+    'angulartics.google.analytics',
+    'ui.bootstrap'
 ])
    .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
 
 
         // check if user is connected
-        var checkLoggedIn = function($q, $timeout, $location, AuthService) {
+        var checkLoggedIn = function($q, $timeout, $location, AuthService, $modal) {
             // initialize a new promise
             var deferred = $q.defer();
 
@@ -36,7 +37,12 @@ var app = angular.module('bcdevxApp', [
                 $timeout(deferred.resolve, 0);
             } else {
                 $timeout(function() {deferred.reject();}, 0);
-                $location.url('/login');
+
+                var modalInstance = $modal.open({
+                    templateUrl: 'auth/login.html',
+                    controller: 'LoginModalCtrl'
+                });
+
             }
 
             return deferred.promise;
@@ -47,8 +53,8 @@ var app = angular.module('bcdevxApp', [
                 templateUrl: 'home/home.html',
                 controller: 'HomeCtrl'
             })
-            .when('/login', {
-                templateUrl: 'auth/login.html',
+            .when('/signup', {
+                templateUrl: 'auth/signup.html',
                 controller: 'AuthCtrl'
             })
             .when('/account', {

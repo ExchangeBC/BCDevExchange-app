@@ -50,7 +50,10 @@ See the License for the specific language governing permissions and limitations 
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li show-on-logged-out>
-                    <a href="#/login">Sign Up</a>
+                    <a href="#/signup">Sign Up</a>
+                </li>
+                <li show-on-logged-out>
+                    <a href="" ng-click="login()">Log In</a>
                 </li>
                 <li show-on-logged-in>
                     <a href="" ng-click="logout()">Log Out</a>
@@ -93,6 +96,7 @@ See the License for the specific language governing permissions and limitations 
   <script src="bower_components/respond-minmax/dest/respond.min.js"></script>
   <script src="bower_components/angulartics/dist/angulartics.min.js"></script>
   <script src="bower_components/angulartics/dist/angulartics-ga.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="bootstrap/dist/js/bootstrap.js"></script>
   <script src="app.js"></script>
   <script src="navigation/navbar.js"></script>

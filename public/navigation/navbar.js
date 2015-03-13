@@ -15,9 +15,16 @@
 'use strict';
 
 angular.module('bcdevxApp.navigation', [])
-.controller('NavCtrl', ['$scope', 'AuthService', function($scope, AuthService) {
+.controller('NavCtrl', ['$scope', '$modal', 'AuthService', function($scope, $modal, AuthService) {
     $scope.logout = function() {
         AuthService.logout();
+    };
+
+    $scope.login = function() {
+        var modalInstance = $modal.open({
+            templateUrl: 'auth/login.html',
+            controller: 'LoginModalCtrl'
+        });
     };
 
 }])

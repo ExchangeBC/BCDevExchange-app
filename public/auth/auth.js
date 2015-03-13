@@ -53,3 +53,10 @@ app.factory( 'AuthService', ['$http', '$cookieStore', '$location', '$rootScope',
 app.controller('AuthCtrl', [function() {
 
 }]);
+
+app.controller('LoginModalCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    }
+}]);
