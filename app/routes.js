@@ -231,6 +231,7 @@ module.exports = function(app, config, logger, db, passport) {
     function transformCKANResult (result, callback) {
         var transformed = {
             "title": result.title,
+            "name": result.name,
             "notes": result.notes,
             "tags": result.tags,
             "record_last_modified": result.record_last_modified,
