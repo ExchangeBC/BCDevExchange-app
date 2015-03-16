@@ -214,7 +214,7 @@ module.exports = function(app, config, logger, db, passport) {
                 });
             }
             else if(error) {
-                logger.error('Error while fetching BCDC content: %s; body: %s', error, body);
+                logger.error('Error while fetching %s content: %s; body: %s', catalogue.acronym, error, body);
                 callback(error);
             }
         });
@@ -255,4 +255,15 @@ module.exports = function(app, config, logger, db, passport) {
 
         callback(null, transformed);
     }
+
+    app.get('/resources-sources', function(req, res) {
+        var listOfCatalogues = [];
+        for (x in config.catalogues) {
+            var catalogue = config.catalogues[x];
+            listOfCatalogues.push({'name': catalogue.name, 'acronym': catalogue.acronym});
+        }
+
+        res.send({ "sources": listOfCatalogues });
+    });
+
 }

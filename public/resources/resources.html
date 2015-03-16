@@ -18,24 +18,44 @@ See the License for the specific language governing permissions and limitations 
             <h2>BCDevExchange Digital Resources</h2>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <form>
+                <div class="form-group">
+                    <input type="text" placeholder="Search for keywords" class="input input-lg" ng-model="query" />
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span ng-show="selectedSource == ''">Filter by source</span><span class="source-name" ng-bind="selectedSource"></span> <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li ng-repeat="source in sources">
+                            <a href="#" ng-click="selectSource($event, source.acronym)">{{ source.name }}</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <input type="reset" class="btn btn-default btn-lg" value="Reset" ng-click="selectedSource = ''; query = '';" />
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="resource-list row">
         <ul class="resources-list list-unstyled table-bordered">
-            <li class="resource" ng-repeat="resource in resources">
-                    <div class="col-md-9">
-                        <h3>{{ resource.title }}</h3>
-                        <p>{{ resource.notes }}</p>
-                        <div class="tags" ng-if="resource.tags.length > 0">
-                            <span class="label label-default" ng-repeat="tag in resource.tags" ng-if="tag.display_name != 'BCDevExchange'" style="background-color: #{{ tag.id|limitTo:6 }};">
-                                {{ tag.display_name }}
-                            </span>
-                        </div>
-                        <p class="source text-muted">Source: {{ resource.catalogue.name }}, Last updated: {{ resource.record_last_modified }}</p>
+            <li class="resource" ng-repeat="resource in resources | filter:query | filter:{ catalogue: { acronym: selectedSource } }:hasMatchingSource">
+                <div class="col-md-10">
+                    <h3>{{ resource.title }}</h3>
+                    <p>{{ resource.notes }}</p>
+                    <div class="tags" ng-if="resource.tags.length > 0">
+                        <span class="label label-default" ng-repeat="tag in resource.tags" ng-if="tag.display_name != 'BCDevExchange'" style="background-color: #{{ tag.id|limitTo:6 }};">
+                            {{ tag.display_name }}
+                        </span>
                     </div>
-                    <div class="col-md-3">
-                        <ul class="list-unstyled">
-                            <li><a href="http://sandbox1.data.gov.bc.ca/dataset/{{ resource.name }}" class="btn btn-primary">View on {{ resource.catalogue.acronym }}</a></li>
-                        </ul>
-                    </div>
+                    <p class="source text-muted">Source: {{ resource.catalogue.name }}, Last updated: {{ resource.record_last_modified }}</p>
+                </div>
+                <div class="col-md-2">
+                    <ul class="list-unstyled">
+                        <li><a href="http://sandbox1.data.gov.bc.ca/dataset/{{ resource.name }}" class="btn btn-primary btn-block">View on {{ resource.catalogue.acronym }}</a></li>
+                    </ul>
+                </div>
             </li>
             <li ng-if="resources.length == 0">
                 No resources available.

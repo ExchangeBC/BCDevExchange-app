@@ -27,11 +27,31 @@ angular.module('bcdevxApp.resources', ['ngRoute'])
         return $resource('/resources');
     }])
 
+    .factory('SourceList', ['$resource', function($resource) {
+        return $resource('/resources-sources');
+    }])
 
-    .controller('ResourcesCtrl', ['$rootScope', '$scope', '$location', '$window', 'ResourceList', function($rootScope, $scope, $location, $window, ResourceList) {
+
+    .controller('ResourcesCtrl', ['$rootScope', '$scope', '$location', '$window', 'ResourceList', 'SourceList', function($rootScope, $scope, $location, $window, ResourceList, SourceList) {
+
+        $scope.selectedSource = '';
+
         ResourceList.get({}, function(data) {
-
             $scope.resources = data.resources;
-
         });
+
+        SourceList.get({}, function(data) {
+            $scope.sources = data.sources;
+        });
+
+        $scope.hasMatchingSource = function(actual, expected) {
+            if(expected.acronym == "") return true; // Filtering by null should show all results
+            if(!actual.acronym || !expected.acronym) return false;
+            return actual.acronym == expected.acronym;
+        }
+
+        $scope.selectSource = function(event, newSource) {
+            event.preventDefault();
+            $scope.selectedSource = newSource
+        }
     }]);
