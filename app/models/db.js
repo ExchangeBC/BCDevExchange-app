@@ -121,6 +121,15 @@ module.exports = {
             callback(null, account);
         });
 
+    },
+    countGitHubAccounts : function (callback) {
+        models.Account.count({ 'identities.origin' : 'github' }, callback);
+    },
+    countLinkedInAccounts : function (callback) {
+        models.Account.count({ 'identities.origin' : 'linkedin' }, callback);
+    },
+    countDualAccounts : function (callback) {
+        models.Account.count({ 'identities.origin' : 'github' }, { 'identities.origin' : 'linkedin' }, callback);
     }
 
 };
