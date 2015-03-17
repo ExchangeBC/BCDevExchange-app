@@ -224,10 +224,22 @@ module.exports = function(app, config, logger, db, passport) {
         }
         else {
             for(var source in config.projects) {
-                console.log(source);
+                switch(source) {
+                    case 'github':
+                        console.log('Getting projects from GitHub');
+                        console.log(config.projects[source]);
+                        async.concat(config.projects[source], getGitHubProjects, function (err, results) {
+                            if (err) res.sendStatus(500);
+                            else {
+                                var body = {"projects": results};
+                                res.send(body);
+                            }
+                        });
+                    break;
+                }
             }
         }
-
+/*
         res.send({"projects": [
             {
                 "title": "The BCDevExchange Project",
@@ -268,7 +280,31 @@ module.exports = function(app, config, logger, db, passport) {
                 "repoURL": "https://github.com/Geocoder/Geocoder"
             }
         ]});
+*/
     });
+
+    function getGitHubProjects(ghConfig, callback) {
+        console.log('https://api.github.com/' + ghConfig.url + '?q=' + ghConfig.tag + "+in:" + ghConfig.file);
+        request('https://api.github.com/' + ghConfig.url + '?q=' + ghConfig.tag + "+in:" + ghConfig.file, function (error, response, body) {
+            if (!error &&
+                typeof response !== 'undefined' &&
+                response.statusCode == 200) {
+
+                var json = JSON.parse(body);
+            console.log(json);
+
+                // remove extraneous info from result
+                async.concat(json.result.results, transformCKANResult, function (err, results) {
+                    copyCatalogue(catalogue, results);
+                    callback(err, results);
+                });
+            }
+            else if(error) {
+                logger.error('Error while fetching BCDC content: %s; body: %s', error, body);
+                callback(error);
+            }
+        });
+    }
 
     app.get('/resources', function(req, res) {
         async.concat(config.catalogues, getCatalogueItems, function (err, results) {
