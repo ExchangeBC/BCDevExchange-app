@@ -45,6 +45,7 @@ See the License for the specific language governing permissions and limitations 
             <ul class='nav navbar-nav navbar-left'>
               <li ng-show="config.resourcesPage" ng-cloak><a href="#/resources">Resources</a></li>
               <li ng-show="config.projectsPage" ng-cloak><a href="#/projects">Projects</a></li>
+              <li ng-show="config.peoplePage" ng-cloak><a href="#/people">People</a></li>
               <li show-on-logged-in ng-show="config.labLink">
                 <a href="{{config.labURL}}">Lab</a>
               </li>
@@ -106,6 +107,7 @@ See the License for the specific language governing permissions and limitations 
   <script src="account/account.js"></script>
   <script src="resources/resources.js"></script>
   <script src="projects/projects.js"></script>
+  <script src="people/people.js"></script>
   <script src="js/plugins.js"></script>
   <script>
     $(document).on('click','.navbar-collapse.in',function(e) {

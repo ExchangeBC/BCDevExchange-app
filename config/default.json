@@ -90,6 +90,7 @@ The local files are intended to not be tracked in your version control system. E
       "linkedinLogin": false,
       "resourcesPage": false,
       "projectsPage": false,
+      "peoplePage": false,
       "labLink": false,
       "labURL": "http://lab.bcdevexchange.org"
   }
