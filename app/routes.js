@@ -244,7 +244,7 @@ module.exports = function(app, config, logger, db, passport) {
                 });
             }
             else if(error) {
-                logger.error('Error while fetching BCDC content: %s; body: %s', error, body);
+                logger.error('Error while fetching %s content: %s; body: %s', catalogue.short_name, error, body);
                 callback(error);
             }
         });
@@ -253,7 +253,10 @@ module.exports = function(app, config, logger, db, passport) {
     function copyCatalogue (catalogue, results) {
         for (var i = 0; i < results.length; i++) {
             results[i].catalogue = {"name": catalogue.name,
-                "acronym": catalogue.acronym};
+                "short_name": catalogue.short_name,
+                "tagToSearch": catalogue.tagToSearch,
+                "baseViewUrl": catalogue.baseViewUrl
+            };
         }
     }
 
@@ -264,8 +267,7 @@ module.exports = function(app, config, logger, db, passport) {
             "name": result.name,
             "notes": result.notes,
             "tags": result.tags,
-            "record_last_modified": result.record_last_modified,
-            "resources": result.resources
+            "record_last_modified": result.record_last_modified
         };
 
         // trim the tags
@@ -286,4 +288,15 @@ module.exports = function(app, config, logger, db, passport) {
 
         callback(null, transformed);
     }
+
+    app.get('/resources-sources', function(req, res) {
+        var listOfCatalogues = [];
+        for (x in config.catalogues) {
+            var catalogue = config.catalogues[x];
+            listOfCatalogues.push({'name': catalogue.name, 'short_name': catalogue.short_name});
+        }
+
+        res.send({ "sources": listOfCatalogues });
+    });
+
 }

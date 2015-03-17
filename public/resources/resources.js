@@ -14,21 +14,44 @@
 
 'use strict';
 
-angular.module('bcdevxApp.resources', ['ngRoute'])
+angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
 
     .config(['$routeProvider', function($routeProvider) {
-        
+
     }])
 
     .factory('ResourceList', ['$resource', function($resource) {
         return $resource('/resources');
     }])
 
+    .factory('SourceList', ['$resource', function($resource) {
+        return $resource('/resources-sources');
+    }])
 
-    .controller('ResourcesCtrl', ['$rootScope', '$scope', '$location', '$window', 'ResourceList', function($rootScope, $scope, $location, $window, ResourceList) {
+
+    .controller('ResourcesCtrl', ['$rootScope', '$scope', '$location', '$window', 'ResourceList', 'SourceList', function($rootScope, $scope, $location, $window, ResourceList, SourceList) {
+
+        $scope.selectedSource = '';
+        $scope.selectedSourceTitle = '';
+        $scope.predicateTitle = '';
+
         ResourceList.get({}, function(data) {
-
             $scope.resources = data.resources;
-
         });
+
+        SourceList.get({}, function(data) {
+            $scope.sources = data.sources;
+        });
+
+        $scope.hasMatchingSource = function(actual, expected) {
+            if(expected.short_name == "") return true; // Filtering by null should show all results
+            if(!actual.short_name || !expected.short_name) return false;
+            return actual.short_name == expected.short_name;
+        }
+
+        $scope.selectSource = function(event, newSource, newSourceTitle) {
+            event.preventDefault();
+            $scope.selectedSource = newSource;
+            $scope.selectedSourceTitle = newSourceTitle;
+        }
     }]);
