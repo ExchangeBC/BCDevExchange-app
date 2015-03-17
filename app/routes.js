@@ -267,8 +267,7 @@ module.exports = function(app, config, logger, db, passport) {
             "name": result.name,
             "notes": result.notes,
             "tags": result.tags,
-            "record_last_modified": result.record_last_modified,
-            "resources": result.resources
+            "record_last_modified": result.record_last_modified
         };
 
         // trim the tags
