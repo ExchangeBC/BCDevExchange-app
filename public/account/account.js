@@ -31,6 +31,10 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
 
     AccountService.get({id: $location.search().id}, function(data) {
         $scope.account = data;
+        $rootScope.user = {
+            "displayName": data.profiles[0].name.value,
+            "id": data._id
+        };
     });
 
     $scope.update = function(account) {
