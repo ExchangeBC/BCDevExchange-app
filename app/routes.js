@@ -218,6 +218,19 @@ module.exports = function(app, config, logger, db, passport) {
         });
     });
 
+    app.get('/projects/:source?', function(req, res) {
+        if(req.params.length > 0) {
+            // Handle specific requests
+        }
+        else {
+            for(var source in config.projects) {
+                console.log(source);
+            }
+        }
+
+        res.send('');
+    });
+
     app.get('/resources', function(req, res) {
         async.concat(config.catalogues, getCatalogueItems, function (err, results) {
             if (err) res.sendStatus(500);
