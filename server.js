@@ -22,7 +22,7 @@ var config = require('config');
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
-
+var async = require('async');
 
 // set up db connection
 var db = require('./app/models/db');
@@ -109,6 +109,7 @@ function passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
     } else {
         // logged in
         // associate new identity to existing account
+        // or merge identities if necessary
 
         var loggedInContext = req.user.loggedInContext;
 
@@ -120,20 +121,59 @@ function passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
                 }
 
                 if (account) {
+
                     db.addIdentity(account, extProfile, accessToken, refreshToken, function (err, updatedAcct) {
-                        account.loggedInContext = loggedInContext;
-                        return done(null, updatedAcct);
+                        updatedAcct.loggedInContext = loggedInContext;
+
+
+                        // check if a different account exists associated to the identity the user just logged in with
+                        db.getAccountByIdentity(extProfile.id, true,
+                            function (err, otherAcct){
+                                if (err) {
+                                    logger.error(err);
+                                    return done(err, null);
+                                }
+
+                                if (otherAcct) {
+                                    // need to remove this account object
+                                    var profiles = otherAcct.profiles;
+                                    otherAcct.remove(function(err, removedAcct) {
+                                        if (err) {
+                                            logger.error(err);
+                                            return done(err, null);
+                                        }
+
+                                        async.each(profiles, function(profile, callback) {
+                                            profile.remove(function(err, pr) {
+                                                if (err) {
+                                                    callback(err);
+                                                }
+                                                callback();
+                                            });
+                                        }, function(err) {
+                                            if (err) {
+                                                logger.error(err);
+                                                return done(err, null);
+                                            }
+
+                                            return done(null, updatedAcct);
+                                        });
+
+                                    })
+
+                                }  else {
+                                    // no account found
+                                    return done(null, updatedAcct);
+                                }
+                            });
                     });
+
                 } else {
                     // this shouldn't happen
                     // TODO return error
                 }
-
             });
-
     }
-
-
 }
 
 // Init express and put on our helmet (security protections)

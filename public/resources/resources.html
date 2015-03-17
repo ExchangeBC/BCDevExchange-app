@@ -29,8 +29,17 @@ See the License for the specific language governing permissions and limitations 
                       </button>
                       <ul class="dropdown-menu" role="menu">
                         <li ng-repeat="source in sources">
-                            <a href="#" ng-click="selectSource($event, source.acronym)">{{ source.name }}</a>
+                            <a href="" ng-click="selectSource($event, source.acronym)">{{ source.name }}</a>
                         </li>
+                      </ul>
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span ng-show="predicate == ''">Sort by</span><span class="source-name" ng-bind="predicate"></span> <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="" ng-click="predicate = 'title';">Title A-Z</a></li>
+                        <li><a href="" ng-click="predicate = '-title';">Title A-Z</a></li>
                       </ul>
                     </div>
                     <input type="reset" class="btn btn-default btn-lg" value="Reset" ng-click="selectedSource = ''; query = '';" />
@@ -38,28 +47,35 @@ See the License for the specific language governing permissions and limitations 
             </form>
         </div>
     </div>
-    <div class="resource-list row">
-        <ul class="resources-list list-unstyled table-bordered">
-            <li class="resource" ng-repeat="resource in resources | filter:query | filter:{ catalogue: { acronym: selectedSource } }:hasMatchingSource">
-                <div class="col-md-10">
-                    <h3>{{ resource.title }}</h3>
-                    <p>{{ resource.notes }}</p>
-                    <div class="tags" ng-if="resource.tags.length > 0">
-                        <span class="label label-default" ng-repeat="tag in resource.tags" ng-if="tag.display_name != 'BCDevExchange'" style="background-color: #{{ tag.id|limitTo:6 }};">
-                            {{ tag.display_name }}
-                        </span>
+    <div class="resource-list">
+            <ul class="resources-list list-unstyled table-bordered">
+                <li class="resource" ng-repeat="resource in resources | filter:query | filter:{ catalogue: { acronym: selectedSource } }:hasMatchingSource | orderBy:predicate">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h3 ng-bind-html="resource.title | highlight:query"></h3>
+                            <p ng-bind-html="resource.notes | highlight:query"></p>
+                            <div class="tags" ng-if="resource.tags.length > 0">
+                                <span class="label label-default" ng-repeat="tag in resource.tags" ng-if="tag.display_name != resource.catalogue.tagToSearch" style="background-color: #{{ tag.id|limitTo:6 }};"  ng-bind-html="tag.display_name | highlight:query">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <ul class="list-unstyled">
+                                <li><a href="http://sandbox1.data.gov.bc.ca/dataset/{{ resource.name }}" class="btn btn-primary btn-block">View on {{ resource.catalogue.acronym }}</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <p class="source text-muted">Source: {{ resource.catalogue.name }}, Last updated: {{ resource.record_last_modified }}</p>
-                </div>
-                <div class="col-md-2">
-                    <ul class="list-unstyled">
-                        <li><a href="http://sandbox1.data.gov.bc.ca/dataset/{{ resource.name }}" class="btn btn-primary btn-block">View on {{ resource.catalogue.acronym }}</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li ng-if="resources.length == 0">
-                No resources available.
-            </li>
-        </ul>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="source text-muted">Source: <span ng-bind-html="resource.catalogue.name | highlight:query"></span> <span class="pull-right">Last updated: <span ng-bind-html="resource.record_last_modified | highlight:query"></span></span></p>
+                        </div>
+                    </div>
+                </li>
+                <li ng-if="resources.length == 0">
+                    No resources available.
+                </li>
+            </ul>
+        </div>
+
     </div>
 </div>

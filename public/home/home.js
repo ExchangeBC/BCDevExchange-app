@@ -20,6 +20,9 @@ angular.module('bcdevxApp.home', ['ngRoute'])
 
     }])
 
-    .controller('HomeCtrl', [function() {
-
+    .controller('HomeCtrl', ['$scope', '$location', '$anchorScroll', function($scope, $location, $anchorScroll) {
+        $scope.scrollTo = function(id) {
+          $location.hash(id);
+          $anchorScroll();
+        }
     }]);

@@ -20,14 +20,16 @@ var app = angular.module('bcdevxApp', [
   'bcdevxApp.auth',
   'bcdevxApp.account',
   'bcdevxApp.resources',
+    'bcdevxApp.navigation',
     'angulartics',
-    'angulartics.google.analytics'
+    'angulartics.google.analytics',
+    'ui.bootstrap'
 ])
    .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
 
 
         // check if user is connected
-        var checkLoggedIn = function($q, $timeout, $location, AuthService) {
+        var checkLoggedIn = function($q, $timeout, $location, AuthService, $modal) {
             // initialize a new promise
             var deferred = $q.defer();
 
@@ -35,7 +37,12 @@ var app = angular.module('bcdevxApp', [
                 $timeout(deferred.resolve, 0);
             } else {
                 $timeout(function() {deferred.reject();}, 0);
-                $location.url('/login');
+
+                var modalInstance = $modal.open({
+                    templateUrl: 'auth/login.html',
+                    controller: 'LoginModalCtrl'
+                });
+
             }
 
             return deferred.promise;
@@ -46,8 +53,8 @@ var app = angular.module('bcdevxApp', [
                 templateUrl: 'home/home.html',
                 controller: 'HomeCtrl'
             })
-            .when('/login', {
-                templateUrl: 'auth/login.html',
+            .when('/signup', {
+                templateUrl: 'auth/signup.html',
                 controller: 'AuthCtrl'
             })
             .when('/account', {
@@ -88,40 +95,8 @@ var app = angular.module('bcdevxApp', [
 
 });
 
-app.directive('showOnLoggedIn', ['$rootScope', 'AuthService', function($rootScope, AuthService) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var prevDisp = element.css('display');
-            $rootScope.$watch('user', function(user) {
-                if(!AuthService.isAuthenticated())
-                    element.css('display', 'none');
-                else
-                    element.css('display', prevDisp);
-            });
-        }
-    };
-}]);
+app.controller('IndexCtrl', ['$anchorScroll', function($anchorScroll) {
 
-app.directive('showOnLoggedOut', ['$rootScope', 'AuthService', function($rootScope, AuthService) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var prevDisp = element.css('display');
-            $rootScope.$watch('user', function(user) {
-                if(AuthService.isAuthenticated())
-                    element.css('display', 'none');
-                else
-                    element.css('display', prevDisp);
-            });
-        }
-    };
-}]);
-
-app.controller('IndexCtrl', ['$scope', '$location', '$anchorScroll', 'AuthService', function($scope, $location, $anchorScroll, AuthService) {
-    $scope.logout = function() {
-        AuthService.logout();
-    };
 
 }]);
 

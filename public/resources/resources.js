@@ -14,7 +14,7 @@
 
 'use strict';
 
-angular.module('bcdevxApp.resources', ['ngRoute'])
+angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
 
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/resources', {
