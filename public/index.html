@@ -43,8 +43,8 @@ See the License for the specific language governing permissions and limitations 
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class='nav navbar-nav navbar-left'>
-              <li><a href="#/resources">Resources</a></li>
-              <li show-on-logged-in>
+              <li ng-show="config.resourcesPage" ng-cloak><a href="#/resources">Resources</a></li>
+              <li show-on-logged-in ng-show="config.labLink">
                 <a href="{{config.labURL}}">Lab</a>
               </li>
             </ul>

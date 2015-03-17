@@ -17,10 +17,7 @@
 angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
 
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/resources', {
-            templateUrl: 'resources/resources.html',
-            controller: 'ResourcesCtrl'
-        });
+        
     }])
 
     .factory('ResourceList', ['$resource', function($resource) {

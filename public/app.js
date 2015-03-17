@@ -64,6 +64,10 @@ var app = angular.module('bcdevxApp', [
                     loggedin: checkLoggedIn
                 }
             })
+            .when('/resources', {
+                templateUrl: 'resources/resources.html',
+                controller: 'ResourcesCtrl'
+            })
             .otherwise({redirectTo: '/home'});
 
         // add an interceptor for AJAX errors

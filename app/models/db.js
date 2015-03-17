@@ -121,6 +121,22 @@ module.exports = {
             callback(null, account);
         });
 
+    },
+    countGitHubAccounts : function (callback) {
+        models.Account.count({ 'identities.origin' : 'github' }, function(err, result) {
+            callback(err, result);
+        });
+    },
+    countLinkedInAccounts : function (callback) {
+        models.Account.count({ 'identities.origin' : 'linkedin' }, function(err, result) {
+            callback(err, result);
+        });
+    },
+    countDualAccounts : function (callback) {
+        // get all accounts which have a github AND linkedin identity
+        models.Account.where({ $and : [{ 'identities.origin' : 'github' }, { 'identities.origin' : 'linkedin' }]}).count(function(err, result) {
+            callback(err, result);
+        });
     }
 
 };

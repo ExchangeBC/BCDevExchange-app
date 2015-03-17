@@ -86,6 +86,9 @@ The local files are intended to not be tracked in your version control system. E
   },
   "ui": {
       "discoveryBanner": false,
+      "linkedinLogin": false,
+      "resourcesPage": false,
+      "labLink": false,
       "labURL": "http://lab.bcdevexchange.org"
   }
 }

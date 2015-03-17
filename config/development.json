@@ -22,6 +22,9 @@ See the License for the specific language governing permissions and limitations 
   },
   "ui": {
     "discoveryBanner": true,
+    "linkedinLogin": true,
+    "resourcesPage": true,
+    "labLink": true,
     "labURL": "http://localhost:8000"
   },
   "github": {
