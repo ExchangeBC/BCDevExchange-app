@@ -7946,6 +7946,10 @@ body
 {
     margin: 5px 0;
 }
+.resource-list form
+{
+    margin: 0 0 20px 0;
+}
 .ui-match
 {
     background-color: yellow;

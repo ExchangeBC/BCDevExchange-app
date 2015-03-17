@@ -244,7 +244,7 @@ module.exports = function(app, config, logger, db, passport) {
                 });
             }
             else if(error) {
-                logger.error('Error while fetching %s content: %s; body: %s', catalogue.acronym, error, body);
+                logger.error('Error while fetching %s content: %s; body: %s', catalogue.short_name, error, body);
                 callback(error);
             }
         });
@@ -253,8 +253,10 @@ module.exports = function(app, config, logger, db, passport) {
     function copyCatalogue (catalogue, results) {
         for (var i = 0; i < results.length; i++) {
             results[i].catalogue = {"name": catalogue.name,
-                "acronym": catalogue.acronym,
-                "tagToSearch": catalogue.tagToSearch};
+                "short_name": catalogue.short_name,
+                "tagToSearch": catalogue.tagToSearch,
+                "baseViewUrl": catalogue.baseViewUrl
+            };
         }
     }
 
@@ -292,7 +294,7 @@ module.exports = function(app, config, logger, db, passport) {
         var listOfCatalogues = [];
         for (x in config.catalogues) {
             var catalogue = config.catalogues[x];
-            listOfCatalogues.push({'name': catalogue.name, 'acronym': catalogue.acronym});
+            listOfCatalogues.push({'name': catalogue.name, 'short_name': catalogue.short_name});
         }
 
         res.send({ "sources": listOfCatalogues });

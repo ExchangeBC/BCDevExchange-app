@@ -17,7 +17,7 @@
 angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
 
     .config(['$routeProvider', function($routeProvider) {
-        
+
     }])
 
     .factory('ResourceList', ['$resource', function($resource) {
@@ -32,6 +32,8 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
     .controller('ResourcesCtrl', ['$rootScope', '$scope', '$location', '$window', 'ResourceList', 'SourceList', function($rootScope, $scope, $location, $window, ResourceList, SourceList) {
 
         $scope.selectedSource = '';
+        $scope.selectedSourceTitle = '';
+        $scope.predicateTitle = '';
 
         ResourceList.get({}, function(data) {
             $scope.resources = data.resources;
@@ -42,13 +44,14 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
         });
 
         $scope.hasMatchingSource = function(actual, expected) {
-            if(expected.acronym == "") return true; // Filtering by null should show all results
-            if(!actual.acronym || !expected.acronym) return false;
-            return actual.acronym == expected.acronym;
+            if(expected.short_name == "") return true; // Filtering by null should show all results
+            if(!actual.short_name || !expected.short_name) return false;
+            return actual.short_name == expected.short_name;
         }
 
-        $scope.selectSource = function(event, newSource) {
+        $scope.selectSource = function(event, newSource, newSourceTitle) {
             event.preventDefault();
-            $scope.selectedSource = newSource
+            $scope.selectedSource = newSource;
+            $scope.selectedSourceTitle = newSourceTitle;
         }
     }]);
