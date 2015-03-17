@@ -48,34 +48,32 @@ See the License for the specific language governing permissions and limitations 
         </div>
     </div>
     <div class="resource-list">
-            <ul class="resources-list list-unstyled table-bordered">
-                <li class="resource" ng-repeat="resource in resources | filter:query | filter:{ catalogue: { acronym: selectedSource } }:hasMatchingSource | orderBy:predicate">
-                    <div class="row">
-                        <div class="col-md-10">
-                            <h3 ng-bind-html="resource.title | highlight:query"></h3>
-                            <p ng-bind-html="resource.notes | highlight:query"></p>
-                            <div class="tags" ng-if="resource.tags.length > 0">
-                                <span class="label label-default" ng-repeat="tag in resource.tags" ng-if="tag.display_name != resource.catalogue.tagToSearch" style="background-color: #{{ tag.id|limitTo:6 }};"  ng-bind-html="tag.display_name | highlight:query">
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <ul class="list-unstyled">
-                                <li><a href="http://sandbox1.data.gov.bc.ca/dataset/{{ resource.name }}" class="btn btn-primary btn-block">View on {{ resource.catalogue.acronym }}</a></li>
-                            </ul>
+        <ul class="resources-list list-unstyled table-bordered">
+            <li class="resource" ng-repeat="resource in resources | filter:query | filter:{ catalogue: { acronym: selectedSource } }:hasMatchingSource | orderBy:predicate">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h3 ng-bind-html="resource.title | highlight:query"></h3>
+                        <p ng-bind-html="resource.notes | highlight:query"></p>
+                        <div class="tags" ng-if="resource.tags.length > 0">
+                            <span class="label label-default" ng-repeat="tag in resource.tags" ng-if="tag.display_name != resource.catalogue.tagToSearch" style="background-color: #{{ tag.id|limitTo:6 }};"  ng-bind-html="tag.display_name | highlight:query">
+                            </span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p class="source text-muted">Source: <span ng-bind-html="resource.catalogue.name | highlight:query"></span> <span class="pull-right">Last updated: <span ng-bind-html="resource.record_last_modified | highlight:query"></span></span></p>
-                        </div>
+                    <div class="col-md-2">
+                        <ul class="list-unstyled">
+                            <li><a href="http://sandbox1.data.gov.bc.ca/dataset/{{ resource.name }}" class="btn btn-primary btn-block">View on {{ resource.catalogue.acronym }}</a></li>
+                        </ul>
                     </div>
-                </li>
-                <li ng-if="resources.length == 0">
-                    No resources available.
-                </li>
-            </ul>
-        </div>
-
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="source text-muted">Source: <span ng-bind-html="resource.catalogue.name | highlight:query"></span> <span class="pull-right">Last updated: <span ng-bind-html="resource.record_last_modified | highlight:query"></span></span></p>
+                    </div>
+                </div>
+            </li>
+            <li ng-if="resources.length == 0">
+                No resources available.
+            </li>
+        </ul>
     </div>
 </div>
