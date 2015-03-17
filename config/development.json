@@ -24,6 +24,7 @@ See the License for the specific language governing permissions and limitations 
     "discoveryBanner": true,
     "linkedinLogin": true,
     "resourcesPage": true,
+    "projectsPage": true,
     "labLink": true,
     "labURL": "http://localhost:8000"
   },
