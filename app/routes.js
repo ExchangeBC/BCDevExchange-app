@@ -201,16 +201,17 @@ module.exports = function(app, config, logger, db, passport) {
             });
     });
 
-    app.get('/numbers', function(req, res) {
+    app.get('/numbers/accounts', function(req, res) {
+
         async.parallel([
             function(callback) {
-                db.countGitHubAccounts(callback)
+                db.countGitHubAccounts(callback);
             },
             function(callback) {
-                db.countLinkedInAccounts(callback)
+                db.countLinkedInAccounts(callback);
             },
             function(callback) {
-                db.countDualAccounts(callback)
+                db.countDualAccounts(callback);
             }
         ], function(err, results) {
             res.json(results);
