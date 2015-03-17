@@ -20,6 +20,7 @@ var app = angular.module('bcdevxApp', [
   'bcdevxApp.auth',
   'bcdevxApp.account',
   'bcdevxApp.resources',
+    'bcdevxApp.projects',
     'bcdevxApp.navigation',
     'angulartics',
     'angulartics.google.analytics',
@@ -67,6 +68,10 @@ var app = angular.module('bcdevxApp', [
             .when('/resources', {
                 templateUrl: 'resources/resources.html',
                 controller: 'ResourcesCtrl'
+            })
+            .when('/projects', {
+                templateUrl: 'projects/projects.html',
+                controller: 'ProjectsCtrl'
             })
             .otherwise({redirectTo: '/home'});
 
