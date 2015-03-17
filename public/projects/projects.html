@@ -22,7 +22,7 @@ See the License for the specific language governing permissions and limitations 
         <div class="col-md-12">
             <ul class="resources-list list-unstyled table-bordered">
                 <li class="resource" ng-repeat="project in projects">
-                    <div class="col-md-9">
+                    <div class="col-md-10">
                         <h3>{{ project.title }}</h3>
                         <p>{{ project.notes }}</p>
                         <div class="tags" ng-if="project.tags.length > 0">
@@ -32,9 +32,9 @@ See the License for the specific language governing permissions and limitations 
                         </div>
                         <p class="source text-muted">Source: {{ project.originName }}, Last updated: {{ project.record_last_modified }}</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <ul class="list-unstyled">
-                            <li><a href="{{ project.repoURL }}" class="btn btn-primary">GitHub Repo</a></li>
+                            <li><a href="{{ project.repoURL }}" class="btn btn-primary btn-block">GitHub Repo</a></li>
                         </ul>
                     </div>
                 </li>

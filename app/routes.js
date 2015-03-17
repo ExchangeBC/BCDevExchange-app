@@ -218,7 +218,15 @@ module.exports = function(app, config, logger, db, passport) {
         });
     });
 
-    app.get('/projects', function(req, res) {
+    app.get('/projects/:source?', function(req, res) {
+        if(req.params.length > 0) {
+            // Handle specific requests
+        }
+        else {
+            for(var source in config.projects) {
+                console.log(source);
+            }
+        }
 
         res.send({"projects": [
             {
@@ -260,7 +268,6 @@ module.exports = function(app, config, logger, db, passport) {
                 "repoURL": "https://github.com/Geocoder/Geocoder"
             }
         ]});
-
     });
 
     app.get('/resources', function(req, res) {
