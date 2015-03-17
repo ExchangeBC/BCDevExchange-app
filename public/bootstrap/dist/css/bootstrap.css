@@ -7876,11 +7876,13 @@ body
 {
     border-top-width: 1px;
     border-top-style: ridge;
-    background-color: yellow;
+    background-color: #399;
 }
 .navbar-title-displayBanner
 {
     font-size: 300%;
+
+    color: white;
 }
 @media (max-width: 992px)
 {
@@ -7894,6 +7896,12 @@ body
     font-size: 125%;
 
     padding-top: 5px;
+
+    color: white;
+}
+.navbar-text-displayBanner a
+{
+    color: white;
 }
 @media (max-width: 1200px)
 {
