@@ -54,16 +54,6 @@ See the License for the specific language governing permissions and limitations 
             </div>
         </div>
         <ul class="list-unstyled table-bordered">
-            <div id="pgloading">
-                <div class="loadingwrap">
-                    <ul class="bokeh">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
-                </div>
-            </div>
             <li class="resource" ng-repeat="resource in resources | filter:query | filter:{ catalogue: { short_name: selectedSource } }:hasMatchingSource | orderBy:predicate">
                 <div class="row">
                     <div class="col-md-10">
