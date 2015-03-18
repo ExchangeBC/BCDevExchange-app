@@ -29,7 +29,7 @@ See the License for the specific language governing permissions and limitations 
     </div>
 </div>
 
-<div class="container">
+<div class="container" ng-show="!config.explorationContent" ng-cloak>
     <div class="content text-left">
         <div class="row features-xl">
             <div class="col-md-4 text-center">
@@ -49,7 +49,41 @@ See the License for the specific language governing permissions and limitations 
     </div>
 </div>
 
-<div class="container">
+<div class="container" ng-show="config.explorationContent" ng-cloak>
+    <div class="content text-center">
+        <div class="row features-xl">
+            <div class="col-md-12">
+                <div>
+                    <h2>The Experiment</h2>
+                    <p class="lead">BCDevExchange is an experiment; an idea that needs to be proven. We will test, validate and refine the
+                        idea with tech entrepreneurs and early adopters in the public sector.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" ng-show="config.explorationContent" ng-cloak>
+    <div class="content text-left">
+        <div class="row features-xl">
+            <div class="col-md-4 text-center">
+                <i class="fa fa-lightbulb-o"></i>
+            </div>
+            <div class="col-md-8">
+                <h2>The Idea</h2>
+                <p>Create an ecosystem of innovation and collaboration between tech entrepreneurs and British Columbia's public sector.</p>
+                <p>How?</p>
+                <ul>
+                    <li>Share British Columbia's public sector code, APIs and data with tech entrepreneurs.</li>
+                    <li>Collaborate in new ways with tech entrepreneurs to develop public sector code, APIs and technology products and services.</li>
+                    <li>Build better digital services for the public sector and build business.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" ng-show="!config.explorationContent" ng-cloak>
     <div class="content text-center">
         <div class="row features-md">
             <div class="col-md-4">
@@ -73,8 +107,36 @@ See the License for the specific language governing permissions and limitations 
         </div>
     </div>
 </div>
+<div class="container" ng-show="config.explorationContent" ng-cloak>
+    <div class="content text-center">
+        <div class="row features-md">
+            <div class="col-md-4">
+                <i class="fa fa-flask"></i>
+                <h2>The Lab</h2>
+                <p>Guided by our principles of open development and collaboration, we've created a lab area to allow members of
+                    BCDevExchange to showcase and share their in-progress ideas and work (including BCDevExchange itself).</p>
+                <p>Sounds Good? We hope it is. <a href="#/signup">Sign Up</a> to access the lab now!</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fa fa-pencil-square-o"></i>
+                <h2>Sign Up</h2>
+                <p>Interested in seeing what's in our lab? Want to stay up to date with (or ahead of) project developments? Want to
+                collaborate directly with the dev team and help shape BCDevExchange?</p>
+                <p><a href="#/signup">Sign Up</a> with BCDevExchange with your existing Github account!</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fa fa-github-alt"></i>
+                <h2>Find Us on GitHub</h2>
+                <p><a href="https://github.com/BCDevExchange">BCDevExchange is on GitHub</a>, openly sharing the code and concepts that are driving this website.
+                Come fork a repo and share your ideas with us!</p>
+                <p>The <a href="https://github.com/bcgov">Province of British Columbia</a> has joined GitHub as well. Come check out their org page, and see
+                    what they are sharing.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="container">
+<div class="container" ng-show="!config.explorationContent" ng-cloak>
     <div class="content text-left">
         <div class="row features-xl">
             <div class="col-md-4 text-center">
@@ -122,6 +184,31 @@ See the License for the specific language governing permissions and limitations 
     </div>
 </div>
 
+<div class="container" ng-show="config.explorationContent" ng-cloak>
+    <div class="content text-center">
+        <div class="row features-md">
+            <div class="col-md-4">
+                <i class="fa fa-cubes"></i>
+                <h2>Resources</h2>
+                <p>Search for digital resources our members are already sharing with the BCDevExchange community.</p>
+                <p><a href="#/resources">Show me the resources!</a></p>
+            </div>
+            <div class="col-md-4">
+                <i class="fa fa-cogs"></i>
+                <h2>Projects</h2>
+                <p>Check out what's happening on our project page, find opportunities, and how you can contribute!</p>
+                <p><a href="#/projects">It's project time!</a></p>
+            </div>
+            <div class="col-md-4">
+                <i class="fa fa-users"></i>
+                <h2>People</h2>
+                <p>Find out who's already involved in BCDevExchange, and find help for your upcoming projects.</p>
+                <p><a href="#/people">Let's be social!</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container" id="get-involved">
     <div class="content text-left">
         <div class="row features-xl">
@@ -146,7 +233,7 @@ See the License for the specific language governing permissions and limitations 
     </div>
 </div>
 
-<div class="container">
+<div class="container" ng-show="!config.explorationContent" ng-cloak>
     <div class="content text-left">
         <div class="row features-xl">
             <div class="col-md-4 text-center">
@@ -169,6 +256,31 @@ See the License for the specific language governing permissions and limitations 
         </div>
     </div>
 </div>
+
+<div class="container" ng-show="config.explorationContent" ng-cloak>
+    <div class="content text-left">
+        <div class="row features-xl">
+            <div class="col-md-4 text-center">
+                <i class="fa fa-user-plus"></i>
+            </div>
+            <div class="col-md-8">
+                <h2>Become an Early Adopter</h2>
+                <p>The BCDevExchange experiment aims to make it easier for the public sector to innovate and to collaborate
+                    when developing digital products and services.</p>
+
+                <p>We've been working to clear the path for public sector organizations to get involved.
+                    Our <a href="#/guides">Guides and Templates</a> page can help you get started with things like: </p>
+                <ul>
+                    <li>Understanding GitHub Terms of Service</li>
+                    <li>Guidelines for Employee use of GitHub</li>
+                    <li>Open Source Licenses</li>
+                </ul>
+                <p>Check out what we've got, and <a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>email us</a> to find out more or to figure out other ways to get involved.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="footer-padded">
     <div class="container">
         <div class="row">

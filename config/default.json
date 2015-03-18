@@ -61,7 +61,8 @@ The local files are intended to not be tracked in your version control system. E
     "callbackURL": "http://bcdevexchange.org/auth/github/callback",
     "clientApplicationName": "BCDevExchange", // application name associated with the clientID in github settings
     "baseURL": "https://api.github.com",
-    "name": "github"
+    "name": "github",
+    "cacheMaxAge": "5" // Cache max-age in seconds
   },
   "linkedin": {
     "clientID": "overwrite_clientID",
@@ -91,14 +92,8 @@ The local files are intended to not be tracked in your version control system. E
     {
       "type": "github",
       "url": "search/repositories",
-      "file": "README.md",
-      "tag": "BCDevExchange"
-    },
-    {
-      "type": "github",
-      "url": "search/repositories",
-      "file": "README.md",
-      "tag": "BCDevExchange"
+      "file": "readme",
+      "tag": "BCDevExchange-Project"
     }
   ],
   "mongodb": {
@@ -114,6 +109,7 @@ The local files are intended to not be tracked in your version control system. E
       "projectsPage": false,
       "peoplePage": false,
       "labLink": false,
+      "explorationContent": false,
       "labURL": "http://lab.bcdevexchange.org"
   }
 }
