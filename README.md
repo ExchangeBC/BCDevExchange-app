@@ -79,4 +79,4 @@ Apache 2.0. See our [license](LICENSE) for more details.
 
 ----------
 ###### BCDevExchange Search Tags ######
-BCDevExchange-Project, BCDevExchange-Resource, BCDevExchange-Discovery
+BCDevExchange-Project, BCDevExchange-Resource, BCDevExchange-Discovery, BCDevExchangeProject
