@@ -48,6 +48,11 @@ The local files are intended to not be tracked in your version control system. E
 	  "serveStatic": false,
       "static": {
         "maxage": "1h"
+      },
+      "cookieOptions": {
+        "httpOnly": false,
+        "secure": false,
+        "domain": ".bcdevexchange.org"
       }
   },
   "github": {
