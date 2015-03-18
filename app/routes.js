@@ -220,52 +220,11 @@ module.exports = function(app, config, logger, db, passport) {
                 if (err) res.sendStatus(500);
                 else {
                     var body = {"projects": results};
+                    res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
                     res.send(body);
                 }
             });
         }
-/*
-        res.send({"projects": [
-            {
-                "title": "The BCDevExchange Project",
-                "notes": "The BCDevExchange website is the public facing site for the BC Developers' Exchange - an experiment in tech innovation and collaboration.",
-                "tags": [
-                    {
-                        "id": "11dd43",
-                        "display_name": "Delivery"
-                    },
-                    {
-                        "id": "88ae44",
-                        "display_name": "Discovery"
-                    },
-                    {
-                        "id": "44de23",
-                        "display_name": "Research"
-                    }
-                ],
-                "record_last_modified": "2015-03-12",
-                "originName": "GitHub",
-                "repoURL": "https://github.com/BCDevExchange/BCDevExchange-app"
-            },
-            {
-                "title": "Geocoder Enhancements",
-                "notes": "We've been exploring some new ideas to help enhance the Geocoder functionality. Come weigh in on the discussion, and let us know what features you'd like to see next. Opportunities for development contributions and collaboration.",
-                "tags": [
-                    {
-                        "id": "ff32dd",
-                        "display_name": "Research"
-                    },
-                    {
-                        "id": "c344ee",
-                        "display_name": "Rapid Adoption"
-                    }
-                ],
-                "record_last_modified": "2015-03-11",
-                "originName": "GitHub",
-                "repoURL": "https://github.com/Geocoder/Geocoder"
-            }
-        ]});
-*/
     });
 
     function getProjects(project, callback) {
@@ -277,19 +236,42 @@ module.exports = function(app, config, logger, db, passport) {
     }
 
     function getGitHubProject(ghConfig, callback) {
-        request('https://api.github.com/' + ghConfig.url + '?q=' + ghConfig.tag + "+in:" + ghConfig.file, function (error, response, body) {
+        options = {
+            url: 'https://api.github.com/' + ghConfig.url + '?q="' + ghConfig.tag + '"+in:' + ghConfig.file + "&client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+            headers: {
+                'User-Agent': config.github.clientApplicationName
+            }
+        };
+        request(options, function (error, response, body) {
             if (!error &&
                 typeof response !== 'undefined' &&
                 response.statusCode == 200) {
 
                 var json = JSON.parse(body);
-                callback(null, json);
+
+                // remove extraneous info from result
+                async.concat(json.items, parseGitHubResults, function (err, results) {
+                    callback(err, results);
+                });
             }
-            else if(error) {
+            else {
                 logger.error('Error while fetching GitHub content: %s; body: %s', error, body);
                 callback(error);
             }
         });
+    }
+
+    function parseGitHubResults(result, callback) {
+        var transformed = {
+            "name": result.name,
+            "description": result.description,
+            "url": result.html_url,
+            "homepage": result.homepage,
+            "backlog_url": result.html_url + '/issues',
+            "backlog_count": result.open_issues_count,
+            "updated_at": result.updated_at
+        };
+        callback(null, transformed);
     }
 
     app.get('/people', function(req, res) {
