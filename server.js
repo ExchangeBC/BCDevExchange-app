@@ -63,7 +63,6 @@ passport.use(new LinkedInStrategy({
 ));
 
 function passportStrategySetup(req, accessToken, refreshToken, extProfile, done) {
-    logger.info("logged in as " + extProfile.displayName + " from " + extProfile.provider);
 
     if (!req.user) {
         // not logged in
