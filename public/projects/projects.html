@@ -23,18 +23,14 @@ See the License for the specific language governing permissions and limitations 
             <ul class="resources-list list-unstyled table-bordered">
                 <li class="resource" ng-repeat="project in projects">
                     <div class="col-md-10">
-                        <h3>{{ project.title }}</h3>
-                        <p>{{ project.notes }}</p>
-                        <div class="tags" ng-if="project.tags.length > 0">
-                                <span class="label label-default" ng-repeat="tag in project.tags" ng-if="tag.display_name != 'BCDevExchange'" style="background-color: #{{ tag.id|limitTo:6 }};">
-                                    {{ tag.display_name }}
-                                </span>
-                        </div>
-                        <p class="source text-muted">Source: {{ project.originName }}, Last updated: {{ project.record_last_modified }}</p>
+                        <h3>{{ project.name }}</h3>
+                        <p>{{ project.description }}</p>
+                        <p class="source text-muted">Last updated: {{ project.updated_at | date: "MMMM dd, yyyy" }}</p>
                     </div>
                     <div class="col-md-2">
                         <ul class="list-unstyled">
-                            <li><a href="{{ project.repoURL }}" class="btn btn-primary btn-block">GitHub Repo</a></li>
+                            <li><a href="{{ project.url }}" class="btn btn-primary btn-block">View Project</a></li>
+                            <li><a href="{{ project.backlog_url }}" class="btn btn-default btn-block">View Backlog ({{ project.backlog_count }})</a></li>
                         </ul>
                     </div>
                 </li>
