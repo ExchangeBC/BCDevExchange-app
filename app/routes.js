@@ -31,15 +31,7 @@ function loginCallbackHandler(req, res, logger) {
         'loggedIn': true
     }));
 
-    var identifier = '';
-    for( var i = 0; i < req.user.identities.length; i++ ) {
-        if ( req.user.identities[i].origin === req.user.loggedInContext ) {
-            identifier = req.user.identities[i].identifier;
-            break;
-        }
-    }
-
-    res.redirect('/#/account?id=' + identifier);
+    res.redirect('/#/account?id=' + req.user.id);
 
 }
 
@@ -107,7 +99,7 @@ module.exports = function(app, config, logger, db, passport) {
 
     app.get('/account/:id', ensureAuthenticated, function(req, res) {
 
-        db.getAccountByIdentity(req.params.id, true,
+        db.getAccountById(req.params.id, true,
             function (err, account){
                 if (err) {
                     logger.error(err);
@@ -138,7 +130,7 @@ module.exports = function(app, config, logger, db, passport) {
 
                 var accessToken = "";
                 for( var i = 0; i < req.user.identities.length; i++ ) {
-                    if ( req.user.identities[i].identifier === req.params.id ) {
+                    if ( req.user.identities[i].origin === authContext ) {
                         accessToken = req.user.identities[i].accessToken;
                         break;
                     }

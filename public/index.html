@@ -55,6 +55,9 @@ See the License for the specific language governing permissions and limitations 
                 <li show-on-logged-out>
                     <a href="" ng-click="login()">Log In</a>
                 </li>
+                <li show-on-logged-in ng-cloak>
+                    <a href="#/account?id={{user.id}}">Hi {{user.displayName}}!</a>
+                </li>
                 <li show-on-logged-in>
                     <a href="" ng-click="logout()">Log Out</a>
                 </li>

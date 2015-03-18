@@ -20,21 +20,25 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.factory('Account', ['$resource', function($resource) {
+app.factory('AccountService', ['$resource', function($resource) {
     return $resource('/account/:id');
 }]);
 
-app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', 'Account', function($rootScope, $scope, $location, $window, Account) {
+app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', 'AccountService', function($rootScope, $scope, $location, $window, AccountService) {
 
     $scope.formLevelMessage = '';
     $scope.formError = false;
 
-    Account.get({id: $location.search().id}, function(data) {
+    AccountService.get({id: $location.search().id}, function(data) {
         $scope.account = data;
+        $rootScope.user = {
+            "displayName": data.profiles[0].name.value,
+            "id": data._id
+        };
     });
 
     $scope.update = function(account) {
-        Account.save({id: $location.search().id}, account, function() {
+        AccountService.save({id: $location.search().id}, account, function() {
             $scope.formLevelMessage = "Successfully updated account details.";
         },
         function() {

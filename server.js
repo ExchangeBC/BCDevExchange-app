@@ -134,7 +134,7 @@ function passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
                                     return done(err, null);
                                 }
 
-                                if (otherAcct) {
+                                if (otherAcct && otherAcct.id != updatedAcct.id) {
                                     // need to remove this account object
                                     var profiles = otherAcct.profiles;
                                     otherAcct.remove(function(err, removedAcct) {
