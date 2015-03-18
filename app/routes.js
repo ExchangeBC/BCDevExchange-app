@@ -223,21 +223,13 @@ module.exports = function(app, config, logger, db, passport) {
             // Handle specific requests
         }
         else {
-            for(var source in config.projects) {
-                switch(source) {
-                    case 'github':
-                        console.log('Getting projects from GitHub');
-                        console.log(config.projects[source]);
-                        async.concat(config.projects[source], getGitHubProjects, function (err, results) {
-                            if (err) res.sendStatus(500);
-                            else {
-                                var body = {"projects": results};
-                                res.send(body);
-                            }
-                        });
-                    break;
+            async.concat(config.projects, getProjects, function (err, results) {
+                if (err) res.sendStatus(500);
+                else {
+                    var body = {"projects": results};
+                    res.send(body);
                 }
-            }
+            });
         }
 /*
         res.send({"projects": [
@@ -283,24 +275,25 @@ module.exports = function(app, config, logger, db, passport) {
 */
     });
 
-    function getGitHubProjects(ghConfig, callback) {
-        console.log('https://api.github.com/' + ghConfig.url + '?q=' + ghConfig.tag + "+in:" + ghConfig.file);
+    function getProjects(project, callback) {
+
+        if(project.type == "github") {
+            getGitHubProject(project, callback);
+        }
+
+    }
+
+    function getGitHubProject(ghConfig, callback) {
         request('https://api.github.com/' + ghConfig.url + '?q=' + ghConfig.tag + "+in:" + ghConfig.file, function (error, response, body) {
             if (!error &&
                 typeof response !== 'undefined' &&
                 response.statusCode == 200) {
 
                 var json = JSON.parse(body);
-            console.log(json);
-
-                // remove extraneous info from result
-                async.concat(json.result.results, transformCKANResult, function (err, results) {
-                    copyCatalogue(catalogue, results);
-                    callback(err, results);
-                });
+                callback(null, json);
             }
             else if(error) {
-                logger.error('Error while fetching BCDC content: %s; body: %s', error, body);
+                logger.error('Error while fetching GitHub content: %s; body: %s', error, body);
                 callback(error);
             }
         });
