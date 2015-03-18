@@ -21,6 +21,7 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
     }])
 
     .factory('ResourceList', ['$resource', function($resource) {
+        $("#pgloading").hide();
         return $resource('/resources');
     }])
 
