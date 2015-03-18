@@ -75,6 +75,20 @@ The local files are intended to not be tracked in your version control system. E
       "tagToSearch": "BCDevExchange"
     }
   ],
+  "projects": [
+    {
+      "type": "github",
+      "url": "search/repositories",
+      "file": "README.md",
+      "tag": "BCDevExchange"
+    },
+    {
+      "type": "github",
+      "url": "search/repositories",
+      "file": "README.md",
+      "tag": "BCDevExchange"
+    }
+  ],
   "mongodb": {
     "connectionString": "mongodb://localhost/bcdevexchange",
     "sessionStoreUrl": "mongodb://localhost/session-store"
@@ -85,6 +99,8 @@ The local files are intended to not be tracked in your version control system. E
       "discoveryBanner": false,
       "linkedinLogin": false,
       "resourcesPage": false,
+      "projectsPage": false,
+      "peoplePage": false,
       "labLink": false,
       "labURL": "http://lab.bcdevexchange.org"
   }
