@@ -244,7 +244,7 @@ module.exports = function(app, config, logger, db, passport) {
 
     function getGitHubProject(ghConfig, callback) {
         options = {
-            url: 'https://api.github.com/' + ghConfig.url + '?q=' + ghConfig.tag + "+in:" + ghConfig.file + "&client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+            url: 'https://api.github.com/' + ghConfig.url + '?q="' + ghConfig.tag + '"+in:' + ghConfig.file + "&client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
             headers: {
                 'User-Agent': config.github.clientApplicationName
             }
