@@ -27,7 +27,7 @@ We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development,
 First time setup, you'll need a Linux server with:
 
 - [nginx](http://nginx.org/)
-- [NodeJS](http://nodejs.org/)
+- [NodeJS via N](https://github.com/tj/n) Use version 0.12.x
 - [MongoDB](http://www.mongodb.org/)
 
 ```
