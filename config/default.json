@@ -78,6 +78,13 @@ The local files are intended to not be tracked in your version control system. E
       "baseUrl": "http://sandbox1.data.gov.bc.ca/api/3",
       "baseViewUrl": "http://sandbox1.data.gov.bc.ca/dataset/",
       "tagToSearch": "BCDevExchange"
+    },
+    {
+      "name": "City of Surrey Catalogue",
+      "short_name": "Surrey",
+      "baseUrl": "http://data.surrey.ca/api/3",
+      "baseViewUrl": "http://data.surrey.ca/dataset/",
+      "tagToSearch": "BCDevExchange"
     }
   ],
   "projects": [
