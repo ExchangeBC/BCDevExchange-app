@@ -44,21 +44,21 @@ See the License for the specific language governing permissions and limitations 
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class='nav navbar-nav navbar-left'>
               <li ng-show="config.resourcesPage" ng-cloak><a href="#/resources">Resources</a></li>
-              <li show-on-logged-in ng-show="config.labLink">
+              <li show-on-logged-in ng-show="config.labLink" ng-cloak>
                 <a href="{{config.labURL}}">Lab</a>
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li show-on-logged-out>
+                <li show-on-logged-out ng-cloak>
                     <a href="#/signup">Sign Up</a>
                 </li>
-                <li show-on-logged-out>
+                <li show-on-logged-out ng-cloak>
                     <a href="" ng-click="login()">Log In</a>
                 </li>
                 <li show-on-logged-in ng-cloak>
                     <a href="#/account?id={{user.id}}">Hi {{user.displayName}}!</a>
                 </li>
-                <li show-on-logged-in>
+                <li show-on-logged-in ng-cloak>
                     <a href="" ng-click="logout()">Log Out</a>
                 </li>
             </ul>
