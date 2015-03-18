@@ -7876,11 +7876,13 @@ body
 {
     border-top-width: 1px;
     border-top-style: ridge;
-    background-color: yellow;
+    background-color: #399;
 }
 .navbar-title-displayBanner
 {
     font-size: 300%;
+
+    color: white;
 }
 @media (max-width: 992px)
 {
@@ -7894,6 +7896,12 @@ body
     font-size: 125%;
 
     padding-top: 5px;
+
+    color: white;
+}
+.navbar-text-displayBanner a
+{
+    color: white;
 }
 @media (max-width: 1200px)
 {
@@ -7918,7 +7926,7 @@ body
 {
     overflow: hidden;
 
-    padding: 20px 5px;
+    padding: 15px;
 }
 .resource-list .resource:nth-child(even)
 {
@@ -7945,6 +7953,14 @@ body
 .resource-list .resource .list-unstyled li
 {
     margin: 5px 0;
+}
+.resource-list form
+{
+    margin: 0 0 20px 0;
+}
+.ui-match
+{
+    background-color: yellow;
 }
 .clearfix:before,
 .clearfix:after,

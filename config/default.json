@@ -69,8 +69,9 @@ The local files are intended to not be tracked in your version control system. E
   "catalogues": [
     {
       "name": "BC Digital Resource Catalogue",
-      "acronym": "BCDRC",
+      "short_name": "BCDRC",
       "baseUrl": "http://sandbox1.data.gov.bc.ca/api/3",
+      "baseViewUrl": "http://sandbox1.data.gov.bc.ca/dataset/",
       "tagToSearch": "BCDevExchange"
     }
   ],

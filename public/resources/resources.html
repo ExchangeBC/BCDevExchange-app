@@ -12,36 +12,73 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 -->
 
-<div class="container">
-    <div class="row page-header">
-        <div class="col-lg-12">
-            <h2>BCDevExchange Digital Resources</h2>
+<div class="resource-list">
+    <div class="container">
+        <div class="row page-header">
+            <div class="col-lg-12">
+                <h2>BCDevExchange Digital Resources</h2>
+            </div>
         </div>
-    </div>
-    <div class="resource-list row">
-        <div class="col-md-12">
-            <ul class="resources-list list-unstyled table-bordered">
-                <li class="resource" ng-repeat="resource in resources">
-                        <div class="col-md-9">
-                            <h3>{{ resource.title }}</h3>
-                            <p>{{ resource.notes }}</p>
-                            <div class="tags" ng-if="resource.tags.length > 0">
-                                <span class="label label-default" ng-repeat="tag in resource.tags" ng-if="tag.display_name != 'BCDevExchange'" style="background-color: #{{ tag.id|limitTo:6 }};">
-                                    {{ tag.display_name }}
-                                </span>
+        <div class="row">
+            <div class="col-lg-12">
+                <form>
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <label class="sr-only" for="query_search">Search for keywords</label>
+                            <input type="text" placeholder="Search for keywords" class="form-control" id="query_search" ng-model="query" />
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <span ng-show="selectedSourceTitle == ''">Filter by source</span><span class="source-name" ng-bind="selectedSourceTitle"></span> <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu">
+                                <li ng-repeat="source in sources">
+                                    <a href="" ng-click="selectSource($event, source.short_name, source.name)">{{ source.name }}</a>
+                                </li>
+                              </ul>
                             </div>
-                            <p class="source text-muted">Source: {{ resource.catalogue.name }}, Last updated: {{ resource.record_last_modified }}</p>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <span ng-show="predicateTitle == ''">Sort by</span><span class="source-name" ng-bind="predicateTitle"></span> <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu">
+                                <li><a href="" ng-click="predicate = 'title'; predicateTitle = 'Title A-Z'">Title A-Z</a></li>
+                                <li><a href="" ng-click="predicate = '-title'; predicateTitle = 'Title Z-A'">Title Z-A</a></li>
+                                <li><a href="" ng-click="predicate = '-record_last_modified'; predicateTitle = 'Newest'">Newest</a></li>
+                                <li><a href="" ng-click="predicate = 'record_last_modified'; predicateTitle = 'Oldest'">Oldest</a></li>
+                              </ul>
+                            </div>
+                            <input type="reset" class="btn btn-default" value="Reset" ng-click="selectedSource = ''; selectedSourceTitle = ''; query = ''; predicate = ''; predicateTitle = '';" />
                         </div>
-                        <div class="col-md-3">
-                            <ul class="list-unstyled">
-                                <li><a href="http://sandbox1.data.gov.bc.ca/dataset/{{ resource.name }}" class="btn btn-primary">View on {{ resource.catalogue.acronym }}</a></li>
-                            </ul>
-                        </div>
-                </li>
-                <li ng-if="resources.length == 0">
-                    No resources available.
-                </li>
-            </ul>
+                    </div>
+                </form>
+            </div>
         </div>
+        <ul class="list-unstyled table-bordered">
+            <li class="resource" ng-repeat="resource in resources | filter:query | filter:{ catalogue: { short_name: selectedSource } }:hasMatchingSource | orderBy:predicate">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h3 ng-bind-html="resource.title | highlight:query"></h3>
+                        <p ng-bind-html="resource.notes | highlight:query"></p>
+                        <div class="tags" ng-if="resource.tags.length > 0">
+                            <span class="label label-default" ng-repeat="tag in resource.tags" ng-if="tag.display_name != resource.catalogue.tagToSearch" style="background-color: #{{ tag.id|limitTo:6 }};"  ng-bind-html="tag.display_name | highlight:query">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <ul class="list-unstyled">
+                            <li><a href="{{ resource.catalogue.baseViewUrl}}{{ resource.name }}" class="btn btn-primary btn-block">View on {{ resource.catalogue.short_name }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="source text-muted">Source: <span ng-bind-html="resource.catalogue.name | highlight:query"></span> <span class="pull-right">Last updated: <span ng-bind-html="resource.record_last_modified | highlight:query"></span></span></p>
+                    </div>
+                </div>
+            </li>
+            <li ng-if="resources.length == 0">
+                No resources available.
+            </li>
+        </ul>
     </div>
 </div>
