@@ -63,7 +63,6 @@ passport.use(new LinkedInStrategy({
 ));
 
 function passportStrategySetup(req, accessToken, refreshToken, extProfile, done) {
-    logger.info("logged in as " + extProfile.displayName + " from " + extProfile.provider);
 
     if (!req.user) {
         // not logged in
@@ -182,11 +181,14 @@ app.use(helmet());
 
 app.set('port', (config.http.port || 5000));
 
+app.set('trust proxy', 1) // trust first proxy
+
 app.use(session({
     secret: config.http.session.secret,
     resave: false,
     saveUninitialized: true,
-    store: new MongoStore({ url: config.mongodb.sessionStoreUrl })
+    store: new MongoStore({ url: config.mongodb.sessionStoreUrl }),
+    cookie: config.http.cookieOptions
 }));
 
 // initialize passport and use passport.session() to support persistent login sessions

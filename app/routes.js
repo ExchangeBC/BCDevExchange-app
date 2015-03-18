@@ -13,6 +13,7 @@
  */
 var async = require('async');
 var request = require('request');
+var config = require('config');
 
 // simple route middleware to ensure user is authenticated
 // use this route middleware on any resource that needs to be protected
@@ -29,7 +30,7 @@ function loginCallbackHandler(req, res, logger) {
 
     res.cookie('user', JSON.stringify({
         'loggedIn': true
-    }));
+    }), config.http.cookieOptions);
 
     var identifier = '';
     for( var i = 0; i < req.user.identities.length; i++ ) {
