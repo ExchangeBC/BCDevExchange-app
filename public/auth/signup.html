@@ -28,7 +28,7 @@ See the License for the specific language governing permissions and limitations 
                 <li>Connect with public sector digital resource owners, tech entrepreneurs and developers (coming soon).</li>
             </ul>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-8" ng-show="config.linkedinLogin" ng-cloak>
             <h3>Here's How!</h3>
             <p>You can sign up for the BCDevExchange experiment with either a <a href="https://github.com/">Github</a> account
                 or a <a href="https://www.linkedin.com/">LinkedIn</a> account.</p>
@@ -44,7 +44,7 @@ See the License for the specific language governing permissions and limitations 
                         <li>Make it easier for people to see what you've been doing in GitHub.</li>
                     </ul>
                 </div>
-                <div class="col-sm-6 col-xs-12" ng-show="config.linkedinLogin" ng-cloak>
+                <div class="col-sm-6 col-xs-12">
                     <p><a href="/auth/linkedin" class="btn btn-primary btn-lg btn-linkedin"><i class="fa fa-linkedin fa-lg"></i> | Sign up using <strong>LinkedIn</strong></a></p>
                     <p>Coming soon:</p>
                     <ul>
@@ -53,6 +53,10 @@ See the License for the specific language governing permissions and limitations 
                     </ul>
                 </div>
             </div>
+        </div>
+        <div class="col-lg-8 text-center" ng-show="!config.linkedinLogin" ng-cloak>
+            <br/><br/>
+            <p><a href="/auth/github" class="btn btn-primary btn-lg btn-github"><i class="fa fa-github fa-lg"></i> | Sign up using <strong>GitHub</strong></a></p>
         </div>
     </div>
 </div>
