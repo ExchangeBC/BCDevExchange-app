@@ -46,8 +46,8 @@ See the License for the specific language governing permissions and limitations 
               <li ng-show="config.resourcesPage" ng-cloak><a href="#/resources"  ng-cloak>Resources</a></li>
               <li ng-show="config.projectsPage" ng-cloak><a href="#/projects"  ng-cloak>Projects</a></li>
               <li ng-show="config.peoplePage" ng-cloak><a href="#/people"  ng-cloak>People</a></li>
-              <li show-on-logged-in ng-show="config.labLink" ng-cloak>
-                <a href="{{config.labURL}}" ng-cloak>Lab</a>
+              <li ng-show="config.labLink" ng-cloak>
+                <a href="#/lab" ng-cloak>Lab</a>
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -58,7 +58,7 @@ See the License for the specific language governing permissions and limitations 
                     <a href="" ng-click="login()" ng-cloak>Log In</a>
                 </li>
                 <li show-on-logged-in ng-cloak>
-                    <a href="#/account?id={{user.id}}" ng-cloak>Hi {{user.displayName}}!</a>
+                    <a href="#/account?id={{user.id}}" ng-cloak>{{user.displayName}}</a>
                 </li>
                 <li show-on-logged-in ng-cloak>
                     <a href="" ng-click="logout()" ng-cloak>Log Out</a>
@@ -104,6 +104,8 @@ See the License for the specific language governing permissions and limitations 
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="bower_components/angular-ui-utils/highlight.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="bower_components/moment/min/moment.min.js"></script>
+  <script src="bower_components/angular-moment/angular-moment.min.js"></script>
   <script src="bootstrap/dist/js/bootstrap.js"></script>
 
   <script src="bower_components/spin.js/spin.js"></script>
@@ -114,6 +116,7 @@ See the License for the specific language governing permissions and limitations 
   <script src="home/home.js"></script>
   <script src="auth/auth.js"></script>
   <script src="account/account.js"></script>
+  <script src="lab/lab.js"></script>
   <script src="resources/resources.js"></script>
   <script src="projects/projects.js"></script>
   <script src="people/people.js"></script>

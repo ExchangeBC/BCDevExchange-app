@@ -7718,6 +7718,15 @@ html
 {
     color: #fff;
 }
+.jumbotron-lab
+{
+    margin: 44px 0 0 0;
+
+    color: #fff;
+    border-top-width: 1px;
+    border-top-style: ridge;
+    background-color: #399;
+}
 .content
 {
     margin: 55px 0 21px;

@@ -412,9 +412,11 @@ module.exports = function(app, config, logger, db, passport) {
         for (var i = 0; i < results.length; i++) {
             results[i].catalogue = {"name": catalogue.name,
                 "short_name": catalogue.short_name,
-                "tagToSearch": catalogue.tagToSearch,
-                "url": catalogue.baseViewUrl + catalogue.name
+                "tagToSearch": catalogue.tagToSearch
             };
+            if (!results[i].url) {
+                results[i].url = catalogue.baseViewUrl + results[i].name
+            }
         }
     }
 
@@ -425,7 +427,7 @@ module.exports = function(app, config, logger, db, passport) {
             "name": result.name,
             "notes": result.notes,
             "tags": result.tags,
-            "record_last_modified": result.record_last_modified
+            "record_last_modified": result.revision_timestamp
         };
 
         // trim the tags

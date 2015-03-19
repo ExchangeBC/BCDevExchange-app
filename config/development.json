@@ -28,7 +28,7 @@ See the License for the specific language governing permissions and limitations 
     "headerImage": "header3-small.jpg",
     "headerImageLicenseHtml": "Fan Tan Alley photo by Nick Kenrick. Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/'>CC BY-NC-SA 2.0</a>)",
     "discoveryBanner": true,
-    "linkedinLogin": true,
+    "linkedinLogin": false,
     "resourcesPage": true,
     "projectsPage": true,
     "peoplePage": true,
@@ -46,5 +46,29 @@ See the License for the specific language governing permissions and limitations 
     "clientID": "75g4w5b338kf9h",
     "clientSecret": "",
     "callbackURL": "http://localhost:8000/auth/linkedin/callback"
-  }
+  },
+  "catalogues": [
+    {
+    "type": "GitHub",
+    "name": "GitHub",
+    "short_name": "GitHub",
+    "tagToSearch": "BCDevExchange-Resource"
+    },
+    {
+      "type": "CKANv3",
+      "name": "City of Surrey Catalogue",
+      "short_name": "Surrey",
+      "baseUrl": "http://data.surrey.ca/api/3",
+      "baseViewUrl": "http://data.surrey.ca/dataset/",
+      "tagToSearch": "BCDevExchange"
+    },
+    {
+    "type": "CKANv3",
+    "name": "BC Digital Resource Catalogue",
+    "short_name": "BCDRC",
+    "baseUrl": "http://sandbox1.data.gov.bc.ca/api/3",
+    "baseViewUrl": "http://sandbox1.data.gov.bc.ca/dataset/",
+    "tagToSearch": "BCDevExchange"
+    }
+    ]
 }
