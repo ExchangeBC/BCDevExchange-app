@@ -31,28 +31,19 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
     $scope.accountPromise = AccountService.get({id: $location.search().id}).$promise;
     $scope.accountExistsMap = new Map();
 
-    $scope.accountPromise.then(function(data) {
-        $scope.account = data;
-        $rootScope.user = {
-            "displayName": data.profiles[0].name.value,
-            "id": data._id
-        };
-    });
-
-
     $scope.update = function(account) {
         AccountService.save({id: $location.search().id}, account, function() {
             $scope.formLevelMessage = "Successfully updated account details.";
         },
         function() {
-            $scope.formLevelMessage = "Unable to update account details at this time. Please try again later."
+            $scope.formLevelMessage = "Unable to update account details at this time. Please try again later.";
             $scope.formError = true;
         });
     };
 
     $scope.identityExists = function(identifier) {
         return $scope.accountExistsMap.get(identifier);
-    }
+    };
     $scope.checkIdentityExists = function(identifier) {
         var exists = $scope.accountExistsMap.get(identifier);
 
@@ -68,7 +59,20 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
         }
     };
 
-    $scope.checkIdentityExists('github');
-    $scope.checkIdentityExists('linkedin');
+    $scope.init = function(){
+        $scope.accountPromise.then(function(data) {
+            $scope.account = data;
+            $rootScope.user = {
+                "displayName": data.profiles[0].name.value,
+                "id": data._id
+            };
+        });
+
+        $scope.checkIdentityExists('github');
+        $scope.checkIdentityExists('linkedin');
+    };
+
+    $scope.init();
+
 
 }]);
