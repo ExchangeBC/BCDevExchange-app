@@ -22,7 +22,7 @@ See the License for the specific language governing permissions and limitations 
         <div class="col-md-12">
             <ul class="resources-list list-unstyled table-bordered">
                 <li class="resource" ng-repeat="person in people">
-                    <div class="col-md-9">
+                    <div class="col-md-10">
                         <h3>{{ person.title }}</h3>
                         <p>{{ person.notes }}</p>
                         <div class="tags" ng-if="person.tags.length > 0">
@@ -32,10 +32,10 @@ See the License for the specific language governing permissions and limitations 
                         </div>
                         <p class="source text-muted">Source: {{ person.originName }}, Last updated:  <span am-time-ago="person.record_last_modified" ng-bind-html="person.record_last_modified | highlight:query"></span></p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <ul class="list-unstyled">
-                            <li><a href="{{ person.profileURL }}" class="btn btn-primary">View on LinkedIn</a></li>
-                            <li><a href="{{ person.repoURL }}" class="btn btn-primary">View on GitHub</a></li>
+                            <li><a href="{{ person.profileURL }}" class="btn btn-primary btn-block">View on LinkedIn</a></li>
+                            <li><a href="{{ person.repoURL }}" class="btn btn-primary btn-block">View on GitHub</a></li>
                         </ul>
                     </div>
                 </li>
