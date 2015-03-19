@@ -412,9 +412,11 @@ module.exports = function(app, config, logger, db, passport) {
         for (var i = 0; i < results.length; i++) {
             results[i].catalogue = {"name": catalogue.name,
                 "short_name": catalogue.short_name,
-                "tagToSearch": catalogue.tagToSearch,
-                "url": catalogue.baseViewUrl + catalogue.name
+                "tagToSearch": catalogue.tagToSearch
             };
+            if (!results[i].url) {
+                results[i].url = catalogue.baseViewUrl + results[i].name
+            }
         }
     }
 

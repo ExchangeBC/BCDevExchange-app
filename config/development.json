@@ -46,5 +46,21 @@ See the License for the specific language governing permissions and limitations 
     "clientID": "75g4w5b338kf9h",
     "clientSecret": "",
     "callbackURL": "http://localhost:8000/auth/linkedin/callback"
-  }
+  },
+  "catalogues": [
+    {
+    "type": "GitHub",
+    "name": "GitHub",
+    "short_name": "GitHub",
+    "tagToSearch": "BCDevExchange-Resource"
+    },
+    {
+    "type": "CKANv3",
+    "name": "BC Digital Resource Catalogue",
+    "short_name": "BCDRC",
+    "baseUrl": "http://sandbox1.data.gov.bc.ca/api/3",
+    "baseViewUrl": "http://sandbox1.data.gov.bc.ca/dataset/",
+    "tagToSearch": "BCDevExchange"
+    }
+    ]
 }
