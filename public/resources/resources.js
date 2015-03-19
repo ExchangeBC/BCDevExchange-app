@@ -29,18 +29,36 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
     }])
 
 
-    .controller('ResourcesCtrl', ['$rootScope', '$scope', '$location', '$window', 'ResourceList', 'SourceList', function($rootScope, $scope, $location, $window, ResourceList, SourceList) {
+    .controller('ResourcesCtrl', ['$rootScope', '$scope', '$location', '$window',
+                'usSpinnerService', 'ResourceList', 'SourceList',
+
+        function($rootScope, $scope, $location, $window, usSpinnerService, ResourceList, SourceList) {
 
         $scope.selectedSource = '';
         $scope.selectedSourceTitle = '';
         $scope.predicateTitle = '';
 
+        $scope.startSpin = function(){
+            console.log("Start the spinner.");
+            usSpinnerService.spin("spinner-1");
+        }
+        $scope.stopSpin = function(){
+            console.log("Stop the spinner.");
+            setTimeout(function(){
+                usSpinnerService.stop("spinner-1");
+            }, 100);
+        }
+
+        //$scope.stopSpin();
+
         ResourceList.get({}, function(data) {
             $scope.resources = data.resources;
+            $scope.stopSpin();
         });
 
         SourceList.get({}, function(data) {
             $scope.sources = data.sources;
+            $scope.stopSpin();
         });
 
         $scope.hasMatchingSource = function(actual, expected) {
@@ -54,4 +72,7 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
             $scope.selectedSource = newSource;
             $scope.selectedSourceTitle = newSourceTitle;
         }
+
+        $scope.startSpin();
+
     }]);

@@ -27,6 +27,7 @@ var app = angular.module('bcdevxApp', [
     'angulartics',
     'angulartics.google.analytics',
     'ui.bootstrap',
+    'angularSpinner',
     'angularMoment'
 ])
    .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
@@ -105,7 +106,10 @@ var app = angular.module('bcdevxApp', [
             }
         });
 
-}]).run(function($rootScope, $http) {
+}]).config(['usSpinnerConfigProvider', function(usSpinnerConfigProvider) {
+        usSpinnerConfigProvider.setDefaults({color: 'darkturquoise'});
+
+    }]).run(function($rootScope, $http) {
         // Add config to ALL scopes, only makes sense instead of passing in everywhere
         $http.get('/config').
             success(function(data, status, headers, config) {
@@ -114,6 +118,9 @@ var app = angular.module('bcdevxApp', [
 
 
 });
+
+
+
 
 app.controller('IndexCtrl', ['$anchorScroll', function($anchorScroll) {
 
