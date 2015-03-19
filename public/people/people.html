@@ -30,7 +30,7 @@ See the License for the specific language governing permissions and limitations 
                                     {{ tag.display_name }}
                                 </span>
                         </div>
-                        <p class="source text-muted">Source: {{ person.originName }}, Last updated: {{ person.record_last_modified }}</p>
+                        <p class="source text-muted">Source: {{ person.originName }}, Last updated:  <span am-time-ago="person.record_last_modified" ng-bind-html="person.record_last_modified | highlight:query"></span></p>
                     </div>
                     <div class="col-md-3">
                         <ul class="list-unstyled">

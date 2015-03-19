@@ -25,7 +25,7 @@ See the License for the specific language governing permissions and limitations 
                     <div class="col-md-10">
                         <h3>{{ project.name }}</h3>
                         <p>{{ project.description }}</p>
-                        <p class="source text-muted">Last updated: {{ project.updated_at | date: "MMMM dd, yyyy" }}</p>
+                        <p class="source text-muted">Last updated: <span am-time-ago="project.updated_at" ng-bind-html="resource.record_last_modified | highlight:query"></span></p>
                     </div>
                     <div class="col-md-2">
                         <ul class="list-unstyled">

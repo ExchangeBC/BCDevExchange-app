@@ -28,34 +28,51 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
 
     $scope.formLevelMessage = '';
     $scope.formError = false;
-
-    AccountService.get({id: $location.search().id}, function(data) {
-        $scope.account = data;
-        $rootScope.user = {
-            "displayName": data.profiles[0].name.value,
-            "id": data._id
-        };
-    });
+    $scope.accountPromise = AccountService.get({id: $location.search().id}).$promise;
+    $scope.accountExistsMap = new Map();
 
     $scope.update = function(account) {
         AccountService.save({id: $location.search().id}, account, function() {
             $scope.formLevelMessage = "Successfully updated account details.";
         },
         function() {
-            $scope.formLevelMessage = "Unable to update account details at this time. Please try again later."
+            $scope.formLevelMessage = "Unable to update account details at this time. Please try again later.";
             $scope.formError = true;
         });
     };
 
     $scope.identityExists = function(identifier) {
-        var exists = false;
-        for( var i = 0; i < $scope.account.identities.length; i++ ) {
-            if ( $scope.account.identities[i].origin === identifier ) {
-                exists = true;
-                break;
-            }
-        }
-        return exists;
+        return $scope.accountExistsMap.get(identifier);
     };
+    $scope.checkIdentityExists = function(identifier) {
+        var exists = $scope.accountExistsMap.get(identifier);
+
+        if(exists === undefined){
+            $scope.accountPromise.then(function(data){
+                for( var i = 0; i < data.identities.length; i++ ) {
+                    if ( data.identities[i].origin === identifier ) {
+                        $scope.accountExistsMap.set(identifier, true);
+                    }
+                }
+
+            });
+        }
+    };
+
+    $scope.init = function(){
+        $scope.accountPromise.then(function(data) {
+            $scope.account = data;
+            $rootScope.user = {
+                "displayName": data.profiles[0].name.value,
+                "id": data._id
+            };
+        });
+
+        $scope.checkIdentityExists('github');
+        $scope.checkIdentityExists('linkedin');
+    };
+
+    $scope.init();
+
 
 }]);
