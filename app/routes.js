@@ -346,25 +346,66 @@ module.exports = function(app, config, logger, db, passport) {
     });
 
     // Just gets items from CKAN v3 compatible APIs
+    // TODO: refactor later, must get this done quick!
     function getCatalogueItems (catalogue, callback) {
-        request(catalogue.baseUrl + '/action/package_search?q=tags:' + catalogue.tagToSearch, function (error, response, body) {
-            if (!error &&
-                typeof response !== 'undefined' &&
-                response.statusCode == 200) {
+        if (catalogue.type == "CKANv3") {
+            request(catalogue.baseUrl + '/action/package_search?q=tags:' + catalogue.tagToSearch, function (error, response, body) {
+                if (!error &&
+                    typeof response !== 'undefined' &&
+                    response.statusCode == 200) {
 
-                var json = JSON.parse(body);
+                    var json = JSON.parse(body);
 
-                // remove extraneous info from result
-                async.concat(json.result.results, transformCKANResult, function (err, results) {
-                    copyCatalogue(catalogue, results);
-                    callback(err, results);
-                });
-            }
-            else if(error) {
-                logger.error('Error while fetching %s content: %s; body: %s', catalogue.short_name, error, body);
-                callback(error);
-            }
-        });
+                    // remove extraneous info from result
+                    async.concat(json.result.results, transformCKANResult, function (err, results) {
+                        copyCatalogue(catalogue, results);
+                        callback(err, results);
+                    });
+                }
+                else if (error) {
+                    logger.error('Error while fetching %s content: %s; body: %s', catalogue.short_name, error, body);
+                    callback(error);
+                }
+            });
+        }
+        else if (catalogue.type == "GitHub") {
+            options = {
+                url: 'https://api.github.com/search/repositories?q="' + catalogue.tagToSearch + '"+in:readme&client_id=' + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+                headers: {
+                    'User-Agent': config.github.clientApplicationName
+                }
+            };
+            request(options, function (error, response, body) {
+                if (!error &&
+                    typeof response !== 'undefined' &&
+                    response.statusCode == 200) {
+
+                    var json = JSON.parse(body);
+
+                    // remove extraneous info from result
+                    async.concat(json.items, parseGitHubResourceResults, function (err, results) {
+                        copyCatalogue(catalogue, results);
+                        callback(err, results);
+                    });
+                }
+                else {
+                    logger.error('Error while fetching GitHub content: %s; body: %s', error, body);
+                    callback(error);
+                }
+            });
+        }
+    }
+
+    function parseGitHubResourceResults(result, callback) {
+        var transformed = {
+            "name": result.name,
+            "title": result.name,
+            "notes": result.description,
+            "tags": "",
+            "url": result.html_url,
+            "record_last_modified": result.updated_at
+        };
+        callback(null, transformed);
     }
 
     function copyCatalogue (catalogue, results) {
@@ -372,7 +413,7 @@ module.exports = function(app, config, logger, db, passport) {
             results[i].catalogue = {"name": catalogue.name,
                 "short_name": catalogue.short_name,
                 "tagToSearch": catalogue.tagToSearch,
-                "baseViewUrl": catalogue.baseViewUrl
+                "url": catalogue.baseViewUrl + catalogue.name
             };
         }
     }

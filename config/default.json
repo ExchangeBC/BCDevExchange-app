@@ -74,6 +74,7 @@ The local files are intended to not be tracked in your version control system. E
   },
   "catalogues": [
     {
+      "type": "CKANv3",
       "name": "BC Digital Resource Catalogue",
       "short_name": "BCDRC",
       "baseUrl": "http://sandbox1.data.gov.bc.ca/api/3",
@@ -81,11 +82,18 @@ The local files are intended to not be tracked in your version control system. E
       "tagToSearch": "BCDevExchange"
     },
     {
+      "type": "CKANv3",
       "name": "City of Surrey Catalogue",
       "short_name": "Surrey",
       "baseUrl": "http://data.surrey.ca/api/3",
       "baseViewUrl": "http://data.surrey.ca/dataset/",
       "tagToSearch": "BCDevExchange"
+    },
+    {
+      "type": "GitHub",
+      "name": "GitHub",
+      "short_name": "GitHub",
+      "tagToSearch": "BCDevExchange-Resource"
     }
   ],
   "projects": [
