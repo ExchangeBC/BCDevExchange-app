@@ -30,9 +30,9 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
 
 
     .controller('ResourcesCtrl', ['$rootScope', '$scope', '$location', '$window',
-                'usSpinnerService', 'ResourceList', 'SourceList',
+                'usSpinnerService', 'ResourceList', 'SourceList', '$q',
 
-        function($rootScope, $scope, $location, $window, usSpinnerService, ResourceList, SourceList) {
+        function($rootScope, $scope, $location, $window, usSpinnerService, ResourceList, SourceList, $q) {
 
         $scope.selectedSource = '';
         $scope.selectedSourceTitle = '';
@@ -46,19 +46,44 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
             console.log("Stop the spinner.");
             setTimeout(function(){
                 usSpinnerService.stop("spinner-1");
-            }, 100);
+            }, 10);
         }
 
-        //$scope.stopSpin();
+        $scope.startSpin();
+
+        var resourceListDeferred = $q.defer();
+        var resourcePromise = resourceListDeferred.promise;
+
+        var sourceListDeferred = $q.defer();
+        var sourcePromise = sourceListDeferred.promise;
+
+        resourcePromise.then(
+            function(value){
+                console.log("resolution value " + value);
+            }
+        );
+        sourcePromise.then(
+            function(value){
+                console.log("resolution value " + value);
+            }
+        );
+
+        $q.all([resourcePromise,sourcePromise]).then(
+            function(){
+                $scope.stopSpin();
+            }
+        );
 
         ResourceList.get({}, function(data) {
             $scope.resources = data.resources;
-            $scope.stopSpin();
+            resourceListDeferred.resolve("resource list resolved");
+            //$scope.stopSpin();
         });
 
         SourceList.get({}, function(data) {
             $scope.sources = data.sources;
-            $scope.stopSpin();
+            sourceListDeferred.resolve("source list resolved");
+            //$scope.stopSpin();
         });
 
         $scope.hasMatchingSource = function(actual, expected) {
@@ -73,6 +98,5 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
             $scope.selectedSourceTitle = newSourceTitle;
         }
 
-        $scope.startSpin();
 
     }]);
