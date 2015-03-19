@@ -15,17 +15,18 @@
 'use strict';
 // Declare app level module which depends on views, and components
 var app = angular.module('bcdevxApp', [
-  'ngRoute',
-  'bcdevxApp.home',
-  'bcdevxApp.auth',
-  'bcdevxApp.account',
-  'bcdevxApp.resources',
+    'ngRoute',
+    'bcdevxApp.home',
+    'bcdevxApp.auth',
+    'bcdevxApp.account',
+    'bcdevxApp.resources',
     'bcdevxApp.projects',
     'bcdevxApp.people',
     'bcdevxApp.navigation',
     'angulartics',
     'angulartics.google.analytics',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'angularMoment'
 ])
    .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
 

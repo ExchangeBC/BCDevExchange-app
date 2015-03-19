@@ -72,7 +72,7 @@ See the License for the specific language governing permissions and limitations 
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="source text-muted">Source: <span ng-bind-html="resource.catalogue.name | highlight:query"></span> <span class="pull-right">Last updated: <span ng-bind-html="resource.record_last_modified | highlight:query"></span></span></p>
+                        <p class="source text-muted">Source: <span ng-bind-html="resource.catalogue.name | highlight:query"></span> <span class="pull-right" ng-show="resource.record_last_modified">Last updated: <span am-time-ago="resource.record_last_modified" ng-bind-html="resource.record_last_modified | highlight:query"></span></span></p>
                     </div>
                 </div>
             </li>

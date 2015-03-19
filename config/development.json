@@ -55,6 +55,14 @@ See the License for the specific language governing permissions and limitations 
     "tagToSearch": "BCDevExchange-Resource"
     },
     {
+      "type": "CKANv3",
+      "name": "City of Surrey Catalogue",
+      "short_name": "Surrey",
+      "baseUrl": "http://data.surrey.ca/api/3",
+      "baseViewUrl": "http://data.surrey.ca/dataset/",
+      "tagToSearch": "BCDevExchange"
+    },
+    {
     "type": "CKANv3",
     "name": "BC Digital Resource Catalogue",
     "short_name": "BCDRC",
