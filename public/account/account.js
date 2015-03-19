@@ -28,14 +28,17 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
 
     $scope.formLevelMessage = '';
     $scope.formError = false;
+    $scope.accountPromise = AccountService.get({id: $location.search().id}).$promise;
+    $scope.accountExistsMap = new Map();
 
-    AccountService.get({id: $location.search().id}, function(data) {
+    $scope.accountPromise.then(function(data) {
         $scope.account = data;
         $rootScope.user = {
             "displayName": data.profiles[0].name.value,
             "id": data._id
         };
     });
+
 
     $scope.update = function(account) {
         AccountService.save({id: $location.search().id}, account, function() {
@@ -48,14 +51,24 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
     };
 
     $scope.identityExists = function(identifier) {
-        var exists = false;
-        for( var i = 0; i < $scope.account.identities.length; i++ ) {
-            if ( $scope.account.identities[i].origin === identifier ) {
-                exists = true;
-                break;
-            }
+        return $scope.accountExistsMap.get(identifier);
+    }
+    $scope.checkIdentityExists = function(identifier) {
+        var exists = $scope.accountExistsMap.get(identifier);
+
+        if(exists === undefined){
+            $scope.accountPromise.then(function(data){
+                for( var i = 0; i < data.identities.length; i++ ) {
+                    if ( data.identities[i].origin === identifier ) {
+                        $scope.accountExistsMap.set(identifier, true);
+                    }
+                }
+
+            });
         }
-        return exists;
     };
+
+    $scope.checkIdentityExists('github');
+    $scope.checkIdentityExists('linkedin');
 
 }]);
