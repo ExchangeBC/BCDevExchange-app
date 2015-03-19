@@ -58,7 +58,7 @@ The local files are intended to not be tracked in your version control system. E
   "github": {
     "clientID": "overwrite_clientID",
     "clientSecret": "overwrite_clientSecret",
-    "callbackURL": "http://bcdevexchange.org/auth/github/callback",
+    "callbackURL": "https://bcdevexchange.org/auth/github/callback",
     "clientApplicationName": "BCDevExchange", // application name associated with the clientID in github settings
     "baseURL": "https://api.github.com",
     "name": "github",
@@ -67,7 +67,7 @@ The local files are intended to not be tracked in your version control system. E
   "linkedin": {
     "clientID": "overwrite_clientID",
     "clientSecret": "overwrite_clientSecret",
-    "callbackURL": "http://bcdevexchange.org/auth/linkedin/callback",
+    "callbackURL": "https://bcdevexchange.org/auth/linkedin/callback",
     "clientApplicationName": "", // application name associated with the clientID in linkedin settings
     "baseURL": "https://api.linkedin.com/v1",
     "name": "linkedin"
@@ -118,6 +118,6 @@ The local files are intended to not be tracked in your version control system. E
       "peoplePage": false,
       "labLink": false,
       "explorationContent": false,
-      "labURL": "http://lab.bcdevexchange.org"
+      "labURL": "https://lab.bcdevexchange.org"
   }
 }
