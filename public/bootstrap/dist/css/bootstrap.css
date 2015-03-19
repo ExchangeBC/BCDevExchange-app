@@ -7767,6 +7767,33 @@ html
 {
     margin-top: 50px;
 }
+.site-footer
+{
+    font-size: 12px;
+
+    margin-top: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    color: #777;
+    border-top: 1px solid #eee;
+}
+.site-footer-items
+{
+    padding-left: 0;
+
+    list-style: none;
+}
+.site-footer-items li + li
+{
+    margin-left: 10px;
+}
+.site-footer-items li
+{
+    line-height: 16px;
+
+    display: inline-block;
+}
 .padded-icon
 {
     display: inline-block;
