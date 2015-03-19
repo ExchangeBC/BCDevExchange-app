@@ -28,7 +28,7 @@ See the License for the specific language governing permissions and limitations 
     "headerImage": "header3-small.jpg",
     "headerImageLicenseHtml": "Fan Tan Alley photo by Nick Kenrick. Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/'>CC BY-NC-SA 2.0</a>)",
     "discoveryBanner": true,
-    "linkedinLogin": true,
+    "linkedinLogin": false,
     "resourcesPage": true,
     "projectsPage": true,
     "peoplePage": true,
