@@ -34,7 +34,7 @@ See the License for the specific language governing permissions and limitations 
 <div class="navbar navbar-default navbar-fixed-top" ng-controller="NavCtrl">
     <div class="container">
         <div class="navbar-header">
-            <a href="#/home" class="navbar-brand">BCDevExchange</a>
+            <a href="#/home" class="navbar-brand" analytics-on>BCDevExchange</a>
             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -43,25 +43,25 @@ See the License for the specific language governing permissions and limitations 
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class='nav navbar-nav navbar-left'>
-              <li ng-show="config.resourcesPage" ng-cloak><a href="#/resources"  ng-cloak>Resources</a></li>
-              <li ng-show="config.projectsPage" ng-cloak><a href="#/projects"  ng-cloak>Projects</a></li>
-              <li ng-show="config.peoplePage" ng-cloak><a href="#/people"  ng-cloak>People</a></li>
-              <li ng-show="config.labLink" ng-cloak>
-                <a href="#/lab" ng-cloak>Labs</a>
+              <li ng-show="config.resourcesPage" ng-cloak><a href="#/resources"  ng-cloak analytics-on>Resources</a></li>
+              <li ng-show="config.projectsPage" ng-cloak><a href="#/projects"  ng-cloak analytics-on>Projects</a></li>
+              <li ng-show="config.peoplePage" ng-cloak><a href="#/people"  ng-cloak analytics-on>People</a></li>
+              <li ng-show="config.labLink" ng-cloak analytics-on>
+                <a href="#/lab" ng-cloak analytics-on>Labs</a>
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li show-on-logged-out ng-cloak>
-                    <a href="#/signup" ng-cloak>Sign Up</a>
+                    <a href="#/signup" ng-cloak analytics-on>Sign Up</a>
                 </li>
                 <li show-on-logged-out ng-cloak>
-                    <a href="" ng-click="login()" ng-cloak>Log In</a>
+                    <a href="" ng-click="login()" ng-cloak analytics-on>Log In</a>
                 </li>
                 <li show-on-logged-in ng-cloak>
-                    <a href="#/account?id={{user.id}}" ng-cloak>{{user.displayName}}</a>
+                    <a href="#/account?id={{user.id}}" ng-cloak analytics-on>{{user.displayName}}</a>
                 </li>
                 <li show-on-logged-in ng-cloak>
-                    <a href="" ng-click="logout()" ng-cloak>Log Out</a>
+                    <a href="" ng-click="logout()" ng-cloak analytics-on>Log Out</a>
                 </li>
             </ul>
         </div>
@@ -71,7 +71,7 @@ See the License for the specific language governing permissions and limitations 
 
 
   <!--[if lt IE 7]>
-  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" analytics-on>upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
   <div ng-view autoscroll="true"></div>
@@ -81,13 +81,13 @@ See the License for the specific language governing permissions and limitations 
       <div class="container">
           <div class="navbar-left navbar-title-displayBanner">
               Exploration <i class="fa fa-flask"></i> Lab
-              <a tabindex="0" class="pull-right btn btn-info visible-xs" role="button" data-placement="top" data-toggle="popover" data-trigger="focus" title="" data-content="Under design and construction.  May change or disappear without notice. And, it may have a of couple bugs or two. <a href='https://github.com/BCDevExchange/BCDevExchange-app/issues'>Provide us your feedback through <i class='fa fa-github'></i> GitHub!</a>"><i class="fa fa-question fa-lg"></i></a>
+              <a tabindex="0" class="pull-right btn btn-info visible-xs" role="button" data-placement="top" data-toggle="popover" data-trigger="focus" title="" data-content="Under design and construction.  May change or disappear without notice. And, it may have a of couple bugs or two. <a href='https://github.com/BCDevExchange/BCDevExchange-app/issues' analytics-on>Provide us your feedback through <i class='fa fa-github'></i> GitHub!</a>"><i class="fa fa-question fa-lg"></i></a>
           </div>
           <div class="navbar-right">
               <p class="navbar-text-displayBanner navbar-right hidden-xs">
                   Under design and construction.  May change or disappear without notice.<br>
                   And, it may have a of couple bugs or two.
-                  <strong><a href="https://github.com/BCDevExchange/BCDevExchange-app/issues">Provide us your feedback through <i class="fa fa-github"></i> GitHub!</a></strong>
+                  <strong><a href="https://github.com/BCDevExchange/BCDevExchange-app/issues" analytics-on>Provide us your feedback through <i class="fa fa-github"></i> GitHub!</a></strong>
               </p>
           </div>
       </div>
