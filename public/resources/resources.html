@@ -34,7 +34,7 @@ See the License for the specific language governing permissions and limitations 
                               </button>
                               <ul class="dropdown-menu" role="menu">
                                 <li ng-repeat="source in sources">
-                                    <a href="" ng-click="selectSource($event, source.short_name, source.name)">{{ source.name }}</a>
+                                    <a href="" ng-click="selectSource($event, source.short_name, source.name)" analytics-on>{{ source.name }}</a>
                                 </li>
                               </ul>
                             </div>
@@ -43,10 +43,10 @@ See the License for the specific language governing permissions and limitations 
                                 <span ng-show="predicateTitle == ''">Sort by</span><span class="source-name" ng-bind="predicateTitle"></span> <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" role="menu">
-                                <li><a href="" ng-click="predicate = 'title'; predicateTitle = 'Title A-Z'">Title A-Z</a></li>
-                                <li><a href="" ng-click="predicate = '-title'; predicateTitle = 'Title Z-A'">Title Z-A</a></li>
-                                <li><a href="" ng-click="predicate = '-record_last_modified'; predicateTitle = 'Newest'">Newest</a></li>
-                                <li><a href="" ng-click="predicate = 'record_last_modified'; predicateTitle = 'Oldest'">Oldest</a></li>
+                                <li><a href="" ng-click="predicate = 'title'; predicateTitle = 'Title A-Z'" analytics-on>Title A-Z</a></li>
+                                <li><a href="" ng-click="predicate = '-title'; predicateTitle = 'Title Z-A'" analytics-on>Title Z-A</a></li>
+                                <li><a href="" ng-click="predicate = '-record_last_modified'; predicateTitle = 'Newest'" analytics-on>Newest</a></li>
+                                <li><a href="" ng-click="predicate = 'record_last_modified'; predicateTitle = 'Oldest'" analytics-on>Oldest</a></li>
                               </ul>
                             </div>
                             <input type="reset" class="btn btn-default" value="Reset" ng-click="selectedSource = ''; selectedSourceTitle = ''; query = ''; predicate = ''; predicateTitle = '';" />
