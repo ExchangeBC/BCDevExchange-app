@@ -83,6 +83,31 @@ See the License for the specific language governing permissions and limitations 
     </div>
 </div>
 
+<div class="container" ng-show="config.explorationContent" ng-cloak>
+    <div class="content text-left">
+        <div class="row features-xl">
+            <div class="col-md-4 text-center">
+                <i class="fa fa-user-plus"></i>
+            </div>
+            <div class="col-md-8">
+                <h2>Become an Early Adopter</h2>
+                <p>The BCDevExchange experiment aims to make it easier for the public sector to innovate and to collaborate
+                    when developing digital products and services.</p>
+
+                <p>The project is in the early stages of providing options for public sector organizations to get involved, and are working on
+                    providing the following guides and templates:</p>
+                <ul>
+                    <li>Understanding GitHub Terms of Service</li>
+                    <li>Guidelines for Employee use of GitHub</li>
+                    <li>Open Source Licenses</li>
+                </ul>
+                <p><a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>Email us</a> to find out more
+                    or <a href="#/signup">sign up</a> and join our community.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container" ng-show="!config.explorationContent" ng-cloak>
     <div class="content text-center">
         <div class="row features-md">
@@ -110,23 +135,9 @@ See the License for the specific language governing permissions and limitations 
 <div class="container" ng-show="config.explorationContent" ng-cloak>
     <div class="content text-center">
         <div class="row features-md">
-            <div class="col-md-4">
-                <i class="fa fa-flask"></i>
-                <h2>The Lab</h2>
-                <p>Guided by our principles of open development and collaboration, we've created a lab area to allow members of
-                    BCDevExchange to showcase and share their in-progress ideas and work (including BCDevExchange itself).</p>
-                <p>Sounds Good? We hope it is. <a href="#/signup">Sign Up</a> to access the lab now!</p>
-            </div>
-            <div class="col-md-4">
-                <i class="fa fa-pencil-square-o"></i>
-                <h2>Sign Up</h2>
-                <p>Interested in seeing what's in our lab? Want to stay up to date with (or ahead of) project developments? Want to
-                collaborate directly with the dev team and help shape BCDevExchange?</p>
-                <p><a href="#/signup">Sign Up</a> with BCDevExchange with your existing Github account!</p>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-6 col-md-offset-3">
                 <i class="fa fa-github-alt"></i>
-                <h2>Find Us on GitHub</h2>
+                <h2>Now on GitHub</h2>
                 <p><a href="https://github.com/BCDevExchange">BCDevExchange is on GitHub</a>, openly sharing the code and concepts that are driving this website.
                 Come fork a repo and share your ideas with us!</p>
                 <p>The <a href="https://github.com/bcgov">Province of British Columbia</a> has joined GitHub as well. Come check out their org page, and see
@@ -185,25 +196,57 @@ See the License for the specific language governing permissions and limitations 
 </div>
 
 <div class="container" ng-show="config.explorationContent" ng-cloak>
-    <div class="content text-center">
+    <div class="content text-left">
         <div class="row features-md">
-            <div class="col-md-4">
+            <div class="col-md-4 text-center">
                 <i class="fa fa-cubes"></i>
+            </div>
+            <div class="col-md-8">
                 <h2>Resources</h2>
                 <p>Search for digital resources our members are already sharing with the BCDevExchange community.</p>
-                <p><a href="#/resources">Show me the resources!</a></p>
+                <ul>
+                    <li><a href="http://catalogue.data.gov.bc.ca/dataset/bc-laws-api">BCLaws API</a></li>
+                    <li><a href="https://github.com/bcgov/bcgroundwater">State of the Environment BC Groundwater R package</a></li>
+                    <li><a href="https://github.com/bcgov/groundwater_levels">State of the Environment BC Groundwater Levels R scripts</a></li>
+                    <li><a href="http://data.surrey.ca/dataset/service-requests">City of Surrey Service Requests</a></li>
+                </ul>
+                <p><a href="#/resources">Show me the resources</a></p>
             </div>
-            <div class="col-md-4">
+
+        </div>
+    </div>
+</div>
+
+<div class="container" ng-show="config.explorationContent" ng-cloak>
+    <div class="content text-left">
+        <div class="row features-xl">
+            <div class="col-md-4 text-center">
                 <i class="fa fa-cogs"></i>
+            </div>
+            <div class="col-md-8">
                 <h2>Projects</h2>
                 <p>Check out what's happening on our project page, find opportunities, and how you can contribute!</p>
-                <p><a href="#/projects">It's project time!</a></p>
+                <ul>
+                    <li><a href="https://github.com/BCDevExchange/BCDevExchange-app">The BCDevExchange Experiment</a></li>
+                    <li><a href="https://github.com/BCDevExchange/BCLaws-API-Management">BCLaws API Management</a></li>
+                    <li><a href="https://github.com/BCDevExchange/Community-Tools">BCDevExchange Community Tools</a></li>
+                </ul>
+                <p><a href="#/projects">Search for projects</a></p>
             </div>
-            <div class="col-md-4">
-                <i class="fa fa-users"></i>
-                <h2>People</h2>
-                <p>Find out who's already involved in BCDevExchange, and find help for your upcoming projects.</p>
-                <p><a href="#/people">Let's be social!</a></p>
+
+        </div>
+    </div>
+</div>
+
+<div class="container" ng-show="config.explorationContent" ng-cloak>
+    <div class="content text-center">
+        <div class="row features-md">
+            <div class="col-md-6 col-md-offset-3">
+                <i class="fa fa-flask"></i>
+                <h2>The Lab</h2>
+                <p>Guided by our principles of open development and collaboration, we've created a lab area to allow members of
+                    BCDevExchange to showcase and share their in-progress ideas and work (including BCDevExchange itself).</p>
+                <p>Sounds good? We hope so. Come visit the <a href="{{config.labURL}}">lab</a> and see what we're up to.</p>
             </div>
         </div>
     </div>
@@ -257,29 +300,7 @@ See the License for the specific language governing permissions and limitations 
     </div>
 </div>
 
-<div class="container" ng-show="config.explorationContent" ng-cloak>
-    <div class="content text-left">
-        <div class="row features-xl">
-            <div class="col-md-4 text-center">
-                <i class="fa fa-user-plus"></i>
-            </div>
-            <div class="col-md-8">
-                <h2>Become an Early Adopter</h2>
-                <p>The BCDevExchange experiment aims to make it easier for the public sector to innovate and to collaborate
-                    when developing digital products and services.</p>
 
-                <p>We've been working to clear the path for public sector organizations to get involved.
-                    Our <a href="#/guides">Guides and Templates</a> page can help you get started with things like: </p>
-                <ul>
-                    <li>Understanding GitHub Terms of Service</li>
-                    <li>Guidelines for Employee use of GitHub</li>
-                    <li>Open Source Licenses</li>
-                </ul>
-                <p>Check out what we've got, and <a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>email us</a> to find out more or to figure out other ways to get involved.</p>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="footer-padded">
     <div class="container">
