@@ -36,6 +36,77 @@ function loginCallbackHandler(req, res, logger) {
 
 }
 
+function populateAccount(req, res, id, db, config, logger) {
+    db.getAccountById(id, true,
+        function (err, account){
+            if (err) {
+                logger.error(err);
+                res.sendStatus(500);
+            }
+
+            var options = {};
+            var authContext = req.user.loggedInContext;
+            if (authContext == config.github.name) {
+                options = {
+                    url: config.github.baseURL + '/user',
+                    headers: {
+                        'User-Agent': config.github.clientApplicationName
+                    }
+                };
+            } else if (authContext == config.linkedin.name) {
+                baseURL = config.linkedin.baseURL;
+                appName = config.linkedin.clientApplicationName;
+
+                options = {
+                    url: config.linkedin.baseURL + '/people/~:(id,formatted-name)',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-li-format': 'json'
+                    }
+                };
+            }
+
+            var accessToken = "";
+            for( var i = 0; i < req.user.identities.length; i++ ) {
+                if ( req.user.identities[i].origin === authContext ) {
+                    accessToken = req.user.identities[i].accessToken;
+                    break;
+                }
+            }
+
+            request(options, function (error, response, body) {
+                if (!error &&
+                    typeof response !== 'undefined' &&
+                    response.statusCode == 200) {
+
+                    var json = JSON.parse(body);
+
+                    // fill in details that aren't stored on our side
+                    if (authContext == config.github.name) {
+                        account.profiles[0].name = {
+                            identityOrigin: authContext,
+                            attributeName: 'name',
+                            value: json.name
+                        };
+                    } else if (authContext == config.linkedin.name) {
+                        account.profiles[0].name = {
+                            identityOrigin: authContext,
+                            attributeName: 'name',
+                            value: json.formattedName
+                        };
+                    }
+
+                    res.send(account);
+                }
+                else if(error) {
+                    logger.error('Error while fetching user info', error, body);
+                    res.sendStatus(500);
+                }
+            }).auth(null, null, true, accessToken);
+
+        });
+}
+
 module.exports = function(app, config, logger, db, passport) {
 
     // ===== Low level conf for client side ======
@@ -99,75 +170,11 @@ module.exports = function(app, config, logger, db, passport) {
     // ===== account page routing ======
 
     app.get('/account/:id', ensureAuthenticated, function(req, res) {
+        populateAccount(req, res, req.params.id, db, config, logger);
+    });
 
-        db.getAccountById(req.params.id, true,
-            function (err, account){
-                if (err) {
-                    logger.error(err);
-                    res.sendStatus(500);
-                }
-
-                var options = {};
-                var authContext = req.user.loggedInContext;
-                if (authContext == config.github.name) {
-                    options = {
-                        url: config.github.baseURL + '/user',
-                        headers: {
-                            'User-Agent': config.github.clientApplicationName
-                        }
-                    };
-                } else if (authContext == config.linkedin.name) {
-                    baseURL = config.linkedin.baseURL;
-                    appName = config.linkedin.clientApplicationName;
-
-                    options = {
-                        url: config.linkedin.baseURL + '/people/~:(id,formatted-name)',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'x-li-format': 'json'
-                        }
-                    };
-                }
-
-                var accessToken = "";
-                for( var i = 0; i < req.user.identities.length; i++ ) {
-                    if ( req.user.identities[i].origin === authContext ) {
-                        accessToken = req.user.identities[i].accessToken;
-                        break;
-                    }
-                }
-
-                request(options, function (error, response, body) {
-                    if (!error &&
-                        typeof response !== 'undefined' &&
-                        response.statusCode == 200) {
-
-                        var json = JSON.parse(body);
-
-                        // fill in details that aren't stored on our side
-                        if (authContext == config.github.name) {
-                            account.profiles[0].name = {
-                                identityOrigin: authContext,
-                                attributeName: 'name',
-                                value: json.name
-                            };
-                        } else if (authContext == config.linkedin.name) {
-                            account.profiles[0].name = {
-                                identityOrigin: authContext,
-                                attributeName: 'name',
-                                value: json.formattedName
-                            };
-                        }
-
-                        res.send(account);
-                    }
-                    else if(error) {
-                        logger.error('Error while fetching user info', error, body);
-                        res.sendStatus(500);
-                    }
-                }).auth(null, null, true, accessToken);
-
-            });
+    app.get('/account', ensureAuthenticated, function(req, res) {
+        populateAccount(req, res, req.user._id, db, config, logger);
     });
 
     app.post('/account/:id', ensureAuthenticated, function(req, res) {
