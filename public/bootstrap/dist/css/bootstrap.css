@@ -7988,6 +7988,10 @@ body
 {
     margin: 0 0 20px 0;
 }
+.form-group input
+{
+    margin: 5px 0;
+}
 .ui-match
 {
     background-color: yellow;
