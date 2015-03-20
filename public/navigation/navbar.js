@@ -34,11 +34,14 @@ angular.module('bcdevxApp.navigation', [])
         restrict: 'A',
         link: function(scope, element, attrs) {
             var prevDisp = element.css('display');
+
             $rootScope.$watch('user', function(user) {
-                if(!AuthService.isAuthenticated())
+                if(!AuthService.isAuthenticated()){
                     element.css('display', 'none');
-                else
-                    element.css('display', prevDisp);
+                }else{
+                    $rootScope.user.displayName = "fetching ...";
+                    element.css('display', 'inline');
+                }
             });
         }
     };
