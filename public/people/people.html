@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and limitations 
 <div class="container">
     <div class="row page-header">
         <div class="col-lg-12">
-            <h2>BCDevExchange People</h2>
+            <h2>People</h2>
         </div>
     </div>
     <div class="resource-list row">
@@ -30,13 +30,20 @@ See the License for the specific language governing permissions and limitations 
                                     {{ tag.display_name }}
                                 </span>
                         </div>
-                        <p class="source text-muted">Source: {{ person.originName }}, Last updated:  <span am-time-ago="person.record_last_modified" ng-bind-html="person.record_last_modified | highlight:query"></span></p>
                     </div>
                     <div class="col-md-2">
                         <ul class="list-unstyled">
                             <li><a href="{{ person.profileURL }}" class="btn btn-primary btn-block" analytics-on>View on LinkedIn</a></li>
                             <li><a href="{{ person.repoURL }}" class="btn btn-primary btn-block" analytics-on>View on GitHub</a></li>
                         </ul>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="source text-muted">Source: {{ person.originName }}</p>
+                        </div>
+                        <div class="col-md-6 text-right-not-xs">
+                            <p class="source text-muted">Last updated:  <span am-time-ago="person.record_last_modified" ng-bind-html="person.record_last_modified | highlight:query"></span></p>
+                        </div>
                     </div>
                 </li>
                 <li ng-if="people.length == 0">
