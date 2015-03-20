@@ -262,7 +262,7 @@ module.exports = function(app, config, logger, db, passport) {
                 });
             }
             else {
-                logger.error('Error while fetching GitHub content: %s; body: %s', error, body);
+                logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
                 callback(error);
             }
         });
@@ -396,7 +396,7 @@ module.exports = function(app, config, logger, db, passport) {
                     });
                 }
                 else {
-                    logger.error('Error while fetching GitHub content: %s; body: %s', error, body);
+                    logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
                     callback(error);
                 }
             });
