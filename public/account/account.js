@@ -21,14 +21,33 @@ app.config(['$routeProvider', function($routeProvider) {
 }]);
 
 app.factory('AccountService', ['$resource', function($resource) {
-    return $resource('/account/:id');
+    var accountService = this;
+
+    var currentUser = {
+        loggedIn:true
+    };
+
+    accountService.getCurrentUser = function(){
+        var actPromise = $resource('/account').get().$promise;
+        actPromise.then(function(data){
+            currentUser.displayName = data.profiles[0].name.value;
+            currentUser.id = data._id;
+            currentUser.isLoggedIn = true;
+        });
+        return currentUser;
+    }
+
+    accountService.getHandle = function(){
+        return $resource('/account/:id');
+    }
+    return accountService;
 }]);
 
 app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', 'AccountService', function($rootScope, $scope, $location, $window, AccountService) {
 
     $scope.formLevelMessage = '';
     $scope.formError = false;
-    $scope.accountPromise = AccountService.get({id: $location.search().id}).$promise;
+    $scope.accountPromise = AccountService.getHandle().get({id: $location.search().id}).$promise;
     $scope.accountExistsMap = new Map();
 
     $scope.update = function(account) {
@@ -62,10 +81,9 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
     $scope.init = function(){
         $scope.accountPromise.then(function(data) {
             $scope.account = data;
-            $rootScope.user = {
-                "displayName": data.profiles[0].name.value,
-                "id": data._id
-            };
+
+            $rootScope.user.displayName = data.profiles[0].name.value;
+            $rootScope.id = data._id;
         });
 
         $scope.checkIdentityExists('github');
