@@ -388,6 +388,7 @@ module.exports = function(app, config, logger, db, passport) {
                     response.statusCode == 200) {
 
                     var json = JSON.parse(body);
+                    res.resume();
 
                     // remove extraneous info from result
                     async.concat(json.items, parseGitHubResourceResults, function (err, results) {
