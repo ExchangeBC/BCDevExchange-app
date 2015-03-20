@@ -20,7 +20,8 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.factory( 'AuthService', ['$http', '$cookieStore', '$location', '$rootScope', function($http, $cookieStore, $location, $rootScope) {
+app.factory( 'AuthService', ['$http', '$cookieStore', '$location', '$rootScope', 'AccountService',
+    function($http, $cookieStore, $location, $rootScope, AccountService) {
 
     $rootScope.user = $cookieStore.get('user') || null;
 
@@ -43,7 +44,14 @@ app.factory( 'AuthService', ['$http', '$cookieStore', '$location', '$rootScope',
             });
         },
         isAuthenticated: function() {
-            return !!$rootScope.user;
+            if($rootScope.user && $rootScope.user.loggedIn){
+                if(!$rootScope.user.displayName){
+                    $rootScope.user = AccountService.getCurrentUser();
+                }
+                return true;
+            }else{
+                return false;
+            }
         }
     };
 

@@ -39,17 +39,11 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
         $scope.predicateTitle = '';
 
         $scope.startSpin = function(){
-            console.log("Start the spinner.");
             usSpinnerService.spin("spinner-1");
         }
         $scope.stopSpin = function(){
-            console.log("Stop the spinner.");
-            setTimeout(function(){
-                usSpinnerService.stop("spinner-1");
-            }, 10);
+            usSpinnerService.stop("spinner-1");
         }
-
-        $scope.startSpin();
 
         var resourceListDeferred = $q.defer();
         var resourcePromise = resourceListDeferred.promise;
@@ -59,12 +53,12 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
 
         resourcePromise.then(
             function(value){
-                console.log("resolution value " + value);
+                console.log("resolution value: " + value);
             }
         );
         sourcePromise.then(
             function(value){
-                console.log("resolution value " + value);
+                console.log("resolution value: " + value);
             }
         );
 
@@ -76,14 +70,12 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
 
         ResourceList.get({}, function(data) {
             $scope.resources = data.resources;
-            resourceListDeferred.resolve("resource list resolved");
-            //$scope.stopSpin();
+            resourceListDeferred.resolve("resource list length: " + data.resources.length);
         });
 
         SourceList.get({}, function(data) {
             $scope.sources = data.sources;
-            sourceListDeferred.resolve("source list resolved");
-            //$scope.stopSpin();
+            sourceListDeferred.resolve("source list length: " + data.sources.length);
         });
 
         $scope.hasMatchingSource = function(actual, expected) {

@@ -127,10 +127,7 @@ var app = angular.module('bcdevxApp', [
 
 
 
-app.controller('IndexCtrl', ['$anchorScroll', function($anchorScroll) {
 
-
-}]);
 
 // Init all popovers
 $(function () {
