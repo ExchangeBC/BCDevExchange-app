@@ -29,7 +29,7 @@ First time setup, you'll need a Linux server with:
 - [nginx](http://nginx.org/)
 - [NodeJS via N](https://github.com/tj/n) Use version 0.12.x
 - [MongoDB](http://www.mongodb.org/)
-
+- [BIND9 as a local DNS cache](https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-caching-or-forwarding-dns-server-on-ubuntu-14-04)
 ```
 git clone --branch <master or discovery> git://github.com/BCDevExchange/BCDevExchange-app.git
 cd BCDevExchange
