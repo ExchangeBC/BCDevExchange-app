@@ -7775,6 +7775,7 @@ html
 }
 .site-footer-items
 {
+    margin-top: 10px;
     padding-left: 0;
 
     list-style: none;
