@@ -7976,6 +7976,8 @@ body
 {
     font-weight: 700;
 
+    display: inline-block;
+
     margin-right: 5px;
 
     color: #fff;
