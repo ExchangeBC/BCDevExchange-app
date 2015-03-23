@@ -31,7 +31,7 @@ See the License for the specific language governing permissions and limitations 
     "linkedinLogin": false,
     "resourcesPage": true,
     "projectsPage": true,
-    "peoplePage": true,
+    "peoplePage": false,
     "labLink": true,
     "explorationContent": true,
     "labURL": "http://localhost:8000"
