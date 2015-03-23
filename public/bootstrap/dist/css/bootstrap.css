@@ -7994,6 +7994,10 @@ body
 {
     margin: 5px 0;
 }
+[role='button']
+{
+    cursor: pointer;
+}
 .ui-match
 {
     background-color: yellow;
