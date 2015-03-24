@@ -35,11 +35,12 @@ app.factory('AccountService', ['$resource', function($resource) {
             currentUser.isLoggedIn = true;
         });
         return currentUser;
-    }
+    };
 
     accountService.getHandle = function(){
         return $resource('/account/:id');
-    }
+    };
+
     return accountService;
 }]);
 
@@ -51,7 +52,7 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
     $scope.accountExistsMap = new Map();
 
     $scope.update = function(account) {
-        AccountService.save({id: $location.search().id}, account, function() {
+        AccountService.getHandle().save({id: $location.search().id}, account, function() {
             $scope.formLevelMessage = "Successfully updated account details.";
         },
         function() {
