@@ -22,12 +22,12 @@ See the License for the specific language governing permissions and limitations 
         <div class="col-md-12">
             <ul class="resources-list list-unstyled table-bordered">
                 <li class="resource" ng-repeat="project in projects">
-                    <div class="col-md-10">
+                    <div class="col-md-9 col-lg-10">
                         <h3>{{ project.name }}</h3>
                         <p>{{ project.description }}</p>
                         <p class="source text-muted">Last updated: <span am-time-ago="project.updated_at" ng-bind-html="resource.record_last_modified | highlight:query"></span></p>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3 col-lg-2">
                         <ul class="list-unstyled">
                             <li><a href="{{ project.url }}" class="btn btn-primary btn-block" analytics-on>View Project</a></li>
                             <li><a href="{{ project.backlog_url }}" class="btn btn-default btn-block" analytics-on>View Backlog ({{ project.backlog_count }})</a></li>
