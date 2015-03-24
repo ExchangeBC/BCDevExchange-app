@@ -55,6 +55,11 @@ See the License for the specific language governing permissions and limitations 
                 </form>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><span ng-bind-html="alert.msg"></span></alert>
+            </div>
+        </div>
         <ul class="list-unstyled table-bordered">
             <li class="resource" ng-repeat="resource in resources | filter:query | filter:{ catalogue: { short_name: selectedSource } }:hasMatchingSource | orderBy:predicate">
                 <div class="row">

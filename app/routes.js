@@ -342,8 +342,26 @@ module.exports = function(app, config, logger, db, passport) {
 
     });
 
-    app.get('/resources', function(req, res) {
-        async.concat(config.catalogues, getCatalogueItems, function (err, results) {
+    app.get('/resources/:source?', function(req, res) {
+        var resourceList = [];
+
+        // Only get resources from a source type or specific source
+        // e.g. /resources/ckanv3 returns ALL ckanv3 resources,
+        //      /resources/bcdrc returns just the BCDRC resource
+        if(req.params.source) {
+            var source = req.params.source;
+            for(var i in config.catalogues) {
+                var resource = config.catalogues[i];
+                if(source == resource.type.toLowerCase() || source == resource.short_name.toLowerCase()) {
+                    resourceList.push(resource);
+                }
+            }
+        } else {
+            // Let's just grab 'em all
+            resourceList = config.catalogues;
+        }
+
+        async.concat(resourceList, getCatalogueItems, function (err, results) {
             if (err) res.sendStatus(500);
             else {
                 var body = {"resources": results};
