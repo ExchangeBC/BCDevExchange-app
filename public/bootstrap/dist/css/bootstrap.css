@@ -7694,7 +7694,7 @@ html
 }
 .splash
 {
-    min-height: 568px;
+    min-height: 700px;
     padding: 2.5em 0 2em;
 
     text-align: left;
@@ -7722,7 +7722,7 @@ html
 {
     .splash
     {
-        background-position: 75% top;
+        background-position: 62% 0;
     }
 }
 .jumbotron-lab
