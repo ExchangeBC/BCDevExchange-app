@@ -21,7 +21,6 @@ See the License for the specific language governing permissions and limitations 
         </div>
         <div class="row">
 
-            <span us-spinner="{radius:30, width:6, length: 18}" spinner-key="spinner-1" spinner-start-active="true"></span>
             <div class="col-lg-12">
                 <form>
                     <div class="form-inline">
@@ -30,6 +29,8 @@ See the License for the specific language governing permissions and limitations 
                             <input type="text" placeholder="Search for keywords" class="form-control" id="query_search" ng-model="query" />
                             <div class="btn-group">
                               <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <span us-spinner="{radius:6, width:3, length: 7, lines:10, color: 'floralwhite'}" spinner-key="spinner-sources" spinner-start-active="true"></span>
+
                                 <span ng-show="selectedSourceTitle == ''">Filter by source</span><span class="source-name" ng-bind="selectedSourceTitle"></span> <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" role="menu">
@@ -56,6 +57,8 @@ See the License for the specific language governing permissions and limitations 
             </div>
         </div>
         <ul class="list-unstyled table-bordered">
+            <span us-spinner="{radius:30, width:6, length: 18}" spinner-key="spinner-resources" spinner-start-active="true"></span>
+
             <li class="resource" ng-repeat="resource in resources | filter:query | filter:{ catalogue: { short_name: selectedSource } }:hasMatchingSource | orderBy:predicate">
                 <div class="row">
                     <div class="col-md-10">

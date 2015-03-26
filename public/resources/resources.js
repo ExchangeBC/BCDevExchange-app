@@ -38,13 +38,6 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
         $scope.selectedSourceTitle = '';
         $scope.predicateTitle = '';
 
-        $scope.startSpin = function(){
-            usSpinnerService.spin("spinner-1");
-        }
-        $scope.stopSpin = function(){
-            usSpinnerService.stop("spinner-1");
-        }
-
         var resourceListDeferred = $q.defer();
         var resourcePromise = resourceListDeferred.promise;
 
@@ -53,20 +46,20 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
 
         resourcePromise.then(
             function(value){
-                console.log("resolution value: " + value);
+                usSpinnerService.stop("spinner-resources")
             }
         );
         sourcePromise.then(
             function(value){
-                console.log("resolution value: " + value);
+                usSpinnerService.stop("spinner-sources")
             }
         );
 
-        $q.all([resourcePromise,sourcePromise]).then(
-            function(){
-                $scope.stopSpin();
-            }
-        );
+        //$q.all([resourcePromise,sourcePromise]).then(
+        //    function(){
+        //        $scope.stopSpin();
+        //    }
+        //);
 
         ResourceList.get({}, function(data) {
             $scope.resources = data.resources;

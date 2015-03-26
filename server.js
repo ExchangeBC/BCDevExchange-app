@@ -11,7 +11,6 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and limitations under the License.
  */
-
 var express = require('express');
 var helmet = require('helmet');
 var session = require('express-session');
@@ -26,6 +25,9 @@ var async = require('async');
 
 // set up db connection
 var db = require('./app/models/db');
+
+
+console.log('NODE_ENV: ' + config.util.getEnv('NODE_ENV'));
 
 // Passport session setup
 passport.serializeUser(function(user, done) {

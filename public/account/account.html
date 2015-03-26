@@ -22,7 +22,27 @@ See the License for the specific language governing permissions and limitations 
     <div class="content">
         <div class="row">
             <div class="col-xs-12">
-                <p>{{formLevelMessage}}</p>
+
+                <div ng-if="resultOfSaving.success">
+                    <p>
+                        Your account details have been successfully updated.
+                    </p>
+                </div>
+                <div ng-if="resultOfSaving.error">
+                    <p>
+                        Unable to update account details at this time. Please try again later.
+                    </p>
+                </div>
+                <!--
+                <div ng-messages = "resultOfSaving">
+                    <div ng-message ="success">
+                        Successfully updated account details.
+                    </div>
+                    <div ng-message ="error">
+                        Unable to update account details at this time. Please try again later.
+                    </div>
+                </div>
+                -->
             </div>
         </div>
         <form novalidate ng-submit="update(account)">

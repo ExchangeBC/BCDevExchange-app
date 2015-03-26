@@ -113,7 +113,7 @@ The local files are intended to not be tracked in your version control system. E
       "headerImageLicenseHtml": "Vancouver skyline photo by Kimon Berlin. Used under license (<a href='https://creativecommons.org/licenses/by-sa/2.0/' analytics-on=''>CC BY-SA 2.0</a>)",
       "discoveryBanner": false,
       "linkedinLogin": false,
-      "resourcesPage": true,
+      "resourcescallbackURLage": true,
       "projectsPage": true,
       "peoplePage": false,
       "labLink": true,

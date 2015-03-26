@@ -18,6 +18,7 @@ var app = angular.module('bcdevxApp', [
     'ngRoute',
     'bcdevxApp.home',
     'bcdevxApp.auth',
+    'bcdevxApp.services',
     'bcdevxApp.account',
     'bcdevxApp.resources',
     'bcdevxApp.projects',
@@ -29,7 +30,8 @@ var app = angular.module('bcdevxApp', [
     'angulartics.google.analytics',
     'ui.bootstrap',
     'angularSpinner',
-    'angularMoment'
+    'angularMoment',
+    'ngMessages'
 ])
    .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
 
