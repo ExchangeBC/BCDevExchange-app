@@ -75,7 +75,6 @@ Dynamic resource serving (NodeJS + MongoDB): TODO
 
 ## License
 
-Apache 2.0. See our [license](LICENSE) for more details.
 
 ```
      Copyright 2015 Province of British Columbia
