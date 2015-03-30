@@ -120,9 +120,9 @@ module.exports = function(app, config, logger, db, passport) {
 
     // GET /auth/github
     // use passport.authenticate() as route middleware to authenticate the request
-    app.get('/auth/github',
-        passport.authenticate('github'),
+    app.get('/auth/github', passport.authenticate('github'),
         function(req, res) {
+            console.log("response from github: " + res);
             //the request will be redirected to github for auth, so this function will not be called
         });
 

@@ -60,20 +60,20 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
 
         resourcePromise.then(
             function(value){
-                console.log("resolution value: " + value);
+                usSpinnerService.stop("spinner-resources")
             }
         );
         sourcePromise.then(
             function(value){
-                console.log("resolution value: " + value);
+                usSpinnerService.stop("spinner-sources")
             }
         );
 
-        $q.all([resourcePromise,sourcePromise]).then(
-            function(){
-                $scope.stopSpin();
-            }
-        );
+        //$q.all([resourcePromise,sourcePromise]).then(
+        //    function(){
+        //        $scope.stopSpin();
+        //    }
+        //);
 
         SourceList.get({}, function(data) {
             $scope.sources = data.sources;

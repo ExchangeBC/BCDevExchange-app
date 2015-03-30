@@ -14,50 +14,29 @@
 
 'use strict';
 
-var app = angular.module('bcdevxApp.account', ['ngRoute', 'ngResource']);
+var app = angular.module('bcdevxApp.account', ['ngRoute', 'ngResource', 'ngMessages']);
 
-app.config(['$routeProvider', function($routeProvider) {
 
-}]);
-
-app.factory('AccountService', ['$resource', function($resource) {
-    var accountService = this;
-
-    var currentUser = {
-        loggedIn:true
-    };
-
-    accountService.getCurrentUser = function(){
-        var actPromise = $resource('/account').get().$promise;
-        actPromise.then(function(data){
-            currentUser.displayName = data.profiles[0].name.value;
-            currentUser.id = data._id;
-            currentUser.isLoggedIn = true;
-        });
-        return currentUser;
-    }
-
-    accountService.getHandle = function(){
-        return $resource('/account/:id');
-    }
-    return accountService;
-}]);
-
-app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', 'AccountService', function($rootScope, $scope, $location, $window, AccountService) {
+app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', 'AccountService',
+    function($rootScope, $scope, $location, $window, AccountService) {
 
     $scope.formLevelMessage = '';
     $scope.formError = false;
-    $scope.accountPromise = AccountService.getHandle().get({id: $location.search().id}).$promise;
     $scope.accountExistsMap = new Map();
+    $scope.resultOfSaving = {success:false, error:false};
+    $scope.notifs = {};
 
     $scope.update = function(account) {
-        AccountService.save({id: $location.search().id}, account, function() {
-            $scope.formLevelMessage = "Successfully updated account details.";
-        },
-        function() {
-            $scope.formLevelMessage = "Unable to update account details at this time. Please try again later.";
-            $scope.formError = true;
-        });
+        AccountService.save($location.search().id, account).then(
+            function() {
+                console.log("successfully saved account.");
+                $scope.resultOfSaving = {success:"true", error:"false"};
+            },
+            function() {
+                console.log("Error in saving account.");
+                $scope.resultOfSaving = {success:"false", error:"true"};
+            }
+        );
     };
 
     $scope.identityExists = function(identifier) {
@@ -67,19 +46,25 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
         var exists = $scope.accountExistsMap.get(identifier);
 
         if(exists === undefined){
-            $scope.accountPromise.then(function(data){
-                for( var i = 0; i < data.identities.length; i++ ) {
-                    if ( data.identities[i].origin === identifier ) {
-                        $scope.accountExistsMap.set(identifier, true);
+            AccountService.getAccountById($location.search().id)
+                .then(
+                    function(data){
+                        for( var i = 0; i < data.identities.length; i++ ) {
+                            if ( data.identities[i].origin === identifier ) {
+                                $scope.accountExistsMap.set(identifier, true);
+                            }
+                        }
+                    },
+                    function(reason){
+                        $scope.notifs.push(reason);
                     }
-                }
-
-            });
+                );
         }
     };
 
     $scope.init = function(){
-        $scope.accountPromise.then(function(data) {
+        AccountService.getAccountById($location.search().id)
+            .then(function(data) {
             $scope.account = data;
 
             $rootScope.user.displayName = data.profiles[0].name.value;

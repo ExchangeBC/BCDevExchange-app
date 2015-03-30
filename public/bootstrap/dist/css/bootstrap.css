@@ -7694,16 +7694,16 @@ html
 }
 .splash
 {
-    min-height: 550px;
+    min-height: 700px;
     padding: 2.5em 0 2em;
 
     text-align: left;
 
-    color: #fff;
+    color: #000;
     background-color: #222;
   /*background-attachment: fixed;*/
     background-repeat: no-repeat;
-    background-position: top center;
+    background-position: center top;
     background-size: cover;
 }
 .splash h1
@@ -7716,7 +7716,14 @@ html
 }
 .splash .lead
 {
-    color: #fff;
+    color: #234;
+}
+@media (max-width: 480px)
+{
+    .splash
+    {
+        background-position: 62% 0;
+    }
 }
 .jumbotron-lab
 {
@@ -7775,6 +7782,7 @@ html
 }
 .site-footer-items
 {
+    margin-top: 10px;
     padding-left: 0;
 
     list-style: none;

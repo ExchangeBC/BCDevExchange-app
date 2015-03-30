@@ -25,10 +25,10 @@ html {
   background-size: cover;
   /*background-attachment: fixed;*/   //enable this if you want the image to stay fixed while page scrolls
   background-repeat: no-repeat;
-  background-position: top center;
+  background-position: center top;
   color: @splash-color;
   text-align: left;
-  min-height: @splash-min-height;
+  min-height: 700px;
 
   h1 {
     font-size: @splash-h1-font-size;
@@ -37,10 +37,17 @@ html {
   }
 
   .lead {
-    color: #FFFFFF;
+    color: #223344;
   }
 
 }
+
+@media(max-width:@screen-xs-min){
+  .splash {
+    background-position: 62% 0%;
+  }
+}
+
 
 // lab banner ================
 
@@ -102,6 +109,7 @@ html {
 .site-footer-items {
   list-style: none;
   padding-left: 0px;
+  margin-top: 10px;
 }
 
 .site-footer-items li+li {

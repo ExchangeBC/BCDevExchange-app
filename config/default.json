@@ -109,11 +109,11 @@ The local files are intended to not be tracked in your version control system. E
     "sessionStoreUrl": "mongodb://localhost/session-store"
   },
   "ui": {
-      "headerImage": "header2-small.jpg",
-      "headerImageLicenseHtml": "Vancouver skyline photo by Kimon Berlin. Used under license (<a href='https://creativecommons.org/licenses/by-sa/2.0/' analytics-on=''>CC BY-SA 2.0</a>)",
+      "headerImage": "header4.jpg",
+      "headerImageLicenseHtml": "Prospect Point Lighthouse and Lion's Gate Bridge photo by <a href='https://www.flickr.com/photos/colink/' analytics-on>colink</a>. Used under license (<a href='https://creativecommons.org/licenses/by-sa/2.0/' analytics-on>CC BY-SA 2.0</a>)",
       "discoveryBanner": false,
       "linkedinLogin": false,
-      "resourcesPage": true,
+      "resourcescallbackURLage": true,
       "projectsPage": true,
       "peoplePage": false,
       "labLink": true,
