@@ -7960,11 +7960,19 @@ body
 {
     display: none !important;
 }
+.resource-list
+{
+    overflow: hidden;
+}
 .resource-list .resource
 {
     overflow: hidden;
 
     padding: 15px;
+
+    -webkit-transition: .15s;
+       -moz-transition: .15s;
+            transition: .15s;
 }
 .resource-list .resource:nth-child(even)
 {
@@ -7993,6 +8001,22 @@ body
 .resource-list .resource .list-unstyled li
 {
     margin: 5px 0;
+}
+.resource-list .resource.ng-enter
+{
+    transform: translateX(-100%);
+}
+.resource-list .resource.ng-leave
+{
+    transform: translateX(0);
+}
+.resource-list .resource.ng-enter.ng-enter-active
+{
+    transform: translateX(0);
+}
+.resource-list .resource.ng-leave.ng-leave-active
+{
+    transform: translateX(-100%);
 }
 .resource-list form
 {

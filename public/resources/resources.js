@@ -42,6 +42,12 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
         // Array of resources
         $scope.resources = [];
 
+        // Array of sources
+        $scope.sources = [];
+
+        // Array of loaded sources
+        $scope.loadedSources = [];
+
         // Array of alerts
         $scope.alerts = [];
 
@@ -69,12 +75,6 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
             }
         );
 
-        //$q.all([resourcePromise,sourcePromise]).then(
-        //    function(){
-        //        $scope.stopSpin();
-        //    }
-        //);
-
         SourceList.get({}, function(data) {
             $scope.sources = data.sources;
             for(var i in data.sources) {
@@ -82,8 +82,9 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
                 var sourceData = $resource('/resources/:source', {}, { timeout: 10 });
                 sourceData.get({ source: source.short_name.toLowerCase() }, function(data) {
                     for(var j in data.resources) {
-                        $scope.resources.push(data.resources[j]);
+                        $scope.resources.unshift(data.resources[j]);
                     }
+                    $scope.loadedSources.push(source);
                     resourceListDeferred.resolve("resource list length: " + data.resources.length);
                 }, function(error) {
                     $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + error.config.url + '</strong>.' });

@@ -21,6 +21,7 @@
     "angular-spinner": ">=0.6.1",
     "moment": "~2.9.0",
     "angular-moment": "~0.9.2",
-    "angular-messages": ">1.0.0"
+    "angular-messages": ">1.0.0",
+    "angular-animate": "~1.2.6"
   }
 }

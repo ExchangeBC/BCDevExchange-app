@@ -31,7 +31,8 @@ var app = angular.module('bcdevxApp', [
     'ui.bootstrap',
     'angularSpinner',
     'angularMoment',
-    'ngMessages'
+    'ngMessages',
+    'ngAnimate'
 ])
    .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
 
