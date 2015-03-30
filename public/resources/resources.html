@@ -97,11 +97,15 @@ See the License for the specific language governing permissions and limitations 
                     </div>
                 </div>
             </li>
-            <li ng-if="resources.length == 0">
-                No resources available.
+            <li ng-if="resources.length == 0" class="empty">
+                <div class="col-md-12">
+                    <p>No resources available.</p>
+                </div>
             </li>
-            <li ng-show="filtered.length == 0">
-                No results for "{{ query}}".
+            <li ng-show="filtered.length == 0 && query" class="empty">
+                <div class="col-md-12">
+                    No results for "{{ query }}".
+                </div>
             </li>
         </ul>
     </div>
