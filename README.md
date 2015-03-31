@@ -34,23 +34,23 @@ First time setup, you'll need a Linux server with:
 ```
 git clone --branch <master or discovery> git://github.com/BCDevExchange/BCDevExchange-app.git
 cd BCDevExchange
-npm install
+npm install --production
 chmod +x foreverme.sh
 ```
 You'll want to create a local configuration file in config called:
 
 `./config/local.json`
 
-Starting the NodeJS server in forever mode on bootup:
+Starting the NodeJS server in forever mode on bootup the rc.local way:
 
 ```
-crontab -u <user that runs nodejs> -e
+sudo -e /etc/rc.local
 ```
 
-then add:
+then add to the bottom:
 
 ```
-@reboot bash <path to app root>/forever.sh
+sudo -u bitnami /bin/bash /home/bitnami/apps/lab/BCDevExchange-app/foreverme.sh
 ```
 
 Stdout, stderr and forever logs are here:
