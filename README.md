@@ -71,7 +71,7 @@ We've benchmarked performance for this site as it was running on a Microsoft Azu
 
 Static file serving (all Ngnix): [4000 req/sec](http://loader.io/reports/7940cbcd4747e7eb202861f55e277839/results/90215bf18a137874d9fbc7cf9ca272ea)
 
-Dynamic resource serving (NodeJS + MongoDB): TODO
+Dynamic resource serving (Nginx + NodeJS): [100 req/sec < 500ms](http://ldr.io/19D41CW)
 
 ## License
 
