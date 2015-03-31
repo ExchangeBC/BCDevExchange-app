@@ -69,7 +69,7 @@ Updating deployment:
 
 ```
 git pull
-npm install
+npm install --production
 forever restart <pid>
 ```
 Use the forever commands to list, stop, restart the service.
