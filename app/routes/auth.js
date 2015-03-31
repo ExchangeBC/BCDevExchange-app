@@ -13,6 +13,7 @@
  */
 var config = require('config');
 var logger = require('../../common/logging.js');
+var request = require('request');
 
 module.exports = function(app, db, passport) {
 
