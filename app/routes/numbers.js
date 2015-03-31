@@ -49,21 +49,21 @@ module.exports = function(app, db, passport) {
 
         }
         else {
-            async.parallel([
-                function (callback) {
+            async.parallel({
+                githubAccounts: function (callback) {
                     db.countGitHubAccounts(callback);
                 },
 
-                function (callback) {
+                resources: function (callback) {
                     resources.getResourcesFromArray(config.catalogues, function (result) {
-                        callback(null, {"resources": result.length});
+                        callback(null, result.length);
                     }, function (error) {
                         callback(error, null);
                     });
                 },
-                function (callback) {
+                projects: function (callback) {
                     projects.getProjectsFromArray(config.projects, function (result) {
-                        callback(null, {"projects": result.length});
+                        callback(null, result.length);
                     }, function (error) {
                         callback(error, null);
                     });
@@ -74,8 +74,7 @@ module.exports = function(app, db, passport) {
                  function(callback) {
                  db.countDualAccounts(callback);
                  }*/
-            ], function (err, results) {
-                console.log(results);
+            }, function (err, results) {
                 res.send(results);
             });
         }
