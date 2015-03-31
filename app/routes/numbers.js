@@ -13,20 +13,24 @@
  */
 var async = require('async');
 var request = require('request');
+var config = require('config');
+var logger = require('../../common/logging.js');
+var projects = require('./projects');
+var resources = require('./resources');
 
-module.exports = function(app, config, logger, db, passport) {
+module.exports = function(app, db, passport) {
     app.get('/numbers/:source?', function (req, res) {
 
         if (req.params.source) {
             if (req.params.source == 'resources') {
-                getResourcesFromArray(config.catalogues, function (result) {
+                resources.getResourcesFromArray(config.catalogues, function (result) {
                     res.send({"resources": result.length});
                 }, function (error) {
                     res.status(500);
                 });
             }
             else if (req.params.source == 'projects') {
-                getProjectsFromArray(config.projects, function (result) {
+                projects.getProjectsFromArray(config.projects, function (result) {
                     res.send({"projects": result.length});
                 }, function (error) {
                     res.status(500);
@@ -51,14 +55,14 @@ module.exports = function(app, config, logger, db, passport) {
                 },
 
                 function (callback) {
-                    getResourcesFromArray(config.catalogues, function (result) {
+                    resources.getResourcesFromArray(config.catalogues, function (result) {
                         callback(null, {"resources": result.length});
                     }, function (error) {
                         callback(error, null);
                     });
                 },
                 function (callback) {
-                    getProjectsFromArray(config.projects, function (result) {
+                    projects.getProjectsFromArray(config.projects, function (result) {
                         callback(null, {"projects": result.length});
                     }, function (error) {
                         callback(error, null);

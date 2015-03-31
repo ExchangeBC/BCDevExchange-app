@@ -11,9 +11,10 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and limitations under the License.
  */
+var config = require('config');
+var logger = require('../../common/logging.js');
 
-
-module.exports = function(app, config, logger, db, passport) {
+module.exports = function(app, db, passport) {
 
 
 // simple route middleware to ensure user is authenticated

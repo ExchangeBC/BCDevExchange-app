@@ -13,8 +13,10 @@
  */
 var async = require('async');
 var request = require('request');
+var config = require('config');
+var logger = require('../../common/logging.js');
 
-module.exports = function(app, config, logger, db, passport) {
+module.exports = function(app, db, passport) {
     app.get('/people', function(req, res) {
 
         res.send({"people": [
