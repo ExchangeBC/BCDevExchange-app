@@ -26,6 +26,7 @@ var app = angular.module('bcdevxApp', [
     'bcdevxApp.navigation',
     'bcdevxApp.lab',
     'bcdevxApp.disclaimer',
+    'bcdevxApp.numbers',
     'angulartics',
     'angulartics.google.analytics',
     'ui.bootstrap',
@@ -92,6 +93,10 @@ var app = angular.module('bcdevxApp', [
             .when('/disclaimer', {
                 templateUrl: 'disclaimer/disclaimer.html',
                 controller: 'DisclaimerCtrl'
+            })
+            .when('/numbers', {
+                templateUrl: 'numbers/numbers.html',
+                controller: 'NumbersCtrl'
             })
             .otherwise({redirectTo: '/home'});
 

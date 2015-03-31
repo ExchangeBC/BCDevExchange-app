@@ -201,21 +201,66 @@ module.exports = function(app, config, logger, db, passport) {
             });
     });
 
-    app.get('/numbers/accounts', function(req, res) {
+    app.get('/numbers/:source?', function(req, res) {
 
-        async.parallel([
-            function(callback) {
-                db.countGitHubAccounts(callback);
-            },
-            function(callback) {
-                db.countLinkedInAccounts(callback);
-            },
-            function(callback) {
-                db.countDualAccounts(callback);
+        if(req.params.source) {
+            if(req.params.source == 'resources') {
+                getResourcesFromArray(config.catalogues, function(result) {
+                    res.send({ "resources": result.length });
+                }, function(error) {
+                    res.status(500);
+                });
             }
-        ], function(err, results) {
-            res.json(results);
-        });
+            else if(req.params.source == 'projects') {
+                getProjectsFromArray(config.projects, function(result) {
+                    res.send({ "projects": result.length });
+                }, function(error) {
+                    res.status(500);
+                });
+            }
+            else if(req.params.source == 'accounts') {
+                db.countGitHubAccounts(function(err, result) {
+                    if(err) {
+                        res.status(500)
+                    }
+                    else {
+                        res.send(result);
+                    }
+                });
+            }
+
+        }
+        else {
+            async.parallel([
+                function(callback) {
+                    db.countGitHubAccounts(callback);
+                },
+
+                function(callback) {
+                    getResourcesFromArray(config.catalogues, function(result) {
+                        callback(null, { "resources": result.length });
+                    }, function(error) {
+                        callback(error, null);
+                    });
+                },
+                function(callback) {
+                    getProjectsFromArray(config.projects, function(result) {
+                        callback(null, { "projects": result.length });
+                    }, function(error) {
+                        callback(error, null);
+                    });
+                }/*,
+                function(callback) {
+                    db.countLinkedInAccounts(callback);
+                },
+                function(callback) {
+                    db.countDualAccounts(callback);
+                }*/
+            ], function(err, results) {
+                console.log(results);
+                res.send(results);
+            });
+        }
     });
 
     app.get('/projects/:source?', function(req, res) {
@@ -223,16 +268,24 @@ module.exports = function(app, config, logger, db, passport) {
             // Handle specific requests
         }
         else {
-            async.concat(config.projects, getProjects, function (err, results) {
-                if (err) res.sendStatus(500);
-                else {
-                    var body = {"projects": results};
-                    res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
-                    res.send(body);
-                }
+            getProjectsFromArray(config.projects, function(results) {
+                var body = {"projects": results};
+                res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
+                res.send(body);
+            }, function(error) {
+
             });
         }
     });
+
+    function getProjectsFromArray(projectList, success, error) {
+        async.concat(projectList, getProjects, function (err, results) {
+            if (err) error(err);
+            else {
+                success(results);
+            }
+        });
+    }
 
     function getProjects(project, callback) {
 
@@ -361,14 +414,24 @@ module.exports = function(app, config, logger, db, passport) {
             resourceList = config.catalogues;
         }
 
+        getResourcesFromArray(resourceList, function(result) {
+            var resources = { "resources": result };
+            res.send(resources);
+        }, function(error) {
+            res.status(500);
+            res.send('');
+        });
+
+    });
+
+    function getResourcesFromArray(resourceList, success, error) {
         async.concat(resourceList, getCatalogueItems, function (err, results) {
-            if (err) res.sendStatus(500);
+            if (err) error(err);
             else {
-                var body = {"resources": results};
-                res.send(body);
+                success(results);
             }
         });
-    });
+    }
 
     // Just gets items from CKAN v3 compatible APIs
     // TODO: refactor later, must get this done quick!

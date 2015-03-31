@@ -124,7 +124,7 @@ module.exports = {
     },
     countGitHubAccounts : function (callback) {
         models.Account.count({ 'identities.origin' : 'github' }, function(err, result) {
-            callback(err, result);
+            callback(err, { "githubAccounts" : result });
         });
     },
     countLinkedInAccounts : function (callback) {
