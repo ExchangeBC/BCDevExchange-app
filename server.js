@@ -205,7 +205,12 @@ if (config.http.serveStatic) {
 }
 
 // ====== routes ======
-require('./app/routes')(app, config, logger, db, passport);
+require('./app/routes/auth')(app, config, logger, db, passport);
+require('./app/routes/config')(app, config, logger, db, passport);
+require('./app/routes/numbers')(app, config, logger, db, passport);
+require('./app/routes/people')(app, config, logger, db, passport);
+require('./app/routes/projects')(app, config, logger, db, passport);
+require('./app/routes/resources')(app, config, logger, db, passport);
 
 app.listen(app.get('port'), function() {
     logger.info("Node app is running on port " + app.get('port'));
