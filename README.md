@@ -34,7 +34,7 @@ First time setup, you'll need a Linux server with:
 ```
 git clone --branch <master or discovery> git://github.com/BCDevExchange/BCDevExchange-app.git
 cd BCDevExchange
-npm install
+npm install --production
 chmod +x foreverme.sh
 ```
 You'll want to create a local configuration file in config called:
