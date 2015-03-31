@@ -21,14 +21,13 @@ angular.module('bcdevxApp.numbers', ['ngRoute',  'ngResource'])
     }])
 
     .factory('NumbersCountService', ['$resource', function($resource) {
-        return $resource('/numbers', {}, { 'get': { 'method': 'GET', isArray: true, transformResponse: function(data, headersGetter) { console.log(data); console.log(headersGetter); } } });
+        return $resource('/numbers');
     }])
 
     .controller('NumbersCtrl', ['$scope', 'NumbersCountService', '$q', 'usSpinnerService', function($scope, NumbersCountService, $q, usSpinnerService) {
         $scope.numbers = {};
 
         NumbersCountService.get({}, function(data) {
-            console.log(data);
             $scope.numbers.accounts = data.githubAccounts;
             $scope.numbers.resources = data.resources;
             $scope.numbers.projects = data.projects;
