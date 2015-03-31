@@ -6175,6 +6175,24 @@ body {
 .resource-list .empty {
   padding: 15px 0;
 }
+#stats .stat {
+  padding: 20px 0;
+}
+#stats .stat h2 {
+  margin: 0;
+  font-size: 3em;
+  line-height: 1;
+}
+@media (max-width: 767px) {
+  #stats .stat h2 {
+    margin-top: 10px;
+  }
+}
+@media (max-width: 767px) {
+  #stats .stat {
+    text-align: center;
+  }
+}
 .form-group input {
   margin: 5px 0;
 }
