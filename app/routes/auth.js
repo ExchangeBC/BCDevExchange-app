@@ -17,7 +17,6 @@ var request = require('request');
 
 module.exports = function(app, db, passport) {
 
-
 // simple route middleware to ensure user is authenticated
 // use this route middleware on any resource that needs to be protected
 // if the request is authenticated the request will proceed
