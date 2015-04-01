@@ -40,6 +40,10 @@ The default.EXT file is designed to contain all configuration parameters from wh
 The local files are intended to not be tracked in your version control system. External configuration management tools can write these files upon application deployment, before application loading.
  */
 {
+  "node": {
+      "clusterEnabled": true,
+      "workers": 2
+  },
   "http": {
       "port": 8000,
       "session": {
