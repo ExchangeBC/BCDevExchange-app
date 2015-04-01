@@ -29,7 +29,7 @@ if (config.node.clusterEnabled &&
     // When a worker dies, log and restart
     cluster.on('exit', function(worker, code, signal) {
         console.log('worker ' + worker.process.pid + ' died');
-        cluster.fork();
+        setTimeout(function () { cluster.fork(); }, 500);
     });
 
 } else if (!config.node.clusterEnabled || !cluster.isMaster) {
