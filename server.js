@@ -12,33 +12,35 @@
  See the License for the specific language governing permissions and limitations under the License.
  */
 var cluster = require('cluster');
-
 var config = require('config');
 
+// Test if cluster mode is enabled
 if (config.node.clusterEnabled &&
     cluster.isMaster) {
 
-    // Fork workers.
+    // Fork workers by config or # of CPUs if undefined
     var numCPUs = config.node.workers ||
-        require('os').cpus().length * 2;
+        require('os').cpus().length;
 
     for (var i = 0; i < numCPUs; i++) {
         cluster.fork();
     }
 
+    // When a worker dies, log and restart
     cluster.on('exit', function(worker, code, signal) {
         console.log('worker ' + worker.process.pid + ' died');
         cluster.fork();
     });
 
 } else if (!config.node.clusterEnabled || !cluster.isMaster) {
+
+    // Start working process
     var express = require('express');
     var helmet = require('helmet');
     var session = require('express-session');
     var MongoStore = require('connect-mongo')(session);
     var bodyParser = require('body-parser');
     var logger = require('./common/logging.js').logger;
-
     var passport = require('passport');
     var GitHubStrategy = require('passport-github').Strategy;
     var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
@@ -58,7 +60,7 @@ if (config.node.clusterEnabled &&
         done(null, user);
     });
 
-// use GitHubStrategy with Passport
+    // use GitHubStrategy with Passport
     passport.use(new GitHubStrategy({
             clientID: (process.env.GH_CLIENT_ID || config.github.clientID),
             clientSecret: (process.env.GH_CLIENT_SECRET || config.github.clientSecret),
@@ -71,7 +73,7 @@ if (config.node.clusterEnabled &&
     ));
 
 
-// use LinkedInStrategy with Passport
+    // use LinkedInStrategy with Passport
     passport.use(new LinkedInStrategy({
             clientID: (process.env.LI_CLIENT_ID || config.linkedin.clientID),
             clientSecret: (process.env.LI_CLIENT_SECRET || config.linkedin.clientSecret),
@@ -197,12 +199,10 @@ if (config.node.clusterEnabled &&
         }
     }
 
-// Init express and put on our helmet (security protections)
+    // Init express and put on our helmet (security protections)
     var app = express();
     app.use(helmet());
-
     app.set('port', (config.http.port || 5000));
-
     app.set('trust proxy', 1) // trust first proxy
 
     app.use(session({
@@ -213,18 +213,18 @@ if (config.node.clusterEnabled &&
         cookie: config.http.cookieOptions
     }));
 
-// initialize passport and use passport.session() to support persistent login sessions
+    // initialize passport and use passport.session() to support persistent login sessions
     app.use(passport.initialize());
     app.use(passport.session());
 
     app.use(bodyParser.json());
 
-// ===== Static all files in public, only use locally as servers should use nginx =====
+    // ===== Static all files in public, only use locally as servers should use nginx =====
     if (config.http.serveStatic) {
         app.use(express.static(__dirname + '/public', {"maxage": config.http.static.maxage}));
     }
 
-// ====== routes ======
+    // ====== routes ======
     require('./app/routes/auth')(app, db, passport);
     require('./app/routes/config')(app, db, passport);
     require('./app/routes/numbers')(app, db, passport);
