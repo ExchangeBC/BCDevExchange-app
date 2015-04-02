@@ -12,7 +12,7 @@
  See the License for the specific language governing permissions and limitations under the License.
  */
 var config = require('config');
-var logger = require('../../common/logging.js');
+var logger = require('../../common/logging.js').logger;
 var request = require('request');
 
 module.exports = function(app, db, passport) {

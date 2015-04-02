@@ -30,10 +30,8 @@ See the License for the specific language governing permissions and limitations 
                                 <span ng-show="predicateTitle == ''">Sort by</span><span class="source-name" ng-bind="predicateTitle"></span> <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" role="menu">
-                                <li><a href="" ng-click="predicate = 'name'; predicateTitle = 'Title A-Z'" analytics-on>Title A-Z</a></li>
-                                <li><a href="" ng-click="predicate = '-name'; predicateTitle = 'Title Z-A'" analytics-on>Title Z-A</a></li>
-                                <li><a href="" ng-click="predicate = '-updated_at'; predicateTitle = 'Newest'" analytics-on>Newest</a></li>
-                                <li><a href="" ng-click="predicate = 'updated_at'; predicateTitle = 'Oldest'" analytics-on>Oldest</a></li>
+                                <li><a href="" ng-click="predicate = 'title'; predicateTitle = 'Title A-Z'" analytics-on>Title A-Z</a></li>
+                                <li><a href="" ng-click="predicate = '-title'; predicateTitle = 'Title Z-A'" analytics-on>Title Z-A</a></li>
                               </ul>
                             </div>
                             <input type="reset" class="btn btn-default" value="Reset" ng-click="selectedSource = ''; selectedSourceTitle = ''; query = ''; predicate = ''; predicateTitle = '';" />
@@ -59,14 +57,20 @@ See the License for the specific language governing permissions and limitations 
                 <li class="resource" ng-repeat="project in filtered = (projects | filter:query | orderBy:predicate)">
                     <div class="row">
                         <div class="col-md-9 col-lg-10">
-                            <h3 ng-bind-html="project.name | highlight:query"></h3>
+                            <h3 ng-bind-html="project.title | highlight:query"></h3>
                             <p ng-bind-html="project.description | highlight:query"></p>
+                            <div class="tags" ng-if="project.tags.length > 0">
+                                <span class="label label-default" ng-repeat="tag in project.tags" style="background-color: #{{ tag.id|limitTo:6 }};"  ng-bind-html="tag.display_name | highlight:query">
+                                </span>
+                            </div>
                             <p class="source text-muted">Last updated: <span am-time-ago="project.updated_at" ng-bind-html="project.updated_at | highlight:query"></span></p>
                         </div>
                         <div class="col-md-3 col-lg-2">
                             <ul class="list-unstyled">
                                 <li><a href="{{ project.url }}" class="btn btn-primary btn-block" analytics-on>View Project</a></li>
-                                <li><a href="{{ project.backlog_url }}" class="btn btn-default btn-block" analytics-on>View Backlog ({{ project.backlog_count }})</a></li>
+
+                                    <li><a href="{{ project.backlog_url }}" class="btn btn-default btn-block" analytics-on>View Backlog ({{ project.backlog_count }})</a></li>
+
                             </ul>
                         </div>
                     </div>

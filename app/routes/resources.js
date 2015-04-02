@@ -14,7 +14,7 @@
 var async = require('async');
 var request = require('request');
 var config = require('config');
-var logger = require('../../common/logging.js');
+var logger = require('../../common/logging.js').logger;
 
 module.exports = function(app, db, passport) {
 

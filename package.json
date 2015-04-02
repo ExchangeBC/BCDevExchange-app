@@ -16,6 +16,7 @@
     "express-session": "^1.10.3",
     "google-cdn-data": "^0.1.17",
     "helmet": "^0.7.0",
+    "js-yaml": "^3.2.7",
     "mongoose": "3.8.x",
     "passport": "^0.2.1",
     "passport-github": "^0.1.5",

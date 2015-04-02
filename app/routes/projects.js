@@ -14,7 +14,9 @@
 var async = require('async');
 var request = require('request');
 var config = require('config');
-var logger = require('../../common/logging.js');
+var logger = require('../../common/logging.js').logger;
+var yaml = require('js-yaml');
+var crypto = require('crypto');
 
 module.exports = function(app, db, passport) {
 
@@ -32,6 +34,18 @@ module.exports = function(app, db, passport) {
             });
         }
     });
+    app.get('/projects/:source/:id', function (req, res) {
+        if (!req.params.source) res.send(400, "Missing source parameter."); return;
+        if (!req.params.id) res.send(400, "Missing id parameter."); return;
+
+        getProjectsFromArray(config.projects, function (results) {
+            var body = {"projects": results};
+            res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
+            res.send(body);
+        }, function (error) {
+
+        });
+    });
 }
 
 var getProjectsFromArray = function (projectList, success, error) {
@@ -48,6 +62,9 @@ function getProjects(project, callback) {
 
     if(project.type == "github") {
         getGitHubProject(project, callback);
+    }
+    else if (project.type == "github-file") {
+        getGitHubFileProject(project, callback);
     }
 
 }
@@ -87,8 +104,62 @@ function parseGitHubResults(result, callback) {
         "backlog_url": result.html_url + '/issues',
         "backlog_count": result.open_issues_count,
         "updated_at": result.updated_at
+
     };
     callback(null, transformed);
 }
 
+function getGitHubFileProject(ghConfig, callback) {
+    options = {
+        url: 'https://api.github.com/' + ghConfig.url,
+        headers: {
+            'User-Agent': config.github.clientApplicationName,
+            'client_id': config.github.clientID,
+            'client_secret': config.github.clientSecret
+        }
+    };
+    request(options, function (error, response, body) {
+        if (!error &&
+            typeof response !== 'undefined' &&
+            response.statusCode == 200) {
 
+            // parse out the yaml from content block
+            var json = JSON.parse(body);
+            var decodedContent = new Buffer(json.content, 'base64').toString('ascii');
+
+            try {
+                var resourcesYaml = yaml.safeLoad(decodedContent);
+
+            } catch (error) {
+                var message = 'Error while parsing yaml project file from: ' + options.url + '; message: ' + error.message;
+                logger.error(message);
+                return callback(message);
+            }
+            // remove extraneous info from result
+            async.concat(resourcesYaml, parseGitHubFileResults, function (err, results) {
+                return callback(err, results);
+            });
+        }
+        else {
+            logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
+            return callback(error);
+        }
+    });
+}
+
+function parseGitHubFileResults(result, callback) {
+    var transformed = {
+        "title": result.title,
+        "description": result.description,
+        "source": result.source,
+        "tags": [],
+        "url": result.url
+    };
+
+    for (var i = 0; i < result.tags.length; i++) {
+        transformed.tags[i] = { "display_name": result.tags[i]};
+        transformed.tags[i].id = crypto.createHash('md5').update(result.tags[i]).digest("hex");
+    }
+
+    callback(null, transformed);
+}
