@@ -29,24 +29,33 @@ First time setup, you'll need a Linux server with:
 - [nginx](http://nginx.org/)
 - [NodeJS via N](https://github.com/tj/n) Use version 0.12.x
 - [MongoDB](http://www.mongodb.org/)
-- [BIND9 as a local DNS cache](https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-caching-or-forwarding-dns-server-on-ubuntu-14-04)
+- [Bind as a local DNS cache](https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-caching-or-forwarding-dns-server-on-ubuntu-14-04)
+
 ```
 git clone --branch <master or discovery> git://github.com/BCDevExchange/BCDevExchange-app.git
 cd BCDevExchange
-npm install
+npm install --production
 chmod +x foreverme.sh
 ```
 You'll want to create a local configuration file in config called:
 
 `./config/local.json`
 
-Starting the NodeJS server in forever mode:
+Starting the NodeJS server in forever mode on bootup the rc.local way:
 
-`./foreverme.sh`
+```
+sudo -e /etc/rc.local
+```
+
+then add to the bottom:
+
+```
+sudo -u bitnami /bin/bash /home/bitnami/apps/lab/BCDevExchange-app/foreverme.sh
+```
 
 Stdout, stderr and forever logs are here:
 
-`log/`
+`<path to app root>log/`
 
 Following regular nginx installation and feel free to use the sample configs are provided in under:
 
@@ -60,7 +69,7 @@ Updating deployment:
 
 ```
 git pull
-npm install
+npm install --production
 forever restart <pid>
 ```
 Use the forever commands to list, stop, restart the service.

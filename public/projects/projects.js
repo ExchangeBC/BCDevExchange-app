@@ -24,10 +24,50 @@ angular.module('bcdevxApp.projects', ['ngRoute',  'ngResource'])
         return $resource('/projects');
     }])
 
-    .controller('ProjectsCtrl', ['$scope', 'ProjectListService', function($scope, ProjectListService) {
+    .controller('ProjectsCtrl', ['$scope', 'ProjectListService', '$q', 'usSpinnerService', function($scope, ProjectListService, $q, usSpinnerService) {
+
+        // Array of projects
+        $scope.projects = [];
+        $scope.projectsLoaded = false;
+        $scope.predicateTitle = '';
+
+        // Array of alerts
+        $scope.alerts = [];
+
+        $scope.startSpin = function(){
+            usSpinnerService.spin("spinner-1");
+        }
+        $scope.stopSpin = function(){
+            usSpinnerService.stop("spinner-1");
+        }
+
+        var projectListDeferred = $q.defer();
+        var projectPromise = projectListDeferred.promise;
+
+        var sourceListDeferred = $q.defer();
+        var sourcePromise = sourceListDeferred.promise;
+
+        projectPromise.then(
+            function(value){
+                usSpinnerService.stop("spinner-projects")
+            }
+        );
+        sourcePromise.then(
+            function(value){
+                usSpinnerService.stop("spinner-sources")
+            }
+        );
+
         ProjectListService.get({}, function(data) {
 
             $scope.projects = data.projects;
+            projectListDeferred.resolve("resource list length: " + data.projects.length);
+            $scope.projectsLoaded = true;
 
+        }, function(error) {
+            console.log(error);
+            $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + error.config.url + '</strong>.' });
+            projectListDeferred.resolve("error retrieving resources for  " + error.config.url);
+            $scope.projectsLoaded = true;
         });
     }]);

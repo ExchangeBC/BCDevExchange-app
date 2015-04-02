@@ -10,7 +10,7 @@
 # See the License for the specific language governing permissions and limitations under the License.
 
 #!/bin/bash
-cwd=$(pwd)
+cwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 APPLICATION_PATH=$cwd"/server.js"
 LOG=$cwd"/log/forever.log"
 STDOUT=$cwd"/log/stdout.log"

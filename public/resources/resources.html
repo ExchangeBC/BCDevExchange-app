@@ -52,14 +52,27 @@ See the License for the specific language governing permissions and limitations 
                             </div>
                             <input type="reset" class="btn btn-default" value="Reset" ng-click="selectedSource = ''; selectedSourceTitle = ''; query = ''; predicate = ''; predicateTitle = '';" />
                         </div>
+                        <div class="clearfix">
+                            <ng-pluralize class="pull-left" ng-show="filtered.length > 0 && sources.length > 0" count="filtered.length"
+                                          when="{'0': '',
+                                                 '1': '1 result',
+                                                 'other': '{{filtered.length}} results'}">
+                            </ng-pluralize>
+                            <div ng-show="sources.length > 0" class="pull-right">{{ loadedSources.length }} / {{ sources.length }} <span class="text-muted">sources loaded</span></div>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
-        <ul class="list-unstyled table-bordered">
+        <div class="row">
+            <div class="col-lg-12">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><span ng-bind-html="alert.msg"></span></alert>
+            </div>
+        </div>
+        <ul class="list-unstyled resource-list table-bordered">
             <span us-spinner="{radius:30, width:6, length: 18}" spinner-key="spinner-resources" spinner-start-active="true"></span>
 
-            <li class="resource" ng-repeat="resource in resources | filter:query | filter:{ catalogue: { short_name: selectedSource } }:hasMatchingSource | orderBy:predicate">
+            <li class="resource" ng-repeat="resource in filtered = (resources | filter:query | filter:{ catalogue: { short_name: selectedSource } }:hasMatchingSource | orderBy:predicate)">
                 <div class="row">
                     <div class="col-md-9 col-lg-10">
                         <h3 ng-bind-html="resource.title | highlight:query"></h3>
@@ -84,8 +97,15 @@ See the License for the specific language governing permissions and limitations 
                     </div>
                 </div>
             </li>
-            <li ng-if="resources.length == 0">
-                No resources available.
+            <li ng-if="resources.length == 0" class="empty">
+                <div class="col-md-12">
+                    <p>No resources available.</p>
+                </div>
+            </li>
+            <li ng-show="filtered.length == 0 && query" class="empty">
+                <div class="col-md-12">
+                    No results for "{{ query }}".
+                </div>
             </li>
         </ul>
     </div>

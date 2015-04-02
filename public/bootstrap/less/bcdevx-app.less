@@ -195,7 +195,12 @@ body {
 // resources ===========
 
 .resource-list {
+  overflow: hidden;
+  min-height: 100px;
   .resource {
+    -webkit-transition: 0.15s;
+    -moz-transition: 0.15s;
+    transition: 0.15s;
     padding: 15px;
     overflow: hidden;
 
@@ -222,10 +227,50 @@ body {
     .list-unstyled li {
       margin: 5px 0;
     }
+
+    &.ng-enter {
+      transform: translateX(-100%);
+    }
+
+    &.ng-leave {
+      transform: translateX(0);
+    }
+
+    &.ng-enter.ng-enter-active {
+      transform: translateX(0);
+    }
+
+    &.ng-leave.ng-leave-active {
+      transform: translateX(-100%);
+    }
   }
 
   form {
     margin: 0 0 20px 0;
+  }
+
+  .empty {
+    padding: 15px 0;
+  }
+}
+
+#stats {
+
+  .stat {
+    padding: 20px 0;
+    h2 {
+      margin: 0;
+      font-size: 3em;
+      line-height: 1;
+
+      @media (max-width: 767px) {
+        margin-top: 10px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      text-align: center;
+    }
   }
 }
 
