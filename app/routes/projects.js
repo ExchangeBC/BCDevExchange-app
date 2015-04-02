@@ -17,6 +17,7 @@ var config = require('config');
 var logger = require('../../common/logging.js').logger;
 var yaml = require('js-yaml');
 var crypto = require('crypto');
+var urlParser = require('url');
 
 module.exports = function(app, db, passport) {
 
@@ -30,20 +31,24 @@ module.exports = function(app, db, passport) {
                 res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
                 res.send(body);
             }, function (error) {
-
+                res.send(500);
             });
         }
     });
-    app.get('/projects/:source/:id', function (req, res) {
-        if (!req.params.source) res.send(400, "Missing source parameter."); return;
-        if (!req.params.id) res.send(400, "Missing id parameter."); return;
+    app.get('/projects/:source/url/:url', function (req, res) {
+        if (!req.params.source) {
+            res.send(400, "Missing source parameter.");
+            return;
+        }
+        if (!req.params.url) { res.send(400, "Missing url parameter."); return; }
+        if (req.params.source != "GitHub") { res.send(400, "At this time, source must be GitHub."); return; }
 
-        getProjectsFromArray(config.projects, function (results) {
-            var body = {"projects": results};
+        getGitHubRepoAndLabels(req.params.url, function (results) {
+            var body = {"project": results};
             res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
             res.send(body);
         }, function (error) {
-
+            res.send(500);
         });
     });
 }
@@ -94,6 +99,8 @@ function getGitHubProject(ghConfig, callback) {
         }
     });
 }
+
+
 
 function parseGitHubResults(result, callback) {
     var transformed = {
@@ -162,4 +169,85 @@ function parseGitHubFileResults(result, callback) {
     }
 
     callback(null, transformed);
+}
+
+
+function getGitHubRepoAndLabels(fullRepoUrl, callback) {
+    var path = urlParser.parse(fullRepoUrl).pathname;
+
+    options = {
+        url: 'https://api.github.com/repos' + path,
+        headers: {
+            'User-Agent': config.github.clientApplicationName,
+            'client_id': config.github.clientID,
+            'client_secret': config.github.clientSecret
+        }
+    };
+    request(options, function (error, response, body) {
+        if (!error &&
+            typeof response !== 'undefined' &&
+            response.statusCode == 200) {
+
+            var json = JSON.parse(body);
+
+            // remove extraneous info from result
+            var result = parseGitHubRepoResult(json);
+
+            // Get the labels
+            options.url = 'https://api.github.com/repos' + path + "/issues";
+            request(options, function (error, response, body) {
+                if (!error &&
+                    typeof response !== 'undefined' &&
+                    response.statusCode == 200) {
+
+                    var issuesJson = JSON.parse(body);
+
+                    // remove extraneous info from result
+                    parseGitHubIssuesResult(issuesJson, result);
+
+                    return callback(null, result);
+
+                } else {
+                    logger.error('Error while fetching GitHub issues: %s; response: %s; body: %s', error, response, body);
+                    callback(error);
+                }
+            });
+        }
+        else {
+            logger.error('Error while fetching GitHub repo: %s; response: %s; body: %s', error, response, body);
+            callback(error);
+        }
+    });
+}
+
+function parseGitHubRepoResult (result) {
+
+    var transformed = {
+        "updated_at": result.updated_at,
+        "backlog_count": result.open_issues_count
+    };
+
+    return transformed;
+}
+
+function parseGitHubIssuesResult(issues, repo) {
+    repo.issues = {};
+
+    // Loop through each issue and
+    // if its open and found in our config
+    // count it up
+    for (var i = 0; i < issues.length; i++) {
+        if (issues[i].state == "open") {
+            for (var j = 0; j < issues[i].labels.length; j++) {
+                for (var k = 0; k < config.projectLabels.length; k++) {
+                    if (issues[i].labels[j].name == config.projectLabels[k].name) {
+                        if (!repo.issues[config.projectLabels[k].name]) {
+                            repo.issues[config.projectLabels[k].name] = {"count": 0};
+                        }
+                        repo.issues[config.projectLabels[k].name].count++;
+                    }
+                }
+            }
+        }
+    }
 }
