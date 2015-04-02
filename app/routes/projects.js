@@ -43,10 +43,11 @@ module.exports = function(app, db, passport) {
         if (!req.params.url) { res.send(400, "Missing url parameter."); return; }
         if (req.params.source != "GitHub") { res.send(400, "At this time, source must be GitHub."); return; }
 
-        getGitHubRepoAndLabels(req.params.url, function (results) {
-            var body = {"project": results};
+        getGitHubRepoAndLabels(req.params.url, function (error, results) {
+            results.source = req.params.source;
+            results.url = req.params.url;
             res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
-            res.send(body);
+            res.send(results);
         }, function (error) {
             res.send(500);
         });

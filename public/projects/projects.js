@@ -24,7 +24,12 @@ angular.module('bcdevxApp.projects', ['ngRoute',  'ngResource'])
         return $resource('/projects');
     }])
 
-    .controller('ProjectsCtrl', ['$scope', 'ProjectListService', '$q', 'usSpinnerService', function($scope, ProjectListService, $q, usSpinnerService) {
+    .factory('ProjectDetailsService', function($resource){
+        return $resource('/projects/:source/url/:url', {source:'@source', url:'@url'})
+    })
+
+    .controller('ProjectsCtrl', ['$scope', 'ProjectListService', 'ProjectDetailsService', '$q', 'usSpinnerService',
+        function($scope, ProjectListService, ProjectDetailsService, $q, usSpinnerService) {
 
         // Array of projects
         $scope.projects = [];
@@ -64,6 +69,11 @@ angular.module('bcdevxApp.projects', ['ngRoute',  'ngResource'])
             projectListDeferred.resolve("resource list length: " + data.projects.length);
             $scope.projectsLoaded = true;
 
+            angular.forEach($scope.projects, function (project, key) {
+                ProjectDetailsService.get({source:project.source, url: project.url}, function(detailProject) {
+                    extendDeep($scope.projects[key], detailProject);
+                });
+            });
         }, function(error) {
             console.log(error);
             $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + error.config.url + '</strong>.' });

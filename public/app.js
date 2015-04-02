@@ -132,10 +132,25 @@ var app = angular.module('bcdevxApp', [
 
 });
 
-
-
-
-
+// Common functions for AngularJS
+function extendDeep(dst) {
+    angular.forEach(arguments, function (obj) {
+            if (obj !== dst) {
+                angular.forEach(obj, function (value, key) {
+                        if (dst[key] && dst[key].constructor && dst[key].constructor === Object) {
+                            extendDeep(dst[key], value);
+                        } else if (dst[key] && dst[key].constructor && dst[key].constructor === Array) {
+                            dst[key].concat(value);
+                        } else if(!angular.isFunction(dst[key])) {
+                            dst[key] = value;
+                        }
+                    }
+                );
+            }
+        }
+    );
+    return dst;
+}
 
 // Init all popovers
 $(function () {

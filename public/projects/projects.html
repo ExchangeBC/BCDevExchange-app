@@ -69,7 +69,12 @@ See the License for the specific language governing permissions and limitations 
                             <ul class="list-unstyled">
                                 <li><a href="{{ project.url }}" class="btn btn-primary btn-block" analytics-on>View Project</a></li>
 
-                                <li><a href="{{ project.backlog_url }}" class="btn btn-default btn-block" analytics-on>View Backlog ({{ project.backlog_count }})</a></li>
+                                <li ng-if="project.issues.length > 0">
+
+                                    <a href="{{ project.backlog_url }}" class="btn btn-default btn-block" analytics-on>View Backlog ({{ project.backlog_count }})</a>
+
+                                </li>
+
 
                             </ul>
                         </div>
