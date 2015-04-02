@@ -18,6 +18,7 @@ var logger = require('../../common/logging.js').logger;
 var yaml = require('js-yaml');
 var crypto = require('crypto');
 var urlParser = require('url');
+var clone = require('clone');
 
 module.exports = function(app, db, passport) {
 
@@ -228,7 +229,7 @@ function parseGitHubRepoResult (result) {
 }
 
 function parseGitHubIssuesResult(issues, repo) {
-    repo.issues = config.projectLabels;
+    repo.issues = clone(config.projectLabels);
 
     // Loop through each issue and
     // if its open and found in our config
@@ -238,7 +239,7 @@ function parseGitHubIssuesResult(issues, repo) {
             for (var j = 0; j < issues[i].labels.length; j++) {
                 for (var k = 0; k < repo.issues.length; k++) {
                     if (issues[i].labels[j].name == repo.issues[k].name) {
-                        if (!repo.issues[k]) {
+                        if (!repo.issues[k].count) {
                             repo.issues[k].count = 0;
                         }
                         repo.issues[k].count++;
