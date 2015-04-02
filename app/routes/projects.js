@@ -119,11 +119,9 @@ function parseGitHubResults(result, callback) {
 
 function getGitHubFileProject(ghConfig, callback) {
     options = {
-        url: 'https://api.github.com/' + ghConfig.url,
+        url: 'https://api.github.com/' + ghConfig.url + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
         headers: {
-            'User-Agent': config.github.clientApplicationName,
-            'client_id': config.github.clientID,
-            'client_secret': config.github.clientSecret
+            'User-Agent': config.github.clientApplicationName
         }
     };
     request(options, function (error, response, body) {
@@ -177,11 +175,9 @@ function getGitHubRepoAndLabels(fullRepoUrl, callback) {
     var path = urlParser.parse(fullRepoUrl).pathname;
 
     options = {
-        url: 'https://api.github.com/repos' + path,
+        url: 'https://api.github.com/repos' + path + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
         headers: {
-            'User-Agent': config.github.clientApplicationName,
-            'client_id': config.github.clientID,
-            'client_secret': config.github.clientSecret
+            'User-Agent': config.github.clientApplicationName
         }
     };
     request(options, function (error, response, body) {
@@ -194,8 +190,8 @@ function getGitHubRepoAndLabels(fullRepoUrl, callback) {
             // remove extraneous info from result
             var result = parseGitHubRepoResult(json);
 
-            // Get the labels
-            options.url = 'https://api.github.com/repos' + path + "/issues";
+            // Get the label counts from issues
+            options.url = 'https://api.github.com/repos' + path + "/issues?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret;
             request(options, function (error, response, body) {
                 if (!error &&
                     typeof response !== 'undefined' &&
@@ -232,7 +228,7 @@ function parseGitHubRepoResult (result) {
 }
 
 function parseGitHubIssuesResult(issues, repo) {
-    repo.issues = {};
+    repo.issues = config.projectLabels;
 
     // Loop through each issue and
     // if its open and found in our config
@@ -240,12 +236,12 @@ function parseGitHubIssuesResult(issues, repo) {
     for (var i = 0; i < issues.length; i++) {
         if (issues[i].state == "open") {
             for (var j = 0; j < issues[i].labels.length; j++) {
-                for (var k = 0; k < config.projectLabels.length; k++) {
-                    if (issues[i].labels[j].name == config.projectLabels[k].name) {
-                        if (!repo.issues[config.projectLabels[k].name]) {
-                            repo.issues[config.projectLabels[k].name] = {"count": 0};
+                for (var k = 0; k < repo.issues.length; k++) {
+                    if (issues[i].labels[j].name == repo.issues[k].name) {
+                        if (!repo.issues[k]) {
+                            repo.issues[k].count = 0;
                         }
-                        repo.issues[config.projectLabels[k].name].count++;
+                        repo.issues[k].count++;
                     }
                 }
             }
