@@ -238,6 +238,7 @@ gulp.task('default', ['license-stat', 'get-args'], function(){
             gulp.dest(function(dataPack){
 
                 consoleLog.bold.blue("Writing to directory: " + dataPack.base);
+                console.log();
                 return dataPack.base;
             })
         )
