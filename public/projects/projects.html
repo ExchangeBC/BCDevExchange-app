@@ -32,6 +32,8 @@ See the License for the specific language governing permissions and limitations 
                               <ul class="dropdown-menu" role="menu">
                                 <li><a href="" ng-click="predicate = 'title'; predicateTitle = 'Title A-Z'" analytics-on>Title A-Z</a></li>
                                 <li><a href="" ng-click="predicate = '-title'; predicateTitle = 'Title Z-A'" analytics-on>Title Z-A</a></li>
+                                <li><a href="" ng-click="predicate = '-updated_at'; predicateTitle = 'Newest'" analytics-on>Newest</a></li>
+                                <li><a href="" ng-click="predicate = 'updated_at'; predicateTitle = 'Oldest'" analytics-on>Oldest</a></li>
                               </ul>
                             </div>
                             <input type="reset" class="btn btn-default" value="Reset" ng-click="selectedSource = ''; selectedSourceTitle = ''; query = ''; predicate = ''; predicateTitle = '';" />
@@ -67,10 +69,13 @@ See the License for the specific language governing permissions and limitations 
                         </div>
                         <div class="col-md-3 col-lg-2">
                             <ul class="list-unstyled">
-                                <li><a href="{{ project.url }}" class="btn btn-primary btn-block" analytics-on>View Project</a></li>
+                                <li><a href="{{ project.url }}" class="btn btn-primary btn-block" analytics-on>View on {{project.source}}</a></li>
+                            </ul>
 
-                                <li><a href="{{ project.backlog_url }}" class="btn btn-default btn-block" analytics-on>View Backlog ({{ project.backlog_count }})</a></li>
-
+                            <ul class="list-unstyled">
+                                <li ng-repeat="issue in project.issues" ng-if="issue.count > 0">
+                                    <a href="{{ issue.url }}" class="btn btn-info btn-block" style="background-color: {{ issue.colour }}" analytics-on>{{issue.name}} ({{ issue.count }})</a>
+                                </li>
                             </ul>
                         </div>
                     </div>

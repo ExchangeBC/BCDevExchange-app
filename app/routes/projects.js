@@ -18,6 +18,7 @@ var logger = require('../../common/logging.js').logger;
 var yaml = require('js-yaml');
 var crypto = require('crypto');
 var urlParser = require('url');
+var clone = require('clone');
 
 module.exports = function(app, db, passport) {
 
@@ -43,10 +44,11 @@ module.exports = function(app, db, passport) {
         if (!req.params.url) { res.send(400, "Missing url parameter."); return; }
         if (req.params.source != "GitHub") { res.send(400, "At this time, source must be GitHub."); return; }
 
-        getGitHubRepoAndLabels(req.params.url, function (results) {
-            var body = {"project": results};
+        getGitHubRepoAndLabels(req.params.url, function (error, results) {
+            results.source = req.params.source;
+            results.url = req.params.url;
             res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
-            res.send(body);
+            res.send(results);
         }, function (error) {
             res.send(500);
         });
@@ -118,11 +120,9 @@ function parseGitHubResults(result, callback) {
 
 function getGitHubFileProject(ghConfig, callback) {
     options = {
-        url: 'https://api.github.com/' + ghConfig.url,
+        url: 'https://api.github.com/' + ghConfig.url + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
         headers: {
-            'User-Agent': config.github.clientApplicationName,
-            'client_id': config.github.clientID,
-            'client_secret': config.github.clientSecret
+            'User-Agent': config.github.clientApplicationName
         }
     };
     request(options, function (error, response, body) {
@@ -176,11 +176,9 @@ function getGitHubRepoAndLabels(fullRepoUrl, callback) {
     var path = urlParser.parse(fullRepoUrl).pathname;
 
     options = {
-        url: 'https://api.github.com/repos' + path,
+        url: 'https://api.github.com/repos' + path + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
         headers: {
-            'User-Agent': config.github.clientApplicationName,
-            'client_id': config.github.clientID,
-            'client_secret': config.github.clientSecret
+            'User-Agent': config.github.clientApplicationName
         }
     };
     request(options, function (error, response, body) {
@@ -193,8 +191,8 @@ function getGitHubRepoAndLabels(fullRepoUrl, callback) {
             // remove extraneous info from result
             var result = parseGitHubRepoResult(json);
 
-            // Get the labels
-            options.url = 'https://api.github.com/repos' + path + "/issues";
+            // Get the label counts from issues
+            options.url = 'https://api.github.com/repos' + path + "/issues?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret;
             request(options, function (error, response, body) {
                 if (!error &&
                     typeof response !== 'undefined' &&
@@ -231,7 +229,7 @@ function parseGitHubRepoResult (result) {
 }
 
 function parseGitHubIssuesResult(issues, repo) {
-    repo.issues = {};
+    repo.issues = clone(config.projectLabels);
 
     // Loop through each issue and
     // if its open and found in our config
@@ -239,12 +237,12 @@ function parseGitHubIssuesResult(issues, repo) {
     for (var i = 0; i < issues.length; i++) {
         if (issues[i].state == "open") {
             for (var j = 0; j < issues[i].labels.length; j++) {
-                for (var k = 0; k < config.projectLabels.length; k++) {
-                    if (issues[i].labels[j].name == config.projectLabels[k].name) {
-                        if (!repo.issues[config.projectLabels[k].name]) {
-                            repo.issues[config.projectLabels[k].name] = {"count": 0};
+                for (var k = 0; k < repo.issues.length; k++) {
+                    if (issues[i].labels[j].name == repo.issues[k].name) {
+                        if (!repo.issues[k].count) {
+                            repo.issues[k].count = 0;
                         }
-                        repo.issues[config.projectLabels[k].name].count++;
+                        repo.issues[k].count++;
                     }
                 }
             }
