@@ -165,9 +165,9 @@ gulp.task('default', ['license-stat', 'get-args'], function(){
             if(isHtmlFile(file_path)){
                 //regex_exp = /<!--((.|\n)^\[*?)-->.*/;
                 // we are looking for comment before html tag
-                regex_exp = /^<!--((.|\n)*?)-->/;
+                regex_exp = /^<!--((.|\n)*?)-->/m;
             }else if(isJsFile(file_path)) {
-                regex_exp = /^\s*\/\*((.|\n)*?)\*\//;
+                regex_exp = /^\s*\/\*((.|\n)*?)\*\//m;
             }
 
             if(regex_exp){
@@ -184,8 +184,11 @@ gulp.task('default', ['license-stat', 'get-args'], function(){
                         callback();
                     }else{
                         consoleLog.red("Non-standard license text found in this file: " + file_path).print();
-                        consoleLog.red.bold("Run with --update flag to update or insert license text to this file.").print();
-                        console.log("----------------------------------------------------------------------------");
+
+                        if(!doUpdate){
+                            consoleLog.red.bold("Run with --update flag to update or insert license text to this file.").print();
+                            console.log("----------------------------------------------------------------------------");
+                        }
 
                         //consoleLog.red(capturedLc).print();
                         /*
@@ -218,8 +221,11 @@ gulp.task('default', ['license-stat', 'get-args'], function(){
                 }
                 else{
                     consoleLog.bold.red("License text not found in this file: " + file_path).print();
-                    consoleLog.red.bold("Run with --update flag to update or insert license text to this file.").print();
-                    console.log("----------------------------------------------------------------------------");
+
+                    if(!doUpdate){
+                        consoleLog.red.bold("Run with --update flag to update or insert license text to this file.").print();
+                        console.log("----------------------------------------------------------------------------");
+                    }
 
                     if(doUpdate){
                         //console.log("Adding license text to this file: " + file_path);
@@ -237,8 +243,7 @@ gulp.task('default', ['license-stat', 'get-args'], function(){
         .pipe(
             gulp.dest(function(dataPack){
 
-                consoleLog.bold.blue("Writing to directory: " + dataPack.base);
-                console.log();
+                console.log("Writing to directory: " + dataPack.base);
                 return dataPack.base;
             })
         )
