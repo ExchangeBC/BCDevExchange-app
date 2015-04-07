@@ -72,6 +72,11 @@ angular.module('bcdevxApp.projects', ['ngRoute',  'ngResource'])
             angular.forEach($scope.projects, function (project, key) {
                 ProjectDetailsService.get({source:project.source, url: project.url}, function(detailProject) {
                     extendDeep($scope.projects[key], detailProject);
+
+                    // flatten model for angularjs sort
+                    angular.forEach($scope.projects[key].issues, function (issue, issueKey) {
+                        $scope.projects[key]["_count_" + issue.id] = issue.count;
+                    });
                 });
             });
         }, function(error) {

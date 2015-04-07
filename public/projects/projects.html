@@ -30,10 +30,14 @@ See the License for the specific language governing permissions and limitations 
                                 <span ng-show="predicateTitle == ''">Sort by</span><span class="source-name" ng-bind="predicateTitle"></span> <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" role="menu">
+                                <li><a href="" ng-click="predicate = '-_count_helpwanted'; predicateTitle = 'Most Wanted';" analytics-on>Most Wanted</a></li>
+                                <li><a href="" ng-click="predicate = '-_count_enhancement'; predicateTitle = 'Most Enhancements';" analytics-on>Most Enhancements</a></li>
+                                <li><a href="" ng-click="predicate = '-_count_question'; predicateTitle = 'Most Questions';" analytics-on>Most Questions</a></li>
                                 <li><a href="" ng-click="predicate = 'title'; predicateTitle = 'Title A-Z'" analytics-on>Title A-Z</a></li>
                                 <li><a href="" ng-click="predicate = '-title'; predicateTitle = 'Title Z-A'" analytics-on>Title Z-A</a></li>
                                 <li><a href="" ng-click="predicate = '-updated_at'; predicateTitle = 'Newest'" analytics-on>Newest</a></li>
                                 <li><a href="" ng-click="predicate = 'updated_at'; predicateTitle = 'Oldest'" analytics-on>Oldest</a></li>
+
                               </ul>
                             </div>
                             <input type="reset" class="btn btn-default" value="Reset" ng-click="selectedSource = ''; selectedSourceTitle = ''; query = ''; predicate = ''; predicateTitle = '';" />
@@ -60,21 +64,24 @@ See the License for the specific language governing permissions and limitations 
                     <div class="row">
                         <div class="col-md-9 col-lg-10">
                             <h3 ng-bind-html="project.title | highlight:query"></h3>
+                        </div>
+                        <div class="col-md-3 col-lg-2">
+                            <a href="{{ project.url }}" class="btn btn-primary btn-block" analytics-on ng-bind-html="'View on ' + project.source"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9 col-lg-10">
                             <p ng-bind-html="project.description | highlight:query"></p>
                             <div class="tags" ng-if="project.tags.length > 0">
                                 <span class="label label-default" ng-repeat="tag in project.tags" style="background-color: #{{ tag.id|limitTo:6 }};"  ng-bind-html="tag.display_name | highlight:query">
                                 </span>
                             </div>
-                            <p class="source text-muted">Last updated: <span am-time-ago="project.updated_at" ng-bind-html="project.updated_at | highlight:query"></span></p>
+                            <p class="source text-muted">Last updated: <span am-time-ago="project.updated_at" ng-bind-html="project.updated_at"></span></p>
                         </div>
                         <div class="col-md-3 col-lg-2">
                             <ul class="list-unstyled">
-                                <li><a href="{{ project.url }}" class="btn btn-primary btn-block" analytics-on>View on {{project.source}}</a></li>
-                            </ul>
-
-                            <ul class="list-unstyled">
                                 <li ng-repeat="issue in project.issues" ng-if="issue.count > 0">
-                                    <a href="{{ issue.url }}" class="btn btn-info btn-block" style="background-color: {{ issue.colour }}" analytics-on>{{issue.name}} ({{ issue.count }})</a>
+                                    <a href="{{ issue.url }}" class="btn btn-primary btn-block" style="background-color: {{ issue.colour }}" analytics-on ng-bind-html="issue.name + ' (' + issue.count + ')' | highlight:query"></a>
                                 </li>
                             </ul>
                         </div>

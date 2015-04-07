@@ -19,6 +19,7 @@ var yaml = require('js-yaml');
 var crypto = require('crypto');
 var urlParser = require('url');
 var clone = require('clone');
+var merge = require('merge');
 
 module.exports = function(app, db, passport) {
 
@@ -173,26 +174,43 @@ function parseGitHubFileResults(result, callback) {
 
 
 function getGitHubRepoAndLabels(fullRepoUrl, callback) {
+
     var path = urlParser.parse(fullRepoUrl).pathname;
 
-    options = {
-        url: 'https://api.github.com/repos' + path + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
-        headers: {
-            'User-Agent': config.github.clientApplicationName
-        }
-    };
-    request(options, function (error, response, body) {
-        if (!error &&
-            typeof response !== 'undefined' &&
-            response.statusCode == 200) {
+    // Call both repo details and repo issues, merge once completes
+    async.parallel([
+        function (callback) {
+            options = {
+                url: 'https://api.github.com/repos' + path + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+                headers: {
+                    'User-Agent': config.github.clientApplicationName
+                }
+            }
+            request(options, function (error, response, body) {
+                if (!error &&
+                    typeof response !== 'undefined' &&
+                    response.statusCode == 200) {
 
-            var json = JSON.parse(body);
+                    var json = JSON.parse(body);
 
-            // remove extraneous info from result
-            var result = parseGitHubRepoResult(json);
+                    // remove extraneous info from result
+                    var result = parseGitHubRepoResult(json);
 
+                    // all done
+                    callback(null, result);
+                }
+                else {
+                    logger.error('Error while fetching GitHub repo: %s; response: %s; body: %s', error, response, body);
+                    callback(error);
+                }
+            });
+        },
+        function (callback){
             // Get the label counts from issues
-            options.url = 'https://api.github.com/repos' + path + "/issues?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret;
+            options = { url: 'https://api.github.com/repos' + path + "/issues?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+                headers: {
+                    'User-Agent': config.github.clientApplicationName
+                }};
             request(options, function (error, response, body) {
                 if (!error &&
                     typeof response !== 'undefined' &&
@@ -201,7 +219,7 @@ function getGitHubRepoAndLabels(fullRepoUrl, callback) {
                     var issuesJson = JSON.parse(body);
 
                     // remove extraneous info from result
-                    parseGitHubIssuesResult(issuesJson, result);
+                    var result = parseGitHubIssuesResult(issuesJson);
 
                     return callback(null, result);
 
@@ -210,12 +228,13 @@ function getGitHubRepoAndLabels(fullRepoUrl, callback) {
                     callback(error);
                 }
             });
+        }],
+        // Both results are in, merge first with second
+        function(err, results){
+            var result = merge.recursive(true, results[0], results[1]);
+            callback(err, result);
         }
-        else {
-            logger.error('Error while fetching GitHub repo: %s; response: %s; body: %s', error, response, body);
-            callback(error);
-        }
-    });
+    );
 }
 
 function parseGitHubRepoResult (result) {
@@ -228,8 +247,11 @@ function parseGitHubRepoResult (result) {
     return transformed;
 }
 
-function parseGitHubIssuesResult(issues, repo) {
-    repo.issues = clone(config.projectLabels);
+function parseGitHubIssuesResult(issues) {
+    var result = {"issues": clone(config.projectLabels)};
+    for (var i = 0; i < result.issues.length; i++) {
+        result.issues[i].count = 0;
+    }
 
     // Loop through each issue and
     // if its open and found in our config
@@ -237,15 +259,13 @@ function parseGitHubIssuesResult(issues, repo) {
     for (var i = 0; i < issues.length; i++) {
         if (issues[i].state == "open") {
             for (var j = 0; j < issues[i].labels.length; j++) {
-                for (var k = 0; k < repo.issues.length; k++) {
-                    if (issues[i].labels[j].name == repo.issues[k].name) {
-                        if (!repo.issues[k].count) {
-                            repo.issues[k].count = 0;
-                        }
-                        repo.issues[k].count++;
+                for (var k = 0; k < result.issues.length; k++) {
+                    if (issues[i].labels[j].name == result.issues[k].name) {
+                        result.issues[k].count++;
                     }
                 }
             }
         }
     }
+    return result;
 }
