@@ -219,7 +219,7 @@ function getGitHubRepoAndLabels(fullRepoUrl, callback) {
                     var issuesJson = JSON.parse(body);
 
                     // remove extraneous info from result
-                    var result = parseGitHubIssuesResult(issuesJson);
+                    var result = parseGitHubIssuesResult(issuesJson, fullRepoUrl);
 
                     return callback(null, result);
 
@@ -247,10 +247,11 @@ function parseGitHubRepoResult (result) {
     return transformed;
 }
 
-function parseGitHubIssuesResult(issues) {
+function parseGitHubIssuesResult(issues, fullRepoUrl) {
     var result = {"issues": clone(config.projectLabels)};
     for (var i = 0; i < result.issues.length; i++) {
         result.issues[i].count = 0;
+        result.issues[i].url = fullRepoUrl + "/labels/" + encodeURIComponent(result.issues[i].name);
     }
 
     // Loop through each issue and
