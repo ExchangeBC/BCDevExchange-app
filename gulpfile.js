@@ -1,20 +1,35 @@
+/*
+ Copyright 2015 Province of British Columbia
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and limitations under the License.
+*/
+
 'use strict';
 
 var gulp = require('gulp');
 var es   = require('event-stream');
 var md5 = require('MD5');
-var pathUtil = require('path');
-
 var ConsoleLogger  = require('consologger');
-var log = new ConsoleLogger();
-var fileStatLogger = new ConsoleLogger();
-
+var consoleLog = new ConsoleLogger();
 
 var using = require('gulp-using');
 var concat = require('gulp-concat');
 
-var targetFile = ['!public/bower_components/**/', '!public/bootstrap/**/','!**/gulpfile.js','public/**/*.html', 'public/**/*.js'];
-//var targetFile = ['!public/bower_components/**/', '!public/bootstrap/**/','!**/gulpfile.js','test/**/*.html', 'test/**/*.js'];
+var targetFile = ['!public/bower_components/**/', '!public/bootstrap/**/',
+                    '!**/gulpfile.js', '!public/js/**/*.*',
+                    'public/**/*.html', 'public/**/*.js'];
+//var targetFile = ['!public/bower_components/**/', '!public/bootstrap/**/',
+//    '!**/gulpfile.js', '!public/js/**/*.*',
+//    'public/parent-test/**/*.html', 'public/parent-test/**/*.js'];
+
 var licenseFile = 'copyright-apache2.txt';
 
 var htmlFileSuffix = [];
@@ -99,12 +114,9 @@ var doUpdate = '';
 
 function selectiveUpdate(fsStream, callback){
     if(doUpdate){
-        console.log("Update this file with license text: " + fsStream.path + ".");
+        console.log("Insert license text to this file: " + fsStream.path + ".");
         callback(null, fsStream);
     }else{
-        fileStatLogger.red("None standard license text found in this file: " + fsStream.path + ".").print();
-        fileStatLogger.red("Run with --update flag to update or insert license text to this file.").print();
-        console.log("----------------------------------------------------------------------------");
         callback();
     }
 }
@@ -147,6 +159,7 @@ gulp.task('default', ['license-stat', 'get-args'], function(){
     return gulp.src(targetFile, {buffer:true})
         .pipe(es.map(
             function(data, callback){
+                // data is a stream of vinyl files https://github.com/wearefractal/vinyl
                 if(data.stat.isDirectory()){
                     console.log("Directory found: " + data.path);
                     callback(); // drop the data, not sending it down the pipe.
@@ -164,7 +177,9 @@ gulp.task('default', ['license-stat', 'get-args'], function(){
 
             var regex_exp = null;
             if(isHtmlFile(file_path)){
-                regex_exp = /^<!--((.|\n)*?)-->[\n.]*/m;
+                //regex_exp = /<!--((.|\n)^\[*?)-->.*/;
+                // we are looking for comment before html tag
+                regex_exp = /^<!--((.|\n)*?)-->/m;
             }else if(isJsFile(file_path)) {
                 regex_exp = /^\s*\/\*((.|\n)*?)\*\//m;
             }
@@ -179,10 +194,17 @@ gulp.task('default', ['license-stat', 'get-args'], function(){
                     if(cs === lcStat.lc_checksum){
                         // This file already have a licensing term text that matches
                         // the content in the standard licences file.
-                        fileStatLogger.white("Standard license text already existed in this file: " + file_path).print();
+                        consoleLog.white("Found standard license text this file: " + file_path).print() + ".";
                         callback();
                     }else{
-                        //fileStatLogger.red("Non-standard license text found in this file: " + file_path).print();
+                        consoleLog.red("Non-standard license text found in this file: " + file_path).print();
+
+                        if(!doUpdate){
+                            consoleLog.red.bold("Run with --update flag to update or insert license text to this file.").print();
+                            console.log("----------------------------------------------------------------------------");
+                        }
+
+                        //consoleLog.red(capturedLc).print();
                         /*
                          The first comment section on top of the file does not match
                          with the standard license text. We will replace it with standard
@@ -192,18 +214,38 @@ gulp.task('default', ['license-stat', 'get-args'], function(){
                          The first comment section of top of the file must be standard license
                          text, otherwise it will be replaced.
                           */
-                        var newChunk = chunk.replace(regex_exp,
-                            getCommentedLicenseTxt(lcStat.licenseTxt,file_path));
+                        if(doUpdate){
+                            //console.log("Updating this file with license text. " + file_path);
+                            //console.log();
+                            //console.log("Entire file content before replacement: ");
+                            //console.log(chunk);
+                            //console.log();
+                            var newChunk = chunk.replace(regex_exp,
+                                getCommentedLicenseTxt(lcStat.licenseTxt,file_path));
+                            //console.log();
+                            //console.log("Entire file content after replacement: ");
+                            //console.log(newChunk);
+                            //console.log();
 
-                        fsStream.contents = new Buffer(newChunk);
+                            fsStream.contents = new Buffer(newChunk);
+                        }
 
                         selectiveUpdate(fsStream, callback);
                     }
                 }
                 else{
-                    fileStatLogger.red("License text not found in this file: " + file_path).print();
-                    var newText = insertLicense(chunk, file_path);
-                    fsStream.contents = new Buffer(newText);
+                    consoleLog.bold.red("License text not found in this file: " + file_path).print();
+
+                    if(!doUpdate){
+                        consoleLog.red.bold("Run with --update flag to update or insert license text to this file.").print();
+                        console.log("----------------------------------------------------------------------------");
+                    }
+
+                    if(doUpdate){
+                        //console.log("Adding license text to this file: " + file_path);
+                        var newText = insertLicense(chunk, file_path);
+                        fsStream.contents = new Buffer(newText);
+                    }
 
                     selectiveUpdate(fsStream, callback);
                 }
@@ -214,9 +256,9 @@ gulp.task('default', ['license-stat', 'get-args'], function(){
         }))
         .pipe(
             gulp.dest(function(dataPack){
-                var destDir = pathUtil.dirname(dataPack.path);
-                console.log("Writing to file: " + dataPack.path);
-                return destDir;
+
+                console.log("Writing to directory: " + dataPack.base);
+                return dataPack.base;
             })
         )
         ;
