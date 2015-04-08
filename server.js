@@ -42,7 +42,7 @@ if (config.node.clusterEnabled &&
     var bodyParser = require('body-parser');
     var logger = require('./common/logging.js').logger;
     var passport = require('passport');
-    var GitHubStrategy = require('passport-github').Strategy;
+    var GitHubStrategy = require('passport-github2').Strategy;
     var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
     var async = require('async');
 
