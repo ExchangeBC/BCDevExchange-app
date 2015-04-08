@@ -15,6 +15,8 @@ var async = require('async');
 var request = require('request');
 var config = require('config');
 var logger = require('../../common/logging.js').logger;
+var yaml = require('js-yaml');
+var crypto = require('crypto');
 
 module.exports = function(app, db, passport) {
 
@@ -72,62 +74,132 @@ module.exports.getResourcesFromArray = getResourcesFromArray;
 // TODO: refactor later, must get this done quick!
 function getCatalogueItems (catalogue, callback) {
     if (catalogue.type == "CKANv3") {
-        request(catalogue.baseUrl + '/action/package_search?q=tags:' + catalogue.tagToSearch, function (error, response, body) {
-            if (!error &&
-                typeof response !== 'undefined' &&
-                response.statusCode == 200) {
-
-                var json = JSON.parse(body);
-
-                // remove extraneous info from result
-                async.concat(json.result.results, transformCKANResult, function (err, results) {
-                    copyCatalogue(catalogue, results);
-                    callback(err, results);
-                });
-            }
-            else if (error) {
-                logger.error('Error while fetching %s content: %s; body: %s', catalogue.short_name, error, body);
-                callback(error);
-            }
+        getCKANCatalogueItems(catalogue, function (err, results) {
+            callback(err, results);
         });
     }
     else if (catalogue.type == "GitHub") {
-        options = {
-            url: 'https://api.github.com/search/repositories?q="' + catalogue.tagToSearch + '"+in:readme&client_id=' + config.github.clientID + "&client_secret=" + config.github.clientSecret,
-            headers: {
-                'User-Agent': config.github.clientApplicationName
-            }
-        };
-        request(options, function (error, response, body) {
-            if (!error &&
-                typeof response !== 'undefined' &&
-                response.statusCode == 200) {
-
-                var json = JSON.parse(body);
-                response.resume();
-
-                // remove extraneous info from result
-                async.concat(json.items, parseGitHubResourceResults, function (err, results) {
-                    copyCatalogue(catalogue, results);
-                    callback(err, results);
-                });
-            }
-            else {
-                logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
-                callback(error);
-            }
+        getGitHubCatalogueItems(catalogue, function (err, results) {
+            callback(err, results);
+        });
+    }
+    else if (catalogue.type == "GitHub-File") {
+        getGitHubFileCatalogueItems(catalogue, function (err, results) {
+            callback(err, results);
         });
     }
 }
 
+function getGitHubFileCatalogueItems (catalogue, callback) {
+    options = {
+        url: 'https://api.github.com/' + catalogue.url + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+        headers: {
+            'User-Agent': config.github.clientApplicationName
+        }
+    };
+    request(options, function (error, response, body) {
+        if (!error &&
+            typeof response !== 'undefined' &&
+            response.statusCode == 200) {
+
+            // parse out the yaml from content block
+            var json = JSON.parse(body);
+            var decodedContent = new Buffer(json.content, 'base64').toString('ascii');
+
+            try {
+                var resourcesYaml = yaml.safeLoad(decodedContent);
+
+            } catch (error) {
+                var message = 'Error while parsing yaml project file from: ' + options.url + '; message: ' + error.message;
+                logger.error(message);
+                return callback(message);
+            }
+            // remove extraneous info from result
+            async.concat(resourcesYaml, parseGitHubFileResults, function (err, results) {
+                copyCatalogue(catalogue, results);
+                return callback(err, results);
+            });
+        }
+        else {
+            logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
+            callback(error);
+        }
+    });
+}
+
+function parseGitHubFileResults(result, callback) {
+    var transformed = {
+        "title": result.title,
+        "description": result.description,
+        "source": result.source,
+        "tags": [],
+        "url": result.url
+    };
+
+    for (var i = 0; i < result.tags.length; i++) {
+        transformed.tags[i] = { "display_name": result.tags[i]};
+        transformed.tags[i].colour = crypto.createHash('md5').update(result.tags[i]).digest("hex").substring(0, 6);
+    }
+
+    callback(null, transformed);
+}
+
+function getGitHubCatalogueItems (catalogue, callback) {
+    options = {
+        url: 'https://api.github.com/search/repositories?q="' + catalogue.tagToSearch + '"+in:readme&client_id=' + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+        headers: {
+            'User-Agent': config.github.clientApplicationName
+        }
+    };
+    request(options, function (error, response, body) {
+        if (!error &&
+            typeof response !== 'undefined' &&
+            response.statusCode == 200) {
+
+            var json = JSON.parse(body);
+            response.resume();
+
+            // remove extraneous info from result
+            async.concat(json.items, parseGitHubResourceResults, function (err, results) {
+                copyCatalogue(catalogue, results);
+                callback(err, results);
+            });
+        }
+        else {
+            logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
+            callback(error);
+        }
+    });
+}
+
+function getCKANCatalogueItems (catalogue, callback) {
+    request(catalogue.baseUrl + '/action/package_search?q=tags:' + catalogue.tagToSearch, function (error, response, body) {
+        if (!error &&
+            typeof response !== 'undefined' &&
+            response.statusCode == 200) {
+
+            var json = JSON.parse(body);
+
+            // remove extraneous info from result
+            async.concat(json.result.results, transformCKANResult, function (err, results) {
+                copyCatalogue(catalogue, results);
+                callback(err, results);
+            });
+        }
+        else if (error) {
+            logger.error('Error while fetching %s content: %s; body: %s', catalogue.short_name, error, body);
+            callback(error);
+        }
+    });
+}
+
 function parseGitHubResourceResults(result, callback) {
     var transformed = {
-        "name": result.name,
         "title": result.name,
-        "notes": result.description,
+        "description": result.description,
         "tags": "",
         "url": result.html_url,
-        "record_last_modified": result.updated_at
+        "updated_at": result.updated_at
     };
     callback(null, transformed);
 }
@@ -148,16 +220,15 @@ function copyCatalogue (catalogue, results) {
 function transformCKANResult (result, callback) {
     var transformed = {
         "title": result.title,
-        "name": result.name,
-        "notes": result.notes,
+        "description": result.notes,
         "tags": result.tags,
-        "record_last_modified": result.metadata_modified
+        "updated_at": result.metadata_modified
     };
 
     // trim the tags
     async.concat(result.tags, function(item, tagsCallback) {
             tagsCallback(null, {"display_name": item.display_name,
-                "id": item.id})},
+                "colour": crypto.createHash('md5').update(item.display_name).digest("hex").substring(0, 6)})},
         function (error, results) {
             transformed.tags = results;
         });

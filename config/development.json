@@ -49,12 +49,12 @@ See the License for the specific language governing permissions and limitations 
     "callbackURL": "http://localhost:8000/auth/linkedin/callback"
   },
   "catalogues": [
-    {
-    "type": "GitHub",
-    "name": "GitHub",
-    "short_name": "GitHub",
-    "tagToSearch": "BCDevExchange-Resource"
-    },
+    //{
+    //"type": "GitHub",
+    //"name": "GitHub",
+    //"short_name": "GitHub",
+    //"tagToSearch": "BCDevExchange-Resource"
+    //},
     {
       "type": "CKANv3",
       "name": "City of Surrey Catalogue",
@@ -70,6 +70,12 @@ See the License for the specific language governing permissions and limitations 
     "baseUrl": "http://sandbox1.data.gov.bc.ca/api/3",
     "baseViewUrl": "http://sandbox1.data.gov.bc.ca/dataset/",
     "tagToSearch": "BCDevExchange"
+    },
+    {
+      "type": "GitHub-File",
+      "name": "GitHub",
+      "short_name": "GitHub",
+      "url": "repos/BCDevExchange/BCDevExchange-Resources/contents/resources.yml"
     }
     ]
 }
