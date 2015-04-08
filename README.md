@@ -80,11 +80,26 @@ We've benchmarked performance for this site as it was running on a Microsoft Azu
 
 Static file serving (all Ngnix): [4000 req/sec](http://loader.io/reports/7940cbcd4747e7eb202861f55e277839/results/90215bf18a137874d9fbc7cf9ca272ea)
 
-Dynamic resource serving (NodeJS + MongoDB): TODO
+Dynamic resource serving (Nginx + NodeJS): [100 req/sec < 500ms](http://ldr.io/19D41CW)
 
 ## License
 
-Apache 2.0. See our [license](LICENSE) for more details.
+
+```
+     Copyright 2015 Province of British Columbia
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at 
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+```
 
 ----------
 ###### BCDevExchange Search Tags ######
