@@ -31,11 +31,11 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
         AccountService.save($location.search().id, account).then(
             function() {
                 console.log("successfully saved account.");
-                $scope.resultOfSaving = {success:"true", error:"false"};
+                $scope.resultOfSaving = {success:true};
             },
             function() {
                 console.log("Error in saving account.");
-                $scope.resultOfSaving = {success:"false", error:"true"};
+                $scope.resultOfSaving = {error:true};
             }
         );
     };

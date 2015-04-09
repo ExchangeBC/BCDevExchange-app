@@ -32,11 +32,16 @@ servicesModule.factory('AccountService', ['$resource', '$q', function($resource,
      */
     accountService.getCurrentUser = function(){
         var actPromise = $resource(accountUrl).get().$promise;
-        actPromise.then(function(data){
-            currentUser.displayName = data.profiles[0].name.value;
-            currentUser.id = data._id;
-            currentUser.isLoggedIn = true;
-        });
+        actPromise.then(
+            function(data){
+                currentUser.displayName = data.profiles[0].name.value;
+                currentUser.id = data._id;
+                currentUser.isLoggedIn = true;
+            },
+            function(error){
+                currentUser.displayName = error.toString();
+            }
+        );
         return currentUser;
     };
 
