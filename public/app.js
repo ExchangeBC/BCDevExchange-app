@@ -36,7 +36,8 @@ var app = angular.module('bcdevxApp', [
     'ngMessages',
     'ngAnimate'
 ])
-   .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
+   .config(['$routeProvider', '$httpProvider',
+        function($routeProvider, $httpProvider) {
 
 
         // check if user is connected
@@ -102,21 +103,16 @@ var app = angular.module('bcdevxApp', [
             .otherwise({redirectTo: '/home'});
 
         // add an interceptor for AJAX errors
-        $httpProvider.responseInterceptors.push(function($q, $location) {
-            return function(promise) {
-                return promise.then(
-                    // success
-                    function(response) {
-                        return response;
-                    },
-                    // error
-                    function(response) {
-                        if (response.status === 401) {
-                            $location.url('/login');
-                        }
-                        return $q.reject(response);
+        $httpProvider.interceptors.push(function($q, $location) {
+            return {
+                // optional method
+                'responseError': function (rejection) {
+                    // do something on error
+                    if (rejection.status === '401') {
+                        $location.url('/login');
                     }
-                );
+                    return $q.reject(rejection);
+                }
             }
         });
 
@@ -131,7 +127,7 @@ var app = angular.module('bcdevxApp', [
             });
 
 
-});
+    });
 
 // Common functions for AngularJS
 function extendDeep(dst) {
