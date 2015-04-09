@@ -17,6 +17,7 @@ var config = require('config');
 var logger = require('../../common/logging.js').logger;
 var yaml = require('js-yaml');
 var crypto = require('crypto');
+var urlParser = require('url');
 
 module.exports = function(app, db, passport) {
 
@@ -58,6 +59,24 @@ module.exports = function(app, db, passport) {
 
         res.send({ "sources": listOfCatalogues });
     });
+
+    app.get('/resources/:source/url/:url', function (req, res) {
+        if (!req.params.source) {
+            res.send(400, "Missing source parameter.");
+            return;
+        }
+        if (!req.params.url) { res.send(400, "Missing url parameter."); return; }
+        if (req.params.source != "GitHub") { res.send(400, "At this time, source must be GitHub."); return; }
+
+        getGitHubRepo(req.params.url, function (error, results) {
+            results.source = req.params.source;
+            results.url = req.params.url;
+            res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
+            res.send(results);
+        }, function (error) {
+            res.send(500);
+        });
+    });
 }
 
 var getResourcesFromArray = function (resourceList, success, error) {
@@ -71,7 +90,6 @@ var getResourcesFromArray = function (resourceList, success, error) {
 module.exports.getResourcesFromArray = getResourcesFromArray;
 
 // Just gets items from CKAN v3 compatible APIs
-// TODO: refactor later, must get this done quick!
 function getCatalogueItems (catalogue, callback) {
     if (catalogue.type == "CKANv3") {
         getCKANCatalogueItems(catalogue, function (err, results) {
@@ -244,3 +262,42 @@ function transformCKANResult (result, callback) {
     callback(null, transformed);
 }
 
+
+function getGitHubRepo(fullRepoUrl, callback) {
+
+    var path = urlParser.parse(fullRepoUrl).pathname;
+
+    options = {
+        url: 'https://api.github.com/repos' + path + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+        headers: {
+            'User-Agent': config.github.clientApplicationName
+        }
+    }
+    request(options, function (error, response, body) {
+        if (!error &&
+            typeof response !== 'undefined' &&
+            response.statusCode == 200) {
+
+            var json = JSON.parse(body);
+
+            // remove extraneous info from result
+            var result = parseGitHubRepoResult(json);
+
+            // all done
+            callback(null, result);
+        }
+        else {
+            logger.error('Error while fetching GitHub repo: %s; response: %s; body: %s', error, response, body);
+            callback(error);
+        }
+    });
+}
+
+function parseGitHubRepoResult (result) {
+
+    var transformed = {
+        "updated_at": result.updated_at
+    };
+
+    return transformed;
+}
