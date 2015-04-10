@@ -25,7 +25,7 @@ var concat = require('gulp-concat');
 
 var targetFile = ['!public/bower_components/**/', '!public/bootstrap/**/',
                     '!**/gulpfile.js', '!public/js/**/*.*',
-                    'public/**/*.html', 'public/**/*.js'];
+                    'public/**/*.html', 'public/**/*.js', 'app/**/*.js'];
 //var targetFile = ['!public/bower_components/**/', '!public/bootstrap/**/',
 //    '!**/gulpfile.js', '!public/js/**/*.*',
 //    'public/parent-test/**/*.html', 'public/parent-test/**/*.js'];
@@ -179,9 +179,9 @@ gulp.task('default', ['license-stat', 'get-args'], function(){
             if(isHtmlFile(file_path)){
                 //regex_exp = /<!--((.|\n)^\[*?)-->.*/;
                 // we are looking for comment before html tag
-                regex_exp = /^<!--((.|\n)*?)-->/m;
+                regex_exp = /^<!--((.|\n|\r)*?)-->/;
             }else if(isJsFile(file_path)) {
-                regex_exp = /^\s*\/\*((.|\n)*?)\*\//m;
+                regex_exp = /^\s*\/\*((.|\n|\r)*?)\*\//;
             }
 
             if(regex_exp){
