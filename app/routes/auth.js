@@ -30,10 +30,6 @@ module.exports = function(app, db, passport) {
 
     function loginCallbackHandler(req, res, logger) {
 
-        res.cookie('user', JSON.stringify({
-            'loggedIn': true
-        }), config.http.cookieOptions);
-
         res.redirect('/#/account?id=' + req.user.id);
 
     }

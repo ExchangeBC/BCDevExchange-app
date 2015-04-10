@@ -15,17 +15,14 @@ See the License for the specific language governing permissions and limitations 
 
 'use strict';
 
-var app = angular.module('bcdevxApp.auth', ['ngRoute', 'ngCookies']);
+var app = angular.module('bcdevxApp.auth', ['ngRoute']);
 
 app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.factory( 'AuthService', ['$http', '$cookieStore', '$location', '$rootScope', 'AccountService',
-    function($http, $cookieStore, $location, $rootScope, AccountService) {
-
-    $rootScope.user = $cookieStore.get('user') || null;
-
+app.factory( 'AuthService', ['$http', '$location', '$rootScope', 'AccountService',
+    function($http, $location, $rootScope, AccountService) {
 
     // Redirect to the given url (defaults to '/')
     function redirect(url) {
