@@ -18,13 +18,13 @@ See the License for the specific language governing permissions and limitations 
 var app = angular.module('bcdevxApp', [
     'ngRoute',
     'bcdevxApp.home',
-    'bcdevxApp.auth',
     'bcdevxApp.services',
     'bcdevxApp.account',
     'bcdevxApp.resources',
     'bcdevxApp.projects',
     'bcdevxApp.people',
-    'bcdevxApp.navigation',
+    'bcdevxApp.signup',
+    'bcdevxApp.auth',
     'bcdevxApp.lab',
     'bcdevxApp.disclaimer',
     'bcdevxApp.numbers',
@@ -52,7 +52,7 @@ var app = angular.module('bcdevxApp', [
                 function(data){
                     console.log('Did not find logged-in user');
                     //var modalInstance = $modal.open({
-                    //    templateUrl: 'auth/login.html',
+                    //    templateUrl: 'login/login.html',
                     //    controller: 'LoginModalCtrl'
                     //});
                     deferred.reject(data);
@@ -68,8 +68,8 @@ var app = angular.module('bcdevxApp', [
                 controller: 'HomeCtrl'
             })
             .when('/signup', {
-                templateUrl: 'auth/signup.html',
-                controller: 'AuthCtrl'
+                templateUrl: 'signup/signup.html',
+                controller: 'SignupCtrl'
             })
             .when('/account', {
                 templateUrl: 'account/account.html',

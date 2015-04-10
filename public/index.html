@@ -31,7 +31,7 @@ See the License for the specific language governing permissions and limitations 
 </head>
 <body>
 
-<div class="navbar navbar-default navbar-fixed-top" ng-controller="NavCtrl">
+<div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <a href="#/home" class="navbar-brand" analytics-on>BCDevExchange</a>
@@ -51,7 +51,7 @@ See the License for the specific language governing permissions and limitations 
                 </li>
                 <li ng-cloak><a href="http://blog.data.gov.bc.ca/" ng-cloak analytics-on>Blog</a></li>
             </ul>
-            <devx-login-list class="nav navbar-nav navbar-right"/>
+            <devx-login-list class="nav navbar-nav navbar-right"></devx-login-list>
         </div>
     </div>
 </div>
@@ -135,9 +135,13 @@ See the License for the specific language governing permissions and limitations 
   <script src="bower_components/angular-spinner/angular-spinner.js"></script>
 
   <script src="app.js"></script>
-  <script src="navigation/login-list.directive.js"></script>
+  <script src="signup/signup.js"></script>
+
+  <script src="login/auth.js"></script>
+
+  <script src="login/login-list.directive.js"></script>
+
   <script src="home/home.js"></script>
-  <script src="auth/auth.js"></script>
   <script src="account/account.js"></script>
   <script src="account/account-service.js"></script>
   <script src="lab/lab.js"></script>

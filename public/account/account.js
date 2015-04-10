@@ -68,9 +68,6 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
             .then(function(data) {
 
             $scope.account = data;
-
-            $rootScope.user.displayName = data.profiles[0].name.value;
-            $rootScope.id = data._id;
         });
 
         $scope.checkIdentityExists('github');

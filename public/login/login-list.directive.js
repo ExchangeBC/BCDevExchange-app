@@ -1,7 +1,7 @@
-(function() {
+//(function() {
     'use strict';
 
-    app = angular.module('bcdevxApp.navigation');
+    app = angular.module('bcdevxApp.auth');
 
     var devxDirectives = {};
 
@@ -12,7 +12,7 @@
                 clazz:'@class',
                 analytics: '@'
             },
-            templateUrl: 'navigation/login-list.html',
+            templateUrl: 'login/login-list.html',
 
 
             controller: ['$scope', '$rootScope', '$modal', 'AuthService',
@@ -26,7 +26,7 @@
 
                 vm.login = function () {
                     var modalInstance = $modal.open({
-                        templateUrl: 'auth/login.html',
+                        templateUrl: 'login/login.html',
                         controller: 'LoginModalCtrl'
                     });
                 };
@@ -56,4 +56,4 @@
 
     app.directive(devxDirectives);
 
-})();
+//})();

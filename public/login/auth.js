@@ -34,23 +34,15 @@ app.factory( 'AuthService', ['$http', '$cookieStore', '$location', '$rootScope',
     }
 
     var service = {
-        login: function(user) {
-            $rootScope.user = user;
-        },
+
         logout: function(redirectTo) {
             $http.post('/logout').then(function() {
-                $rootScope.user = null;
-                $cookieStore.remove('user');
                 redirect(redirectTo);
             });
         }
     };
 
     return service;
-}]);
-
-app.controller('AuthCtrl', [function() {
-
 }]);
 
 app.controller('LoginModalCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
