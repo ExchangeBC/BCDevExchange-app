@@ -93,11 +93,17 @@ The local files are intended to not be tracked in your version control system. E
       "baseViewUrl": "http://data.surrey.ca/dataset/",
       "tagToSearch": "BCDevExchange"
     },
+    //{
+    //  "type": "GitHub",
+    //  "name": "GitHub",
+    //  "short_name": "GitHub",
+    //  "tagToSearch": "BCDevExchange-Resource"
+    //},
     {
-      "type": "GitHub",
+      "type": "GitHub-File",
       "name": "GitHub",
       "short_name": "GitHub",
-      "tagToSearch": "BCDevExchange-Resource"
+      "url": "repos/BCDevExchange/BCDevExchange-Resources/contents/resources.yml"
     }
   ],
   "projectLabels": [

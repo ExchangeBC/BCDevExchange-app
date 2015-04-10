@@ -29,11 +29,16 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
         return $resource('/resources-sources');
     }])
 
+    .factory('ResourceDetailsService', function($resource){
+        return $resource('/resources/:source/url/:url', {source:'@source', url:'@url'})
+    })
+
 
     .controller('ResourcesCtrl', ['$rootScope', '$scope', '$location', '$window',
-                'usSpinnerService', 'ResourceList', 'SourceList', '$q', '$resource',
+                'usSpinnerService', 'ResourceList', 'SourceList', 'ResourceDetailsService',
+                '$q', '$resource',
 
-        function($rootScope, $scope, $location, $window, usSpinnerService, ResourceList, SourceList, $q, $resource) {
+        function($rootScope, $scope, $location, $window, usSpinnerService, ResourceList, SourceList, ResourceDetailsService, $q, $resource) {
 
         // Filter vars
         $scope.selectedSource = '';
