@@ -9,6 +9,8 @@
         return {
             restricted: 'EA',
             scope: {
+                clazz:'@class',
+                analytics: '@'
             },
             templateUrl: 'navigation/login-list.html',
 
@@ -42,7 +44,11 @@
                     );
 
             }],
-            controllerAs: 'loginlistCtrl'
+            controllerAs: 'loginlistCtrl',
+
+            link: function(scope, iElement, iAttrs){
+                iElement.children()[0].className = scope.clazz;
+            }
 
         }
 

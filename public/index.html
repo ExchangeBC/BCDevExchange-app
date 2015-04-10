@@ -51,26 +51,7 @@ See the License for the specific language governing permissions and limitations 
                 </li>
                 <li ng-cloak><a href="http://blog.data.gov.bc.ca/" ng-cloak analytics-on>Blog</a></li>
             </ul>
-            <devx-login-list
-            <devx-login-list></devx-login-list>
-
-            <!--
-            <ul class="nav navbar-nav navbar-right">
-
-                <li show-on-logged-out ng-cloak>
-                    <a href="#/signup" ng-cloak analytics-on>Sign Up</a>
-                </li>
-                <li show-on-logged-out ng-cloak>
-                    <a href="" ng-click="login()" ng-cloak analytics-on>Log In</a>
-                </li>
-                <li show-on-logged-in ng-cloak>
-                    <a href="#/account?id={{user.id}}" ng-cloak analytics-on>{{user.displayName}}</a>
-                </li>
-                <li show-on-logged-in ng-cloak>
-                    <a href="" ng-click="logout()" ng-cloak analytics-on>Log Out</a>
-                </li>
-            </ul>
-            -->
+            <devx-login-list class="nav navbar-nav navbar-right"/>
         </div>
     </div>
 </div>
@@ -154,7 +135,6 @@ See the License for the specific language governing permissions and limitations 
   <script src="bower_components/angular-spinner/angular-spinner.js"></script>
 
   <script src="app.js"></script>
-  <script src="navigation/navbar.js"></script>
   <script src="navigation/login-list.directive.js"></script>
   <script src="home/home.js"></script>
   <script src="auth/auth.js"></script>
