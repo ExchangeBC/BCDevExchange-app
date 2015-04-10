@@ -111,7 +111,9 @@ var app = angular.module('bcdevxApp', [
                 'responseError': function (rejection) {
                     // do something on error
                     if (rejection.status === 401) {
-                        $location.url('/login');
+                        $location.url('/home');
+                    }else if(rejection.status === 0){
+                        console.log('Bummer, looks like you hit a network connection error, please check your internet connection or make sure the server is running.');
                     }
                     return $q.reject(rejection);
                 }
