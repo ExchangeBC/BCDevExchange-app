@@ -41,21 +41,23 @@ var app = angular.module('bcdevxApp', [
 
 
         // check if user is connected
-        var checkLoggedIn = function($q, $timeout, $location, AuthService, $modal) {
-            // initialize a new promise
+        var checkLoggedIn = function($q, $timeout, $location, AccountService, $modal) {
             var deferred = $q.defer();
+            var promise = AccountService.getCurrentAccount();
 
-            if (AuthService.isAuthenticated()) {
-                $timeout(deferred.resolve, 0);
-            } else {
-                $timeout(function() {deferred.reject();}, 0);
-
-                var modalInstance = $modal.open({
-                    templateUrl: 'auth/login.html',
-                    controller: 'LoginModalCtrl'
-                });
-
-            }
+            promise.then(
+                function(data){
+                        deferred.resolve(data);
+                },
+                function(data){
+                    console.log('Did not find logged-in user');
+                    //var modalInstance = $modal.open({
+                    //    templateUrl: 'auth/login.html',
+                    //    controller: 'LoginModalCtrl'
+                    //});
+                    deferred.reject(data);
+                }
+            )
 
             return deferred.promise;
         };
@@ -73,7 +75,7 @@ var app = angular.module('bcdevxApp', [
                 templateUrl: 'account/account.html',
                 controller: 'AccountCtrl',
                 resolve: {
-                    loggedin: checkLoggedIn
+                    currentUser: checkLoggedIn
                 }
             })
             .when('/lab', {
@@ -103,12 +105,12 @@ var app = angular.module('bcdevxApp', [
             .otherwise({redirectTo: '/home'});
 
         // add an interceptor for AJAX errors
-        $httpProvider.interceptors.push(function($q, $location) {
+        $httpProvider.interceptors.push(function($q, $location, $log) {
             return {
                 // optional method
                 'responseError': function (rejection) {
                     // do something on error
-                    if (rejection.status === '401') {
+                    if (rejection.status === 401) {
                         $location.url('/login');
                     }
                     return $q.reject(rejection);

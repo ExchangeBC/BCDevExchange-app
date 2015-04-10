@@ -43,16 +43,6 @@ app.factory( 'AuthService', ['$http', '$cookieStore', '$location', '$rootScope',
                 $cookieStore.remove('user');
                 redirect(redirectTo);
             });
-        },
-        isAuthenticated: function() {
-            if($rootScope.user && $rootScope.user.loggedIn){
-                if(!$rootScope.user.displayName){
-                    $rootScope.user = AccountService.getCurrentUser();
-                }
-                return true;
-            }else{
-                return false;
-            }
         }
     };
 

@@ -15,9 +15,21 @@ See the License for the specific language governing permissions and limitations 
 
 <div class="modal-body text-center">
     <h3>Welcome back.</h3><br/>
-    <p><a href="/auth/github" class="btn btn-primary btn-lg btn-github"><i class="fa fa-github fa-lg"></i> | Continue with <strong>GitHub</strong></a></p>
-    <p ng-show="config.linkedinLogin" ng-cloak><a href="/auth/linkedin" class="btn btn-primary btn-lg btn-linkedin" analytics-on><i class="fa fa-linkedin fa-lg"></i> | Continue with <strong>LinkedIn</strong></a></p>
+    <p>
+        <a href="/auth/github" class="btn btn-primary btn-lg btn-github">
+            <i class="fa fa-github fa-lg"></i> | Continue with <strong>GitHub</strong>
+        </a>
+    </p>
+    <p ng-show="config.linkedinLogin" ng-cloak>
+        <a href="/auth/linkedin" class="btn btn-primary btn-lg btn-linkedin" analytics-on>
+            <i class="fa fa-linkedin fa-lg"></i> | Continue with <strong>LinkedIn</strong>
+        </a>
+    </p>
 </div>
 <div class="modal-footer">
-    <p><button type="cancel" ng-click="cancel()" class="btn btn-primary">Cancel</button></p>
+    <p>
+        <button type="cancel" ng-click="cancel()" class="btn btn-primary">
+            Cancel
+        </button>
+    </p>
 </div>

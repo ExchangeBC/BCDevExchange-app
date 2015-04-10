@@ -168,6 +168,13 @@ module.exports = function(app, db, passport) {
     app.get('/account', ensureAuthenticated, function(req, res) {
         populateAccount(req, res, req.user._id, db, config, logger);
     });
+    app.get('/accountCheck', function(req, res) {
+        if(req.isAuthenticated()){
+            populateAccount(req, res, req.user._id, db, config, logger);
+        }else{
+            res.sendStatus(200);
+        }
+    });
 
     app.post('/account/:id', ensureAuthenticated, function(req, res) {
         var acctData = req.body;

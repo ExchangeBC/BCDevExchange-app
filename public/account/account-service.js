@@ -18,31 +18,46 @@ See the License for the specific language governing permissions and limitations 
 var servicesModule = angular.module('bcdevxApp.services', []);
 
 
-servicesModule.factory('AccountService', ['$resource', '$q', function($resource, $q) {
+servicesModule.factory('AccountService', ['$resource', '$q', '$log', function($resource, $q, $log) {
     var accountService = this;
     var accountUrl = '/account';
-
-    var currentUser = {
-        loggedIn:true
-    };
-
+    var accountCheckUrl = '/accountCheck';
     /*
-       Caller of this function can bind views to the returned object, which will be updated
-       when results becomes available as promise gets resolved.
+      Returns a promise, when resolved with empty object, indicating no authenticated user found.
      */
     accountService.getCurrentUser = function(){
-        var actPromise = $resource(accountUrl).get().$promise;
+        $log.info('Get session user from server.');
+        var deferred = $q.defer();
+        var actPromise = $resource(accountCheckUrl).get().$promise;
+
+        var currentUser = {
+        };
+
         actPromise.then(
             function(data){
-                currentUser.displayName = data.profiles[0].name.value;
-                currentUser.id = data._id;
-                currentUser.isLoggedIn = true;
+                if(!!data.profiles){
+                    currentUser.displayName = data.profiles[0].name.value;
+                    currentUser.id = data._id;
+                    console.log('current user: ' + currentUser.displayName);
+                    deferred.resolve(currentUser);
+                }else{
+                    console.log("No authenticated user found.");
+                    deferred.resolve(currentUser);
+                }
             },
             function(error){
-                currentUser.displayName = error.toString();
+                console.log("Error in accessing resource: " + accountCheckUrl + ", error code" + error.status);
+                currentUser.error = error.toString();
+                deferred.reject(currentUser);
             }
         );
-        return currentUser;
+
+        return deferred.promise;
+    };
+
+    accountService.getCurrentAccount = function(){
+        var accountPromise = $resource(accountUrl).get().$promise;
+        return accountPromise;
     };
 
     accountService.getAccountById = function(accountId){

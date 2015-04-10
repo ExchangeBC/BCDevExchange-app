@@ -66,6 +66,7 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
     $scope.init = function(){
         AccountService.getAccountById($location.search().id)
             .then(function(data) {
+
             $scope.account = data;
 
             $rootScope.user.displayName = data.profiles[0].name.value;
