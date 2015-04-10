@@ -6,7 +6,6 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "angular-cookies": "1.2.x",
     "angular-resource": "1.2.x",
     "angular-route": "1.2.x",
     "angular-loader": "1.2.x",

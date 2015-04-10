@@ -54,7 +54,7 @@ The local files are intended to not be tracked in your version control system. E
         "maxage": "1h"
       },
       "cookieOptions": {
-        "httpOnly": false,
+        "httpOnly": true,
         "secure": true,
         "domain": ".bcdevexchange.org"
       }
