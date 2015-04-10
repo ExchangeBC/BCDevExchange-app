@@ -1,22 +1,22 @@
 {
   "name": "BCDevExchange",
   "private": false,
-  "version": "0.0.0",
+  "version": "1.1.0",
   "description": "Organization site for BCDevExchange",
   "repository": "https://github.com/BCDevExchange/BCDevExchange-app",
   "license": "Apache 2.0",
   "main": "server.js",
   "dependencies": {
     "async": "^0.9.0",
-    "body-parser": "^1.12.0",
-    "bower": "1.4.x",
+    "body-parser": "^1.12.2",
+    "bower": "^1.4.x",
     "clone": "^1.0.2",
     "config": "^1.12.0",
-    "connect-mongo": "^0.7.0",
-    "express": "^4.12.2",
-    "express-session": "^1.10.3",
+    "connect-mongo": "^0.8.0",
+    "express": "^4.12.3",
+    "express-session": "^1.11.1",
     "google-cdn-data": "^0.1.17",
-    "helmet": "^0.7.0",
+    "helmet": "^0.7.1",
     "js-yaml": "^3.2.7",
     "MD5": "^1.2.1",
     "merge": "^1.2.0",
@@ -24,8 +24,8 @@
     "passport": "^0.2.1",
     "passport-github2": "^0.1.9",
     "passport-linkedin-oauth2": "^1.2.1",
-    "request": "^2.53.0",
-    "winston": "^0.9.0"
+    "request": "^2.55.0",
+    "winston": "^1.0.0"
   },
   "devDependencies": {
     "consologger": "^1.0.0",
@@ -47,10 +47,10 @@
     "gulp-util": "^3.0.3",
     "gulp-watch": "^4.1.1",
     "jshint-stylish": "^1.0.0",
-    "karma": "~0.12",
+    "karma": "^0.12.31",
     "karma-junit-reporter": "^0.2.2",
-    "protractor": "^1.8.0",
-    "shelljs": "^0.3.0"
+    "protractor": "^2.0.0",
+    "shelljs": "^0.4.0"
   },
   "scripts": {
     "postinstall": "bower install",
