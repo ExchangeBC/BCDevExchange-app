@@ -23,12 +23,9 @@ var consoleLog = new ConsoleLogger();
 var using = require('gulp-using');
 var concat = require('gulp-concat');
 
-var targetFile = ['!public/bower_components/**/', '!public/bootstrap/**/',
+var targetFile = ['!**/bower_components/**/', '!public/bootstrap/**/',
                     '!**/gulpfile.js', '!public/js/**/*.*',
                     'public/**/*.html', 'public/**/*.js', 'app/**/*.js'];
-//var targetFile = ['!public/bower_components/**/', '!public/bootstrap/**/',
-//    '!**/gulpfile.js', '!public/js/**/*.*',
-//    'public/parent-test/**/*.html', 'public/parent-test/**/*.js'];
 
 var licenseFile = 'copyright-apache2.txt';
 
