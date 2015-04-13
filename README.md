@@ -21,7 +21,16 @@ You'll need [MongoDB](http://www.mongodb.org/), [NodeJS](http://nodejs.org/), an
 
 `$ npm install `
 
-We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development, but contributors are free to use any editor.  
+We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development, but contributors are free to use any editor.
+
+To ensure appropriate license is on every appropriate file, use:
+
+`gulp`
+
+To automatically update/insert license, use:
+
+`gulp --update`
+
 ## Server Deployment ##
 
 First time setup, you'll need a Linux server with:
