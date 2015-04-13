@@ -1,0 +1,36 @@
+.message-success {
+    color: #ffffff;
+    background-color: #43ac6a;
+    border-color: #3c9a5f;
+    padding: 8px;
+    border-radius: 4px 4px;
+    box-shadow: 2px 2px 3px rgba(0,0,0,.2);
+}
+
+.message-warning {
+    color: #ffffff;
+    background-color: #e99002;
+    border-color: #d08002;
+    padding: 8px;
+    border-radius: 4px 4px;
+    box-shadow: 2px 2px 3px rgba(0,0,0,.2);
+}
+
+.message-danger {
+    color: #ffffff;
+    background-color: #f04124;
+    border-color: #ea2f10;
+    padding: 8px;
+    border-radius: 4px 4px;
+    box-shadow: 2px 2px 3px rgba(0,0,0,.2);
+}
+
+#close {
+    float:right;
+    display:inline-block;
+    padding:1px 5px 6px 6px;
+}
+
+#close:hover{
+    cursor: pointer;
+}

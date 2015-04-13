@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and limitations 
 
 'use strict';
 
-var app = angular.module('bcdevxApp.account', ['ngRoute', 'ngResource', 'ngMessages']);
+var app = angular.module('bcdevxApp.account', ['ngRoute', 'ngResource', 'ngMessages', 'ngFx', 'ngAnimate']);
 
 
 app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', 'AccountService',
@@ -24,20 +24,30 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
     $scope.formLevelMessage = '';
     $scope.formError = false;
     $scope.accountExistsMap = new Map();
-    $scope.resultOfSaving = {success:false, error:false};
+    $scope.resultOfSaving = null;
+    $scope.hideMessageDialog = true;
     $scope.notifs = {};
 
     $scope.update = function(account) {
         AccountService.save($location.search().id, account).then(
             function() {
-                console.log("successfully saved account.");
-                $scope.resultOfSaving = {success:true};
+                $scope.resultOfSaving = {success:"You have successfully updated your account."};
+                $scope.hideMessageDialog = false;
             },
-            function() {
-                console.log("Error in saving account.");
-                $scope.resultOfSaving = {error:true};
+            function(errorObj) {
+                if(errorObj.status == 0){
+                    $scope.resultOfSaving = {network_error: "Snap! Please check your network connection. \n And make sure the server is online."};
+                }else{
+                    $scope.resultOfSaving = {error:"Bummer, error happened while saving your account, \n Please try again. \n errorObj.status"};
+                }
+                $scope.hideMessageDialog = false;
             }
-        );
+
+        )
+    };
+
+    $scope.hideDialog = function(){
+        $scope.hideMessageDialog = true;
     };
 
     $scope.identityExists = function(identifier) {
