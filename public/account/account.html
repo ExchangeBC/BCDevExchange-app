@@ -24,7 +24,7 @@ See the License for the specific language governing permissions and limitations 
         <div class="row">
             <div class="col-xs-4 messages-overlay">
                 <div ng-messages = "resultOfSaving" ng-hide="hideMessageDialog" class="fx-fade-up">
-                    <span id='close' ng-click="hideDialog()">X</span>
+                    <span id='close' ng-click="hideDialog()">&times;</span>
                     <div ng-message ="success" class="message-success">
                         {{resultOfSaving.success}}
                     </div>
