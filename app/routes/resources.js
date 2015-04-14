@@ -230,7 +230,7 @@ function copyCatalogue (catalogue, results) {
             "tagToSearch": catalogue.tagToSearch
         };
         if (!results[i].url) {
-            results[i].url = catalogue.baseViewUrl + results[i].title
+            results[i].url = catalogue.baseViewUrl + results[i].name
         }
     }
 }
@@ -238,6 +238,7 @@ function copyCatalogue (catalogue, results) {
 // Filter out data that doesn't appear on the site
 function transformCKANResult (result, callback) {
     var transformed = {
+        "name": result.name,
         "title": result.title,
         "description": result.notes,
         "tags": result.tags,
