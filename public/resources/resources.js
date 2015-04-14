@@ -101,9 +101,11 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
         });
 
         $scope.hasMatchingSource = function(actual, expected) {
-            if(expected.short_name == "") return true; // Filtering by null should show all results
-            if(!actual.short_name || !expected.short_name) return false;
-            return actual.short_name == expected.short_name;
+            if(!expected || !!expected && (actual == expected)){
+                return true
+            }else{
+                return false;
+            }
         }
 
         $scope.selectSource = function(event, newSource, newSourceTitle) {
