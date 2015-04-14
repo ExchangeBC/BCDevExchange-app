@@ -230,7 +230,7 @@ function copyCatalogue (catalogue, results) {
             "tagToSearch": catalogue.tagToSearch
         };
         if (!results[i].url) {
-            results[i].url = catalogue.baseViewUrl + results[i].name
+            results[i].url = catalogue.baseViewUrl + results[i].title
         }
     }
 }
