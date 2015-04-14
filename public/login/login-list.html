@@ -11,17 +11,19 @@ Unless required by applicable law or agreed to in writing, software distributed 
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 -->
-<ul>
+<ul ng-show="loginlistCtrl.doShow">
     <li ng-hide="loginlistCtrl.username" ng-cloak>
         <a href="#/signup" ng-cloak analytics-on>Sign Up</a>
     </li>
     <li ng-hide="loginlistCtrl.username" ng-cloak>
         <a href="" ng-click="loginlistCtrl.login()" ng-cloak analytics-on>Log In</a>
     </li>
-    <li ng-show="loginlistCtrl.username" ng-cloak>
-        <a href="#/account?id={{loginlistCtrl.userid}}" ng-cloak analytics-on>{{loginlistCtrl.username}}</a>
+    <li ng-show="loginlistCtrl.username" ng-cloak class="fx-fade-up">
+        <a href="#/account?id={{loginlistCtrl.userid}}" ng-cloak analytics-on>
+            {{loginlistCtrl.username}}
+        </a>
     </li>
-    <li ng-show="loginlistCtrl.username" ng-cloak>
+    <li ng-show="loginlistCtrl.username" ng-cloak class="fx-fade-up">
         <a href="" ng-click="loginlistCtrl.logout()" ng-cloak analytics-on>Log Out</a>
     </li>
 </ul>

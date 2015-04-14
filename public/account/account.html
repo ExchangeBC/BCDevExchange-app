@@ -20,16 +20,12 @@ See the License for the specific language governing permissions and limitations 
         </div>
     </div>
 
-    <div class="content-main">
+    <div class="container">
         <div class="row">
-            <div class="col-xs-4">
-                <div class="model-body">
-
-                </div>
-                <div ng-messages = "resultOfSaving" ng-hide="hideMessageDialog" class="fx-fade-down">
-                    <span ng-show="!!resultOfSaving" id='close' ng-click="hideDialog()">X</span>
+            <div class="col-xs-4 messages-overlay">
+                <div ng-messages = "resultOfSaving" ng-hide="hideMessageDialog" class="fx-fade-up">
+                    <span id='close' ng-click="hideDialog()">X</span>
                     <div ng-message ="success" class="message-success">
-
                         {{resultOfSaving.success}}
                     </div>
                     <div ng-message ="error" class="message-warning">
@@ -41,6 +37,8 @@ See the License for the specific language governing permissions and limitations 
                 </div>
             </div>
         </div>
+    </div>
+    <div class="content-main">
 
         <div class="row">
             <form novalidate ng-submit="update(account)">

@@ -18,8 +18,8 @@ See the License for the specific language governing permissions and limitations 
 var app = angular.module('bcdevxApp.account', ['ngRoute', 'ngResource', 'ngMessages', 'ngFx', 'ngAnimate']);
 
 
-app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', 'AccountService',
-    function($rootScope, $scope, $location, $window, AccountService) {
+app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', 'AccountService', '$timeout',
+    function($rootScope, $scope, $location, $window, AccountService, $timeout) {
 
     $scope.formLevelMessage = '';
     $scope.formError = false;
@@ -31,8 +31,11 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
     $scope.update = function(account) {
         AccountService.save($location.search().id, account).then(
             function() {
-                $scope.resultOfSaving = {success:"You have successfully updated your account."};
+                $scope.resultOfSaving = {success:"You have updated your account."};
                 $scope.hideMessageDialog = false;
+                $timeout(function(){
+                    $scope.hideMessageDialog = true;
+                }, 3000);
             },
             function(errorObj) {
                 if(errorObj.status == 0){
@@ -42,7 +45,6 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
                 }
                 $scope.hideMessageDialog = false;
             }
-
         )
     };
 

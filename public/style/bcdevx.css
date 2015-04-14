@@ -1,10 +1,19 @@
+.messages-overlay{
+    z-index: 100;
+    position: absolute;
+    opacity: 0.9;
+    top: 110px;
+    left: 50px;
+}
+
 .message-success {
     color: #ffffff;
-    background-color: #43ac6a;
-    border-color: #3c9a5f;
-    padding: 8px;
+    background-color: #27ac14;
+    border-color: #27ac14;
+    padding: 2px 8px 2px 15px;
     border-radius: 4px 4px;
     box-shadow: 2px 2px 3px rgba(0,0,0,.2);
+    z-index: 100;
 }
 
 .message-warning {
@@ -14,6 +23,7 @@
     padding: 8px;
     border-radius: 4px 4px;
     box-shadow: 2px 2px 3px rgba(0,0,0,.2);
+    z-index: 100;
 }
 
 .message-danger {
@@ -23,12 +33,14 @@
     padding: 8px;
     border-radius: 4px 4px;
     box-shadow: 2px 2px 3px rgba(0,0,0,.2);
+    z-index: 100;
 }
 
 #close {
     float:right;
     display:inline-block;
     padding:1px 5px 6px 6px;
+    z-index: 100;
 }
 
 #close:hover{

@@ -50,9 +50,11 @@ See the License for the specific language governing permissions and limitations 
                         function(data){
                             vm.username = data.displayName;
                             vm.userid = data.id;
+                            vm.doShow = true;
                         },
                         function(data){
                             vm.username = '';
+                            vm.doShow = true;
                         }
                     );
 
