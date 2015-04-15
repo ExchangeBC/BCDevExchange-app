@@ -87,6 +87,10 @@ var app = angular.module('bcdevxApp', [
                 templateUrl: 'resources/resources.html',
                 controller: 'ResourcesCtrl'
             })
+            .when('/programs', {
+                templateUrl: 'programs/programs.html',
+                controller: 'ProgramsCtrl'
+            })
             .when('/projects', {
                 templateUrl: 'projects/projects.html',
                 controller: 'ProjectsCtrl'
