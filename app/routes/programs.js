@@ -18,25 +18,20 @@ var config = require('config');
 var logger = require('../../common/logging.js').logger;
 var yaml = require('js-yaml');
 var crypto = require('crypto');
-var urlParser = require('url');
 var clone = require('clone');
 var merge = require('merge');
 
 module.exports = function(app, db, passport) {
 
-    app.get('/programs/:source?', function (req, res) {
-        if (req.params.length > 0) {
-            // Handle specific requests
-        }
-        else {
-            getProgramsFromArray(config.programs, function (results) {
-                var body = {"programs": results};
-                res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
-                res.send(body);
-            }, function (error) {
-                res.send(500);
-            });
-        }
+    app.get('/programs/', function (req, res) {
+
+        getProgramsFromArray(config.programs, function (results) {
+            var body = {"programs": results};
+            res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
+            res.send(body);
+        }, function (error) {
+            res.send(500);
+        });
     });
 }
 
