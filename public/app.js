@@ -36,7 +36,8 @@ var app = angular.module('bcdevxApp', [
     'angularMoment',
     'ngMessages',
     'ngFx',
-    'ngAnimate'
+    'ngAnimate',
+    'rt.encodeuri'
 ])
    .config(['$routeProvider', '$httpProvider',
         function($routeProvider, $httpProvider) {
