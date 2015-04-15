@@ -33,6 +33,15 @@ module.exports = function(app, db, passport) {
             res.send(500);
         });
     });
+    app.get('/programs/name/:title', function (req, res) {
+        if (!req.params.title) { res.send(400, "Missing url title."); return; }
+
+        getProgramDetails(req.params.title, function (error, result) {
+            if (error) res.send(500);
+            res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
+            res.send(result);
+        });
+    });
 }
 
 var getProgramsFromArray = function (programList, success, error) {
@@ -109,4 +118,59 @@ function parseGitHubFileResults(result, callback) {
     }
 
     callback(null, transformed);
+}
+
+function getProgramDetails (title, callback) {
+
+    // First get the directory to figure out what repo it is
+    getGitHubFileProgram(config.programs[0], function (error, result) {
+        if (error) {
+            logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
+            return callback(error);
+        }
+
+        // find entry in the result
+        var program;
+        for (var k in result) {
+            if (result[k].title.toUpperCase() == title.toUpperCase()) {
+                program = result[k];
+                break;
+            }
+        }
+        if (!program) {
+            logger.error('Could not find title: %s in directory', title);
+            return callback("Bad config");
+        }
+        if (!program.url) {
+            logger.error('Could not find title: %s in directory', title);
+            return callback("Bad config");
+        }
+
+        // Call github for file contents
+        options = {
+            url: 'https://api.github.com/repos/' + program.url + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+            headers: {
+                'User-Agent': config.github.clientApplicationName
+            }
+        };
+        request(options, function (error, response, body) {
+            if (!error &&
+                typeof response !== 'undefined' &&
+                response.statusCode == 200) {
+
+                // parse out the yaml from content block
+                var json = JSON.parse(body);
+                var decodedContent = new Buffer(json.content, 'base64').toString('ascii');
+                
+                var result = {"markdown": decodedContent};
+
+                return callback(null, result);
+
+            }
+            else {
+                logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
+                return callback(error);
+            }
+        });
+    });
 }
