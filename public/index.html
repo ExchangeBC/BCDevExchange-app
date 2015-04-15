@@ -50,10 +50,10 @@ See the License for the specific language governing permissions and limitations 
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class='nav navbar-nav navbar-left'>
-                <li ng-show="config.resourcesPage" ng-cloak><a href="#/resources" ng-cloak analytics-on>Resources</a>
-                </li>
-                <li ng-show="config.projectsPage" ng-cloak><a href="#/projects" ng-cloak analytics-on>Projects</a></li>
-                <li ng-show="config.peoplePage" ng-cloak><a href="#/people" ng-cloak analytics-on>People</a></li>
+                <li ng-show="config.resourcesPage" ng-cloak><a href="#/resources"  ng-cloak analytics-on>Resources</a></li>
+                <li ng-show="config.projectsPage" ng-cloak><a href="#/projects"  ng-cloak analytics-on>Projects</a></li>
+                <li ng-show="config.programsPage" ng-cloak><a href="#/programs"  ng-cloak analytics-on>Programs</a></li>
+                <li ng-show="config.peoplePage" ng-cloak><a href="#/people"  ng-cloak analytics-on>People</a></li>
                 <li ng-show="config.labLink" ng-cloak analytics-on>
                     <a href="#/lab" ng-cloak analytics-on>Labs</a>
                 </li>
@@ -105,66 +105,64 @@ See the License for the specific language governing permissions and limitations 
 </div>
 
 
-<nav class="navbar navbar-displayBanner navbar-fixed-bottom ng-scope" ng-show="config.discoveryBanner" ng-cloak>
-    <div class="container">
-        <div class="navbar-left navbar-title-displayBanner">
-            Exploration <i class="fa fa-flask"></i> Lab
-            <button type="button" class="btn btn-info pull-right visible-xs" data-toggle="popover" data-placement="top"
-                    data-content="Under design and construction.  May change or disappear without notice. And, it may have a of couple bugs or two. <a href='https://github.com/BCDevExchange/BCDevExchange-app/issues' analytics-on>Provide us your feedback through <i class='fa fa-github'></i> GitHub!</a>">
-                <i class="fa fa-question fa-lg"></i></button>
-        </div>
-        <div class="navbar-right">
-            <p class="navbar-text-displayBanner navbar-right hidden-xs">
-                Under design and construction. May change or disappear without notice.<br>
-                And, it may have a of couple bugs or two.
-                <strong><a href="https://github.com/BCDevExchange/BCDevExchange-app/issues" analytics-on>Provide us your
-                    feedback through <i class="fa fa-github"></i> GitHub!</a></strong>
-            </p>
-        </div>
-    </div>
-</nav>
+  <nav class="navbar navbar-displayBanner navbar-fixed-bottom ng-scope" ng-show="config.discoveryBanner" ng-cloak>
+      <div class="container">
+          <div class="navbar-left navbar-title-displayBanner">
+              Exploration <i class="fa fa-flask"></i> Lab
+              <button type="button" class="btn btn-info pull-right visible-xs" data-toggle="popover" data-placement="top" data-content="Under design and construction.  May change or disappear without notice. And, it may have a of couple bugs or two. <a href='https://github.com/BCDevExchange/BCDevExchange-app/issues' analytics-on>Provide us your feedback through <i class='fa fa-github'></i> GitHub!</a>"><i class="fa fa-question fa-lg"></i></button>
+          </div>
+          <div class="navbar-right">
+              <p class="navbar-text-displayBanner navbar-right hidden-xs">
+                  Under design and construction.  May change or disappear without notice.<br>
+                  And, it may have a of couple bugs or two.
+                  <strong><a href="https://github.com/BCDevExchange/BCDevExchange-app/issues" analytics-on>Provide us your feedback through <i class="fa fa-github"></i> GitHub!</a></strong>
+              </p>
+          </div>
+      </div>
+  </nav>
 
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/angular-route/angular-route.js"></script>
-<script src="bower_components/angular-resource/angular-resource.js"></script>
-<script src="bower_components/angular-messages/angular-messages.js"></script>
-<script src="bower_components/jquery/dist/jquery.js"></script>
-<script src="bower_components/respond-minmax/dest/respond.min.js"></script>
-<script src="bower_components/angulartics/dist/angulartics.min.js"></script>
-<script src="bower_components/angulartics/dist/angulartics-ga.min.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="bower_components/angular-ui-utils/highlight.js"></script>
-<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-messages/angular-messages.js"></script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/respond-minmax/dest/respond.min.js"></script>
+  <script src="bower_components/angulartics/dist/angulartics.min.js"></script>
+  <script src="bower_components/angulartics/dist/angulartics-ga.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="bower_components/angular-ui-utils/highlight.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 <script src="bower_components/showdown/compressed/Showdown.min.js"></script>
 <script src="bower_components/angular-markdown-directive/markdown.js"></script>
-<script src="bower_components/moment/min/moment.min.js"></script>
-<script src="bower_components/angular-moment/angular-moment.min.js"></script>
-<script src="bower_components/ngFx/dist/ngFx.js"></script>
-<script src="bower_components/angular-animate/angular-animate.js"></script>
-<script src="bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/moment/min/moment.min.js"></script>
+  <script src="bower_components/angular-moment/angular-moment.min.js"></script>
+  <script src="bower_components/ngFx/dist/ngFx.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bootstrap/dist/js/bootstrap.js"></script>
 
-<script src="bower_components/spin.js/spin.js"></script>
-<script src="bower_components/angular-spinner/angular-spinner.js"></script>
+  <script src="bower_components/spin.js/spin.js"></script>
+  <script src="bower_components/angular-spinner/angular-spinner.js"></script>
 
-<script src="app.js"></script>
-<script src="signup/signup.js"></script>
-<script src="login/auth.js"></script>
-<script src="login/login-list.directive.js"></script>
-<script src="home/home.js"></script>
-<script src="account/account.js"></script>
-<script src="account/account-service.js"></script>
-<script src="lab/lab.js"></script>
-<script src="resources/resources.js"></script>
-<script src="projects/projects.js"></script>
-<script src="people/people.js"></script>
-<script src="disclaimer/disclaimer.js"></script>
-<script src="numbers/numbers.js"></script>
-<script src="js/plugins.js"></script>
-<script>
-    $(document).on('click', '.navbar-collapse.in', function (e) {
-        if ($(e.target).is('a')) {
-            $(this).collapse('hide');
-        }
+  <script src="app.js"></script>
+  <script src="signup/signup.js"></script>
+  <script src="login/auth.js"></script>
+  <script src="login/login-list.directive.js"></script>
+  <script src="home/home.js"></script>
+  <script src="account/account.js"></script>
+  <script src="account/account-service.js"></script>
+  <script src="lab/lab.js"></script>
+  <script src="resources/resources.js"></script>
+  <script src="projects/projects.js"></script>
+  <script src="people/people.js"></script>
+  <script src="disclaimer/disclaimer.js"></script>
+  <script src="numbers/numbers.js"></script>
+  <script src="programs/programs.js"></script>
+  <script src="js/plugins.js"></script>
+  <script>
+    $(document).on('click','.navbar-collapse.in',function(e) {
+      if( $(e.target).is('a') ) {
+        $(this).collapse('hide');
+      }
     });
 </script>
 <script>

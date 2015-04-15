@@ -238,6 +238,7 @@ function copyCatalogue (catalogue, results) {
 // Filter out data that doesn't appear on the site
 function transformCKANResult (result, callback) {
     var transformed = {
+        "name": result.name,
         "title": result.title,
         "description": result.notes,
         "tags": result.tags,
