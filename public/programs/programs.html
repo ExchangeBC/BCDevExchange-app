@@ -74,7 +74,6 @@ See the License for the specific language governing permissions and limitations 
                                 <span class="label label-default" ng-repeat="tag in program.tags" style="background-color: #{{ tag.id|limitTo:6 }};"  ng-bind-html="tag.display_name | highlight:query">
                                 </span>
                             </div>
-                            <p class="source text-muted">Last updated: <span am-time-ago="program.updated_at" ng-bind-html="project.updated_at"></span></p>
                         </div>
                     </div>
                 </li>
