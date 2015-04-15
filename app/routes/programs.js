@@ -101,6 +101,7 @@ function parseGitHubFileResults(result, callback) {
         "title": result.title,
         "description": result.description,
         "owner": result.owner,
+        "logo": result.logo,
         "tags": [],
         "url": result.url
     };

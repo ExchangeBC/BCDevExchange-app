@@ -59,7 +59,9 @@ See the License for the specific language governing permissions and limitations 
                 <li class="resource" ng-repeat="program in filtered = (programs | filter:query | orderBy:predicate)">
                     <div class="row">
                         <div class="col-md-9 col-lg-10">
-                            <h3 ng-bind-html="program.title | highlight:query"></h3>
+                            <img ng-show="program.logo" ng-src="{{program.logo}}" alt="{{program.title}}" class="img-responsive" />
+                            <h3 ng-show="!program.logo" ng-bind-html="program.title | highlight:query"></h3>
+                            <br>
                         </div>
                         <div class="col-md-3 col-lg-2">
                             <a href="{{ program.url }}" class="btn btn-primary btn-block" analytics-on ng-bind-html="'View'"></a>
