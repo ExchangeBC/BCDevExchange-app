@@ -21,6 +21,7 @@ var app = angular.module('bcdevxApp', [
     'bcdevxApp.services',
     'bcdevxApp.account',
     'bcdevxApp.resources',
+    'bcdevxApp.programs',
     'bcdevxApp.projects',
     'bcdevxApp.people',
     'bcdevxApp.signup',
