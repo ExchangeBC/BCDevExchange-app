@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default md-col-6">
+            <div class="panel-heading">
+                <h3 class="panel-title">Edit Markdown</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="comment">Type your content here:</label>
+                    <textarea class="form-control" ng-model="mdInput" rows="10" id="comment"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default md-col-6">
+            <div class="panel-heading">
+                <h3 class="panel-title">Preview</h3>
+            </div>
+            <div class="panel-body">
+                <div btf-markdown="mdDisplay">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
