@@ -107,7 +107,8 @@ function parseGitHubFileResults(result, callback) {
         "owner": result.owner,
         "logo": result.logo,
         "tags": [],
-        "url": result.url
+        "url": result.url,
+        "visible": result.visible
     };
 
     if (result.tags) {
@@ -116,8 +117,14 @@ function parseGitHubFileResults(result, callback) {
             transformed.tags[i].id = crypto.createHash('md5').update(result.tags[i]).digest("hex");
         }
     }
-
-    callback(null, transformed);
+    if (transformed.visible == "yes" ||
+        transformed.visible == "y" ||
+        transformed.visible == "true") {
+        return callback(null, transformed);
+    }
+    else {
+        return callback(null, null);
+    }
 }
 
 function getProgramDetails (title, callback) {
@@ -161,7 +168,7 @@ function getProgramDetails (title, callback) {
                 // parse out the yaml from content block
                 var json = JSON.parse(body);
                 var decodedContent = new Buffer(json.content, 'base64').toString('ascii');
-                
+
                 var result = {"markdown": decodedContent};
 
                 return callback(null, result);
