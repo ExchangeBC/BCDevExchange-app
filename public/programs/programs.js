@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and limitations 
 
 'use strict';
 
-angular.module('bcdevxApp.programs', ['ngRoute',  'ngResource'])
+angular.module('bcdevxApp.programs', ['ngRoute','ngResource','ngSanitize','btford.markdown'])
 
     .config(['$routeProvider', function($routeProvider) {
 

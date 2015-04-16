@@ -29,6 +29,7 @@ var app = angular.module('bcdevxApp', [
     'bcdevxApp.lab',
     'bcdevxApp.disclaimer',
     'bcdevxApp.numbers',
+    'bcdevxApp.programs',
     'angulartics',
     'angulartics.google.analytics',
     'ui.bootstrap',
@@ -37,6 +38,7 @@ var app = angular.module('bcdevxApp', [
     'ngMessages',
     'ngFx',
     'ngAnimate',
+    'btford.markdown',
     'rt.encodeuri'
 ])
    .config(['$routeProvider', '$httpProvider',
@@ -108,6 +110,10 @@ var app = angular.module('bcdevxApp', [
             .when('/numbers', {
                 templateUrl: 'numbers/numbers.html',
                 controller: 'NumbersCtrl'
+            })
+            .when('/programs/edit',{
+                templateUrl:'programs/edit-programs.html',
+                controller: 'ProgramsEditCtrl as vm'
             })
             .otherwise({redirectTo: '/home'});
 
