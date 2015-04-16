@@ -115,6 +115,10 @@ var app = angular.module('bcdevxApp', [
                 templateUrl:'programs/edit-programs.html',
                 controller: 'ProgramsEditCtrl as vm'
             })
+            .when('/programs/:programName',{
+                templateUrl: 'programs/view-program.html',
+                controller:'ViewProgramCtrl as vm'
+            })
             .otherwise({redirectTo: '/home'});
 
         // add an interceptor for AJAX errors
