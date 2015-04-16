@@ -111,7 +111,7 @@ var app = angular.module('bcdevxApp', [
             })
             .when('/programs/edit',{
                 templateUrl:'programs/edit-programs.html',
-                controller: 'ProgramCtrl as vm'
+                controller: 'ProgramsEditCtrl as vm'
             })
             .otherwise({redirectTo: '/home'});
 
