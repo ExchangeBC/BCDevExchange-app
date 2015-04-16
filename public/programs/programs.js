@@ -25,10 +25,10 @@ angular.module('bcdevxApp.programs', ['ngRoute','ngResource','ngSanitize','btfor
         return $resource('/programs');
     }])
 
-    .controller('ProgramsCtrl', ['$scope', 'ProgramListService', 'ProgramDetailsService', '$q', 'usSpinnerService',
-        function($scope, ProgramListService, ProgramDetailsService, $q, usSpinnerService) {
+    .controller('ProgramsCtrl', ['$scope', 'ProgramListService', '$q', 'usSpinnerService',
+        function($scope, ProgramListService, $q, usSpinnerService) {
 
-        // Array of projects
+        // Array of programs
         $scope.programs = [];
         $scope.programsLoaded = false;
         $scope.predicateTitle = '';
@@ -44,14 +44,14 @@ angular.module('bcdevxApp.programs', ['ngRoute','ngResource','ngSanitize','btfor
         }
 
         var programListDeferred = $q.defer();
-        var programPromise = projectListDeferred.promise;
+        var programPromise = programListDeferred.promise;
 
         var sourceListDeferred = $q.defer();
         var sourcePromise = sourceListDeferred.promise;
 
-        projectPromise.then(
+        programPromise.then(
             function(value){
-                usSpinnerService.stop("spinner-projects")
+                usSpinnerService.stop("spinner-programs")
             }
         );
         sourcePromise.then(

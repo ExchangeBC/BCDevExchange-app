@@ -21,6 +21,7 @@ var app = angular.module('bcdevxApp', [
     'bcdevxApp.services',
     'bcdevxApp.account',
     'bcdevxApp.resources',
+    'bcdevxApp.programs',
     'bcdevxApp.projects',
     'bcdevxApp.people',
     'bcdevxApp.signup',
@@ -37,7 +38,8 @@ var app = angular.module('bcdevxApp', [
     'ngMessages',
     'ngFx',
     'ngAnimate',
-    'btford.markdown'
+    'btford.markdown',
+    'rt.encodeuri'
 ])
    .config(['$routeProvider', '$httpProvider',
         function($routeProvider, $httpProvider) {

@@ -229,6 +229,7 @@ if (config.node.clusterEnabled &&
     require('./app/routes/config')(app, db, passport);
     require('./app/routes/numbers')(app, db, passport);
     require('./app/routes/people')(app, db, passport);
+    require('./app/routes/programs')(app, db, passport);
     require('./app/routes/projects')(app, db, passport);
     require('./app/routes/resources')(app, db, passport);
 

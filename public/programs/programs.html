@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and limitations 
 <div class="container">
     <div class="row page-header">
         <div class="col-lg-12">
-            <h2>Projects</h2>
+            <h2>Programs</h2>
         </div>
     </div>
     <div class="resource-list row">
@@ -32,8 +32,6 @@ See the License for the specific language governing permissions and limitations 
                               <ul class="dropdown-menu" role="menu">
                                <li><a href="" ng-click="predicate = 'title'; predicateTitle = 'Title A-Z'" analytics-on>Title A-Z</a></li>
                                 <li><a href="" ng-click="predicate = '-title'; predicateTitle = 'Title Z-A'" analytics-on>Title Z-A</a></li>
-                                <li><a href="" ng-click="predicate = '-updated_at'; predicateTitle = 'Newest'" analytics-on>Newest</a></li>
-                                <li><a href="" ng-click="predicate = 'updated_at'; predicateTitle = 'Oldest'" analytics-on>Oldest</a></li>
                               </ul>
                             </div>
                             <input type="reset" class="btn btn-default" value="Reset" ng-click="selectedSource = ''; selectedSourceTitle = ''; query = ''; predicate = ''; predicateTitle = '';" />
@@ -59,10 +57,12 @@ See the License for the specific language governing permissions and limitations 
                 <li class="resource" ng-repeat="program in filtered = (programs | filter:query | orderBy:predicate)">
                     <div class="row">
                         <div class="col-md-9 col-lg-10">
-                            <h3 ng-bind-html="program.title | highlight:query"></h3>
+                            <img ng-show="program.logo" ng-src="{{program.logo}}" alt="{{program.title}}" class="img-responsive" />
+                            <h3 ng-show="!program.logo" ng-bind-html="program.title | highlight:query"></h3>
+                            <br>
                         </div>
                         <div class="col-md-3 col-lg-2">
-                            <a href="{{ program.url }}" class="btn btn-primary btn-block" analytics-on ng-bind-html="'View on ' + program.source"></a>
+                            <a href="#/programs/{{ program.title|encodeUri }}" class="btn btn-primary btn-block" analytics-on ng-bind-html="'View'"></a>
                         </div>
                     </div>
                     <div class="row">
@@ -72,7 +72,6 @@ See the License for the specific language governing permissions and limitations 
                                 <span class="label label-default" ng-repeat="tag in program.tags" style="background-color: #{{ tag.id|limitTo:6 }};"  ng-bind-html="tag.display_name | highlight:query">
                                 </span>
                             </div>
-                            <p class="source text-muted">Last updated: <span am-time-ago="program.updated_at" ng-bind-html="project.updated_at"></span></p>
                         </div>
                     </div>
                 </li>
