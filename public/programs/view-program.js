@@ -20,9 +20,13 @@ function viewProgramCtrl(ProgramService, $routeParams){
     vm.mdDisplay ='';
 
     var mdContentPromise = ProgramService.getProgramByName($routeParams.programName);
-
+    vm.programName = $routeParams.programName;
     mdContentPromise.then(function(md){
-        vm.mdDisplay = md;
+        if(!!md){
+            vm.mdDisplay = md;
+        }else{
+            vm.mdDisplay = "No content found for program named '" + $routeParams.programName + '\'.';
+        }
 
     }, function(errorMessage){
         vm.mdDisplay = errorMessage;
