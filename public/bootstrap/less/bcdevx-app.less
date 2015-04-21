@@ -149,6 +149,36 @@ html {
   .button-variant(@btn-primary-color; @btn-linkedin-bg; @btn-default-border);
 }
 
+.btn-helpwanted {
+  background-color: #159818;
+  border-color: #127000;
+
+  &:focus, &:hover {
+    background-color: #127000;
+    border-color: #0b4500;
+  }
+}
+
+.btn-enhancement {
+  background-color: #84b6eb;
+  border-color: #4591cc;
+
+  &:hover, &:focus {
+    background-color: #4591cc;
+    border-color: #296492;
+  }
+}
+
+.btn-question {
+  background-color: #e10076;
+  border-color: #b10068;
+
+  &:focus, &:hover {
+    background-color: #b10068;
+    border-color: #79005e;
+  }
+}
+
 // bottom display banner
 body {
   padding-bottom: 75px;
@@ -288,6 +318,47 @@ body {
 
 .ui-match {
   background-color: yellow;
+}
+
+// Sidebar
+
+.sidebar {
+  width: 100%;
+
+  &.home {
+    margin-top: 80px;
+  }
+
+  &.ui-scrollfix {
+    position: fixed;
+    top: 60px;
+    margin-top: 0;
+  }
+
+  .nav {
+    li {
+      a {
+        display: inline-block;
+        font-weight: 500;
+        color: #6f6f6f;
+        margin-left: 2px;
+
+        &:hover, &:focus {
+          color: #111;
+          background-color: transparent;
+        }
+      }
+
+      &.active {
+        a {
+          color: #111;
+          background-color: transparent;
+          border-left: 2px solid #111;
+          margin-left: 0;
+        }
+      }
+    }
+  }
 }
 
 // text alignment classes based on screen size ==========

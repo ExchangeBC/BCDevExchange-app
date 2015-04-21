@@ -81,7 +81,7 @@ See the License for the specific language governing permissions and limitations 
                         <div class="col-md-3 col-lg-2">
                             <ul class="list-unstyled">
                                 <li ng-repeat="issue in project.issues" ng-if="issue.count > 0">
-                                    <a href="{{ issue.url }}" class="btn btn-primary btn-block" style="background-color: {{ issue.colour }}" analytics-on ng-bind-html="issue.name + ' (' + issue.count + ')' | highlight:query"></a>
+                                    <a href="{{ issue.url }}" class="btn btn-primary btn-block btn-{{ issue.id }}" analytics-on ng-bind-html="issue.name + ' (' + issue.count + ')' | highlight:query"></a>
                                 </li>
                             </ul>
                         </div>

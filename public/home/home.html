@@ -12,6 +12,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 -->
 
+
+
 <div class="splash" style="background-image: url(img/{{config.headerImage}})">
     <div class="container">
 
@@ -29,279 +31,288 @@ See the License for the specific language governing permissions and limitations 
     </div>
 </div>
 
-<div class="container" ng-show="!config.explorationContent" ng-cloak>
-    <div class="content text-left">
-        <div class="row features-xl">
-            <div class="col-md-4 text-center">
-                <i class="fa fa-lightbulb-o"></i>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <div ng-show="!config.explorationContent" ng-cloak>
+                <div class="content text-left">
+                    <div class="row features-xl">
+                        <div class="col-md-4 text-center">
+                            <i class="fa fa-lightbulb-o"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <h2>The Idea</h2>
+                            <p>Create an ecosystem of innovation and collaboration between tech entrepreneurs and British Columbia's public sector.</p>
+                            <p>How?</p>
+                            <ul>
+                                <li>Share British Columbia's public sector code, APIs and data with tech entrepreneurs.</li>
+                                <li>Collaborate in new ways with tech entrepreneurs to develop public sector code, APIs and technology products and services.</li>
+                                <li>Build better digital services for the public sector and build business.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-8">
-                <h2>The Idea</h2>
-                <p>Create an ecosystem of innovation and collaboration between tech entrepreneurs and British Columbia's public sector.</p>
-                <p>How?</p>
-                <ul>
-                    <li>Share British Columbia's public sector code, APIs and data with tech entrepreneurs.</li>
-                    <li>Collaborate in new ways with tech entrepreneurs to develop public sector code, APIs and technology products and services.</li>
-                    <li>Build better digital services for the public sector and build business.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="container" ng-show="config.explorationContent" ng-cloak>
-    <div class="content text-center">
-        <div class="row features-xl">
-            <div class="col-md-12">
-                <div>
-                    <h2>The Experiment</h2>
-                    <p class="lead">BCDevExchange is an experiment; an idea that needs to be proven. We will test, validate and refine the idea with tech entrepreneurs and early adopters in the public sector.</p>
+            <div ng-show="config.explorationContent" ng-cloak>
+                <div class="content text-center">
+                    <div class="row features-xl">
+                        <div class="col-md-12">
+                            <div>
+                                <h2>The Experiment</h2>
+                                <p class="lead">BCDevExchange is an experiment; an idea that needs to be proven. We will test, validate and refine the idea with tech entrepreneurs and early adopters in the public sector.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="config.explorationContent" ng-cloak>
+                <div class="content text-left">
+                    <div class="row features-xl">
+                        <div class="col-md-4 text-center">
+                            <i class="fa fa-lightbulb-o"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <h2>The Idea</h2>
+                            <p>Create an ecosystem of innovation and collaboration between tech entrepreneurs and British Columbia's public sector.</p>
+                            <p>How?</p>
+                            <ul>
+                                <li>Share British Columbia's public sector code, APIs and data with tech entrepreneurs and help seed new business opportunities.</li>
+                                <li>Collaborate in new ways with tech entrepreneurs to develop public sector code, APIs and technology products and services.</li>
+                                <li>Build better digital services for the public sector.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="config.explorationContent" ng-cloak>
+                <div class="content text-left">
+                    <div class="row features-xl">
+                        <div class="col-md-4 text-center">
+                            <i class="fa fa-user-plus"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <h2>Become an Early Adopter</h2>
+                            <p>The BCDevExchange experiment aims to make innovation and to collaboration easier when developing public sector digital products and services.</p>
+
+                            <p>Kick-started by the Province of B.C., the BCDevExchange is in its early stages. Stay tuned for options on how your public sector organizations can get involved, and for the following guides:</p>
+
+                            <ul>
+                                <li>Guidelines for Employee use of GitHub</li>
+                                <li>Open Source Licenses</li>
+                            </ul>
+                            <p><a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>Email us</a> to find out more or <a href="#/signup">sign up</a> and join our community.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="!config.explorationContent" ng-cloak>
+                <div class="content text-center">
+                    <div class="row features-md">
+                        <div class="col-md-4">
+                            <i class="fa fa-flask"></i>
+                            <h2>The Experiment</h2>
+                            <p>BCDevExchange is an experiment; an idea that needs to be proven. We will test, validate and refine the
+                                idea with tech entrepreneurs and early adopters in the public sector.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <i class="fa fa-user-plus"></i>
+                            <h2>The Early Adopter</h2>
+                            <p>The Government of B.C. is the kick-starter of the BCDevExchange experiment. We will work closely with
+                                the tech industry and early adopters in the public sector to explore the idea.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <i class="fa fa-envelope-o"></i>
+                            <h2>The Invitation</h2>
+                            <p>Tech entrepreneurs on the hunt for new business opportunities and innovation champions
+                                in the public sector are invited to help us test the idea. <a href="" ng-click="scrollTo('get-involved')" analytics-on>Learn how you can participate</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="config.explorationContent" ng-cloak>
+                <div id="github" class="content text-center">
+                    <div class="row features-md">
+                        <div class="col-md-6 col-md-offset-3">
+                            <i class="fa fa-github-alt"></i>
+                            <h2>Now on GitHub</h2>
+                            <p><a href="https://github.com/BCDevExchange" analytics-on>BCDevExchange is on GitHub</a>, openly sharing the code and concepts that drive this website. Fork a repo and share your ideas with us!</p>
+                            <p>As part of the BCDevExchange experiment, the <a href="https://github.com/bcgov" analytics-on>Province of British Columbia</a> joined GitHub. Check out the Province’s open sourced code.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="!config.explorationContent" ng-cloak>
+                <div class="content text-left">
+                    <div class="row features-xl">
+                        <div class="col-md-4 text-center">
+                            <i class="fa fa-cubes"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <h2>Make Stuff</h2>
+                            <p>The BCDevExchange experiment is about innovation and collaboration. One way to innovate is to share public sector
+                                data, code and APIs with tech entrepreneurs. Below is a list of data and APIs you can use right now
+                                for your business.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Data</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><a href="http://catalogue.data.gov.bc.ca/dataset?download_audience=Public" analytics-on>BC Data Catalogue</a></h4>
+                            <p>Discover data under permissive licenses such as the <a href="http://www.data.gov.bc.ca/local/dbc/docs/license/OGL-vbc2.0.pdf" analytics-on>Open Government License - British Columbia</a>.</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>APIs</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><a href="http://www.bclaws.ca/civix/template/complete/api/index.html" analytics-on>BC Laws API</a></h4>
+                            <p>BC Laws is an electronic library providing free public access to the laws of British Columbia made available
+                                for use under the permissive <a href="http://www.bclaws.ca/standards/2014/QP-License_1.0.html" analytics-on>Queen's Printer License</a>.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><a href="https://developer.translink.ca/" analytics-on>TransLink Open API</a></h4>
+                            <p>The TransLink Open API provides access to data associated with the regional bus network, bus
+                            service operations and major road network allowing developers to build applications enriched
+                            with TransLink data.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="config.explorationContent" ng-cloak>
+                <div class="content text-left">
+                    <div id="resources" class="row features-md">
+                        <div class="col-md-4 text-center">
+                            <i class="fa fa-cubes"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <h2>Resources</h2>
+                            <p>The BCDevExchange experiment is about innovation and collaboration. One way to innovate is to share public sector digital resources - data, code and APIs - with tech entrepreneurs. Below is a list of digital resources you can use right now for your business.</p>
+                            <ul>
+                                <li><a href="http://catalogue.data.gov.bc.ca/dataset/bc-laws-api" analytics-on>BCLaws API</a></li>
+                                <li><a href="https://github.com/bcgov/bcgroundwater" analytics-on>State of the Environment BC Groundwater R package</a></li>
+                                <li><a href="https://github.com/bcgov/groundwater_levels" analytics-on>State of the Environment BC Groundwater Levels R scripts</a></li>
+                                <li><a href="http://data.surrey.ca/dataset/service-requests" analytics-on>City of Surrey Service Requests</a></li>
+                                <li><a href="https://developer.translink.ca" analytics-on>TransLink API</a></li>
+                            </ul>
+                            <p><a href="#/resources" analytics-on>View resources</a></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="config.explorationContent" ng-cloak>
+                <div class="content text-left">
+                    <div class="row features-xl">
+                        <div class="col-md-4 text-center">
+                            <i class="fa fa-cogs"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <h2>Projects</h2>
+                            <p>Check out what's happening on our project page, find opportunities, and how you can contribute!</p>
+                            <ul>
+                                <li><a href="https://github.com/BCDevExchange/BCDevExchange-app" analytics-on>The BCDevExchange Experiment</a></li>
+                                <li><a href="https://github.com/BCDevExchange/BCLaws-API-Management" analytics-on>BCLaws API Management</a></li>
+                                <li><a href="https://github.com/BCDevExchange/Community-Tools" analytics-on>BCDevExchange Community Tools</a></li>
+                            </ul>
+                            <p><a href="#/projects" analytics-on>View projects</a></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="config.explorationContent" ng-cloak>
+                <div class="content text-center">
+                    <div class="row features-md">
+                        <div class="col-md-6 col-md-offset-3">
+                            <i class="fa fa-flask"></i>
+                            <h2>The Labs</h2>
+                            <p>The Labs showcase and share in-progress ideas and work from BCDevExchange early adopter public sector organizations.  As safe places to experiment, the Labs contain work under design and construction that may change, disappear, or be buggy.</p>
+                            <p>Visit the <a href="#/lab" analytics-on>Labs</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="get_involved">
+                <div class="content text-left">
+                    <div class="row features-xl">
+                        <div class="col-md-4 text-center">
+                            <i class="fa fa-comments"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <h2>Get Involved</h2>
+                            <p>Discovery Days:</p>
+                            <p>We will invite tech entrepreneurs, startups, developers and public sector innovators to events that explore digital resources and business needs from a featured public sector organization or sector.</p>
+                            <p>Information sessions:</p>
+                            <p>We will host meetups for tech entrepreneurs, startups, developers and public sector innovators to learn more about the BCDevExchange experiment. Stay tuned for upcoming information sessions.</p>
+                            <p>Email:</p>
+                            <p>Please contact us via <a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>email</a> to stay informed of our progress or participate in the BCDevExchange experiment.</p>
+                            <p>Blog:</p>
+                            <p>We want your feedback on our blog! Go to <a href="http://blog.data.gov.bc.ca" analytics-on>blog.data.gov.bc.ca</a> and let us know what you think.</p>
+                            <p>Twitter:</p>
+                            <p>Follow <a href="https://twitter.com/data_bc" analytics-on>@Data_BC</a> and the hashtag <a href="https://twitter.com/hashtag/BCDev" analytics-on>#BCDev</a> on Twitter for announcements.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="!config.explorationContent" ng-cloak>
+                <div class="content text-left">
+                    <div class="row features-xl">
+                        <div class="col-md-4 text-center">
+                            <i class="fa fa-user-plus"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <h2>Become an Early Adopter</h2>
+                            <p>The BCDevExchange experiment aims to make it easier for the public sector to innovate and to collaborate
+                            when developing digital products and services.</p>
+
+                            <p>Please contact us for more information.</p>
+                        </div>
+                    </div>
+                    <div class="row features-xl text-center">
+                        <div class="col-md-12">
+                            <br/>
+                            <h4>Would your public sector organization like to be involved in the BCDevExchange experiment? <a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>Email us</a> and get involved.</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <cite ng-bind-html="config.headerImageLicenseHtml"></cite>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="container" ng-show="config.explorationContent" ng-cloak>
-    <div class="content text-left">
-        <div class="row features-xl">
-            <div class="col-md-4 text-center">
-                <i class="fa fa-lightbulb-o"></i>
-            </div>
-            <div class="col-md-8">
-                <h2>The Idea</h2>
-                <p>Create an ecosystem of innovation and collaboration between tech entrepreneurs and British Columbia's public sector.</p>
-                <p>How?</p>
-                <ul>
-                    <li>Share British Columbia's public sector code, APIs and data with tech entrepreneurs and help seed new business opportunities.</li>
-                    <li>Collaborate in new ways with tech entrepreneurs to develop public sector code, APIs and technology products and services.</li>
-                    <li>Build better digital services for the public sector.</li>
-                </ul>
+        <div class="col-sm-3">
+            <div class="sidebar home hidden-xs" ui-scrollfix="720">
+                <bd-toc selector="h2"></bd-toc>
             </div>
         </div>
     </div>
 </div>
-
-<div class="container" ng-show="config.explorationContent" ng-cloak>
-    <div class="content text-left">
-        <div class="row features-xl">
-            <div class="col-md-4 text-center">
-                <i class="fa fa-user-plus"></i>
-            </div>
-            <div class="col-md-8">
-                <h2>Become an Early Adopter</h2>
-                <p>The BCDevExchange experiment aims to make innovation and to collaboration easier when developing public sector digital products and services.</p>
-
-                <p>Kick-started by the Province of B.C., the BCDevExchange is in its early stages. Stay tuned for options on how your public sector organizations can get involved, and for the following guides:</p>
-
-                <ul>
-                    <li>Guidelines for Employee use of GitHub</li>
-                    <li>Open Source Licenses</li>
-                </ul>
-                <p><a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>Email us</a> to find out more or <a href="#/signup">sign up</a> and join our community.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container" ng-show="!config.explorationContent" ng-cloak>
-    <div class="content text-center">
-        <div class="row features-md">
-            <div class="col-md-4">
-                <i class="fa fa-flask"></i>
-                <h2>The Experiment</h2>
-                <p>BCDevExchange is an experiment; an idea that needs to be proven. We will test, validate and refine the
-                    idea with tech entrepreneurs and early adopters in the public sector.</p>
-            </div>
-            <div class="col-md-4">
-                <i class="fa fa-user-plus"></i>
-                <h2>The Early Adopter</h2>
-                <p>The Government of B.C. is the kick-starter of the BCDevExchange experiment. We will work closely with
-                    the tech industry and early adopters in the public sector to explore the idea.</p>
-            </div>
-            <div class="col-md-4">
-                <i class="fa fa-envelope-o"></i>
-                <h2>The Invitation</h2>
-                <p>Tech entrepreneurs on the hunt for new business opportunities and innovation champions
-                    in the public sector are invited to help us test the idea. <a href="" ng-click="scrollTo('get-involved')" analytics-on>Learn how you can participate</a>.</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container" ng-show="config.explorationContent" ng-cloak>
-    <div class="content text-center">
-        <div class="row features-md">
-            <div class="col-md-6 col-md-offset-3">
-                <i class="fa fa-github-alt"></i>
-                <h2>Now on GitHub</h2>
-                <p><a href="https://github.com/BCDevExchange" analytics-on>BCDevExchange is on GitHub</a>, openly sharing the code and concepts that drive this website. Fork a repo and share your ideas with us!</p>
-                <p>As part of the BCDevExchange experiment, the <a href="https://github.com/bcgov" analytics-on>Province of British Columbia</a> joined GitHub. Check out the Province’s open sourced code.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container" ng-show="!config.explorationContent" ng-cloak>
-    <div class="content text-left">
-        <div class="row features-xl">
-            <div class="col-md-4 text-center">
-                <i class="fa fa-cubes"></i>
-            </div>
-            <div class="col-md-8">
-                <h2>Make Stuff</h2>
-                <p>The BCDevExchange experiment is about innovation and collaboration. One way to innovate is to share public sector
-                    data, code and APIs with tech entrepreneurs. Below is a list of data and APIs you can use right now
-                    for your business.</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Data</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h4><a href="http://catalogue.data.gov.bc.ca/dataset?download_audience=Public" analytics-on>BC Data Catalogue</a></h4>
-                <p>Discover data under permissive licenses such as the <a href="http://www.data.gov.bc.ca/local/dbc/docs/license/OGL-vbc2.0.pdf" analytics-on>Open Government License - British Columbia</a>.</p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <h3>APIs</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h4><a href="http://www.bclaws.ca/civix/template/complete/api/index.html" analytics-on>BC Laws API</a></h4>
-                <p>BC Laws is an electronic library providing free public access to the laws of British Columbia made available
-                    for use under the permissive <a href="http://www.bclaws.ca/standards/2014/QP-License_1.0.html" analytics-on>Queen's Printer License</a>.</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h4><a href="https://developer.translink.ca/" analytics-on>TransLink Open API</a></h4>
-                <p>The TransLink Open API provides access to data associated with the regional bus network, bus
-                service operations and major road network allowing developers to build applications enriched
-                with TransLink data.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container" ng-show="config.explorationContent" ng-cloak>
-    <div class="content text-left">
-        <div class="row features-md">
-            <div class="col-md-4 text-center">
-                <i class="fa fa-cubes"></i>
-            </div>
-            <div class="col-md-8">
-                <h2>Resources</h2>
-                <p>The BCDevExchange experiment is about innovation and collaboration. One way to innovate is to share public sector digital resources - data, code and APIs - with tech entrepreneurs. Below is a list of digital resources you can use right now for your business.</p>
-                <ul>
-                    <li><a href="http://catalogue.data.gov.bc.ca/dataset/bc-laws-api" analytics-on>BCLaws API</a></li>
-                    <li><a href="https://github.com/bcgov/bcgroundwater" analytics-on>State of the Environment BC Groundwater R package</a></li>
-                    <li><a href="https://github.com/bcgov/groundwater_levels" analytics-on>State of the Environment BC Groundwater Levels R scripts</a></li>
-                    <li><a href="http://data.surrey.ca/dataset/service-requests" analytics-on>City of Surrey Service Requests</a></li>
-                    <li><a href="https://developer.translink.ca" analytics-on>TransLink API</a></li>
-                </ul>
-                <p><a href="#/resources" analytics-on>View resources</a></p>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<div class="container" ng-show="config.explorationContent" ng-cloak>
-    <div class="content text-left">
-        <div class="row features-xl">
-            <div class="col-md-4 text-center">
-                <i class="fa fa-cogs"></i>
-            </div>
-            <div class="col-md-8">
-                <h2>Projects</h2>
-                <p>Check out what's happening on our project page, find opportunities, and how you can contribute!</p>
-                <ul>
-                    <li><a href="https://github.com/BCDevExchange/BCDevExchange-app" analytics-on>The BCDevExchange Experiment</a></li>
-                    <li><a href="https://github.com/BCDevExchange/BCLaws-API-Management" analytics-on>BCLaws API Management</a></li>
-                    <li><a href="https://github.com/BCDevExchange/Community-Tools" analytics-on>BCDevExchange Community Tools</a></li>
-                </ul>
-                <p><a href="#/projects" analytics-on>View projects</a></p>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<div class="container" ng-show="config.explorationContent" ng-cloak>
-    <div class="content text-center">
-        <div class="row features-md">
-            <div class="col-md-6 col-md-offset-3">
-                <i class="fa fa-flask"></i>
-                <h2>The Labs</h2>
-                <p>The Labs showcase and share in-progress ideas and work from BCDevExchange early adopter public sector organizations.  As safe places to experiment, the Labs contain work under design and construction that may change, disappear, or be buggy.</p>
-                <p>Visit the <a href="#/lab" analytics-on>Labs</a></p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container" id="get-involved">
-    <div class="content text-left">
-        <div class="row features-xl">
-            <div class="col-md-4 text-center">
-                <i class="fa fa-comments"></i>
-            </div>
-            <div class="col-md-8">
-                <h2>Get Involved</h2>
-                <p>Discovery Days:</p>
-                <p>We will invite tech entrepreneurs, startups, developers and public sector innovators to events that explore digital resources and business needs from a featured public sector organization or sector.</p>
-                <p>Information sessions:</p>
-                <p>We will host meetups for tech entrepreneurs, startups, developers and public sector innovators to learn more about the BCDevExchange experiment. Stay tuned for upcoming information sessions.</p>
-                <p>Email:</p>
-                <p>Please contact us via <a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>email</a> to stay informed of our progress or participate in the BCDevExchange experiment.</p>
-                <p>Blog:</p>
-                <p>We want your feedback on our blog! Go to <a href="http://blog.data.gov.bc.ca" analytics-on>blog.data.gov.bc.ca</a> and let us know what you think.</p>
-                <p>Twitter:</p>
-                <p>Follow <a href="https://twitter.com/data_bc" analytics-on>@Data_BC</a> and the hashtag <a href="https://twitter.com/hashtag/BCDev" analytics-on>#BCDev</a> on Twitter for announcements.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container" ng-show="!config.explorationContent" ng-cloak>
-    <div class="content text-left">
-        <div class="row features-xl">
-            <div class="col-md-4 text-center">
-                <i class="fa fa-user-plus"></i>
-            </div>
-            <div class="col-md-8">
-                <h2>Become an Early Adopter</h2>
-                <p>The BCDevExchange experiment aims to make it easier for the public sector to innovate and to collaborate
-                when developing digital products and services.</p>
-
-                <p>Please contact us for more information.</p>
-            </div>
-        </div>
-        <div class="row features-xl text-center">
-            <div class="col-md-12">
-                <br/>
-                <h4>Would your public sector organization like to be involved in the BCDevExchange experiment? <a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>Email us</a> and get involved.</h4>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <cite ng-bind-html="config.headerImageLicenseHtml"></cite>
-        </div>
-    </div>
-</div>
-
 
 
 

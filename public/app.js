@@ -39,7 +39,10 @@ var app = angular.module('bcdevxApp', [
     'ngFx',
     'ngAnimate',
     'btford.markdown',
-    'rt.encodeuri'
+    'rt.encodeuri',
+    'ui.utils',
+    'angular-toc',
+    'duScroll'
 ])
    .config(['$routeProvider', '$httpProvider',
         function($routeProvider, $httpProvider) {

@@ -6088,6 +6088,33 @@ fieldset[disabled] .btn-linkedin.active {
   color: #0077b5;
   background-color: #ffffff;
 }
+.btn-helpwanted {
+  background-color: #159818;
+  border-color: #127000;
+}
+.btn-helpwanted:focus,
+.btn-helpwanted:hover {
+  background-color: #127000;
+  border-color: #0b4500;
+}
+.btn-enhancement {
+  background-color: #84b6eb;
+  border-color: #4591cc;
+}
+.btn-enhancement:hover,
+.btn-enhancement:focus {
+  background-color: #4591cc;
+  border-color: #296492;
+}
+.btn-question {
+  background-color: #e10076;
+  border-color: #b10068;
+}
+.btn-question:focus,
+.btn-question:hover {
+  background-color: #b10068;
+  border-color: #79005e;
+}
 body {
   padding-bottom: 75px;
 }
@@ -6201,6 +6228,34 @@ body {
 }
 .ui-match {
   background-color: yellow;
+}
+.sidebar {
+  width: 100%;
+}
+.sidebar.home {
+  margin-top: 80px;
+}
+.sidebar.ui-scrollfix {
+  position: fixed;
+  top: 60px;
+  margin-top: 0;
+}
+.sidebar .nav li a {
+  display: inline-block;
+  font-weight: 500;
+  color: #6f6f6f;
+  margin-left: 2px;
+}
+.sidebar .nav li a:hover,
+.sidebar .nav li a:focus {
+  color: #111;
+  background-color: transparent;
+}
+.sidebar .nav li.active a {
+  color: #111;
+  background-color: transparent;
+  border-left: 2px solid #111;
+  margin-left: 0;
 }
 .text-left-not-xs,
 .text-left-not-sm,
