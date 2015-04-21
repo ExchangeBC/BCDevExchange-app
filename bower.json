@@ -25,7 +25,7 @@
     "ngFx": "~1.1.0",
     "angular-markdown-directive": "~0.3.1",
     "angular-encode-uri": "~1.0.0",
-    "angular-table-of-contents": "*",
+    "angular-table-of-contents": "https://github.com/h3devin/angular-table-of-contents.git",
     "angular-scroll": "~0.6.5"
   },
   "resolutions": {
