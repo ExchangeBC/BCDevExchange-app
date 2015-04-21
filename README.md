@@ -83,6 +83,36 @@ forever list
 forever restart <pid>
 ```
 
+### Installing or Upgrading NodeJS via N
+
+First you'll need N installed:
+
+```
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
+```
+
+Typically, you'll upgrade to latest stable:
+
+```
+n stable
+```
+
+Test you have the right version now:
+
+```
+node -v
+```
+
+Then restart forever processes, post-install:
+
+```
+forever list
+forever restart <pid>
+```
+
+
 ## Server Sizing ##
 We've benchmarked performance for this site as it was running on a Microsoft Azure Standard D1 (One Core) 4 GB RAM VM using a [Bitnami packaged Ubuntu VM] (https://bitnami.com/stack/mean).
 
