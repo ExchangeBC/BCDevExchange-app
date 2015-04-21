@@ -79,10 +79,9 @@ Updating deployment:
 ```
 git pull
 npm install --production
+forever list 
 forever restart <pid>
 ```
-Use the forever commands to list, stop, restart the service.
-
 
 ## Server Sizing ##
 We've benchmarked performance for this site as it was running on a Microsoft Azure Standard D1 (One Core) 4 GB RAM VM using a [Bitnami packaged Ubuntu VM] (https://bitnami.com/stack/mean).
