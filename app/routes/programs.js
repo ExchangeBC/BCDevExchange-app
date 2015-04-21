@@ -30,7 +30,7 @@ module.exports = function(app, db, passport) {
             res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
             res.send(body);
         }, function (error) {
-            res.send(500);
+            res.sendStatus(500);
         });
     });
     app.get('/programs/name/:title', function (req, res) {
