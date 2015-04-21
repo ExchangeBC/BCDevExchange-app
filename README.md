@@ -79,9 +79,38 @@ Updating deployment:
 ```
 git pull
 npm install --production
+forever list 
 forever restart <pid>
 ```
-Use the forever commands to list, stop, restart the service.
+
+### Installing or Upgrading NodeJS via N
+
+First you'll need N installed:
+
+```
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
+```
+
+Typically, you'll upgrade to latest stable:
+
+```
+sudo n stable
+```
+
+Test you have the right version now:
+
+```
+node -v
+```
+
+Then restart forever processes, post-install:
+
+```
+forever list
+forever restart <pid>
+```
 
 
 ## Server Sizing ##

@@ -6361,6 +6361,9 @@ body {
     text-align: justify;
   }
 }
+.program_logo {
+  max-height: 75px;
+}
 .clearfix:before,
 .clearfix:after,
 .container:before,
