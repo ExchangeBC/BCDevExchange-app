@@ -96,7 +96,7 @@ sudo n stable
 Typically, you'll upgrade to latest stable:
 
 ```
-n stable
+sudo n stable
 ```
 
 Test you have the right version now:
