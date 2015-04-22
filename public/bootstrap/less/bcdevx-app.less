@@ -341,11 +341,20 @@ body {
         display: inline-block;
         font-weight: 500;
         color: #6f6f6f;
-        margin-left: 2px;
+        padding: 3px 10px;
+        margin: 7px 0 7px 2px;
 
         &:hover, &:focus {
           color: #111;
           background-color: transparent;
+        }
+
+        &.back-to-top {
+          color: #999;
+
+          &:hover, &:focus {
+            color: #111;
+          }
         }
       }
 
@@ -355,6 +364,18 @@ body {
           background-color: transparent;
           border-left: 2px solid #111;
           margin-left: 0;
+        }
+      }
+
+      &:hover:not(.active) {
+        a {
+          border-left: 1px solid #111;
+          margin-left: 1px;
+
+          &.back-to-top {
+            border-left: 0;
+            margin-left: 2px;
+          }
         }
       }
     }

@@ -6244,18 +6244,34 @@ body {
   display: inline-block;
   font-weight: 500;
   color: #6f6f6f;
-  margin-left: 2px;
+  padding: 3px 10px;
+  margin: 7px 0 7px 2px;
 }
 .sidebar .nav li a:hover,
 .sidebar .nav li a:focus {
   color: #111;
   background-color: transparent;
 }
+.sidebar .nav li a.back-to-top {
+  color: #999;
+}
+.sidebar .nav li a.back-to-top:hover,
+.sidebar .nav li a.back-to-top:focus {
+  color: #111;
+}
 .sidebar .nav li.active a {
   color: #111;
   background-color: transparent;
   border-left: 2px solid #111;
   margin-left: 0;
+}
+.sidebar .nav li:hover:not(.active) a {
+  border-left: 1px solid #111;
+  margin-left: 1px;
+}
+.sidebar .nav li:hover:not(.active) a.back-to-top {
+  border-left: 0;
+  margin-left: 2px;
 }
 .text-left-not-xs,
 .text-left-not-sm,
