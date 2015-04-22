@@ -132,11 +132,6 @@ function concatLines(lines){
     }
 };
 
-(function(){
-    Col.prototype.concatLines = concatLines;
-    MDContent.prototype.concatLines = concatLines;
-
-})();
 
 function test(regex1, regex2, line){
     if(!!line && !!line.trim()){
