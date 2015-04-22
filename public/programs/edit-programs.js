@@ -31,9 +31,7 @@ angular.module('bcdevxApp.programs').
                 }
 
                 if(!!colCount){
-                    console.log("column count: " + colCount);
                     colWidth = Math.floor(12/colCount);
-                    console.log("col width: " + colWidth);
                 }
 
                 if(contents.length>0){
@@ -106,7 +104,7 @@ angular.module('bcdevxApp.programs').
                     var colDiv = '\r\n' + '\t'+ '<div class=\'col-md-' + colWidth + '\'>'
 
                     colDiv += '\t <!-- column starts-->' + '\r\n';
-                    colDiv += '\t <!-- no contend defined in this column -->' + '\r\n';
+                    colDiv += '\t <!-- no content was specified in this column. -->' + '\r\n';
                     colDiv += '\t' + '</div> <!-- column ends -->\r\n';
 
                     return colDiv;
@@ -124,7 +122,6 @@ angular.module('bcdevxApp.programs').
                 result += '\t' + lines[i];
                 result += '\r\n';
             }
-            console.log('Concatination result: ' + result);
             if(!!result.trim()){
                 return result;
             }else{
@@ -176,27 +173,20 @@ angular.module('bcdevxApp.programs').
 
         function generateColumns(text){
             if(testRowStart(text)) {// row start tag detected
-                console.log("Row start line: " + text);
                 row = new Row();
                 row.addSection(new MDContent());
 
             }else if(testColStart(text)){
-                console.log("Col start line: " + text);
                 row.addSection(new Col());
             }else if(testColEnd(text)){
-                console.log("Col end line: " + text);
                 row.addSection(new MDContent());
             }else if(testRowEnd(text)){
-                console.log("Row end line: " + text);
                 row.addSection(new MDContent);
                 output.push(row.toString());
                 row = null;
             }else if(!!row){
-                console.log("Line enclosed in a row: " + text);
-
                 row.addLine(text);
             }else{
-                console.log("Line outside of a row: " + text);
                 output.push(text);
             }
         }
@@ -205,7 +195,6 @@ angular.module('bcdevxApp.programs').
             if(!!text && !!text.trim()){
                 var lines = text.split(/[\n\r]/);
                 for(var i=0; i<lines.length; i++){
-                    console.log("process line: " + lines[i]);
                     generateColumns(lines[i]);
                 }
                 return prepareOutput(output);
@@ -225,8 +214,6 @@ angular.module('bcdevxApp.programs').
             result += '<!-- devx markdown enhancement generated content END -->';
             result += '\r\n';
 
-            console.log("Output:");
-            console.log(result);
             return result;
         }
 
@@ -247,7 +234,6 @@ angular.module('bcdevxApp.programs').
                 }},
                 { type: 'output', filter: function(text) {
                     return makeHTMLColumns(text);
-                    //return text;
                 }}
             ];
         }
