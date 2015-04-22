@@ -39,8 +39,13 @@ var app = angular.module('bcdevxApp', [
     'ngFx',
     'ngAnimate',
     'btford.markdown',
-    'rt.encodeuri'
+    'rt.encodeuri',
+    'ui.utils',
+    'angular-toc',
+    'duScroll'
 ])
+    .value('duScrollGreedy', true)
+    .value('duScrollOffset', 80)
    .config(['$routeProvider', '$httpProvider',
         function($routeProvider, $httpProvider) {
 

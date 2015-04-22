@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and limitations 
 <div class="container">
     <div class="row page-header">
         <div class="col-lg-12">
-            <h2>Programs</h2>
+            <h1>Programs</h1>
         </div>
     </div>
     <div class="resource-list row">
@@ -57,7 +57,7 @@ See the License for the specific language governing permissions and limitations 
                 <li class="resource" ng-repeat="program in filtered = (programs | filter:query | orderBy:predicate)">
                     <div class="row">
                         <div class="col-md-9 col-lg-10">
-                            <img ng-show="program.logo" ng-src="{{program.logo}}" alt="{{program.title}}" class="img-responsive" />
+                            <img ng-show="program.logo" ng-src="{{program.logo}}" alt="{{program.title}}" class="img-responsive program_logo" />
                             <h3 ng-show="!program.logo" ng-bind-html="program.title | highlight:query"></h3>
                             <br>
                         </div>

@@ -30,7 +30,7 @@ module.exports = function(app, db, passport) {
             res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
             res.send(body);
         }, function (error) {
-            res.send(500);
+            res.sendStatus(500);
         });
     });
     app.get('/programs/name/:title', function (req, res) {
@@ -48,6 +48,21 @@ var getProgramsFromArray = function (programList, success, error) {
     async.concat(programList, getPrograms, function (err, results) {
         if (err) error(err);
         else {
+            
+            // filter out invisible
+            for (var i = 0; i < results.length; i++) {
+                var program = results[i];
+                if (program.visible != "yes" &&
+                    program.visible != "y" &&
+                    program.visible != "true") {
+
+                    // remove from result
+                    results.splice(i, 1);
+
+                    // decrement the counter
+                    i--;
+                }
+            }
             success(results);
         }
     });
@@ -117,14 +132,8 @@ function parseGitHubFileResults(result, callback) {
             transformed.tags[i].id = crypto.createHash('md5').update(result.tags[i]).digest("hex");
         }
     }
-    if (transformed.visible == "yes" ||
-        transformed.visible == "y" ||
-        transformed.visible == "true") {
-        return callback(null, transformed);
-    }
-    else {
-        return callback(null, null);
-    }
+    return callback(null, transformed);
+
 }
 
 function getProgramDetails (title, callback) {

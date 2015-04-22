@@ -11,100 +11,85 @@ Unless required by applicable law or agreed to in writing, software distributed 
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 -->
-
-
 <div class="container">
     <div class="row page-header">
         <div class="col-sm-12">
-            <h2>Account Details</h2>
+            <h1>Account Details</h1>
         </div>
     </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-4 messages-overlay">
-                <div ng-messages = "resultOfSaving" ng-hide="hideMessageDialog" class="fx-fade-up">
-                    <span id='close' ng-click="hideDialog()">&times;</span>
-                    <div ng-message ="success" class="message-success">
-                        {{resultOfSaving.success}}
-                    </div>
-                    <div ng-message ="error" class="message-warning">
-                        {{resultOfSaving.error}}
-                    </div>
-                    <div ng-message ="network_error" class="message-danger">
-                        {{resultOfSaving.network_error}}
-                    </div>
+    <div class="row">
+        <div class="col-xs-4 messages-overlay">
+            <div ng-messages = "resultOfSaving" ng-hide="hideMessageDialog" class="fx-fade-up">
+                <span id='close' ng-click="hideDialog()">&times;</span>
+                <div ng-message ="success" class="message-success">
+                    {{resultOfSaving.success}}
+                </div>
+                <div ng-message ="error" class="message-warning">
+                    {{resultOfSaving.error}}
+                </div>
+                <div ng-message ="network_error" class="message-danger">
+                    {{resultOfSaving.network_error}}
                 </div>
             </div>
         </div>
     </div>
-    <div class="content-main">
-
+    <form novalidate ng-submit="update(account)">
         <div class="row">
-            <form novalidate ng-submit="update(account)">
-                <div class="row">
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="form-group">
-                            <label for="displayName">Account Name: </label>
-                            <input id="displayName" type="text" class="form-control" ng-model="account.profiles[0].name.value" readonly />
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-md-offset-1 col-sm-6 col-xs-12">
-                        <div class="form-group">
-                            <div class="form-group">
-                                <label for="source">Source: </label>
-                                <input id="source" type="text" class="form-control" ng-model="account.profiles[0].name.identityOrigin" readonly />
-                            </div>
-                        </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="displayName">Account Name: </label>
+                    <input id="displayName" type="text" class="form-control" ng-model="account.profiles[0].name.value" readonly />
+                </div>
+            </div>
+            <div class="col-md-4 col-md-offset-1 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="source">Source: </label>
+                        <input id="source" type="text" class="form-control" ng-model="account.profiles[0].name.identityOrigin" readonly />
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" ng-model="account.profiles[0].contactPreferences.notifyMeOfAllUpdates" />Yes, please keep me up to date about the BCDevExchange Experiment
-                                </label>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" ng-model="account.profiles[0].visible" />Yes, share my profile with the rest of the community so I can be contacted about potential opportunities
-                                </label>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
-
-    <div class="content-secondary">
         <div class="row">
             <div class="col-xs-12">
-                <h4>Associated Social Media Accounts</h4><br/><br/>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="account.profiles[0].contactPreferences.notifyMeOfAllUpdates" />Yes, please keep me up to date about the BCDevExchange Experiment
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6 col-xs-12">
-                <p><a href="/auth/github" class="btn btn-primary btn-lg btn-github" ng-disabled="identityExists('github')" analytics-on><i class="fa fa-github fa-lg"></i> | Link your <strong>GitHub</strong> account</a></p>
-            </div>
-            <div class="col-sm-6 col-xs-12" ng-show="config.linkedinLogin" ng-cloak>
-                <p><a href="/auth/linkedin" class="btn btn-primary btn-lg btn-linkedin" ng-disabled="identityExists('linkedin')" analytics-on><i class="fa fa-linkedin fa-lg"></i> | Link your <strong>LinkedIn</strong> account</a></p>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="account.profiles[0].visible" />Yes, share my profile with the rest of the community so I can be contacted about potential opportunities
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-2">
+                <button type="submit" class="btn btn-primary btn-block">Save</button>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-xs-12">
+            <br>
+            <h4>Associated Social Media Accounts</h4>
+        </div>
     </div>
-
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+            <p><a href="/auth/github" class="btn btn-primary btn-lg btn-github" ng-disabled="identityExists('github')" analytics-on><i class="fa fa-github fa-lg"></i> | Link your <strong>GitHub</strong> account</a></p>
+        </div>
+        <div class="col-sm-6 col-xs-12" ng-show="config.linkedinLogin" ng-cloak>
+            <p><a href="/auth/linkedin" class="btn btn-primary btn-lg btn-linkedin" ng-disabled="identityExists('linkedin')" analytics-on><i class="fa fa-linkedin fa-lg"></i> | Link your <strong>LinkedIn</strong> account</a></p>
+        </div>
+    </div>
 </div>
