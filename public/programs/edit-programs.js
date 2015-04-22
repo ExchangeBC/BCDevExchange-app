@@ -30,6 +30,9 @@ angular.module('bcdevxApp.programs').
                 }},
                 { type: 'lang', filter: function(text) {
                     return text.replace(/--->/g, '-->');
+                }},
+                { type: 'lang', filter: function(text) {
+                    return text.replace(/!\[(.*)\]\((.*)\)/, "<img src=\'$2\' class=\'img-responsive\' alt=\'$1\' />");
                 }}
             ];
         }
