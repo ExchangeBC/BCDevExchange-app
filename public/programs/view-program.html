@@ -14,17 +14,18 @@ See the License for the specific language governing permissions and limitations 
 <div class="container">
     <div class="row page-header">
         <div class="col-lg-12">
+            <h1>{{vm.programName}}</h1>
         </div>
     </div>
     <div class="row">
-                    <div class="col-sm-9">
-                        <div btf-markdown="vm.mdDisplay" class="fx-fade-left">
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="sidebar" ui-scrollfix="15">
-                            <bd-toc selector="h2"></bd-toc>
-                        </div>
-                    </div>
+        <div class="col-sm-9">
+            <div btf-markdown="vm.mdDisplay" class="fx-fade-left">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="sidebar" ui-scrollfix="15">
+                <bd-toc selector="h2"></bd-toc>
+            </div>
+        </div>
     </div>
 </div>
