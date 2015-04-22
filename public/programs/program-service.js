@@ -27,7 +27,6 @@ function programService($resource, $q){
             var res = $resource(programApi + pName);
             res.get([],
                 function(program, getResponseHeaders){
-                    console.log("Success! Got program object back.");
                     var md = program.markdown;
                     deferred.resolve(md);
                 },
