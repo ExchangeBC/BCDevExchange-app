@@ -91,7 +91,8 @@ The local files are intended to not be tracked in your version control system. E
       "short_name": "BCDC",
       "baseUrl": "http://catalogue.data.gov.bc.ca/api/3",
       "baseViewUrl": "http://catalogue.data.gov.bc.ca/dataset/",
-      "tagToSearch": "BCDevExchange"
+      "tagName": "tags",
+      "tagValue": "BCDevExchange"
     },
     {
       "type": "CKANv3",
@@ -99,7 +100,8 @@ The local files are intended to not be tracked in your version control system. E
       "short_name": "Surrey",
       "baseUrl": "http://data.surrey.ca/api/3",
       "baseViewUrl": "http://data.surrey.ca/dataset/",
-      "tagToSearch": "BCDevExchange"
+      "tagName": "res_format",
+      "tagValue": "api"
     },
     //{
     //  "type": "GitHub",

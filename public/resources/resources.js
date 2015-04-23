@@ -44,6 +44,7 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
         $scope.selectedSource = '';
         $scope.selectedSourceTitle = '';
         $scope.predicateTitle = '';
+        $scope.predicate = '123';
 
         // Array of resources
         $scope.resources = [];
@@ -88,7 +89,7 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
                 var sourceData = $resource('/resources/:source', {}, { timeout: 10 });
                 sourceData.get({ source: source.short_name.toLowerCase() }, function(data) {
                     for(var j in data.resources) {
-                        $scope.resources.unshift(data.resources[j]);
+                        $scope.resources.push(data.resources[j]);
                     }
                     $scope.loadedSources.push(source);
                     resourceListDeferred.resolve("resource list length: " + data.resources.length);
