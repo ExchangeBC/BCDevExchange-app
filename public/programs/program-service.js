@@ -34,7 +34,6 @@ function programService($resource, $q){
                     var errorMsg = "Response error in getting resource from url " + programApi + ", error code: " + responseError.status;
                     deferred.reject("errorMsg");
                 }
-
             );
 
             return deferred.promise;
