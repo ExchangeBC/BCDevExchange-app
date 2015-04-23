@@ -26,14 +26,14 @@ See the License for the specific language governing permissions and limitations 
             <ul class="resources-list list-unstyled table-bordered">
                 <li class="resource" ng-repeat="person in people">
                     <div class="col-md-2">
-                        <img src="{{person.avatar_url}}" class="img-responsive" />
+                        <img src="{{person.avatar_url}}" class="img-responsive img-rounded" />
                     </div>
                     <div class="col-md-3">
                         <h3>{{person.login}}</h3>
                         <h4>{{ person.name }}</h4>
                         <p>{{ person.company }}</p>
                         <p>{{ person.location }}</p>
-                        <p>Followers: {{person.followers}}</p>
+                        <p>{{person.followers}} followers</p>
                     </div>
                     <div class="col-md-5">
                         <h3><a href="mailto:{{person.email}}">{{person.email}}</a></h3>
