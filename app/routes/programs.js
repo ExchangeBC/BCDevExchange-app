@@ -27,7 +27,6 @@ module.exports = function(app, db, passport) {
 
         getProgramsFromArray(config.programs, function (results) {
             var body = {"programs": results};
-            res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
             res.send(body);
         }, function (error) {
             res.sendStatus(500);
@@ -38,7 +37,6 @@ module.exports = function(app, db, passport) {
 
         getProgramDetails(req.params.title, function (error, result) {
             if (error) res.send(500);
-            res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
             res.send(result);
         });
     });

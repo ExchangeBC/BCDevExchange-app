@@ -22,28 +22,24 @@ See the License for the specific language governing permissions and limitations 
         <div class="col-md-12">
             <ul class="resources-list list-unstyled table-bordered">
                 <li class="resource" ng-repeat="person in people">
-                    <div class="col-md-10">
-                        <h3>{{ person.title }}</h3>
-                        <p>{{ person.notes }}</p>
-                        <div class="tags" ng-if="person.tags.length > 0">
-                                <span class="label label-default" ng-repeat="tag in person.tags" ng-if="tag.display_name != 'BCDevExchange'" style="background-color: #{{ tag.id|limitTo:6 }};">
-                                    {{ tag.display_name }}
-                                </span>
-                        </div>
+                    <div class="col-md-2">
+                        <img src="{{person.avatar_url}}" class="img-responsive" />
+                    </div>
+                    <div class="col-md-4">
+                        <h3>{{ person.name }}</h3>
+                        <p>{{ person.company }}</p>
+                        <p>{{ person.location }}</p>
+                        <p>Followers: {{person.followers}}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h3><a href="mailto:{{person.email}}">{{person.email}}</a></h3>
+                        <div ng-show="person.contactPreferences.notifyMeOfAllUpdates">Contact Me!</div>
+                        <div ng-show="!person.contactPreferences.notifyMeOfAllUpdates">Do Not Contact Me!</div>
                     </div>
                     <div class="col-md-2">
                         <ul class="list-unstyled">
-                            <li><a href="{{ person.profileURL }}" class="btn btn-primary btn-block" analytics-on>View on LinkedIn</a></li>
-                            <li><a href="{{ person.repoURL }}" class="btn btn-primary btn-block" analytics-on>View on GitHub</a></li>
+                            <li><a href="{{ person.url }}" class="btn btn-primary btn-block" analytics-on>View on GitHub</a></li>
                         </ul>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p class="source text-muted">Source: {{ person.originName }}</p>
-                        </div>
-                        <div class="col-md-6 text-right-not-xs">
-                            <p class="source text-muted">Last updated:  <span am-time-ago="person.record_last_modified" ng-bind-html="person.record_last_modified | highlight:query"></span></p>
-                        </div>
                     </div>
                 </li>
                 <li ng-if="people.length == 0">

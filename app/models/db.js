@@ -47,6 +47,14 @@ var models = require('./models');
 module.exports = {
     Account : models.Account,
     Profile : models.Profile,
+    getAccountsByOrigin : function(origin, callback) {
+        var query = models.Account.find({'identities.origin': origin});
+        query.populate('profiles');
+
+        query.exec(function (err, output) {
+            callback(err, output);
+        });
+    },
     getAccountById : function(accountId, populateProfiles, callback) {
         var query = models.Account.findById(accountId);
 
