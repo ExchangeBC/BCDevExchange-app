@@ -192,7 +192,7 @@ function getGitHubCatalogueItems (catalogue, callback) {
 }
 
 function getCKANCatalogueItems (catalogue, callback) {
-    request(catalogue.baseUrl + '/action/package_search?q=tags:' + catalogue.tagToSearch, function (error, response, body) {
+    request(catalogue.baseUrl + '/action/package_search?q=' + catalogue.tagName + ':' + catalogue.tagValue + '&rows=200', function (error, response, body) {
         if (!error &&
             typeof response !== 'undefined' &&
             response.statusCode == 200) {
