@@ -240,6 +240,6 @@ angular.module('bcdevxApp.programs').
         // options to be passed to Showdown
         // see: https://github.com/coreyti/showdown#extensions
         markdownConverterProvider.config(
-            { extensions: [devxFilter] }
+            { extensions: [devxFilter, 'icon'] }
         );
     }]);

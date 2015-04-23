@@ -47,14 +47,6 @@ var app = angular.module('bcdevxApp', [
     // Config scroll offsets
     .value('duScrollGreedy', true)
     .value('duScrollOffset', 80)
-
-    .config(['markdownConverterProvider', function (markdownConverterProvider) {
-        // options to be passed to Showdown
-        // see: https://github.com/coreyti/showdown#extensions
-        markdownConverterProvider.config({
-            extensions: ['icon']
-        });
-    }])
    .config(['$routeProvider', '$httpProvider',
         function($routeProvider, $httpProvider) {
 
