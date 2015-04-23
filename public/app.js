@@ -44,6 +44,7 @@ var app = angular.module('bcdevxApp', [
     'angular-toc',
     'duScroll'
 ])
+    // Config scroll offsets
     .value('duScrollGreedy', true)
     .value('duScrollOffset', 80)
    .config(['$routeProvider', '$httpProvider',

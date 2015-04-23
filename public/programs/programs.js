@@ -15,11 +15,7 @@ See the License for the specific language governing permissions and limitations 
 
 'use strict';
 
-angular.module('bcdevxApp.programs', ['ngRoute','ngResource','ngSanitize','btford.markdown', 'ngFx', 'ngAnimate'])
-
-    .config(['$routeProvider', function($routeProvider) {
-
-    }])
+angular.module('bcdevxApp.programs')
 
     .factory('ProgramListService', ['$resource', function($resource) {
         return $resource('/programs');
