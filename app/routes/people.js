@@ -47,6 +47,7 @@ function getGitHubUser(account, callback) {
             break;
         }
     }
+
     if (!accessToken) return callback("Missing access token.");
 
     options = {
@@ -64,7 +65,55 @@ function getGitHubUser(account, callback) {
             var json = JSON.parse(body);
 
             // remove extraneous info from result
-            return callback(null, parseGitHubUserResult(account, json));
+            var result = parseGitHubUserResult(account, json);
+
+            // If email is missing (non-public email), call additional GitHub API
+
+            if (!!result.email) {
+                return callback(null, result);
+            }
+            else {
+                getGitHubUserEmails(accessToken, function (err, emailList) {
+                    if (err) return callback(err);
+                    if (emailList) {
+                        for (var i = 0; i < emailList.length; i++) {
+                            if (emailList[i].primary == true) {
+                                result.email = emailList[i].email;
+                                break;
+                            }
+                        }
+                    }
+                    return callback(null, result);
+                });
+            }
+        }
+        else {
+            logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
+            return callback(error);
+        }
+    });
+}
+
+function getGitHubUserEmails(accessToken, callback) {
+
+    if (!accessToken) return callback("Missing access token.");
+
+    options = {
+        url: 'https://api.github.com/user/emails?access_token=' + accessToken + "&client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+        headers: {
+            'User-Agent': config.github.clientApplicationName
+        }
+    };
+    request(options, function (error, response, body) {
+        if (!error &&
+            typeof response !== 'undefined' &&
+            response.statusCode == 200) {
+
+            // parse out the yaml from content block
+            var json = JSON.parse(body);
+
+            callback(null, json);
+
         }
         else {
             logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
@@ -75,6 +124,7 @@ function getGitHubUser(account, callback) {
 
 function parseGitHubUserResult (account, result) {
     var transformed = {
+        "id": account._id.toHexString(),
         "login": result.login,
         "name": result.name,
         "company": result.company,
@@ -83,7 +133,8 @@ function parseGitHubUserResult (account, result) {
         "email": result.email,
         "url": result.html_url,
         "avatar_url": result.avatar_url,
-        "contactPreferences": account.profiles[0].contactPreferences
+        "contactPreferences": account.profiles[0].contactPreferences,
+        "identities": account.identities
     }
 
     return transformed;
