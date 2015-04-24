@@ -20,8 +20,16 @@ var logger = require('../../common/logging.js').logger;
 module.exports = function(app, db, passport) {
     app.get('/people', function(req, res) {
         // authN
-        //if (!req.isAuthenticated()) return res.sendStatus(401);
-        // authZ - crude
+        if (!req.isAuthenticated()) return res.sendStatus(401);
+        // simple, crude, yet effective: todo replace with proper authZ package
+        var admins = config.access.admin;
+        var granted = false;
+        for (var i = 0; i < admins.length; i++) {
+            if (req.user._id == admins[i]) {
+                granted = true;
+            }
+        }
+        if (!granted) return res.sendStatus(403);
 
         getAllGitHubUsers(db, function (err, results) {
             res.send({"people": results});
