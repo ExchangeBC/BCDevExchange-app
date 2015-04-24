@@ -47,6 +47,7 @@ function getGitHubUser(account, callback) {
             break;
         }
     }
+
     if (!accessToken) return callback("Missing access token.");
 
     options = {
@@ -75,6 +76,7 @@ function getGitHubUser(account, callback) {
 
 function parseGitHubUserResult (account, result) {
     var transformed = {
+        "id": account._id.toHexString(),
         "login": result.login,
         "name": result.name,
         "company": result.company,

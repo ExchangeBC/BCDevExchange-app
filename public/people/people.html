@@ -21,24 +21,30 @@ See the License for the specific language governing permissions and limitations 
     <div class="resource-list row">
         <div class="col-md-12">
 
-            <p>Total GitHub Users: {{people.length}}</p>
+            <p>{{people.length}} total users</p>
 
             <ul class="resources-list list-unstyled table-bordered">
                 <li class="resource" ng-repeat="person in people">
                     <div class="col-md-2">
-                        <img src="{{person.avatar_url}}" class="img-responsive img-rounded" />
+                        <img ng-src="{{person.avatar_url}}" class="img-responsive img-rounded" />
                     </div>
                     <div class="col-md-3">
-                        <h3>{{person.login}}</h3>
-                        <h4>{{ person.name }}</h4>
-                        <p>{{ person.company }}</p>
-                        <p>{{ person.location }}</p>
-                        <p>{{person.followers}} followers</p>
+                        <h3 ng-show="person.name" ng-bind-html="person.name"></h3>
+                        <p ng-show="person.login" ng-bind-html="person.login"></p>
+                        <p ng-show="person.company" ng-bind-html="person.company"></p>
+                        <p ng-show="person.location" ng-bind-html="person.location"></p>
+                        <p><i class="fa fa-users"></i> {{person.followers}} followers</p>
+
                     </div>
                     <div class="col-md-5">
                         <h3><a href="mailto:{{person.email}}">{{person.email}}</a></h3>
                         <div ng-show="person.contactPreferences.notifyMeOfAllUpdates"><i class="fa fa-smile-o"></i> Keep me updated! </div>
                         <div ng-show="!person.contactPreferences.notifyMeOfAllUpdates"><i class="fa fa-frown-o"></i> Don't keep me updated.</div>
+                        <br>
+                        <a href="" ng-click="showDetails = ! showDetails">Technical Info</a>
+                        <div ng-class="{ 'hidden': ! showDetails }">
+                            <small >Internal Id: {{person.id}}</small>
+                        </div>
                     </div>
                     <div class="col-md-2">
                         <ul class="list-unstyled">
