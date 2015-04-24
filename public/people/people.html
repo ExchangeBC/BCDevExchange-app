@@ -22,9 +22,9 @@ See the License for the specific language governing permissions and limitations 
         <div class="col-md-12">
             <p><button type="button" class="btn btn-default pull-right btn-sm" ng-click="showEmaillist = ! showEmaillist">Email List</button></p>
             <p>{{people.length}} total users</p>
-            <blockquote ng-class="{ 'hidden': ! showEmaillist }" ng-repeat="person in people | filter: !notifyMeOfAllUpdates">
+            <code ng-class="{ 'hidden': ! showEmaillist }" ng-repeat="person in people | filter: !notifyMeOfAllUpdates | filter: !email">
                 {{person.name}} <{{person.email}}>;<br>
-            </blockquote>
+            </code>
             <br>
             <ul class="resources-list list-unstyled table-bordered">
                 <li class="resource" ng-repeat="person in people">
