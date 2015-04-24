@@ -70,8 +70,8 @@ See the License for the specific language governing permissions and limitations 
       "short_name": "Surrey",
       "baseUrl": "http://data.surrey.ca/api/3",
       "baseViewUrl": "http://data.surrey.ca/dataset/",
-      "tagName": "res_format",
-      "tagValue": "api"
+      "tagName": "tags",
+      "tagValue": "BCDevExchange"
     },
     {
       "type": "GitHub-File",
