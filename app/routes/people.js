@@ -75,10 +75,12 @@ function getGitHubUser(account, callback) {
             else {
                 getGitHubUserEmails(accessToken, function (err, emailList) {
                     if (err) return callback(err);
-                    for (var i = 0; i < emailList.length; i++) {
-                        if (emailList[i].primary == true) {
-                            result.email = emailList[i].email;
-                            break;
+                    if (emailList) {
+                        for (var i = 0; i < emailList.length; i++) {
+                            if (emailList[i].primary == true) {
+                                result.email = emailList[i].email;
+                                break;
+                            }
                         }
                     }
                     return callback(null, result);
