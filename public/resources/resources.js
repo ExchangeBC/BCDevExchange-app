@@ -84,9 +84,11 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
 
         SourceList.get({}, function(data) {
             $scope.sources = data.sources;
+            var sourcesByUrl = [];
             for(var i in data.sources) {
                 var source = data.sources[i];
                 var sourceData = $resource('/resources/:source', {}, { timeout: 10 });
+                sourcesByUrl[source.url] = source;
                 sourceData.get({ source: source.short_name.toLowerCase() }, function(data) {
                     for(var j in data.resources) {
                         $scope.resources.push(data.resources[j]);
@@ -94,7 +96,7 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
                     $scope.loadedSources.push(source);
                     resourceListDeferred.resolve("resource list length: " + data.resources.length);
                 }, function(error) {
-                    $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + error.config.url + '</strong>.' });
+                    $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + sourcesByUrl[error.config.url].name + '</strong>.' });
                     resourceListDeferred.resolve("error retrieving resources for  " + error.config.url);
                 });
             }

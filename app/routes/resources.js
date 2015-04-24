@@ -46,7 +46,7 @@ module.exports = function(app, db, passport) {
             res.send(resources);
         }, function(error) {
             res.status(500);
-            res.send('');
+            res.send(error);
         });
 
     });
@@ -55,7 +55,7 @@ module.exports = function(app, db, passport) {
         var listOfCatalogues = [];
         for (x in config.catalogues) {
             var catalogue = config.catalogues[x];
-            listOfCatalogues.push({'name': catalogue.name, 'short_name': catalogue.short_name});
+            listOfCatalogues.push({'name': catalogue.name, 'url': '/resources/' + catalogue.short_name.toLowerCase(), 'short_name': catalogue.short_name});
         }
 
         res.send({ "sources": listOfCatalogues });
@@ -141,7 +141,7 @@ function getGitHubFileCatalogueItems (catalogue, callback) {
         }
         else {
             logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
-            callback(error);
+            callback({ 'error': error.toString() });
         }
     });
 }
@@ -186,7 +186,7 @@ function getGitHubCatalogueItems (catalogue, callback) {
         }
         else {
             logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
-            callback(error);
+            callback({'error': error.toString()});
         }
     });
 }
@@ -207,7 +207,7 @@ function getCKANCatalogueItems (catalogue, callback) {
         }
         else if (error) {
             logger.error('Error while fetching %s content: %s; body: %s', catalogue.short_name, error, body);
-            callback(error);
+            callback({'error': error.toString()});
         }
     });
 }
@@ -290,7 +290,7 @@ function getGitHubRepo(fullRepoUrl, callback) {
         }
         else {
             logger.error('Error while fetching GitHub repo: %s; response: %s; body: %s', error, response, body);
-            callback(error);
+            callback({'error': error.toString()});
         }
     });
 }
