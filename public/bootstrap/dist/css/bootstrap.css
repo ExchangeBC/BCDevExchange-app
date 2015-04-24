@@ -6202,6 +6202,13 @@ body {
 .resource-list .empty {
   padding: 15px 0;
 }
+#stats .stats-row {
+  margin: 20px 0;
+  padding: 20px 0;
+}
+#stats .stats-row:nth-child(even) {
+  background-color: #f9f9f9;
+}
 #stats .stat {
   padding: 20px 0;
 }
@@ -6219,6 +6226,14 @@ body {
   #stats .stat {
     text-align: center;
   }
+}
+#stats .activity-list {
+  border-top: 1px solid #ccc;
+}
+#stats .activity-list .activity {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+  line-height: 3em;
 }
 .form-group input {
   margin: 5px 0;
