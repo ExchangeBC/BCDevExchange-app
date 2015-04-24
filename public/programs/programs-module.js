@@ -6,6 +6,8 @@ angular.module('bcdevxApp.programs', ['ngRoute','ngResource','ngSanitize','btfor
 angular.module('bcdevxApp.programs').
     config(['markdownConverterProvider', function (markdownConverterProvider) {
 
+        var row;
+
         /**
          * Represents content enclosed between column tags
          * @constructor
@@ -165,12 +167,8 @@ angular.module('bcdevxApp.programs').
 
             return test(colEnd, colEnd2, line);
         }
-        var row;
 
-        //html output
-        var output = [];
-
-        function generateColumns(text){
+        function generateColumns(text, htmlOutput){
             if(testRowStart(text)) {// row start tag detected
                 row = new Row();
                 row.addSection(new MDContent());
@@ -181,22 +179,24 @@ angular.module('bcdevxApp.programs').
                 row.addSection(new MDContent());
             }else if(testRowEnd(text)){
                 row.addSection(new MDContent);
-                output.push(row.toString());
+                htmlOutput.push(row.toString());
                 row = null;
             }else if(!!row){
                 row.addLine(text);
             }else{
-                output.push(text);
+                htmlOutput.push(text);
             }
         }
 
         function makeHTMLColumns(text){
             if(!!text && !!text.trim()){
+                var htmlOutput = [];
+                console.log('Processing text for markdown column extensions.');
                 var lines = text.split(/[\n\r]/);
                 for(var i=0; i<lines.length; i++){
-                    generateColumns(lines[i]);
+                    generateColumns(lines[i], htmlOutput);
                 }
-                return prepareOutput(output);
+                return prepareOutput(htmlOutput);
             }else{
                 return text;
             }
@@ -215,6 +215,7 @@ angular.module('bcdevxApp.programs').
 
             return result;
         }
+
 
         var devxFilter = function(converter) {
             return [
