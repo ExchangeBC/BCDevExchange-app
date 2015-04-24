@@ -29,6 +29,8 @@ angular.module('bcdevxApp.people', ['ngRoute',  'ngResource'])
         PeopleListService.get({}, function(data) {
 
             $scope.people = data.people;
+            console.log(data.people);
+            //$scope.people[0].email = undefined;
 
         });
     }]);
