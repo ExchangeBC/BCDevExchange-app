@@ -91,7 +91,7 @@ module.exports = function(app, db, passport) {
                 },
                 bcdevx_latest: function(callback) {
                     options = {
-                        url: "https://api.github.com/repos/BCDevExchange/BCDevExchange-app/events?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+                        url: "https://api.github.com/orgs/BCDevExchange/events?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
                         headers: {
                             'User-Agent': config.github.clientApplicationName
                         }
