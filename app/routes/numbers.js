@@ -68,16 +68,128 @@ module.exports = function(app, db, passport) {
                     }, function (error) {
                         callback(error, null);
                     });
-                }/*,
+                },
+                bcdevx: function(callback) {
+                    options = {
+                        url: "https://api.github.com/repos/BCDevExchange/BCDevExchange-app?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+                        headers: {
+                            'User-Agent': config.github.clientApplicationName
+                        }
+                    };
+                    request(options, function(error, response, body) {
+                        if(error) callback(error, null);
+
+                        var jsonGithub = JSON.parse(body);
+
+                        var githubStats = {
+                            'stargazers': jsonGithub.stargazers_count,
+                            'watchers': jsonGithub.watchers_count,
+                            'forks': jsonGithub.forks,
+                        };
+                        callback(null, githubStats);
+                    });
+                },
+                bcdevx_latest: function(callback) {
+                    options = {
+                        url: "https://api.github.com/repos/BCDevExchange/BCDevExchange-app/events?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+                        headers: {
+                            'User-Agent': config.github.clientApplicationName
+                        }
+                    };
+                    request(options, function(error, response, body) {
+                        if(error) callback(error, null);
+
+                        var githubEventsJSON = JSON.parse(body);
+                        callback(null, handleEventData(githubEventsJSON));
+                    });
+                /*,
                  function(callback) {
                  db.countLinkedInAccounts(callback);
                  },
                  function(callback) {
                  db.countDualAccounts(callback);
                  }*/
+                }
             }, function (err, results) {
+                res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
                 res.send(results);
             });
         }
     });
+}
+
+function handleEventData(githubEventsJSON) {
+
+    var Events = [];
+
+    for(var i in githubEventsJSON) {
+        var Event = githubEventsJSON[i];
+
+        // A detailed list of each type of event from Github
+        // is available at
+        // https://developer.github.com/v3/activity/events/types/
+        switch(Event.type) {
+
+            case "IssueCommentEvent":
+                var IssueCommentEvent = {
+                    'actor': {
+                        'username': Event.actor.login,
+                        'url': 'https://github.com/' + Event.actor.login,
+                        'avatar': Event.actor.avatar_url
+                    },
+
+                    'details': {
+                        'description': 'commented on issue',
+                        'name': Event.payload.issue.title,
+                        'url': Event.payload.issue.html_url,
+                        'when': Event.created_at,
+                        'icon': 'comments'
+                    }
+                };
+                Events.push(IssueCommentEvent);
+            break;
+
+            case "IssuesEvent":
+                var description = '';
+                var icon = '';
+
+                switch(Event.payload.action) {
+                    case 'closed':
+                        description = 'closed issue';
+                        icon = 'times-circle';
+                    break;
+
+                    case 'opened':
+                        description = 'created issue';
+                        icon = 'plus-circle';
+                    break;
+
+                    case 'reopened':
+                        description = 'reopened issue';
+                        icon = 'chevron-circle-up';
+                    break;
+                }
+                if(description) {
+                    var IssuesEvent = {
+                        'actor': {
+                            'username': Event.actor.login,
+                            'url': Event.actor.url,
+                            'avatar': Event.actor.avatar_url
+                        },
+
+                        'details': {
+                            'description': description,
+                            'name': Event.payload.issue.title,
+                            'url': Event.payload.issue.html_url,
+                            'when': Event.created_at,
+                            'icon': icon
+                        }
+                    };
+                    Events.push(IssuesEvent);
+                }
+            break;
+        }
+    }
+
+    return Events;
 }

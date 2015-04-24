@@ -286,6 +286,15 @@ body {
 
 #stats {
 
+  .stats-row {
+    margin: 20px 0;
+    padding: 20px 0;
+
+    &:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  }
+
   .stat {
     padding: 20px 0;
     h2 {
@@ -300,6 +309,16 @@ body {
 
     @media (max-width: 767px) {
       text-align: center;
+    }
+  }
+
+  .activity-list {
+    border-top: 1px solid #ccc;
+
+    .activity {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+      line-height: 3em;
     }
   }
 }
