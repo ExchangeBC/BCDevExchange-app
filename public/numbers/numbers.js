@@ -32,6 +32,8 @@ angular.module('bcdevxApp.numbers', ['ngRoute',  'ngResource'])
             $scope.numbers.accounts = data.githubAccounts;
             $scope.numbers.resources = data.resources;
             $scope.numbers.projects = data.projects;
+            $scope.numbers.bcdevx = data.bcdevx;
+            $scope.numbers.bcdevx_activity = data.bcdevx_latest;
         });
 
     }])

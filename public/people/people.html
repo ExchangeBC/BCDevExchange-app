@@ -20,25 +20,39 @@ See the License for the specific language governing permissions and limitations 
     </div>
     <div class="resource-list row">
         <div class="col-md-12">
-
-            <p>Total GitHub Users: {{people.length}}</p>
-
+            <p><button type="button" class="btn btn-default pull-right btn-sm" ng-click="showEmaillist = ! showEmaillist">Email List</button></p>
+            <p>{{people.length}} total users</p>
+            <code ng-class="{ 'hidden': ! showEmaillist }" ng-repeat="person in people" ng-hide="!person.email || !person.contactPreferences.notifyMeOfAllUpdates">
+                {{person.name}} <{{person.email}}>;<br>
+            </code>
+            <br>
             <ul class="resources-list list-unstyled table-bordered">
                 <li class="resource" ng-repeat="person in people">
                     <div class="col-md-2">
-                        <img src="{{person.avatar_url}}" class="img-responsive" />
+                        <img ng-src="{{person.avatar_url}}" class="img-responsive img-rounded" />
                     </div>
                     <div class="col-md-3">
-                        <h3>{{person.login}}</h3>
-                        <h4>{{ person.name }}</h4>
-                        <p>{{ person.company }}</p>
-                        <p>{{ person.location }}</p>
-                        <p>Followers: {{person.followers}}</p>
+                        <h3 ng-show="person.name" ng-bind-html="person.name"></h3>
+                        <p ng-show="person.login" ng-bind-html="person.login"></p>
+                        <p ng-show="person.company" ng-bind-html="person.company"></p>
+                        <p ng-show="person.location" ng-bind-html="person.location"></p>
+                        <p><i class="fa fa-users"></i> {{person.followers}} followers</p>
+
                     </div>
                     <div class="col-md-5">
                         <h3><a href="mailto:{{person.email}}">{{person.email}}</a></h3>
-                        <div ng-show="person.contactPreferences.notifyMeOfAllUpdates">Contact Me!</div>
-                        <div ng-show="!person.contactPreferences.notifyMeOfAllUpdates">Do Not Contact Me!</div>
+                        <div ng-show="person.contactPreferences.notifyMeOfAllUpdates"><i class="fa fa-smile-o"></i> Keep me updated! </div>
+                        <div ng-show="!person.contactPreferences.notifyMeOfAllUpdates"><i class="fa fa-frown-o"></i> Don't keep me updated.</div>
+                        <br>
+                        <a href="" ng-click="showDetails = ! showDetails">Technical Info</a>
+                        <div ng-class="{ 'hidden': ! showDetails }">
+                            <small >Internal Id: {{person.id}}</small>
+                            <ul class="list-unstyled">
+                                <li ng-repeat="identity in person.identities">
+                                    <small>{{identity.origin}} - {{identity.identifier}} - {{identity.accessToken}}</small>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="col-md-2">
                         <ul class="list-unstyled">

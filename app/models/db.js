@@ -119,7 +119,6 @@ module.exports = {
 
     },
     addIdentity : function (account, extProfile, accessToken, refreshToken, callback) {
-
         account.identities.push({origin: extProfile.provider, identifier: extProfile.id, accessToken: accessToken, refreshToken: refreshToken});
         account.save(function(err) {
             if (err) {

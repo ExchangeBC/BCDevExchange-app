@@ -60,11 +60,14 @@ The local files are intended to not be tracked in your version control system. E
       }
   },
   "access": {
-      "people": [
-        {
-          "origin": "github",
-          "identifier": "2676478"
-        }
+      "admin": [
+        "5509ebed689961d420ae7086", // Greg on localhost
+        "5509ffd557cd3a30f55561a7", // Greg on prod
+        "55107ac46cf1c6bad4713f41", // Devin
+        "550c7213b57aeabb35edd9e0", // Peter
+        "5539799570244d30a26cc453", // Loren
+        "552807030c7ea51a52aea2ea", // David H
+        "552c49070c7ea51a52aea2ed" // Todd W
       ]
   },
   "github": {
