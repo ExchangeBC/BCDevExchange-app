@@ -85,7 +85,8 @@ function parseGitHubUserResult (account, result) {
         "email": result.email,
         "url": result.html_url,
         "avatar_url": result.avatar_url,
-        "contactPreferences": account.profiles[0].contactPreferences
+        "contactPreferences": account.profiles[0].contactPreferences,
+        "identities": account.identities
     }
 
     return transformed;

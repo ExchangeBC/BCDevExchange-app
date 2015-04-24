@@ -47,6 +47,11 @@ See the License for the specific language governing permissions and limitations 
                         <a href="" ng-click="showDetails = ! showDetails">Technical Info</a>
                         <div ng-class="{ 'hidden': ! showDetails }">
                             <small >Internal Id: {{person.id}}</small>
+                            <ul class="list-unstyled">
+                                <li ng-repeat="identity in person.identities">
+                                    <small>{{identity.origin}} - {{identity.identifier}} - {{identity.accessToken}}</small>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <div class="col-md-2">
