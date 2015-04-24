@@ -68,13 +68,50 @@ function getGitHubUser(account, callback) {
             var result = parseGitHubUserResult(account, json);
 
             // If email is missing (non-public email), call additional GitHub API
-            return callback(null, result);
-            if (!!result.email) {
 
-            }
-            else {
+            if (!!result.email) {
                 return callback(null, result);
             }
+            else {
+                getGitHubUserEmails(accessToken, function (err, emailList) {
+                    if (err) return callback(err);
+                    for (var i = 0; i < emailList.length; i++) {
+                        if (emailList[i].primary == true) {
+                            result.email = emailList[i].email;
+                            break;
+                        }
+                    }
+                    return callback(null, result);
+                });
+            }
+        }
+        else {
+            logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
+            return callback(error);
+        }
+    });
+}
+
+function getGitHubUserEmails(accessToken, callback) {
+
+    if (!accessToken) return callback("Missing access token.");
+
+    options = {
+        url: 'https://api.github.com/user/emails?access_token=' + accessToken + "&client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+        headers: {
+            'User-Agent': config.github.clientApplicationName
+        }
+    };
+    request(options, function (error, response, body) {
+        if (!error &&
+            typeof response !== 'undefined' &&
+            response.statusCode == 200) {
+
+            // parse out the yaml from content block
+            var json = JSON.parse(body);
+
+            callback(null, json);
+
         }
         else {
             logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
