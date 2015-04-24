@@ -101,11 +101,11 @@ if (config.node.clusterEnabled &&
 
                     if (account) {
 
+                        // Update token
                         for (var i = 0; i < account.identities.length; i++) {
                             if (account.identities[i].identifier === extProfile.id) {
                                 account.identities[i].accessToken = accessToken;
                                 account.identities[i].refreshToken = refreshToken;
-                                break;
                             }
                         }
 

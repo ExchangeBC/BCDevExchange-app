@@ -65,7 +65,16 @@ function getGitHubUser(account, callback) {
             var json = JSON.parse(body);
 
             // remove extraneous info from result
-            return callback(null, parseGitHubUserResult(account, json));
+            var result = parseGitHubUserResult(account, json);
+
+            // If email is missing (non-public email), call additional GitHub API
+            return callback(null, result);
+            if (!!result.email) {
+
+            }
+            else {
+                return callback(null, result);
+            }
         }
         else {
             logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
