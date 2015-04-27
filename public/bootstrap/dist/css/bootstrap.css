@@ -6400,6 +6400,22 @@ body {
   padding-bottom: 9.5px;
   margin: 42px 0 21px;
 }
+.fa.is-small,
+.glyphicon.is-small {
+  font-size: 36px;
+}
+.fa.is-medium,
+.glyphicon.is-medium {
+  font-size: 56px;
+}
+.fa.is-large,
+.glyphicon.is-large {
+  font-size: 128px;
+}
+.fa.is-giant,
+.glyphicon.is-giant {
+  font-size: 256px;
+}
 .clearfix:before,
 .clearfix:after,
 .container:before,
