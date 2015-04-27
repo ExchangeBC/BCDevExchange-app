@@ -164,18 +164,18 @@
 
         function generateColumns(text, htmlOutput){
             if(testRowStart(text)) {// row start tag detected
-                console.log("Row start tag discovered.")
+                //console.log("Row start tag discovered.")
                 row = new Row();
                 row.addSection(new MDContent());
 
             }else if(testColStart(text)){
-                console.log("Col start tag discovered.")
+                //console.log("Col start tag discovered.")
                 row.addSection(new Col());
             }else if(testColEnd(text)){
-                console.log("Col end tag discovered.")
+                //console.log("Col end tag discovered.")
                 row.addSection(new MDContent());
             }else if(testRowEnd(text)){
-                console.log("Row end tag discovered.")
+                //console.log("Row end tag discovered.")
                 row.addSection(new MDContent);
                 htmlOutput.push(row.toString());
                 row = null;
@@ -189,7 +189,7 @@
         function makeHTMLColumns(text){
             if(!!text && !!text.trim()){
                 var htmlOutput = [];
-                console.log('Processing text for markdown column extensions.');
+                //console.log('Processing text for markdown column extensions.');
 
                 var lines = text.split(/[\n\r]/);
                 for(var i=0; i<lines.length; i++){
