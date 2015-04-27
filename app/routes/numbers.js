@@ -91,7 +91,7 @@ module.exports = function(app, db, passport) {
                 },
                 bcdevx_latest: function(callback) {
                     options = {
-                        url: "https://api.github.com/repos/BCDevExchange/BCDevExchange-app/events?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+                        url: "https://api.github.com/orgs/BCDevExchange/events?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
                         headers: {
                             'User-Agent': config.github.clientApplicationName
                         }
@@ -139,7 +139,7 @@ function handleEventData(githubEventsJSON) {
                     },
 
                     'details': {
-                        'description': 'commented on issue',
+                        'description': 'commented on',
                         'name': Event.payload.issue.title,
                         'url': Event.payload.issue.html_url,
                         'when': Event.created_at,
@@ -186,6 +186,62 @@ function handleEventData(githubEventsJSON) {
                         }
                     };
                     Events.push(IssuesEvent);
+                }
+            break;
+
+            case "PullRequestEvent":
+                var description = '';
+                var icon = '';
+
+                var description = '';
+                var icon = '';
+
+                switch(Event.payload.action) {
+                    case 'closed':
+                        if(Event.payload.pull_request.merged) {
+                            description = 'merged pull request';
+                            icon = 'code-fork';
+                        }
+                        else {
+                            description = 'closed pull request';
+                            icon = 'times-circle';
+                        }
+                    break;
+
+                    case 'opened':
+                        description = 'created pull request';
+                        icon = 'code-fork';
+                    break;
+
+                    case 'reopened':
+                        description = 'reopened pull request';
+                        icon = 'chevron-circle-up';
+                    break;
+
+                    case 'synchronize':
+                        description = 'synchronized pull request';
+                        icon = 'code-fork';
+                    break;
+
+                }
+
+                if(description) {
+                    var PullRequestEvent = {
+                        'actor': {
+                            'username': Event.actor.login,
+                            'url': Event.actor.url,
+                            'avatar': Event.actor.avatar_url
+                        },
+
+                        'details': {
+                            'description': description,
+                            'name': Event.payload.pull_request.title,
+                            'url': Event.payload.pull_request.html_url,
+                            'when': Event.created_at,
+                            'icon': icon
+                        }
+                    };
+                    Events.push(PullRequestEvent);
                 }
             break;
         }
