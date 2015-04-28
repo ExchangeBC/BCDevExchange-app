@@ -21,8 +21,10 @@ var app = angular.module('bcdevxApp', [
     'bcdevxApp.services',
     'bcdevxApp.account',
     'bcdevxApp.resources',
+    'bcdevxApp.resources-register',
     'bcdevxApp.programs',
     'bcdevxApp.projects',
+    'bcdevxApp.projects-register',
     'bcdevxApp.people',
     'bcdevxApp.signup',
     'bcdevxApp.auth',
@@ -97,6 +99,10 @@ var app = angular.module('bcdevxApp', [
                 templateUrl: 'resources/resources.html',
                 controller: 'ResourcesCtrl'
             })
+            .when('/resources/register', {
+                templateUrl: 'resources/register.html',
+                controller: 'ResourcesRegisterController'
+            })
             .when('/programs', {
                 templateUrl: 'programs/programs.html',
                 controller: 'ProgramsCtrl'
@@ -104,6 +110,10 @@ var app = angular.module('bcdevxApp', [
             .when('/projects', {
                 templateUrl: 'projects/projects.html',
                 controller: 'ProjectsCtrl'
+            })
+            .when('/projects/register', {
+                templateUrl: 'projects/register.html',
+                controller: 'ProjectsRegisterController'
             })
             .when('/people', {
                 templateUrl: 'people/people.html',
