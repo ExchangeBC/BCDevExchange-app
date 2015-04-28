@@ -5,6 +5,7 @@ bower_components/
 tmp
 .DS_Store
 .idea
+*.pem
 /.grunt
 /app/CNAME
 npm-debug.log

@@ -109,6 +109,39 @@ module.exports = function(app, db, passport) {
                  function(callback) {
                  db.countDualAccounts(callback);
                  }*/
+                },
+                analytics: function(callback) {
+                    var googleapis = require('googleapis'),
+                        JWT = googleapis.auth.JWT,
+                        analytics = googleapis.analytics('v3');
+
+                    var SERVICE_ACCOUNT_EMAIL = config.google_analytics.api_email;
+                    var SERVICE_ACCOUNT_KEY_FILE = config.google_analytics.key_file;
+
+                    var authClient = new JWT(
+                        SERVICE_ACCOUNT_EMAIL,
+                        SERVICE_ACCOUNT_KEY_FILE,
+                        null,
+                        ['https://www.googleapis.com/auth/analytics.readonly']
+                    );
+
+                    authClient.authorize(function(err, tokens) {
+                        if (err) {
+                            if(err) callback(err, null);
+                            return;
+                        }
+
+                        analytics.data.ga.get({
+                            auth: authClient,
+                            'ids': 'ga:' + config.google_analytics.analytics_view_id,
+                            'start-date': '7daysAgo',
+                            'end-date': 'yesterday',
+                            'metrics': 'ga:users'
+                        }, function(err, result) {
+                            if(err) callback(err, null);
+                            callback(null, {'users': result.totalsForAllResults['ga:users']});
+                        });
+                    });
                 }
             }, function (err, results) {
                 res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
