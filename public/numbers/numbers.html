@@ -114,7 +114,33 @@ See the License for the specific language governing permissions and limitations 
             <div class="col-sm-12">
                 <h2>Latest activity on BCDevExchange</h2>
                 <div class="activity-list">
-                    <div class="activity" ng-repeat="activity in numbers.bcdevx_activity">
+                    <div ng-show="numbers.bcdevx_activity.length == 0 && numbers.isLoaded">
+                        No recent activity.
+                    </div>
+                    <div class="activity" ng-repeat="activity in numbers.bcdevx_activity" ng-show="numbers.bcdevx_activity.length > 0">
+                        <div class="row">
+                            <div class="col-xs-1 text-center">
+                                <i class="fa fa-{{ activity.details.icon }} fa-3x text-muted text-center"></i>
+                            </div>
+                            <div class="col-xs-9">
+                                <div class="row">
+                                <a href="{{ activity.actor.url }}"><img src="{{ activity.actor.avatar }}" width="32" height="32" /></a> <a href="{{ activity.actor.url }}">{{ activity.actor.username }}</a> {{ activity.details.description }} <a href="{{ activity.details.url }}">{{ activity.details.name }}</a>
+                            </div>
+                            </div>
+                            <div class="col-xs-2">
+                                <span class="pull-right text-muted" am-time-ago="activity.details.when "></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <h2>Latest activity on BCGov</h2>
+                <div class="activity-list">
+                    <div ng-show="numbers.bcgov_activity.length == 0 && numbers.isLoaded">
+                        No recent activity.
+                    </div>
+                    <div class="activity" ng-repeat="activity in numbers.bcgov_activity" ng-show="numbers.bcgov_activity.length > 0">
                         <div class="row">
                             <div class="col-xs-1 text-center">
                                 <i class="fa fa-{{ activity.details.icon }} fa-3x text-muted text-center"></i>

@@ -110,6 +110,20 @@ module.exports = function(app, db, passport) {
                  db.countDualAccounts(callback);
                  }*/
                 },
+                bcgov_latest: function(callback) {
+                    options = {
+                        url: "https://api.github.com/orgs/bcgov/events?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+                        headers: {
+                            'User-Agent': config.github.clientApplicationName
+                        }
+                    };
+                    request(options, function(error, response, body) {
+                        if(error) callback(error, null);
+
+                        var githubEventsJSON = JSON.parse(body);
+                        callback(null, handleEventData(githubEventsJSON));
+                    });
+                },
                 analytics: function(callback) {
                     var googleapis = require('googleapis'),
                         JWT = googleapis.auth.JWT,
@@ -127,7 +141,7 @@ module.exports = function(app, db, passport) {
 
                     authClient.authorize(function(err, tokens) {
                         if (err) {
-                            if(err) callback(err, null);
+                            if(err) callback(null, '');
                             return;
                         }
 
@@ -138,7 +152,7 @@ module.exports = function(app, db, passport) {
                             'end-date': 'yesterday',
                             'metrics': 'ga:users'
                         }, function(err, result) {
-                            if(err) callback(err, null);
+                            if(err) callback(null, '');
                             callback(null, {'users': result.totalsForAllResults['ga:users']});
                         });
                     });
