@@ -23,7 +23,7 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
 
     $scope.formLevelMessage = '';
     $scope.formError = false;
-    $scope.accountExistsMap = new Map();
+    $scope.accountExistsMap = [];
     $scope.resultOfSaving = null;
     $scope.hideMessageDialog = true;
     $scope.notifs = {};
@@ -53,18 +53,23 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
     };
 
     $scope.identityExists = function(identifier) {
-        return $scope.accountExistsMap.get(identifier);
+        return $scope.accountExistsMap.some(
+            function(element, index, array){
+                return element === identifier;
+            }
+        );
     };
-    $scope.checkIdentityExists = function(identifier) {
-        var exists = $scope.accountExistsMap.get(identifier);
 
-        if(exists === undefined){
+    $scope.checkIdentityExists = function(identifier) {
+        var exists = $scope.identityExists(identifier);
+
+        if(!exists){
             AccountService.getAccountById($location.search().id)
                 .then(
                     function(data){
                         for( var i = 0; i < data.identities.length; i++ ) {
                             if ( data.identities[i].origin === identifier ) {
-                                $scope.accountExistsMap.set(identifier, true);
+                                $scope.accountExistsMap.push(identifier);
                             }
                         }
                     },
