@@ -28,6 +28,7 @@
     "winston": "^1.0.0"
   },
   "devDependencies": {
+    "chai": "^2.3.0",
     "consologger": "^1.0.0",
     "event-stream": "^3.3.0",
     "grunt": "^0.4.5",
@@ -46,9 +47,14 @@
     "gulp-using": "0.0.1",
     "gulp-util": "^3.0.3",
     "gulp-watch": "^4.1.1",
+    "jshint": "^2.7.0",
     "jshint-stylish": "^1.0.0",
     "karma": "^0.12.31",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.8",
     "karma-junit-reporter": "^0.2.2",
+    "karma-mocha": "^0.1.10",
+    "mocha": "^2.2.4",
     "protractor": "^2.0.0",
     "shelljs": "^0.4.0"
   },
