@@ -32,6 +32,7 @@ See the License for the specific language governing permissions and limitations 
     "linkedinLogin": false,
     "resourcesPage": true,
     "projectsPage": true,
+    "programsPage": true,
     "peoplePage": false,
     "numbersPage": true,
     "labLink": true,
