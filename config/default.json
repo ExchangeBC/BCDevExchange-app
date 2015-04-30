@@ -105,8 +105,10 @@ The local files are intended to not be tracked in your version control system. E
       "short_name": "Surrey",
       "baseUrl": "http://data.surrey.ca/api/3",
       "baseViewUrl": "http://data.surrey.ca/dataset/",
-      "tagName": "res_format",
-      "tagValue": "api"
+      //"tagName": "res_format",
+      //"tagValue": "api"
+      "tagName": "tags",
+      "tagValue": "BCDevExchange"
     },
     //{
     //  "type": "GitHub",
@@ -167,16 +169,22 @@ The local files are intended to not be tracked in your version control system. E
     "sessionStoreUrl": "mongodb://localhost/session-store"
   },
   "ui": {
-      "headerImage": "header4.jpg",
-      "headerImageLicenseHtml": "Prospect Point Lighthouse and Lion's Gate Bridge photo by <a href='https://www.flickr.com/photos/colink/' analytics-on>colink</a>. Used under license (<a href='https://creativecommons.org/licenses/by-sa/2.0/' analytics-on>CC BY-SA 2.0</a>)",
+      "headerImage": "header5.jpg",
+      "headerImageLicenseHtml": "Memorial Arena in Kelowna photo by <a href='https://www.flickr.com/photos/42373177@N07/' analytics-on>Jason Drury</a>. Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/' analytics-on>CC BY-NC-SA 2.0</a>)",
       "discoveryBanner": false,
       "linkedinLogin": false,
       "resourcescallbackURLage": true,
-      "programsPage": true,
+      "programsPage": false,
       "projectsPage": true,
       "peoplePage": false,
+      "numbersPage": false,
       "labLink": true,
       "explorationContent": true,
       "labURL": "https://lab.bcdevexchange.org"
+  },
+  "google_analytics": {
+    "api_email": "GOOGLE_API_EMAIL", // in Google Developer console (Service Account)
+    "analytics_view_id": "GOOGLE_ANALYTICS_VIEW_ID", //in Google Analytics Console : Admin -> View -> View Settings -> View ID
+    "client_id": "UA-XXXXXXX-X"
   }
 }

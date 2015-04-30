@@ -32,7 +32,9 @@ See the License for the specific language governing permissions and limitations 
     "linkedinLogin": false,
     "resourcesPage": true,
     "projectsPage": true,
+    "programsPage": true,
     "peoplePage": false,
+    "numbersPage": true,
     "labLink": true,
     "explorationContent": true,
     "labURL": "http://localhost:8000"
@@ -47,37 +49,5 @@ See the License for the specific language governing permissions and limitations 
     "clientID": "75g4w5b338kf9h",
     "clientSecret": "not a secret",
     "callbackURL": "http://localhost:8000/auth/linkedin/callback"
-  },
-  "catalogues": [
-    //{
-    //"type": "GitHub",
-    //"name": "GitHub",
-    //"short_name": "GitHub",
-    //"tagToSearch": "BCDevExchange-Resource"
-    //},
-    {
-      "type": "CKANv3",
-      "name": "BC Data Catalogue",
-      "short_name": "BCDC",
-      "baseUrl": "http://catalogue.data.gov.bc.ca/api/3",
-      "baseViewUrl": "http://catalogue.data.gov.bc.ca/dataset/",
-      "tagName": "tags",
-      "tagValue": "BCDevExchange"
-    },
-    {
-      "type": "CKANv3",
-      "name": "City of Surrey Catalogue",
-      "short_name": "Surrey",
-      "baseUrl": "http://data.surrey.ca/api/3",
-      "baseViewUrl": "http://data.surrey.ca/dataset/",
-      "tagName": "tags",
-      "tagValue": "BCDevExchange"
-    },
-    {
-      "type": "GitHub-File",
-      "name": "GitHub",
-      "short_name": "GitHub",
-      "url": "repos/BCDevExchange/BCDevExchange-Resources/contents/resources.yml"
-    }
-    ]
+  }
 }

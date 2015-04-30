@@ -7,6 +7,7 @@
   "license": "Apache 2.0",
   "main": "server.js",
   "dependencies": {
+    "MD5": "^1.2.1",
     "async": "^0.9.0",
     "body-parser": "^1.12.2",
     "bower": "^1.4.x",
@@ -16,9 +17,9 @@
     "express": "^4.12.3",
     "express-session": "^1.11.1",
     "google-cdn-data": "^0.1.17",
+    "googleapis": "^2.0.2",
     "helmet": "^0.7.1",
     "js-yaml": "^3.2.7",
-    "MD5": "^1.2.1",
     "merge": "^1.2.0",
     "mongoose": "3.8.x",
     "passport": "^0.2.1",

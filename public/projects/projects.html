@@ -16,12 +16,14 @@ See the License for the specific language governing permissions and limitations 
     <div class="row page-header">
         <div class="col-lg-12">
             <h1>Projects</h1>
+
         </div>
     </div>
     <div class="resource-list row">
         <div class="col-lg-12">
                 <form>
                     <div class="form-inline">
+                        <p class="pull-right">Interested in registering your Project with us? <a href="/#/projects/register">Find out how!</a></p>
                         <div class="form-group">
                             <label class="sr-only" for="query_search">Search for keywords</label>
                             <input type="text" placeholder="Search for keywords" class="form-control" id="query_search" ng-model="query" />
@@ -41,6 +43,7 @@ See the License for the specific language governing permissions and limitations 
                               </ul>
                             </div>
                             <input type="reset" class="btn btn-default" value="Reset" ng-click="selectedSource = ''; selectedSourceTitle = ''; query = ''; predicate = ''; predicateTitle = '';" />
+
                         </div>
                         <div class="clearfix">
                             <ng-pluralize class="pull-left" ng-show="filtered.length > 0" count="filtered.length"

@@ -11,17 +11,14 @@ Unless required by applicable law or agreed to in writing, software distributed 
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
+
+
+
+
 'use strict';
 
-angular.module('bcdevxApp.programs', ['ngRoute','ngResource','ngSanitize','btford.markdown', 'ngFx', 'ngAnimate']);
+var app = angular.module('bcdevxApp.resources-register', []);
 
+app.controller('ResourcesRegisterController', [function() {
 
-angular.module('bcdevxApp.programs').
-    config(['markdownConverterProvider', function (markdownConverterProvider) {
-
-        // options to be passed to Showdown
-        // see: https://github.com/coreyti/showdown#extensions
-        markdownConverterProvider.config(
-            { extensions: ['btexts', 'icon'] }
-        );
-    }]);
+}]);

@@ -5922,22 +5922,23 @@ html {
   background-size: cover;
   /*background-attachment: fixed;*/
   background-repeat: no-repeat;
-  background-position: center top;
+  background-position: left top;
   color: #000000;
   text-align: left;
-  min-height: 700px;
+  min-height: 900px;
 }
 .splash h1 {
+  text-align: left;
   font-size: 56px;
   border-bottom: 1px solid #008cba;
-  display: inline-block;
 }
 .splash .lead {
+  text-align: left;
   color: #223344;
 }
 @media (max-width: 480px) {
   .splash {
-    background-position: 62% 0%;
+    background-position: 0% 0%;
   }
 }
 .jumbotron-lab {
@@ -6399,6 +6400,22 @@ body {
 .page-header-empty {
   padding-bottom: 9.5px;
   margin: 42px 0 21px;
+}
+.fa.is-small,
+.glyphicon.is-small {
+  font-size: 36px;
+}
+.fa.is-medium,
+.glyphicon.is-medium {
+  font-size: 56px;
+}
+.fa.is-large,
+.glyphicon.is-large {
+  font-size: 128px;
+}
+.fa.is-giant,
+.glyphicon.is-giant {
+  font-size: 256px;
 }
 .clearfix:before,
 .clearfix:after,

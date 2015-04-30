@@ -26,14 +26,32 @@ angular.module('bcdevxApp.numbers', ['ngRoute',  'ngResource'])
     }])
 
     .controller('NumbersCtrl', ['$scope', 'NumbersCountService', '$q', 'usSpinnerService', function($scope, NumbersCountService, $q, usSpinnerService) {
-        $scope.numbers = {};
+        $scope.numbers = {
+            isLoaded: false,
+            accounts: '-',
+            resources: '-',
+            projects: '-',
+            bcdevx: {
+                stargazers: '-',
+                watchers: '-',
+                forks: '-'
+            },
+            bcdevx_activity: [],
+            bcgov_activity: [],
+            analytics: {
+                users: '-'
+            }
+        };
 
         NumbersCountService.get({}, function(data) {
+            $scope.numbers.isLoaded = true;
             $scope.numbers.accounts = data.githubAccounts;
             $scope.numbers.resources = data.resources;
             $scope.numbers.projects = data.projects;
             $scope.numbers.bcdevx = data.bcdevx;
             $scope.numbers.bcdevx_activity = data.bcdevx_latest;
+            $scope.numbers.bcgov_activity = data.bcgov_latest;
+            $scope.numbers.analytics = data.analytics || $scope.numbers.analytics;
         });
 
     }])

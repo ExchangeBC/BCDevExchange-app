@@ -109,6 +109,53 @@ module.exports = function(app, db, passport) {
                  function(callback) {
                  db.countDualAccounts(callback);
                  }*/
+                },
+                bcgov_latest: function(callback) {
+                    options = {
+                        url: "https://api.github.com/orgs/bcgov/events?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+                        headers: {
+                            'User-Agent': config.github.clientApplicationName
+                        }
+                    };
+                    request(options, function(error, response, body) {
+                        if(error) callback(error, null);
+
+                        var githubEventsJSON = JSON.parse(body);
+                        callback(null, handleEventData(githubEventsJSON));
+                    });
+                },
+                analytics: function(callback) {
+                    var googleapis = require('googleapis'),
+                        JWT = googleapis.auth.JWT,
+                        analytics = googleapis.analytics('v3');
+
+                    var SERVICE_ACCOUNT_EMAIL = config.google_analytics.api_email;
+                    var SERVICE_ACCOUNT_KEY_FILE = config.google_analytics.key_file;
+
+                    var authClient = new JWT(
+                        SERVICE_ACCOUNT_EMAIL,
+                        SERVICE_ACCOUNT_KEY_FILE,
+                        null,
+                        ['https://www.googleapis.com/auth/analytics.readonly']
+                    );
+
+                    authClient.authorize(function(err, tokens) {
+                        if (err) {
+                            if(err) callback(null, '');
+                            return;
+                        }
+
+                        analytics.data.ga.get({
+                            auth: authClient,
+                            'ids': 'ga:' + config.google_analytics.analytics_view_id,
+                            'start-date': '7daysAgo',
+                            'end-date': 'yesterday',
+                            'metrics': 'ga:users'
+                        }, function(err, result) {
+                            if(err) callback(null, '');
+                            callback(null, {'users': result.totalsForAllResults['ga:users']});
+                        });
+                    });
                 }
             }, function (err, results) {
                 res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
@@ -190,9 +237,6 @@ function handleEventData(githubEventsJSON) {
             break;
 
             case "PullRequestEvent":
-                var description = '';
-                var icon = '';
-
                 var description = '';
                 var icon = '';
 

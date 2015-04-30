@@ -3,13 +3,13 @@
 
 The [BCDevExchange website](http://bcdevexchange.org/) is the public facing site for the BC Developers' Exchange - an experiment in tech innovation and collaboration.
 
-*We are open to pull requests! 
+*We are open to pull requests!
 See our [contributing guide](https://github.com/BCDevExchange/BCDevExchange-app/blob/master/CONTRIBUTING.md) for the details.*
 
 ## MEAN Stack##
 This web app is built on the MEAN stack:
 
--  AngularJS 
+-  AngularJS
 -  Bootstrap
 -  NodeJS
 -  MongoDB
@@ -79,7 +79,7 @@ Updating deployment:
 ```
 git pull
 npm install --production
-forever list 
+forever list
 forever restart <pid>
 ```
 
@@ -111,7 +111,41 @@ Then restart forever processes, post-install:
 forever list
 forever restart <pid>
 ```
+### Google Analytics API
 
+This is for setting up access to the Google Analytics API.  Those who do not have access to BCDevExchange's Google Analytics account can skip this step.  The site will function without Google Analytics set up.
+
+1. Log into the Google account that has access to BCDevExchange's Google Analytics.
+
+2. In the [Developers Console](https://console.developers.google.com), create a new project.
+
+3. Under "APIs & auth", go to "APIs".  Search for the "Analytics API" and enable it.
+
+4. Next go to "Credentials".  Create a new Client ID.  Make sure to select "Service Account" and for the key type select "P12 Key".  This will automatically download a `.p12` file to your computer, and the Developers Console will provide you with a password to access it (by default it should be "notasecret").
+
+5. Make a note of the "Email address" field under your new "Service account".  It should look like `XXXX@developer.gserviceaccount.com`.
+
+6. The `.p12` file needs to be converted to a `.pem` file.  Run the following command where your `.p12` file is located:
+
+    ```
+    openssl pkcs12 -in XXXXX.p12 -nocerts -nodes -out XXXXX.pem
+    ```
+
+    You will be prompted for a password.  By default it should be "notasecret".
+
+7. Add your `developer.gserviceaccount.com` email to the Google Analytics account with "Read & Analyze" access.
+
+8. Get the View ID from Google Analytics.  This is found in the "Admin" section at the top, under the "View" category in "View Settings".
+
+9. Lastly the configuration files need to be updated.  Update `local.json` inside `/config`.  An example is provided below:
+
+```
+"google_analytics": {
+    "api_email": "your-developer-gservice-email@developer.gserviceaccount.com",
+    "analytics_view_id": "your-view-id",
+    "key_file": "/path/to/the/pem/file/key.pem"
+}
+```
 
 ## Server Sizing ##
 We've benchmarked performance for this site as it was running on a Microsoft Azure Standard D1 (One Core) 4 GB RAM VM using a [Bitnami packaged Ubuntu VM] (https://bitnami.com/stack/mean).
@@ -128,7 +162,7 @@ Dynamic resource serving (Nginx + NodeJS): [100 req/sec < 500ms](http://ldr.io/1
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at 
+    You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
