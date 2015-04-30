@@ -33,6 +33,7 @@ See the License for the specific language governing permissions and limitations 
     "resourcesPage": true,
     "projectsPage": true,
     "peoplePage": false,
+    "numbersPage": true,
     "labLink": true,
     "explorationContent": true,
     "labURL": "http://localhost:8000"
