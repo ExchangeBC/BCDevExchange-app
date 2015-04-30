@@ -53,11 +53,13 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
     };
 
     $scope.identityExists = function(identifier) {
-        return $scope.accountExistsMap.some(
-            function(element, index, array){
-                return element === identifier;
+        var exists = false;
+        for(var i=0; i<$scope.accountExistsMap.length && !exists; i++){
+            if($scope.accountExistsMap[i] === identifier){
+                exists = true;
             }
-        );
+        }
+        return exists;
     };
 
     $scope.checkIdentityExists = function(identifier) {
