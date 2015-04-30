@@ -63,7 +63,7 @@ angular.module('bcdevxApp.programs')
             $scope.programsLoaded = true;
 
         }, function(error) {
-            console.log(error);
+            //console.log(error);
             $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + error.config.url + '</strong>.' });
             programListDeferred.resolve("error retrieving programs for  " + error.config.url);
             $scope.programsLoaded = true;
