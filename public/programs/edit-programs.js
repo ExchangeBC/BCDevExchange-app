@@ -28,7 +28,7 @@ function programsEditCtrl(){
         //vm.mdDisplay = temp;
 
         vm.mdDisplay = vm.mdInput;
-        console.log("setting property on display directive ");
+        //console.log("setting property on display directive ");
 
     }
 }

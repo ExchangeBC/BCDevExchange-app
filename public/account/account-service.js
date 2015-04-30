@@ -40,12 +40,12 @@ servicesModule.factory('AccountService', ['$resource', '$q', '$log', function($r
                     currentUser.id = data._id;
                     deferred.resolve(currentUser);
                 }else{
-                    console.log("No authenticated user found.");
+                    //console.log("No authenticated user found.");
                     deferred.resolve(currentUser);
                 }
             },
             function(error){
-                console.log("Error in accessing resource: " + accountCheckUrl + ", error code" + error.status);
+                //console.log("Error in accessing resource: " + accountCheckUrl + ", error code" + error.status);
                 currentUser.error = error.toString();
                 deferred.reject(currentUser);
             }
