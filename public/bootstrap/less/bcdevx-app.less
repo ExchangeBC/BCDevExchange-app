@@ -25,18 +25,19 @@ html {
   background-size: cover;
   /*background-attachment: fixed;*/   //enable this if you want the image to stay fixed while page scrolls
   background-repeat: no-repeat;
-  background-position: center top;
+  background-position: left top;
   color: @splash-color;
   text-align: left;
-  min-height: 700px;
+  min-height: 900px;
 
   h1 {
+    text-align: left;
     font-size: @splash-h1-font-size;
     border-bottom: @splash-h1-border-bottom-width @splash-h1-border-bottom-style @splash-h1-border-bottom-color;
-    display: inline-block;
   }
 
   .lead {
+    text-align: left;
     color: #223344;
   }
 
@@ -44,7 +45,7 @@ html {
 
 @media(max-width:@screen-xs-min){
   .splash {
-    background-position: 62% 0%;
+    background-position:0% 0%;
   }
 }
 
