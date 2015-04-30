@@ -35,6 +35,23 @@ module.exports = function(grunt) {
                     spawn: false
                 }
             }
+        },
+
+        bower_concat: {
+            all: {
+                dest: 'build/_bower.js',
+                cssDest: 'build/_bower.css',
+
+                dependencies: {
+
+                },
+                mainFiles: {
+                    'angular-table-of-contents': [ 'dest/angular-table-of-contents.min.js' ]
+                },
+                bowerOptions: {
+                    relative: false
+                }
+            }
         }
 
     });
