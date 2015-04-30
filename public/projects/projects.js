@@ -81,7 +81,7 @@ angular.module('bcdevxApp.projects', ['ngRoute',  'ngResource'])
                 });
             });
         }, function(error) {
-            console.log(error);
+            //console.log(error);
             $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + error.config.url + '</strong>.' });
             projectListDeferred.resolve("error retrieving resources for  " + error.config.url);
             $scope.projectsLoaded = true;

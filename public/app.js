@@ -63,7 +63,7 @@ var app = angular.module('bcdevxApp', [
                         deferred.resolve(data);
                 },
                 function(data){
-                    console.log('Did not find logged-in user');
+                    //console.log('Did not find logged-in user');
                     //var modalInstance = $modal.open({
                     //    templateUrl: 'login/login.html',
                     //    controller: 'LoginModalCtrl'
@@ -146,7 +146,7 @@ var app = angular.module('bcdevxApp', [
                     if (rejection.status === 401) {
                         $location.url('/home');
                     }else if(rejection.status === 0){
-                        console.log('Bummer, looks like you hit a network connection error, please check your internet connection or make sure the server is running.');
+                        //console.log('Bummer, looks like you hit a network connection error, please check your internet connection or make sure the server is running.');
                     }
                     return $q.reject(rejection);
                 }
