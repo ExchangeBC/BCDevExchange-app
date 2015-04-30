@@ -45,8 +45,7 @@ See the License for the specific language governing permissions and limitations 
                 };
 
 
-                var promise = AccountService.getCurrentUser();
-                    promise.then(
+                AccountService.getCurrentUser().then(
                         function(data){
                             vm.username = data.displayName;
                             vm.userid = data.id;
@@ -56,7 +55,7 @@ See the License for the specific language governing permissions and limitations 
                             vm.username = '';
                             vm.doShow = true;
                         }
-                    );
+                );
 
             }],
             controllerAs: 'loginlistCtrl',
