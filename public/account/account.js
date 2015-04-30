@@ -71,7 +71,7 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
                     function(data){
                         for( var i = 0; i < data.identities.length; i++ ) {
                             if ( data.identities[i].origin === identifier ) {
-                                $scope.accountExistsMap.push(identifier);
+                                $scope.accountExistsMap[$scope.accountExistsMap.length] = identifier;
                             }
                         }
                     },
