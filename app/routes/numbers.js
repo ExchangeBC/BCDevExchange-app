@@ -240,9 +240,6 @@ function handleEventData(githubEventsJSON) {
                 var description = '';
                 var icon = '';
 
-                var description = '';
-                var icon = '';
-
                 switch(Event.payload.action) {
                     case 'closed':
                         if(Event.payload.pull_request.merged) {
