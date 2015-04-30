@@ -16,34 +16,30 @@ module.exports = function(grunt) {
 
     // Project configuration.
     grunt.initConfig({
-        modernizr: {
-
-            dist: {
-                // [REQUIRED] Path to the build you're using for development.
-                "devFile": "remote",
-
-                // Path to save out the built file.
-                "outputFile": "public/js/modernizr-custom.js"
+        express: {
+            options: {
+                // options
+            },
+            dev: {
+                options: {
+                    script: 'server.js'
+                }
             }
         },
-        cdnify: {
-            options: {
-                cdn: require('google-cdn-data')
-            },
-            dist: {
-                html: ['public/*.html']
+
+        watch: {
+            express: {
+                files:  [ 'app/**/*.js' ],
+                tasks:  [ 'express:dev' ],
+                options: {
+                    spawn: false
+                }
             }
         }
 
     });
 
-    grunt.loadNpmTasks('grunt-contrib-copy');
+    require('load-grunt-tasks')(grunt);
 
-    // Load gh-pages add-on
-
-    grunt.loadNpmTasks("grunt-modernizr");
-
-    grunt.loadNpmTasks('grunt-google-cdn');
-
-    grunt.registerTask('build', 'modernizr');
+    grunt.registerTask('server', [ 'express:dev', 'watch' ]);
 };

@@ -25,7 +25,7 @@ See the License for the specific language governing permissions and limitations 
                 clazz:'@class',
                 analytics: '@'
             },
-            templateUrl: 'login/login-list.html',
+            templateUrl: 'app/login/login-list.html',
 
 
             controller: ['$scope', '$rootScope', '$modal', 'AuthService',
@@ -39,7 +39,7 @@ See the License for the specific language governing permissions and limitations 
 
                 vm.login = function () {
                     var modalInstance = $modal.open({
-                        templateUrl: 'login/login.html',
+                        templateUrl: 'app/login/login.html',
                         controller: 'LoginModalCtrl'
                     });
                 };

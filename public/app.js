@@ -77,62 +77,62 @@ var app = angular.module('bcdevxApp', [
 
         $routeProvider
             .when('/home', {
-                templateUrl: 'home/home.html',
+                templateUrl: 'app/home/home.html',
                 controller: 'HomeCtrl'
             })
             .when('/signup', {
-                templateUrl: 'signup/signup.html',
+                templateUrl: 'app/signup/signup.html',
                 controller: 'SignupCtrl'
             })
             .when('/account', {
-                templateUrl: 'account/account.html',
+                templateUrl: 'app/account/account.html',
                 controller: 'AccountCtrl',
                 resolve: {
                     currentUser: checkLoggedIn
                 }
             })
             .when('/lab', {
-                templateUrl: 'lab/lab.html',
+                templateUrl: 'app/lab/lab.html',
                 controller: 'LabCtrl'
             })
             .when('/resources', {
-                templateUrl: 'resources/resources.html',
+                templateUrl: 'app/resources/resources.html',
                 controller: 'ResourcesCtrl'
             })
             .when('/resources/register', {
-                templateUrl: 'resources/register.html',
+                templateUrl: 'app/resources/register.html',
                 controller: 'ResourcesRegisterController'
             })
             .when('/programs', {
-                templateUrl: 'programs/programs.html',
+                templateUrl: 'app/programs/programs.html',
                 controller: 'ProgramsCtrl'
             })
             .when('/projects', {
-                templateUrl: 'projects/projects.html',
+                templateUrl: 'app/projects/projects.html',
                 controller: 'ProjectsCtrl'
             })
             .when('/projects/register', {
-                templateUrl: 'projects/register.html',
+                templateUrl: 'app/projects/register.html',
                 controller: 'ProjectsRegisterController'
             })
             .when('/people', {
-                templateUrl: 'people/people.html',
+                templateUrl: 'app/people/people.html',
                 controller: 'PeopleCtrl'
             })
             .when('/disclaimer', {
-                templateUrl: 'disclaimer/disclaimer.html',
+                templateUrl: 'app/disclaimer/disclaimer.html',
                 controller: 'DisclaimerCtrl'
             })
             .when('/numbers', {
-                templateUrl: 'numbers/numbers.html',
+                templateUrl: 'app/numbers/numbers.html',
                 controller: 'NumbersCtrl'
             })
             .when('/programs/edit',{
-                templateUrl:'programs/edit-programs.html',
+                templateUrl:'app/programs/edit-programs.html',
                 controller: 'ProgramsEditCtrl as vm'
             })
             .when('/programs/:programName',{
-                templateUrl: 'programs/view-program.html',
+                templateUrl: 'app/programs/view-program.html',
                 controller:'ViewProgramCtrl as vm'
             })
             .otherwise({redirectTo: '/home'});
