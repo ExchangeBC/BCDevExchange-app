@@ -38,7 +38,6 @@ servicesModule.factory('AccountService', ['$resource', '$q', '$log', function($r
                 if(!!data.profiles){
                     currentUser.displayName = data.profiles[0].name.value;
                     currentUser.id = data._id;
-                    console.log('current user: ' + currentUser.displayName);
                     deferred.resolve(currentUser);
                 }else{
                     console.log("No authenticated user found.");
