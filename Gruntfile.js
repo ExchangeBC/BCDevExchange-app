@@ -29,7 +29,7 @@ module.exports = function(grunt) {
 
         watch: {
             express: {
-                files:  [ 'app/**/*.js' ],
+                files:  [ 'app/**/*.js', 'config/**/*.json' ],
                 tasks:  [ 'express:dev' ],
                 options: {
                     spawn: false
@@ -52,7 +52,28 @@ module.exports = function(grunt) {
                     relative: false
                 }
             }
-        }
+        },
+
+        concat: {
+            options: {
+                // options
+            },
+            dist: {
+                src: ['public/**/*.js', '!public/**/*.min.js'],
+                dest: 'build/_bcdevx.js',
+            },
+        },
+
+        less: {
+            development: {
+                options: {
+                    paths: ["assets/css"]
+                },
+                files: {
+                    "build/_bcdevx.css": "less/bcdevx-app.less"
+                }
+            }
+        },
 
     });
 
