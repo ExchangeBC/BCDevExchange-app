@@ -34,6 +34,11 @@ module.exports = function(grunt) {
                 options: {
                     spawn: false
                 }
+            },
+
+            styles: {
+                files: ['less/**/*.less'],
+                tasks: ['cssmin:bcdevx']
             }
         },
 
@@ -67,10 +72,46 @@ module.exports = function(grunt) {
         less: {
             development: {
                 options: {
-                    paths: ["assets/css"]
+                    /*imports: {
+                        reference: [
+                            "less/bcdevx-variables.less"
+                        ]
+                    }*/
                 },
                 files: {
-                    "build/_bcdevx.css": "less/bcdevx-app.less"
+                    "build/_bcdevx.css": ["less/**/*.less"]
+                }
+            }
+        },
+
+        cssmin: {
+            options: {
+                //options
+            },
+            bcdevx: {
+                files: {
+                    'public/css/bcdevx.min.css': ['build/_bcdevx.css']
+                }
+            },
+            bower: {
+                files: {
+                    'public/css/lib.min.css': ['build/_bower.css']
+                }
+            }
+        },
+
+        uglify: {
+            options: {
+                mangle: false,
+            },
+            bcdevx: {
+                files: {
+                    'public/js/app.min.js': ['build/_bcdevx.js']
+                }
+            },
+            bower: {
+                files: {
+                    'public/js/lib.min.js': ['build/_bower.js']
                 }
             }
         },
