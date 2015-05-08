@@ -12,23 +12,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
-'use strict';
-
 angular.module('bcdevxApp.people', ['ngRoute',  'ngResource'])
+.config(['$routeProvider', function($routeProvider) {
 
-    .config(['$routeProvider', function($routeProvider) {
+}])
 
-    }])
+.factory('PeopleListService', ['$resource', function($resource) {
+    return $resource('/people');
+}])
 
-    .factory('PeopleListService', ['$resource', function($resource) {
-        return $resource('/people');
-    }])
+.controller('PeopleCtrl', ['$scope', 'PeopleListService', function($scope, PeopleListService) {
+    PeopleListService.get({}, function(data) {
 
-    .controller('PeopleCtrl', ['$scope', 'PeopleListService', function($scope, PeopleListService) {
-        PeopleListService.get({}, function(data) {
+        $scope.people = data.people;
 
-            $scope.people = data.people;
-
-        });
-    }]);
+    });
+}]);

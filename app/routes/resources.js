@@ -53,7 +53,7 @@ module.exports = function(app, db, passport) {
 
     app.get('/resources-sources', function(req, res) {
         var listOfCatalogues = [];
-        for (x in config.catalogues) {
+        for (var x in config.catalogues) {
             var catalogue = config.catalogues[x];
             listOfCatalogues.push({'name': catalogue.name, 'url': '/resources/' + catalogue.short_name.toLowerCase(), 'short_name': catalogue.short_name});
         }
@@ -78,7 +78,7 @@ module.exports = function(app, db, passport) {
             res.send(500);
         });
     });
-}
+};
 
 var getResourcesFromArray = function (resourceList, success, error) {
     async.concat(resourceList, getCatalogueItems, function (err, results) {
@@ -87,7 +87,8 @@ var getResourcesFromArray = function (resourceList, success, error) {
             success(results);
         }
     });
-}
+};
+
 module.exports.getResourcesFromArray = getResourcesFromArray;
 
 // Just gets items from CKAN v3 compatible APIs
@@ -124,12 +125,13 @@ function getGitHubFileCatalogueItems (catalogue, callback) {
             // parse out the yaml from content block
             var json = JSON.parse(body);
             var decodedContent = new Buffer(json.content, 'base64').toString('ascii');
+            var resourcesYaml;
 
             try {
-                var resourcesYaml = yaml.safeLoad(decodedContent);
+                resourcesYaml = yaml.safeLoad(decodedContent);
 
-            } catch (error) {
-                var message = 'Error while parsing yaml project file from: ' + options.url + '; message: ' + error.message;
+            } catch (errorRequest) {
+                var message = 'Error while parsing yaml project file from: ' + options.url + '; message: ' + errorRequest.message;
                 logger.error(message);
                 return callback(message);
             }
@@ -230,7 +232,7 @@ function copyCatalogue (catalogue, results) {
             "tagToSearch": catalogue.tagToSearch
         };
         if (!results[i].url) {
-            results[i].url = catalogue.baseViewUrl + results[i].name
+            results[i].url = catalogue.baseViewUrl + results[i].name;
         }
     }
 }
@@ -247,16 +249,22 @@ function transformCKANResult (result, callback) {
 
     // trim the tags
     async.concat(result.tags, function(item, tagsCallback) {
-            tagsCallback(null, {"display_name": item.display_name,
-                "colour": crypto.createHash('md5').update(item.display_name).digest("hex").substring(0, 6)})},
+            tagsCallback(null, {
+                "display_name": item.display_name,
+                "colour": crypto.createHash('md5').update(item.display_name).digest("hex").substring(0, 6)
+            });
+        },
         function (error, results) {
             transformed.tags = results;
         });
 
     // trim the resources
     async.concat(result.resources, function(item, resourceCallback) {
-            resourceCallback(null, {"name": item.name,
-                "url": item.url})},
+            resourceCallback(null, {
+                "name": item.name,
+                "url": item.url
+            });
+        },
         function (error, results) {
             transformed.resources = results;
         });
@@ -274,7 +282,8 @@ function getGitHubRepo(fullRepoUrl, callback) {
         headers: {
             'User-Agent': config.github.clientApplicationName
         }
-    }
+    };
+
     request(options, function (error, response, body) {
         if (!error &&
             typeof response !== 'undefined' &&

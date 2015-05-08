@@ -12,16 +12,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-'use strict';
-
 angular.module('bcdevxApp.services').factory('ProgramService', ['$resource', '$q', programService]);
 
-function programService($resource, $q){
+function programService($resource, $q) {
     var programApi = '/programs/name/';
 
-    return{
+    return {
 
-        getProgramByName: function(pName){
+        getProgramByName: function(pName) {
             var deferred = $q.defer();
 
             var res = $resource(programApi + pName);
@@ -38,6 +36,5 @@ function programService($resource, $q){
 
             return deferred.promise;
         }
-    }
-
+    };
 }

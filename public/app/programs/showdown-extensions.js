@@ -40,7 +40,7 @@ See the License for the specific language governing permissions and limitations 
                     var rowDiv = '\r\n';
                     rowDiv += '<div class=\'row\'>' + '<!--row starts-->' + '\r\n';
 
-                    for(var i=0; i<contents.length; i++){
+                    for(i=0; i<contents.length; i++){
                         rowDiv += contents[i].toString(colWidth);
                         //if(i<contents.length-1){
                         //    rowDiv += '\r\n';
@@ -52,17 +52,17 @@ See the License for the specific language governing permissions and limitations 
                 }else{
                     return '';
                 }
-            }
+            };
 
             this.addLine = function(str){
                 if(!!str && !!str.trim()){
                     contents[contents.length-1].lines.push(str);
                 }
-            }
+            };
 
             this.addSection = function(obj){
                 contents.push(obj);
-            }
+            };
 
             this.currentSectionType = function(){
                 if(contents.length >0){
@@ -70,11 +70,11 @@ See the License for the specific language governing permissions and limitations 
                 }else{
                     return null;
                 }
-            }
+            };
 
             this.isColumn = function(){
                 return false;
-            }
+            };
 
         }
 
@@ -85,11 +85,11 @@ See the License for the specific language governing permissions and limitations 
             this.lines = [];
             this.toString = function(){
                 return concatLines(this.lines);
-            }
+            };
 
             this.isColumn = function(){
                 return false;
-            }
+            };
 
         }
 
@@ -98,9 +98,10 @@ See the License for the specific language governing permissions and limitations 
          */
         function Col(){
             this.lines = [];
-            this.toString = function(colWidth){
+            this.toString = function(colWidth) {
+                var colDiv;
                 if(this.lines.length>0){
-                    var colDiv = '\t'+ '<div class=\'col-md-' + colWidth + '\'>'
+                    colDiv = '\t'+ '<div class=\'col-md-' + colWidth + '\'>';
                     //var colDiv = '\t'+ '<div class=\'col-md-2\'>'
 
                     colDiv += '\t <!-- column starts-->' + '\r\n';
@@ -108,8 +109,8 @@ See the License for the specific language governing permissions and limitations 
                     colDiv += '\t' + '</div> <!-- column ends -->';
 
                     return colDiv;
-                }else{
-                    var colDiv = '\r\n' + '\t'+ '<div class=\'col-md-' + colWidth + '\'>'
+                } else {
+                    colDiv = '\r\n' + '\t'+ '<div class=\'col-md-' + colWidth + '\'>';
 
                     colDiv += '\t <!-- column starts-->' + '\r\n';
                     colDiv += '\t <!-- no content was specified in this column. -->' + '\r\n';
@@ -117,14 +118,14 @@ See the License for the specific language governing permissions and limitations 
 
                     return colDiv;
                 }
-            }
+            };
 
             this.isColumn = function(){
                 return true;
-            }
+            };
         }
 
-        function concatLines(lines){
+        function concatLines(lines) {
             var result = '';
             for(var i=0; i<lines.length; i++){
                 result += '\t' + lines[i];
@@ -135,7 +136,7 @@ See the License for the specific language governing permissions and limitations 
             }else{
                 return '';
             }
-        };
+        }
 
 
         function test(regex1, regex2, line){
@@ -189,7 +190,7 @@ See the License for the specific language governing permissions and limitations 
                 row.addSection(new MDContent());
             }else if(testRowEnd(text)){
                 //console.log("Row end tag discovered.")
-                row.addSection(new MDContent);
+                row.addSection(new MDContent());
                 htmlOutput.push(row.toString());
                 row = null;
             }else if(!!row){
@@ -246,7 +247,7 @@ See the License for the specific language governing permissions and limitations 
                     return makeHTMLColumns(text);
                 }}
             ];
-    }
+    };
 
     // Client-side export
     if (typeof window !== 'undefined' && window.Showdown && window.Showdown.extensions) { window.Showdown.extensions.btexts = bootstrapExtensions; }

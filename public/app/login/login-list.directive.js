@@ -11,64 +11,54 @@ Unless required by applicable law or agreed to in writing, software distributed 
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
-//(function() {
-    'use strict';
-
-    app = angular.module('bcdevxApp.auth');
-
-    var devxDirectives = {};
-
-    devxDirectives.devxLoginList = function ($rootScope, AccountService) {
-        return {
-            restricted: 'EA',
-            scope: {
-                clazz:'@class',
-                analytics: '@'
-            },
-            templateUrl: 'app/login/login-list.html',
+angular.module('bcdevxApp.auth')
+.directive('devxLoginList', ['$rootScope', 'AccountService', function ($rootScope, AccountService) {
+    return {
+        restricted: 'EA',
+        scope: {
+            clazz:'@class',
+            analytics: '@'
+        },
+        templateUrl: 'app/login/login-list.html',
 
 
-            controller: ['$scope', '$rootScope', '$modal', 'AuthService',
-                function (scope, rootScope, $modal, AuthService) {
+        controller: ['$scope', '$rootScope', '$modal', 'AuthService',
+            function (scope, rootScope, $modal, AuthService) {
 
-                var vm = this;
-                vm.logout = function () {
-                    vm.username = '';
-                    AuthService.logout();
-                };
+            var vm = this;
+            vm.logout = function () {
+                vm.username = '';
+                AuthService.logout();
+            };
 
-                vm.login = function () {
-                    var modalInstance = $modal.open({
-                        templateUrl: 'app/login/login.html',
-                        controller: 'LoginModalCtrl'
-                    });
-                };
+            vm.login = function () {
+                var modalInstance = $modal.open({
+                    templateUrl: 'app/login/login.html',
+                    controller: 'LoginModalCtrl'
+                });
+            };
 
 
-                var promise = AccountService.getCurrentUser();
-                    promise.then(
-                        function(data){
-                            vm.username = data.displayName;
-                            vm.userid = data.id;
-                            vm.doShow = true;
-                        },
-                        function(data){
-                            vm.username = '';
-                            vm.doShow = true;
-                        }
-                    );
+            var promise = AccountService.getCurrentUser();
+                promise.then(
+                    function(data){
+                        vm.username = data.displayName;
+                        vm.userid = data.id;
+                        vm.doShow = true;
+                    },
+                    function(data){
+                        vm.username = '';
+                        vm.doShow = true;
+                    }
+                );
 
-            }],
-            controllerAs: 'loginlistCtrl',
+        }],
+        controllerAs: 'loginlistCtrl',
 
-            link: function(scope, iElement, iAttrs){
-                iElement.children()[0].className = scope.clazz;
-            }
-
+        link: function(scope, iElement, iAttrs){
+            iElement.children()[0].className = scope.clazz;
         }
 
-    }
+    };
 
-    app.directive(devxDirectives);
-
-//})();
+}]);

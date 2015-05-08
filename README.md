@@ -31,6 +31,20 @@ To automatically update/insert license, use:
 
 `gulp --update`
 
+Make sure to install [Grunt](http://gruntjs.com) for the command line:
+
+`$ npm install -g grunt-cli`
+
+Run this Grunt command for first time setup:
+
+`$ grunt build`
+
+To start a server for development purposes with a watcher, run:
+
+`$ grunt server`
+
+This will automatically restart the Node server if any changes are detected in `app/` or `/config`.  Additionally, it will run jshint, concatenate and uglify when JS changes are detected.  Similarly, it will recompile LESS when changes are detected in `/less`.
+
 ## Server Deployment ##
 
 First time setup, you'll need a Linux server with:

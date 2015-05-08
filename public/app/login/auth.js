@@ -12,16 +12,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
-'use strict';
-
-var app = angular.module('bcdevxApp.auth', ['ngRoute']);
-
-app.config(['$routeProvider', function($routeProvider) {
-
-}]);
-
-app.factory( 'AuthService', ['$http', '$location', '$rootScope', 'AccountService',
+angular.module('bcdevxApp.auth', ['ngRoute', 'bcdevxApp.services'])
+.config(['$routeProvider', function($routeProvider) {
+}])
+.factory( 'AuthService', ['$http', '$location', '$rootScope', 'AccountService',
     function($http, $location, $rootScope, AccountService) {
 
     // Redirect to the given url (defaults to '/')
@@ -40,11 +34,11 @@ app.factory( 'AuthService', ['$http', '$location', '$rootScope', 'AccountService
     };
 
     return service;
-}]);
-
-app.controller('LoginModalCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
+}])
+.controller('LoginModalCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
-    }
+    };
+
 }]);

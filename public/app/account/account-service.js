@@ -12,13 +12,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
-(function(){'use strict';
-
-var servicesModule = angular.module('bcdevxApp.services', []);
-
-
-servicesModule.factory('AccountService', ['$resource', '$q', '$log', function($resource, $q, $log) {
+angular.module('bcdevxApp.services', [])
+.factory('AccountService', ['$resource', '$q', '$log', function($resource, $q, $log) {
     var accountService = this;
     var accountUrl = '/account';
     var accountCheckUrl = '/accountCheck';
@@ -89,8 +84,6 @@ servicesModule.factory('AccountService', ['$resource', '$q', '$log', function($r
             }
         );
         return deferred.promise;
-    }
+    };
     return accountService;
-}])
-
-})();
+}]);

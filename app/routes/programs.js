@@ -40,13 +40,13 @@ module.exports = function(app, db, passport) {
             res.send(result);
         });
     });
-}
+};
 
 var getProgramsFromArray = function (programList, success, error) {
     async.concat(programList, getPrograms, function (err, results) {
         if (err) error(err);
         else {
-            
+
             // filter out invisible
             for (var i = 0; i < results.length; i++) {
                 var program = results[i];
@@ -64,7 +64,7 @@ var getProgramsFromArray = function (programList, success, error) {
             success(results);
         }
     });
-}
+};
 
 function getPrograms(program, callback) {
 
@@ -92,12 +92,13 @@ function getGitHubFileProgram(ghConfig, callback) {
             // parse out the yaml from content block
             var json = JSON.parse(body);
             var decodedContent = new Buffer(json.content, 'base64').toString('ascii');
+            var programYaml;
 
             try {
-                var programYaml = yaml.safeLoad(decodedContent);
+                programYaml = yaml.safeLoad(decodedContent);
 
-            } catch (error) {
-                var message = 'Error while parsing yaml program file from: ' + options.url + '; message: ' + error.message;
+            } catch (requestError) {
+                var message = 'Error while parsing yaml program file from: ' + options.url + '; message: ' + requestError.message;
                 logger.error(message);
                 return callback(message);
             }

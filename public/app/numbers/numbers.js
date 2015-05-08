@@ -12,51 +12,43 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
-'use strict';
-
 angular.module('bcdevxApp.numbers', ['ngRoute',  'ngResource'])
+.config(['$routeProvider', function($routeProvider) {
+}])
+.factory('NumbersCountService', ['$resource', function($resource) {
+    return $resource('/numbers');
+}])
+.controller('NumbersCtrl', ['$scope', 'NumbersCountService', '$q', 'usSpinnerService', function($scope, NumbersCountService, $q, usSpinnerService) {
+    $scope.numbers = {
+        isLoaded: false,
+        accounts: '-',
+        resources: '-',
+        projects: '-',
+        bcdevx: {
+            stargazers: '-',
+            watchers: '-',
+            forks: '-'
+        },
+        bcdevx_activity: [],
+        bcgov_activity: [],
+        analytics: {
+            users: '-'
+        }
+    };
 
-    .config(['$routeProvider', function($routeProvider) {
+    NumbersCountService.get({}, function(data) {
+        $scope.numbers.isLoaded = true;
+        $scope.numbers.accounts = data.githubAccounts;
+        $scope.numbers.resources = data.resources;
+        $scope.numbers.projects = data.projects;
+        $scope.numbers.bcdevx = data.bcdevx;
+        $scope.numbers.bcdevx_activity = data.bcdevx_latest;
+        $scope.numbers.bcgov_activity = data.bcgov_latest;
+        $scope.numbers.analytics = data.analytics || $scope.numbers.analytics;
+    });
 
-    }])
-
-    .factory('NumbersCountService', ['$resource', function($resource) {
-        return $resource('/numbers');
-    }])
-
-    .controller('NumbersCtrl', ['$scope', 'NumbersCountService', '$q', 'usSpinnerService', function($scope, NumbersCountService, $q, usSpinnerService) {
-        $scope.numbers = {
-            isLoaded: false,
-            accounts: '-',
-            resources: '-',
-            projects: '-',
-            bcdevx: {
-                stargazers: '-',
-                watchers: '-',
-                forks: '-'
-            },
-            bcdevx_activity: [],
-            bcgov_activity: [],
-            analytics: {
-                users: '-'
-            }
-        };
-
-        NumbersCountService.get({}, function(data) {
-            $scope.numbers.isLoaded = true;
-            $scope.numbers.accounts = data.githubAccounts;
-            $scope.numbers.resources = data.resources;
-            $scope.numbers.projects = data.projects;
-            $scope.numbers.bcdevx = data.bcdevx;
-            $scope.numbers.bcdevx_activity = data.bcdevx_latest;
-            $scope.numbers.bcgov_activity = data.bcgov_latest;
-            $scope.numbers.analytics = data.analytics || $scope.numbers.analytics;
-        });
-
-    }])
-
-    .directive('countUp', ['$compile',function($compile,$timeout) {
+}])
+.directive('countUp', ['$compile',function($compile,$timeout) {
     return {
         restrict: 'E',
         replace: false,
@@ -81,8 +73,9 @@ angular.module('bcdevxApp.numbers', ['ngRoute',  'ngResource'])
                     if (i<$scope.countTo) {
                         timeloop();
                     }
-                }, $scope.interval)
+                }, $scope.interval);
             }
             timeloop();
         }]
-    }}]);
+    };
+}]);

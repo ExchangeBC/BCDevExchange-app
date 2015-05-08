@@ -18,23 +18,21 @@ module.exports = function(config){
     basePath : './',
 
     files : [
-      'public/bower_components/angular/angular.js',
-      'public/bower_components/angular-route/angular-route.js',
-      'public/bower_components/angular-mocks/angular-mocks.js',
-      'public/components/**/*.js',
-      'public/view*/**/*.js'
+      '../public/js/lib.min.js',
+      '../public/js/app.min.js',
     ],
 
     autoWatch : true,
 
-    frameworks: ['jasmine'],
+    frameworks: ['mocha'],
 
     browsers : ['Chrome'],
 
     plugins : [
+            'karma-safari-launcher',
             'karma-chrome-launcher',
             'karma-firefox-launcher',
-            'karma-jasmine',
+            'karma-mocha',
             'karma-junit-reporter'
             ],
 

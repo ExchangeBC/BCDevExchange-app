@@ -40,7 +40,7 @@ module.exports = function(app, db, passport) {
             else if (req.params.source == 'accounts') {
                 db.countGitHubAccounts(function (err, result) {
                     if (err) {
-                        res.status(500)
+                        res.status(500);
                     }
                     else {
                         res.send(result);
@@ -163,7 +163,7 @@ module.exports = function(app, db, passport) {
             });
         }
     });
-}
+};
 
 function handleEventData(githubEventsJSON) {
 
@@ -171,6 +171,9 @@ function handleEventData(githubEventsJSON) {
 
     for(var i in githubEventsJSON) {
         var Event = githubEventsJSON[i];
+
+        var description = '';
+        var icon = '';
 
         // A detailed list of each type of event from Github
         // is available at
@@ -197,8 +200,8 @@ function handleEventData(githubEventsJSON) {
             break;
 
             case "IssuesEvent":
-                var description = '';
-                var icon = '';
+                description = '';
+                icon = '';
 
                 switch(Event.payload.action) {
                     case 'closed':
@@ -237,8 +240,8 @@ function handleEventData(githubEventsJSON) {
             break;
 
             case "PullRequestEvent":
-                var description = '';
-                var icon = '';
+                description = '';
+                icon = '';
 
                 switch(Event.payload.action) {
                     case 'closed':

@@ -30,15 +30,25 @@ module.exports = function(grunt) {
         watch: {
             express: {
                 files:  [ 'app/**/*.js', 'config/**/*.json' ],
-                tasks:  [ 'express:dev' ],
+                tasks:  [ 'jshint', 'express:dev' ],
                 options: {
                     spawn: false
                 }
             },
 
+            app: {
+                files: ['public/**/*.js', '!public/**/*.min.js'],
+                tasks: ['jshint', 'concat', 'uglify:bcdevx']
+            },
+
             styles: {
-                files: ['less/**/*.less'],
-                tasks: ['cssmin:bcdevx']
+                files: ['less/bcdevx/**/*.less'],
+                tasks: ['less:bcdevx', 'cssmin:bcdevx']
+            },
+
+            bootstrap: {
+                files: ['less/shared/**/*.less'],
+                tasks: ['less:bootstrap', 'cssmin:bower']
             }
         },
 
@@ -50,6 +60,9 @@ module.exports = function(grunt) {
                 dependencies: {
 
                 },
+                exclude: [
+                    'bootstrap' // BCDevExchange uses a customized version of bootstrap, will be compiled later
+                ],
                 mainFiles: {
                     'angular-table-of-contents': [ 'dest/angular-table-of-contents.min.js' ]
                 },
@@ -70,16 +83,14 @@ module.exports = function(grunt) {
         },
 
         less: {
-            development: {
-                options: {
-                    /*imports: {
-                        reference: [
-                            "less/bcdevx-variables.less"
-                        ]
-                    }*/
-                },
+            bootstrap: {
                 files: {
-                    "build/_bcdevx.css": ["less/**/*.less"]
+                    "build/_yeti.css": [ "less/shared/bcdevx-variables.less" ]
+                }
+            },
+            bcdevx: {
+                files: {
+                    "build/_bcdevx.css": [ "less/bcdevx/bcdevx-app.less" ]
                 }
             }
         },
@@ -95,24 +106,48 @@ module.exports = function(grunt) {
             },
             bower: {
                 files: {
-                    'public/css/lib.min.css': ['build/_bower.css']
+                    'public/css/lib.min.css': ['build/_yeti.css', 'build/_bower.css']
                 }
             }
         },
 
         uglify: {
-            options: {
-                mangle: false,
-            },
             bcdevx: {
+                options: {
+                    mangle: false,
+                },
                 files: {
                     'public/js/app.min.js': ['build/_bcdevx.js']
                 }
             },
             bower: {
+                options: {
+                    mangle: false,
+                },
                 files: {
-                    'public/js/lib.min.js': ['build/_bower.js']
+                    'public/js/lib.min.js': ['build/_bower.js', 'bower_components/bootstrap/dist/js/bootstrap.js']
                 }
+            }
+        },
+
+        copy: {
+            fonts: {
+                cwd: 'bower_components/bootstrap/fonts/',
+                src: '**',
+                dest: 'public/fonts/',
+                flatten: true,
+                filter: 'isFile',
+                expand: true,
+            },
+        },
+
+        jshint: {
+            options: {
+                reporter: require('jshint-stylish')
+            },
+
+            scripts: {
+                src: ['public/**/*.js', 'app/**/*.js', '!public/js/**/*.js']
             }
         },
 
@@ -120,5 +155,6 @@ module.exports = function(grunt) {
 
     require('load-grunt-tasks')(grunt);
 
+    grunt.registerTask('build', ['bower_concat', 'concat', 'copy', 'uglify', 'less', 'cssmin']);
     grunt.registerTask('server', [ 'express:dev', 'watch' ]);
 };

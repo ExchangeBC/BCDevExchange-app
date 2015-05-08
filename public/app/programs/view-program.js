@@ -11,7 +11,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
-'use strict';
 
 angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramService','$routeParams','$rootScope',viewProgramCtrl]);
 

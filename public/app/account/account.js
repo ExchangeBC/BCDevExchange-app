@@ -12,13 +12,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
-'use strict';
-
-var app = angular.module('bcdevxApp.account', ['ngRoute', 'ngResource', 'ngMessages', 'ngFx', 'ngAnimate']);
-
-
-app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', 'AccountService', '$timeout',
+angular.module('bcdevxApp.account', ['ngRoute', 'ngResource', 'ngMessages', 'ngFx', 'ngAnimate'])
+.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', 'AccountService', '$timeout',
     function($rootScope, $scope, $location, $window, AccountService, $timeout) {
 
     $scope.formLevelMessage = '';
@@ -38,14 +33,14 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
                 }, 3000);
             },
             function(errorObj) {
-                if(errorObj.status == 0){
+                if(errorObj.status === 0){
                     $scope.resultOfSaving = {network_error: "Snap! Please check your network connection. \n And make sure the server is online."};
                 }else{
                     $scope.resultOfSaving = {error:"Bummer, error happened while saving your account, \n Please try again. \n errorObj.status"};
                 }
                 $scope.hideMessageDialog = false;
             }
-        )
+        );
     };
 
     $scope.hideDialog = function(){
@@ -87,6 +82,4 @@ app.controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', '
     };
 
     $scope.init();
-
-
 }]);

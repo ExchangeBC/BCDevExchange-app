@@ -23,4 +23,4 @@ module.exports = function(app, db, passport) {
             res.send(config.ui);
         }
     );
-}
+};

@@ -12,114 +12,117 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
-'use strict';
-
 angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
+.config(['$routeProvider', function($routeProvider) {
+}])
 
-    .config(['$routeProvider', function($routeProvider) {
+.factory('ResourceList', ['$resource', function($resource) {
+    return $resource('/resources');
+}])
 
-    }])
+.factory('SourceList', ['$resource', function($resource) {
+    return $resource('/resources-sources');
+}])
 
-    .factory('ResourceList', ['$resource', function($resource) {
-        return $resource('/resources');
-    }])
+.factory('ResourceDetailsService', function($resource){
+    return $resource('/resources/:source/url/:url', {source:'@source', url:'@url'});
+})
 
-    .factory('SourceList', ['$resource', function($resource) {
-        return $resource('/resources-sources');
-    }])
+.controller('ResourcesCtrl', ['$rootScope', '$scope', '$location', '$window',
+            'usSpinnerService', 'ResourceList', 'SourceList', 'ResourceDetailsService',
+            '$q', '$resource',
 
-    .factory('ResourceDetailsService', function($resource){
-        return $resource('/resources/:source/url/:url', {source:'@source', url:'@url'})
-    })
+    function($rootScope, $scope, $location, $window, usSpinnerService, ResourceList, SourceList, ResourceDetailsService, $q, $resource) {
 
+    // Filter vars
+    $scope.selectedSource = '';
+    $scope.selectedSourceTitle = '';
+    $scope.predicateTitle = '';
+    $scope.predicate = '123';
 
-    .controller('ResourcesCtrl', ['$rootScope', '$scope', '$location', '$window',
-                'usSpinnerService', 'ResourceList', 'SourceList', 'ResourceDetailsService',
-                '$q', '$resource',
+    // Array of resources
+    $scope.resources = [];
 
-        function($rootScope, $scope, $location, $window, usSpinnerService, ResourceList, SourceList, ResourceDetailsService, $q, $resource) {
+    // Array of sources
+    $scope.sources = [];
 
-        // Filter vars
-        $scope.selectedSource = '';
-        $scope.selectedSourceTitle = '';
-        $scope.predicateTitle = '';
-        $scope.predicate = '123';
+    // Array of loaded sources
+    $scope.loadedSources = [];
 
-        // Array of resources
-        $scope.resources = [];
+    // Array of alerts
+    $scope.alerts = [];
 
-        // Array of sources
-        $scope.sources = [];
+    $scope.startSpin = function(){
+        usSpinnerService.spin("spinner-1");
+    };
 
-        // Array of loaded sources
-        $scope.loadedSources = [];
+    $scope.stopSpin = function(){
+        usSpinnerService.stop("spinner-1");
+    };
 
-        // Array of alerts
-        $scope.alerts = [];
+    var resourceListDeferred = $q.defer();
+    var resourcePromise = resourceListDeferred.promise;
 
-        $scope.startSpin = function(){
-            usSpinnerService.spin("spinner-1");
+    var sourceListDeferred = $q.defer();
+    var sourcePromise = sourceListDeferred.promise;
+
+    resourcePromise.then(
+        function(value){
+            usSpinnerService.stop("spinner-resources");
         }
-        $scope.stopSpin = function(){
-            usSpinnerService.stop("spinner-1");
+    );
+
+    sourcePromise.then(
+        function(value){
+            usSpinnerService.stop("spinner-sources");
         }
+    );
 
-        var resourceListDeferred = $q.defer();
-        var resourcePromise = resourceListDeferred.promise;
+    SourceList.get({}, function(data) {
+        $scope.sources = data.sources;
+        var sourcesByUrl = [];
+        for(var i in data.sources) {
+            var source = data.sources[i];
+            var sourceData = $resource('/resources/:source', {}, { timeout: 10 });
+            sourcesByUrl[source.url] = source;
+            sourceData.get({ source: source.short_name.toLowerCase() },
+                sourceHandler,
+                sourceErrorHandler
+            );
+        }
+        sourceListDeferred.resolve("source list length: " + data.sources.length);
 
-        var sourceListDeferred = $q.defer();
-        var sourcePromise = sourceListDeferred.promise;
-
-        resourcePromise.then(
-            function(value){
-                usSpinnerService.stop("spinner-resources")
+        function sourceHandler(response) {
+            var resources = response.resources;
+            for(var j in resources) {
+                $scope.resources.push(resources[j]);
             }
-        );
-        sourcePromise.then(
-            function(value){
-                usSpinnerService.stop("spinner-sources")
-            }
-        );
-
-        SourceList.get({}, function(data) {
-            $scope.sources = data.sources;
-            var sourcesByUrl = [];
-            for(var i in data.sources) {
-                var source = data.sources[i];
-                var sourceData = $resource('/resources/:source', {}, { timeout: 10 });
-                sourcesByUrl[source.url] = source;
-                sourceData.get({ source: source.short_name.toLowerCase() }, function(data) {
-                    for(var j in data.resources) {
-                        $scope.resources.push(data.resources[j]);
-                    }
-                    $scope.loadedSources.push(source);
-                    resourceListDeferred.resolve("resource list length: " + data.resources.length);
-                }, function(error) {
-                    $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + sourcesByUrl[error.config.url].name + '</strong>.' });
-                    resourceListDeferred.resolve("error retrieving resources for  " + error.config.url);
-                });
-            }
-            sourceListDeferred.resolve("source list length: " + data.sources.length);
-        });
-
-        $scope.hasMatchingSource = function(actual, expected) {
-            if(!expected || !!expected && (actual == expected)){
-                return true
-            }else{
-                return false;
-            }
+            $scope.loadedSources.push(source);
+            resourceListDeferred.resolve("resource list length: " + resources.length);
         }
 
-        $scope.selectSource = function(event, newSource, newSourceTitle) {
-            event.preventDefault();
-            $scope.selectedSource = newSource;
-            $scope.selectedSourceTitle = newSourceTitle;
+        function sourceErrorHandler(error) {
+            $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + sourceName + '</strong>.' });
+            resourceListDeferred.resolve("error retrieving resources for  " + error.config.url);
         }
+    });
 
-        $scope.closeAlert = function(index) {
-            $scope.alerts.splice(index, 1);
-        };
+    $scope.hasMatchingSource = function(actual, expected) {
+        if(!expected || !!expected && (actual == expected)){
+            return true;
+        }else{
+            return false;
+        }
+    };
 
+    $scope.selectSource = function(event, newSource, newSourceTitle) {
+        event.preventDefault();
+        $scope.selectedSource = newSource;
+        $scope.selectedSourceTitle = newSourceTitle;
+    };
 
-    }]);
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
+
+}]);

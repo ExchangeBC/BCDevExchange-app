@@ -12,15 +12,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
-'use strict';
-
 angular.module('bcdevxApp.disclaimer', ['ngRoute',  'ngResource'])
-
-    .config(['$routeProvider', function($routeProvider) {
-
-    }])
-
-    .controller('DisclaimerCtrl', ['$scope', function($scope) {
-
-    }]);
+.config(['$routeProvider', function($routeProvider) {
+}])
+.controller('DisclaimerCtrl', ['$scope', function($scope) {
+}]);

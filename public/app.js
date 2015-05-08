@@ -12,8 +12,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
-'use strict';
 // Declare app level module which depends on views, and components
 var app = angular.module('bcdevxApp', [
     'ngRoute',
@@ -31,7 +29,6 @@ var app = angular.module('bcdevxApp', [
     'bcdevxApp.lab',
     'bcdevxApp.disclaimer',
     'bcdevxApp.numbers',
-    'bcdevxApp.programs',
     'angulartics',
     'angulartics.google.analytics',
     'ui.bootstrap',
@@ -45,126 +42,129 @@ var app = angular.module('bcdevxApp', [
     'ui.utils',
     'angular-toc',
     'duScroll'
-])
-    // Config scroll offsets
-    .value('duScrollGreedy', true)
-    .value('duScrollOffset', 80)
-   .config(['$routeProvider', '$httpProvider',
-        function($routeProvider, $httpProvider) {
+]);
+
+// Config scroll offsets
+app.value('duScrollGreedy', true);
+app.value('duScrollOffset', 80);
+
+app.config(['$routeProvider', '$httpProvider',
+    function($routeProvider, $httpProvider) {
 
 
-        // check if user is connected
-        var checkLoggedIn = function($q, $timeout, $location, AccountService, $modal) {
-            var deferred = $q.defer();
-            var promise = AccountService.getCurrentAccount();
+    // check if user is connected
+    var checkLoggedIn = function($q, $timeout, $location, AccountService, $modal) {
+        var deferred = $q.defer();
+        var promise = AccountService.getCurrentAccount();
 
-            promise.then(
-                function(data){
-                        deferred.resolve(data);
-                },
-                function(data){
-                    console.log('Did not find logged-in user');
-                    //var modalInstance = $modal.open({
-                    //    templateUrl: 'login/login.html',
-                    //    controller: 'LoginModalCtrl'
-                    //});
-                    deferred.reject(data);
-                }
-            )
-
-            return deferred.promise;
-        };
-
-        $routeProvider
-            .when('/home', {
-                templateUrl: 'app/home/home.html',
-                controller: 'HomeCtrl'
-            })
-            .when('/signup', {
-                templateUrl: 'app/signup/signup.html',
-                controller: 'SignupCtrl'
-            })
-            .when('/account', {
-                templateUrl: 'app/account/account.html',
-                controller: 'AccountCtrl',
-                resolve: {
-                    currentUser: checkLoggedIn
-                }
-            })
-            .when('/lab', {
-                templateUrl: 'app/lab/lab.html',
-                controller: 'LabCtrl'
-            })
-            .when('/resources', {
-                templateUrl: 'app/resources/resources.html',
-                controller: 'ResourcesCtrl'
-            })
-            .when('/resources/register', {
-                templateUrl: 'app/resources/register.html',
-                controller: 'ResourcesRegisterController'
-            })
-            .when('/programs', {
-                templateUrl: 'app/programs/programs.html',
-                controller: 'ProgramsCtrl'
-            })
-            .when('/projects', {
-                templateUrl: 'app/projects/projects.html',
-                controller: 'ProjectsCtrl'
-            })
-            .when('/projects/register', {
-                templateUrl: 'app/projects/register.html',
-                controller: 'ProjectsRegisterController'
-            })
-            .when('/people', {
-                templateUrl: 'app/people/people.html',
-                controller: 'PeopleCtrl'
-            })
-            .when('/disclaimer', {
-                templateUrl: 'app/disclaimer/disclaimer.html',
-                controller: 'DisclaimerCtrl'
-            })
-            .when('/numbers', {
-                templateUrl: 'app/numbers/numbers.html',
-                controller: 'NumbersCtrl'
-            })
-            .when('/programs/edit',{
-                templateUrl:'app/programs/edit-programs.html',
-                controller: 'ProgramsEditCtrl as vm'
-            })
-            .when('/programs/:programName',{
-                templateUrl: 'app/programs/view-program.html',
-                controller:'ViewProgramCtrl as vm'
-            })
-            .otherwise({redirectTo: '/home'});
-
-        // add an interceptor for AJAX errors
-        $httpProvider.interceptors.push(function($q, $location, $log) {
-            return {
-                // optional method
-                'responseError': function (rejection) {
-                    // do something on error
-                    if (rejection.status === 401) {
-                        $location.url('/home');
-                    }else if(rejection.status === 0){
-                        console.log('Bummer, looks like you hit a network connection error, please check your internet connection or make sure the server is running.');
-                    }
-                    return $q.reject(rejection);
-                }
+        promise.then(
+            function(data){
+                    deferred.resolve(data);
+            },
+            function(data){
+                console.log('Did not find logged-in user');
+                //var modalInstance = $modal.open({
+                //    templateUrl: 'login/login.html',
+                //    controller: 'LoginModalCtrl'
+                //});
+                deferred.reject(data);
             }
-        });
+        );
 
-}]).config(['usSpinnerConfigProvider', function(usSpinnerConfigProvider) {
-        usSpinnerConfigProvider.setDefaults({color: 'darkturquoise'});
+        return deferred.promise;
+    };
 
-    }]).run(function($rootScope, $http) {
-        // Add config to ALL scopes, only makes sense instead of passing in everywhere
-        $http.get('/config').
-            success(function(data, status, headers, config) {
-                $rootScope.config = data;
-            });
+    $routeProvider
+        .when('/home', {
+            templateUrl: '/app/home/home.html',
+            controller: 'HomeCtrl'
+        })
+        .when('/signup', {
+            templateUrl: '/app/signup/signup.html',
+            controller: 'SignupCtrl'
+        })
+        .when('/account', {
+            templateUrl: '/app/account/account.html',
+            controller: 'AccountCtrl',
+            resolve: {
+                currentUser: checkLoggedIn
+            }
+        })
+        .when('/lab', {
+            templateUrl: '/app/lab/lab.html',
+            controller: 'LabCtrl'
+        })
+        .when('/resources', {
+            templateUrl: '/app/resources/resources.html',
+            controller: 'ResourcesCtrl'
+        })
+        .when('/resources/register', {
+            templateUrl: '/app/resources/register.html',
+            controller: 'ResourcesRegisterController'
+        })
+        .when('/programs', {
+            templateUrl: '/app/programs/programs.html',
+            controller: 'ProgramsCtrl'
+        })
+        .when('/projects', {
+            templateUrl: '/app/projects/projects.html',
+            controller: 'ProjectsCtrl'
+        })
+        .when('/projects/register', {
+            templateUrl: '/app/projects/register.html',
+            controller: 'ProjectsRegisterController'
+        })
+        .when('/people', {
+            templateUrl: '/app/people/people.html',
+            controller: 'PeopleCtrl'
+        })
+        .when('/disclaimer', {
+            templateUrl: '/app/disclaimer/disclaimer.html',
+            controller: 'DisclaimerCtrl'
+        })
+        .when('/numbers', {
+            templateUrl: '/app/numbers/numbers.html',
+            controller: 'NumbersCtrl'
+        })
+        .when('/programs/edit',{
+            templateUrl:'/app/programs/edit-programs.html',
+            controller: 'ProgramsEditCtrl as vm'
+        })
+        .when('/programs/:programName',{
+            templateUrl: '/app/programs/view-program.html',
+            controller:'ViewProgramCtrl as vm'
+        })
+        .otherwise({redirectTo: '/home'});
 
-
+    // add an interceptor for AJAX errors
+    $httpProvider.interceptors.push(function($q, $location, $log) {
+        return {
+            // optional method
+            'responseError': function (rejection) {
+                // do something on error
+                if (rejection.status === 401) {
+                    $location.url('/home');
+                }else if(rejection.status === 0){
+                    console.log('Bummer, looks like you hit a network connection error, please check your internet connection or make sure the server is running.');
+                }
+                return $q.reject(rejection);
+            }
+        };
     });
+
+}]);
+
+app.config(['usSpinnerConfigProvider', function(usSpinnerConfigProvider) {
+    usSpinnerConfigProvider.setDefaults({color: 'darkturquoise'});
+}]);
+
+app.run(function($rootScope, $http) {
+    // Add config to ALL scopes, only makes sense instead of passing in everywhere
+    $http.get('/config').
+        success(function(data, status, headers, config) {
+            $rootScope.config = data;
+        });
+});
 
 // Common functions for AngularJS
 function extendDeep(dst) {
@@ -188,5 +188,5 @@ function extendDeep(dst) {
 
 // Init all popovers
 $(function () {
-    $('[data-toggle="popover"]').popover({html:true})
-})
+    $('[data-toggle="popover"]').popover({html:true});
+});
