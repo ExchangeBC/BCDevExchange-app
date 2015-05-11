@@ -12,15 +12,32 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
-'use strict';
-
 angular.module('bcdevxApp.home', ['ngRoute'])
 
-    .config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider', function($routeProvider) {
 
-    }])
+}])
 
-    .controller('HomeCtrl', ['$scope', '$location', '$anchorScroll', function($scope, $location, $anchorScroll) {
+.factory('NumbersCountService', ['$resource', function($resource) {
+    return $resource('/numbers');
+}])
 
-    }]);
+.controller('HomeCtrl', ['$scope', '$location', '$anchorScroll', 'NumbersCountService', function($scope, $location, $anchorScroll, NumbersCountService) {
+    $scope.numbers = {
+        isLoaded: false,
+        accounts: '-',
+        resources: '-',
+        projects: '-',
+        analytics: {
+            users: '-'
+        }
+    };
+
+    NumbersCountService.get({}, function(data) {
+        $scope.numbers.isLoaded = true;
+        $scope.numbers.accounts = data.githubAccounts;
+        $scope.numbers.resources = data.resources;
+        $scope.numbers.projects = data.projects;
+        $scope.numbers.analytics = data.analytics || $scope.numbers.analytics;
+    });
+}]);

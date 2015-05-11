@@ -220,7 +220,7 @@ function handleEventData(githubEventsJSON) {
                     var IssuesEvent = {
                         'actor': {
                             'username': Event.actor.login,
-                            'url': Event.actor.url,
+                            'url': 'https://github.com/' + Event.actor.login,
                             'avatar': Event.actor.avatar_url
                         },
 
@@ -273,7 +273,7 @@ function handleEventData(githubEventsJSON) {
                     var PullRequestEvent = {
                         'actor': {
                             'username': Event.actor.login,
-                            'url': Event.actor.url,
+                            'url': 'https://github.com/' + Event.actor.login,
                             'avatar': Event.actor.avatar_url
                         },
 
