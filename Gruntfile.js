@@ -16,34 +16,145 @@ module.exports = function(grunt) {
 
     // Project configuration.
     grunt.initConfig({
-        modernizr: {
-
-            dist: {
-                // [REQUIRED] Path to the build you're using for development.
-                "devFile": "remote",
-
-                // Path to save out the built file.
-                "outputFile": "public/js/modernizr-custom.js"
+        express: {
+            options: {
+                // options
+            },
+            dev: {
+                options: {
+                    script: 'server.js'
+                }
             }
         },
-        cdnify: {
+
+        watch: {
+            express: {
+                files:  [ 'app/**/*.js', 'config/**/*.json' ],
+                tasks:  [ 'jshint', 'express:dev' ],
+                options: {
+                    spawn: false
+                }
+            },
+
+            app: {
+                files: ['public/**/*.js', '!public/**/*.min.js'],
+                tasks: ['jshint', 'concat', 'uglify:bcdevx']
+            },
+
+            styles: {
+                files: ['less/bcdevx/**/*.less'],
+                tasks: ['less:bcdevx', 'cssmin:bcdevx']
+            },
+
+            bootstrap: {
+                files: ['less/shared/**/*.less'],
+                tasks: ['less:bootstrap', 'cssmin:bower']
+            }
+        },
+
+        bower_concat: {
+            all: {
+                dest: 'build/_bower.js',
+                cssDest: 'build/_bower.css',
+
+                dependencies: {
+
+                },
+                exclude: [
+                    'bootstrap' // BCDevExchange uses a customized version of bootstrap, will be compiled later
+                ],
+                mainFiles: {
+                    'angular-table-of-contents': [ 'dest/angular-table-of-contents.min.js' ]
+                },
+                bowerOptions: {
+                    relative: false
+                }
+            }
+        },
+
+        concat: {
             options: {
-                cdn: require('google-cdn-data')
+                // options
             },
             dist: {
-                html: ['public/*.html']
+                src: ['public/**/*.js', '!public/**/*.min.js'],
+                dest: 'build/_bcdevx.js',
+            },
+        },
+
+        less: {
+            bootstrap: {
+                files: {
+                    "build/_yeti.css": [ "less/shared/bcdevx-variables.less" ]
+                }
+            },
+            bcdevx: {
+                files: {
+                    "build/_bcdevx.css": [ "less/bcdevx/bcdevx-app.less" ]
+                }
             }
-        }
+        },
+
+        cssmin: {
+            options: {
+                //options
+            },
+            bcdevx: {
+                files: {
+                    'public/css/bcdevx.min.css': ['build/_bcdevx.css']
+                }
+            },
+            bower: {
+                files: {
+                    'public/css/lib.min.css': ['build/_yeti.css', 'build/_bower.css']
+                }
+            }
+        },
+
+        uglify: {
+            bcdevx: {
+                options: {
+                    mangle: false,
+                },
+                files: {
+                    'public/js/app.min.js': ['build/_bcdevx.js']
+                }
+            },
+            bower: {
+                options: {
+                    mangle: false,
+                },
+                files: {
+                    'public/js/lib.min.js': ['build/_bower.js', 'bower_components/bootstrap/dist/js/bootstrap.js']
+                }
+            }
+        },
+
+        copy: {
+            fonts: {
+                cwd: 'bower_components/bootstrap/fonts/',
+                src: '**',
+                dest: 'public/fonts/',
+                flatten: true,
+                filter: 'isFile',
+                expand: true,
+            },
+        },
+
+        jshint: {
+            options: {
+                reporter: require('jshint-stylish')
+            },
+
+            scripts: {
+                src: ['public/**/*.js', 'app/**/*.js', '!public/js/**/*.js']
+            }
+        },
 
     });
 
-    grunt.loadNpmTasks('grunt-contrib-copy');
+    require('load-grunt-tasks')(grunt);
 
-    // Load gh-pages add-on
-
-    grunt.loadNpmTasks("grunt-modernizr");
-
-    grunt.loadNpmTasks('grunt-google-cdn');
-
-    grunt.registerTask('build', 'modernizr');
+    grunt.registerTask('default', ['jshint', 'bower_concat', 'concat', 'copy', 'uglify', 'less', 'cssmin']);
+    grunt.registerTask('server', [ 'express:dev', 'watch' ]);
 };

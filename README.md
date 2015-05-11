@@ -3,8 +3,7 @@
 
 The [BCDevExchange website](http://bcdevexchange.org/) is the public facing site for the BC Developers' Exchange - an experiment in tech innovation and collaboration.
 
-*We are open to pull requests!
-See our [contributing guide](https://github.com/BCDevExchange/BCDevExchange-app/blob/master/CONTRIBUTING.md) for the details.*
+*We are open to pull requests!  See our [contributing guide](https://github.com/BCDevExchange/BCDevExchange-app/blob/master/CONTRIBUTING.md) for the details.*
 
 ## MEAN Stack##
 This web app is built on the MEAN stack:
@@ -15,21 +14,70 @@ This web app is built on the MEAN stack:
 -  MongoDB
 -  nginx
 
+## Getting Started ##
+
+You'll need [MongoDB](http://www.mongodb.org/), [NodeJS](http://nodejs.org/), and [Git](http://git-scm.com/downloads). Clone this repo from GitHub, change directory to the repo root.
+
+1. Run `npm install`.
+2. Install [Grunt](http://gruntjs.com) for the command line via `npm install -g grunt-cli`.
+3. Run `grunt` (default task) to build out the necessary assets for running the site.
+4. Run `grunt server` to start a Node server.  Defaults to [localhost:8000](http://localhost:8000).
+
 ## Development ##
-
-You'll need [MongoDB](http://www.mongodb.org/), [NodeJS](http://nodejs.org/), and [Git](http://git-scm.com/downloads). Clone this repo from GitHub, change directory to the repo root and:
-
-`$ npm install `
 
 We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development, but contributors are free to use any editor.
 
-To ensure appropriate license is on every appropriate file, use:
+### Grunt
+We also use [Grunt](http://gruntjs.com) to automate some of the development process.  Some notable tasks:
 
-`gulp`
+```
+grunt
+```
+
+The default Grunt task will build out all of the site's assets.  This is useful for the first-time setup or if you need a clean version of the minified files.  The files output from this task are:
+
+* `public/js/lib.min.js`
+    All of the Javascript files from Bower dependencies.
+
+* `public/js/app.min.js`
+    All of the Javascript app files (inside `public/app/`).
+
+* `public/css/lib.min.css`
+    All of the CSS files from Bower dependencies.
+
+* `public/css/bcdevx.min.css`
+    All of the BCDevExchange CSS (e.g. customized Bootstrap).
+
+
+```
+grunt server
+```
+
+This will start a Node server and automatically restart if any changes are detected in `app/` or `/config`.  Additionally, it will rebuild JS assets when changes are detected in `public/app` or `bower_components`, and will recompile LESS when changes are detected in `/less`.
+
+Intermediate steps (like `uglify` or `cssmin`) can be executed separately.  For a full list of available Grunt tasks, run `grunt --help`.
+
+### Gulp
+
+We use [Gulp](http://gulpjs.com) to ensure that each appropriate file in the repo has a license file attached to it.  These appear in the header of each appropriate file.  To check if the license is on every appropriate file, run
+
+```
+gulp
+```
 
 To automatically update/insert license, use:
 
-`gulp --update`
+```
+gulp --update
+```
+
+## Running Tests ##
+
+BCDevExchange currently uses [Protractor](https://angular.github.io/protractor/) for end-to-end testing.  To run the tests:
+
+1. Start the `webdriver-manager` with `webdriver-manager start`.
+2. Change to the `test/` directory from the repo root.
+3. Run `protractor` to execute the tests.  You may need to install Protractor globally with `npm install -g protractor`.
 
 ## Server Deployment ##
 
@@ -148,7 +196,7 @@ This is for setting up access to the Google Analytics API.  Those who do not hav
 ```
 
 ## Server Sizing ##
-We've benchmarked performance for this site as it was running on a Microsoft Azure Standard D1 (One Core) 4 GB RAM VM using a [Bitnami packaged Ubuntu VM] (https://bitnami.com/stack/mean).
+We've benchmarked performance for this site as it was running on a Microsoft Azure Standard D1 (One Core) 4 GB RAM VM using a [Bitnami packaged Ubuntu VM](https://bitnami.com/stack/mean).
 
 Static file serving (all Ngnix): [4000 req/sec](http://loader.io/reports/7940cbcd4747e7eb202861f55e277839/results/90215bf18a137874d9fbc7cf9ca272ea)
 

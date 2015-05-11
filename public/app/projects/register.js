@@ -12,15 +12,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-var config = require('config');
-var logger = require('../../common/logging.js').logger;
+angular.module('bcdevxApp.projects-register', [])
+.controller('ProjectsRegisterController', [function() {
 
-module.exports = function(app, db, passport) {
-
-    // ===== Low level conf for client side ======
-    app.get("/config",
-        function (req, res) {
-            res.send(config.ui);
-        }
-    );
-};
+}]);

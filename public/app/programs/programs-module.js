@@ -12,15 +12,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-var config = require('config');
-var logger = require('../../common/logging.js').logger;
-
-module.exports = function(app, db, passport) {
-
-    // ===== Low level conf for client side ======
-    app.get("/config",
-        function (req, res) {
-            res.send(config.ui);
-        }
+angular.module('bcdevxApp.programs', ['ngRoute','ngResource','ngSanitize','btford.markdown', 'ngFx', 'ngAnimate'])
+.config(['markdownConverterProvider', function (markdownConverterProvider) {
+    // options to be passed to Showdown
+    // see: https://github.com/coreyti/showdown#extensions
+    markdownConverterProvider.config(
+        { extensions: ['btexts', 'icon'] }
     );
-};
+}]);

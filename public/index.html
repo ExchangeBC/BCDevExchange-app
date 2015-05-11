@@ -30,8 +30,9 @@ See the License for the specific language governing permissions and limitations 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="./img/favicon3.ico" type="image/x-icon">
     <link rel="icon" href="./img/favicon3.ico" type="image/x-icon">
-    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/bcdevx.css">
+
+    <link rel="stylesheet" href="css/bcdevx.min.css">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="js/modernizr-custom.js"></script>
     <script src="js/TweenMax.js"></script>
@@ -72,39 +73,37 @@ See the License for the specific language governing permissions and limitations 
     browser</a> to improve your experience.</p>
 <![endif]-->
 
-<div ng-view autoscroll="true"></div>
+  <div ng-view autoscroll="true"></div>
 
-
-<div class="site-footer" ng-cloak>
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-6">
-                <a href="https://twitter.com/hashtag/BCDev" analytics-on>
-                    <i class="fa fa-twitter fa"></i>
-                </a>
-                &nbsp;&nbsp;
-                <a href="https://github.com/BCDevExchange" analytics-on>
-                    <i class="fa fa-github fa"></i>
-                </a>
-                &nbsp;&nbsp;
-                <a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>
-                    <i class="fa fa-envelope fa"></i>
-                </a>
-                &nbsp;&nbsp;
-                <a href="http://blog.data.gov.bc.ca/" analytics-on>
-                    <i class="fa fa-comment fa"></i>
-                </a>
-                <ul class="site-footer-items">
-                    <li><a href="#/disclaimer" analytics-on>Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="col-xs-6">
-                <img src="img/bc-sponsor.jpg" class="pull-right"/>
-            </div>
-        </div>
-    </div>
-</div>
-
+  <div class="site-footer" ng-cloak>
+      <div class="container">
+          <div class="row">
+              <div class="col-xs-6">
+                  <a href="https://twitter.com/hashtag/BCDev" analytics-on>
+                      <i class="fa fa-twitter fa"></i>
+                  </a>
+                  &nbsp;&nbsp;
+                  <a href="https://github.com/BCDevExchange" analytics-on>
+                      <i class="fa fa-github fa"></i>
+                  </a>
+                  &nbsp;&nbsp;
+                  <a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>
+                      <i class="fa fa-envelope fa"></i>
+                  </a>
+                  &nbsp;&nbsp;
+                  <a href="http://blog.data.gov.bc.ca/" analytics-on>
+                      <i class="fa fa-comment fa"></i>
+                  </a>
+                  <ul class="site-footer-items">
+                      <li><a href="#/disclaimer" analytics-on>Disclaimer</a></li>
+                  </ul>
+              </div>
+              <div class="col-xs-6">
+                  <img src="img/bc-sponsor.jpg" class="pull-right"/>
+              </div>
+          </div>
+      </div>
+  </div>
 
   <nav class="navbar navbar-displayBanner navbar-fixed-bottom ng-scope" ng-show="config.discoveryBanner" ng-cloak>
       <div class="container">
@@ -122,62 +121,17 @@ See the License for the specific language governing permissions and limitations 
       </div>
   </nav>
 
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/angular-resource/angular-resource.js"></script>
-  <script src="bower_components/angular-messages/angular-messages.js"></script>
-  <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/respond-minmax/dest/respond.min.js"></script>
-  <script src="bower_components/angulartics/dist/angulartics.min.js"></script>
-  <script src="bower_components/angulartics/dist/angulartics-ga.min.js"></script>
-  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-  <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-  <script src="bower_components/showdown/compressed/Showdown.min.js"></script>
-  <script src="bower_components/angular-markdown-directive/markdown.js"></script>
-  <script src="bower_components/angular-encode-uri/dist/angular-encode-uri.min.js"></script>
-  <script src="bower_components/moment/min/moment.min.js"></script>
-  <script src="bower_components/angular-moment/angular-moment.min.js"></script>
-  <script src="bower_components/ngFx/dist/ngFx.js"></script>
-  <script src="bower_components/angular-animate/angular-animate.js"></script>
-  <script src="bower_components/angular-ui-utils/ui-utils.min.js"></script>
-  <script src="bower_components/angular-table-of-contents/dest/angular-table-of-contents.js"></script>
-  <script src="bower_components/angular-scroll/angular-scroll.js"></script>
-  <script src="bower_components/showdown-icon/showdown-icon.js"></script>
-  <script src="bootstrap/dist/js/bootstrap.js"></script>
+  <script src="js/lib.min.js"></script>
+  <script src="js/app.min.js"></script>
 
-  <script src="bower_components/spin.js/spin.js"></script>
-  <script src="bower_components/angular-spinner/angular-spinner.js"></script>
-
-  <script src="app.js"></script>
-  <script src="signup/signup.js"></script>
-  <script src="login/auth.js"></script>
-  <script src="login/login-list.directive.js"></script>
-  <script src="home/home.js"></script>
-  <script src="account/account.js"></script>
-  <script src="account/account-service.js"></script>
-  <script src="lab/lab.js"></script>
-  <script src="resources/resources.js"></script>
-  <script src="resources/register.js"></script>
-  <script src="projects/projects.js"></script>
-  <script src="projects/register.js"></script>
-  <script src="people/people.js"></script>
-  <script src="disclaimer/disclaimer.js"></script>
-  <script src="numbers/numbers.js"></script>
-  <script src="programs/showdown-extensions.js"></script>
-  <script src="programs/programs-module.js"></script>
-  <script src="programs/programs.js"></script>
-  <script src="programs/program-service.js"></script>
-  <script src="programs/edit-programs.js"></script>
-  <script src="programs/view-program.js"></script>
-  <script src="js/plugins.js"></script>
   <script>
     $(document).on('click','.navbar-collapse.in',function(e) {
       if( $(e.target).is('a') ) {
         $(this).collapse('hide');
       }
     });
-</script>
-<script>
+  </script>
+  <script>
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function () {
@@ -192,7 +146,6 @@ See the License for the specific language governing permissions and limitations 
 
     ga('create', 'UA-58646145-1', 'auto');
     ga('set', 'anonymizeIp', true);
-
-</script>
+  </script>
 </body>
 </html>

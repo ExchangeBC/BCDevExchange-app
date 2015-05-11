@@ -55,7 +55,7 @@ module.exports = function(app, db, passport) {
             res.send(500);
         });
     });
-}
+};
 
 var getProjectsFromArray = function (projectList, success, error) {
     async.concat(projectList, getProjects, function (err, results) {
@@ -64,7 +64,8 @@ var getProjectsFromArray = function (projectList, success, error) {
             success(results);
         }
     });
-}
+};
+
 module.exports.getProjectsFromArray = getProjectsFromArray;
 
 function getProjects(project, callback) {
@@ -135,12 +136,13 @@ function getGitHubFileProject(ghConfig, callback) {
             // parse out the yaml from content block
             var json = JSON.parse(body);
             var decodedContent = new Buffer(json.content, 'base64').toString('ascii');
+            var resourcesYaml;
 
             try {
-                var resourcesYaml = yaml.safeLoad(decodedContent);
+                resourcesYaml = yaml.safeLoad(decodedContent);
 
-            } catch (error) {
-                var message = 'Error while parsing yaml project file from: ' + options.url + '; message: ' + error.message;
+            } catch (errorRequest) {
+                var message = 'Error while parsing yaml project file from: ' + options.url + '; message: ' + errorRequest.message;
                 logger.error(message);
                 return callback(message);
             }
@@ -186,7 +188,8 @@ function getGitHubRepoAndLabels(fullRepoUrl, callback) {
                 headers: {
                     'User-Agent': config.github.clientApplicationName
                 }
-            }
+            };
+
             request(options, function (error, response, body) {
                 if (!error &&
                     typeof response !== 'undefined' &&
@@ -258,7 +261,7 @@ function parseGitHubIssuesResult(issues, fullRepoUrl) {
     // Loop through each issue and
     // if its open and found in our config
     // count it up
-    for (var i = 0; i < issues.length; i++) {
+    for (i = 0; i < issues.length; i++) {
         if (issues[i].state == "open") {
             for (var j = 0; j < issues[i].labels.length; j++) {
                 for (var k = 0; k < result.issues.length; k++) {

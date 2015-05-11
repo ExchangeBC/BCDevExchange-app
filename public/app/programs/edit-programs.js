@@ -12,15 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-var config = require('config');
-var logger = require('../../common/logging.js').logger;
+angular.module('bcdevxApp.programs', []).controller('ProgramsEditCtrl', programsEditCtrl);
 
-module.exports = function(app, db, passport) {
+function programsEditCtrl(){
+    var vm = this;
+    vm.mdDisplay ='';
 
-    // ===== Low level conf for client side ======
-    app.get("/config",
-        function (req, res) {
-            res.send(config.ui);
-        }
-    );
-};
+    vm.mdInput='';
+
+    vm.preview = function(){
+        //var temp = vm.mdInput.replace(/<!---/g, '<!--');
+        //temp = temp.replace(/--->/g, '-->');
+        //vm.mdDisplay = temp;
+
+        vm.mdDisplay = vm.mdInput;
+        //console.log("setting property on display directive ");
+
+    };
+}

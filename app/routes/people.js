@@ -35,7 +35,7 @@ module.exports = function(app, db, passport) {
             res.send({"people": results});
         });
     });
-}
+};
 
 function getAllGitHubUsers (db, callback) {
     db.getAccountsByOrigin("github", function (err, output) {
@@ -85,7 +85,7 @@ function getGitHubUser(account, callback) {
                     if (err) return callback(err);
                     if (emailList) {
                         for (var i = 0; i < emailList.length; i++) {
-                            if (emailList[i].primary == true) {
+                            if (emailList[i].primary === true) {
                                 result.email = emailList[i].email;
                                 break;
                             }
@@ -143,7 +143,7 @@ function parseGitHubUserResult (account, result) {
         "avatar_url": result.avatar_url,
         "contactPreferences": account.profiles[0].contactPreferences,
         "identities": account.identities
-    }
+    };
 
     return transformed;
 }
