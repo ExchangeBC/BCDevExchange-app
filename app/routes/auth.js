@@ -169,7 +169,7 @@ module.exports = function(app, db, passport) {
         if(req.isAuthenticated()){
             populateAccount(req, res, req.user._id, db, config, logger);
         }else{
-            res.sendStatus(200);
+            res.sendStatus(403);
         }
     });
 

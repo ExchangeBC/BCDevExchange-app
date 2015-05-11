@@ -21,7 +21,6 @@ angular.module('bcdevxApp.services', [])
       Returns a promise, when resolved with empty object, indicating no authenticated user found.
      */
     accountService.getCurrentUser = function(){
-        $log.info('Get session user from server.');
         var deferred = $q.defer();
         var actPromise = $resource(accountCheckUrl).get().$promise;
 

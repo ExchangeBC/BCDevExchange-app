@@ -48,11 +48,13 @@ angular.module('bcdevxApp.account', ['ngRoute', 'ngResource', 'ngMessages', 'ngF
     };
 
     $scope.identityExists = function(identifier) {
-        return $scope.accountExistsMap.some(
-            function(element, index, array){
-                return element === identifier;
+        var exists = false;
+        for(var i=0; i<$scope.accountExistsMap.length && !exists; i++){
+            if($scope.accountExistsMap[i] === identifier){
+                exists = true;
             }
-        );
+        }
+        return exists;
     };
 
     $scope.checkIdentityExists = function(identifier) {
@@ -64,7 +66,7 @@ angular.module('bcdevxApp.account', ['ngRoute', 'ngResource', 'ngMessages', 'ngF
                     function(data){
                         for( var i = 0; i < data.identities.length; i++ ) {
                             if ( data.identities[i].origin === identifier ) {
-                                $scope.accountExistsMap.push(identifier);
+                                $scope.accountExistsMap[$scope.accountExistsMap.length] = identifier;
                             }
                         }
                     },
