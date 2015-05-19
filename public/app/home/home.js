@@ -36,7 +36,6 @@ angular.module('bcdevxApp.home', ['ngRoute'])
     };
 
     NumbersCountService.get({}, function(data) {
-        console.log(data);
         $scope.numbers.isLoaded = true;
         $scope.numbers.accounts = data.githubAccounts;
         $scope.numbers.resources = data.resources;
