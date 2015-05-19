@@ -93,6 +93,32 @@ html {
   font-size: 100px;
 }
 
+.numbers-mini {
+  width: 600px;
+  font-size: 1.2em;
+  overflow: hidden;
+  margin: 20px auto;
+  padding: 10px;
+
+  .fa {
+    font-size: 1.4em;
+  }
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .col-sm-3 {
+      padding-top: 10px;
+    }
+
+    .text-muted {
+      display: inline-block!important;
+    }
+  }
+}
+
 // rows =================
 
 .row-padded {
@@ -327,6 +353,11 @@ body {
       border-bottom: 1px solid #ccc;
       padding: 10px 0;
       line-height: 3em;
+
+      .tweet-text {
+        line-height: 1.25em;
+        display: inline-block;
+      }
     }
   }
 }

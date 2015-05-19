@@ -30,14 +30,19 @@ angular.module('bcdevxApp.home', ['ngRoute'])
         projects: '-',
         analytics: {
             users: '-'
-        }
+        },
+        tweet_count: '-',
+        total_stars: '-'
     };
 
     NumbersCountService.get({}, function(data) {
+        console.log(data);
         $scope.numbers.isLoaded = true;
         $scope.numbers.accounts = data.githubAccounts;
         $scope.numbers.resources = data.resources;
         $scope.numbers.projects = data.projects;
         $scope.numbers.analytics = data.analytics || $scope.numbers.analytics;
+        $scope.numbers.tweet_count = data.twitter_bcdev.length;
+        $scope.numbers.total_stars = data.bcdevx.stargazers + data.bcgov.stargazers;
     });
 }]);

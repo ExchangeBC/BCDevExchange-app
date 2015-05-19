@@ -27,10 +27,16 @@ angular.module('bcdevxApp.numbers', ['ngRoute',  'ngResource'])
         bcdevx: {
             stargazers: '-',
             watchers: '-',
-            forks: '-'
+            open_issues: '-'
+        },
+        bcgov: {
+            stargazers: '-',
+            watchers: '-',
+            open_issues: '-'
         },
         bcdevx_activity: [],
         bcgov_activity: [],
+        twitter_bcdev: [],
         analytics: {
             users: '-'
         }
@@ -42,9 +48,11 @@ angular.module('bcdevxApp.numbers', ['ngRoute',  'ngResource'])
         $scope.numbers.resources = data.resources;
         $scope.numbers.projects = data.projects;
         $scope.numbers.bcdevx = data.bcdevx;
+        $scope.numbers.bcgov = data.bcgov;
         $scope.numbers.bcdevx_activity = data.bcdevx_latest;
         $scope.numbers.bcgov_activity = data.bcgov_latest;
         $scope.numbers.analytics = data.analytics || $scope.numbers.analytics;
+        $scope.numbers.twitter_bcdev = data.twitter_bcdev;
     });
 
 }])
@@ -77,5 +85,37 @@ angular.module('bcdevxApp.numbers', ['ngRoute',  'ngResource'])
             }
             timeloop();
         }]
+    };
+}])
+.directive('githubActivity', [function() {
+    return {
+        restrict: 'EA',
+        replace: false,
+        scope: {
+            icon: '=icon',
+            user_avatar: '=avatar',
+            user_name: '=username',
+            user_url: '=userUrl',
+            description: '=description',
+            details: '=details',
+            details_url: '=detailsUrl',
+            details_when: '=detailsWhen'
+        },
+        templateUrl: '/app/numbers/githubActivity.html'
+    };
+}])
+.directive('twitterActivity', [function() {
+    return {
+        restrict: 'EA',
+        replace: false,
+        scope: {
+            user_avatar: '=avatar',
+            user_name: '=username',
+            user_url: '=userUrl',
+            tweet: '=tweet',
+            tweet_when: '=tweetWhen',
+            tweet_url: '=tweetUrl'
+        },
+        templateUrl: '/app/numbers/twitterActivity.html'
     };
 }]);

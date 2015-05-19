@@ -100,10 +100,10 @@ See the License for the specific language governing permissions and limitations 
                     <div class="col-sm-4">
                         <div class="stat row">
                             <div class="col-sm-5 text-center">
-                                <i class="fa fa-4x fa-code-fork"></i>
+                                <i class="fa fa-4x fa-comments"></i>
                             </div>
                             <div class="col-sm-7">
-                                <h2>{{ numbers.bcdevx.forks }}</h2><span class="text-muted">forks</span>
+                                <h2>{{ numbers.bcdevx.open_issues }}</h2><span class="text-muted">open issues</span>
                             </div>
                         </div>
                     </div>
@@ -111,27 +111,65 @@ See the License for the specific language governing permissions and limitations 
             </div>
         </div>
         <div class="stats-row row">
+            <div class="col-sm-3">
+                <h2>BCGov</h2>
+                <span class="text-muted">on GitHub</span>
+            </div>
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="stat row">
+                            <div class="col-sm-5 text-center">
+                                <i class="fa fa-4x fa-star"></i>
+                            </div>
+                            <div class="col-sm-7">
+                                <h2>{{ numbers.bcgov.stargazers }}</h2><span class="text-muted">stargazers</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="stat row">
+                            <div class="col-sm-5 text-center">
+                                <i class="fa fa-4x fa-eye"></i>
+                            </div>
+                            <div class="col-sm-7">
+                                <h2>{{ numbers.bcgov.watchers }}</h2><span class="text-muted">watchers</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="stat row">
+                            <div class="col-sm-5 text-center">
+                                <i class="fa fa-4x fa-comments"></i>
+                            </div>
+                            <div class="col-sm-7">
+                                <h2>{{ numbers.bcgov.open_issues }}</h2><span class="text-muted">open issues</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-sm-12">
                 <h2>Latest activity on BCDevExchange</h2>
                 <div class="activity-list">
                     <div ng-show="numbers.bcdevx_activity.length == 0 && numbers.isLoaded">
                         No recent activity.
                     </div>
-                    <div class="activity" ng-repeat="activity in numbers.bcdevx_activity" ng-show="numbers.bcdevx_activity.length > 0">
-                        <div class="row">
-                            <div class="col-xs-1 text-center">
-                                <i class="fa fa-{{ activity.details.icon }} fa-3x text-muted text-center"></i>
-                            </div>
-                            <div class="col-xs-9">
-                                <div class="row">
-                                <a href="{{ activity.actor.url }}"><img src="{{ activity.actor.avatar }}" width="32" height="32" /></a> <a href="{{ activity.actor.url }}">{{ activity.actor.username }}</a> {{ activity.details.description }} <a href="{{ activity.details.url }}">{{ activity.details.name }}</a>
-                            </div>
-                            </div>
-                            <div class="col-xs-2">
-                                <span class="pull-right text-muted" am-time-ago="activity.details.when "></span>
-                            </div>
-                        </div>
-                    </div>
+                    <github-activity
+                        ng-repeat="activity in numbers.bcdevx_activity"
+                        ng-show="numbers.bcdevx_activity.length > 0"
+
+                        icon="activity.details.icon"
+                        avatar="activity.actor.avatar"
+                        username="activity.actor.username"
+                        user-url="activity.actor.url"
+                        description="activity.details.description"
+                        details="activity.details.name"
+                        details-url="activity.details.url"
+                        details-when="activity.details.when">
+                    </github-activity>
                 </div>
             </div>
             <div class="col-sm-12">
@@ -140,21 +178,40 @@ See the License for the specific language governing permissions and limitations 
                     <div ng-show="numbers.bcgov_activity.length == 0 && numbers.isLoaded">
                         No recent activity.
                     </div>
-                    <div class="activity" ng-repeat="activity in numbers.bcgov_activity" ng-show="numbers.bcgov_activity.length > 0">
-                        <div class="row">
-                            <div class="col-xs-1 text-center">
-                                <i class="fa fa-{{ activity.details.icon }} fa-3x text-muted text-center"></i>
-                            </div>
-                            <div class="col-xs-9">
-                                <div class="row">
-                                <a href="{{ activity.actor.url }}"><img src="{{ activity.actor.avatar }}" width="32" height="32" /></a> <a href="{{ activity.actor.url }}">{{ activity.actor.username }}</a> {{ activity.details.description }} <a href="{{ activity.details.url }}">{{ activity.details.name }}</a>
-                            </div>
-                            </div>
-                            <div class="col-xs-2">
-                                <span class="pull-right text-muted" am-time-ago="activity.details.when "></span>
-                            </div>
-                        </div>
+                    <github-activity
+                        ng-repeat="activity in numbers.bcgov_activity"
+                        ng-show="numbers.bcgov_activity.length > 0"
+
+                        icon="activity.details.icon"
+                        avatar="activity.actor.avatar"
+                        username="activity.actor.username"
+                        user-url="activity.actor.url"
+                        description="activity.details.description"
+                        details="activity.details.name"
+                        details-url="activity.details.url"
+                        details-when="activity.details.when">
+                    </github-activity>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Tweets about #BCDev</h2>
+                <div class="activity-list">
+                    <div ng-show="numbers.twitter_bcdev.length == 0 && numbers.isLoaded">
+                        No recent activity.
                     </div>
+                    <twitter-activity
+                        ng-repeat="tweet in numbers.twitter_bcdev"
+                        ng-show="numbers.twitter_bcdev.length > 0"
+
+                        avatar="tweet.user.avatar"
+                        username="tweet.user.screen_name"
+                        user-url="tweet.user.url"
+                        tweet="tweet.text"
+                        tweet-when="tweet.created_at"
+                        tweet-url="tweet.url">
+                    </twitter-activity>
                 </div>
             </div>
         </div>

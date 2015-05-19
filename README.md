@@ -195,6 +195,8 @@ This is for setting up access to the Google Analytics API.  Those who do not hav
 }
 ```
 
+# Twitter API
+
 ## Server Sizing ##
 We've benchmarked performance for this site as it was running on a Microsoft Azure Standard D1 (One Core) 4 GB RAM VM using a [Bitnami packaged Ubuntu VM](https://bitnami.com/stack/mean).
 

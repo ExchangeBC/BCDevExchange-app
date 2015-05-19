@@ -19,6 +19,9 @@ var logger = require('../../common/logging.js').logger;
 var projects = require('./projects');
 var resources = require('./resources');
 
+var Twitter      = require('twitter');
+var twitter_text = require('twitter-text');
+
 module.exports = function(app, db, passport) {
     app.get('/numbers/:source?', function (req, res) {
 
@@ -70,24 +73,10 @@ module.exports = function(app, db, passport) {
                     });
                 },
                 bcdevx: function(callback) {
-                    options = {
-                        url: "https://api.github.com/repos/BCDevExchange/BCDevExchange-app?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
-                        headers: {
-                            'User-Agent': config.github.clientApplicationName
-                        }
-                    };
-                    request(options, function(error, response, body) {
-                        if(error) callback(error, null);
-
-                        var jsonGithub = JSON.parse(body);
-
-                        var githubStats = {
-                            'stargazers': jsonGithub.stargazers_count,
-                            'watchers': jsonGithub.watchers_count,
-                            'forks': jsonGithub.forks,
-                        };
-                        callback(null, githubStats);
-                    });
+                    getGithubOrgData('BCDevExchange', callback);
+                },
+                bcgov: function(callback) {
+                    getGithubOrgData('BCGov', callback);
                 },
                 bcdevx_latest: function(callback) {
                     options = {
@@ -156,6 +145,9 @@ module.exports = function(app, db, passport) {
                             callback(null, {'users': result.totalsForAllResults['ga:users']});
                         });
                     });
+                },
+                twitter_bcdev: function(callback) {
+                    searchTwitter('#BCDev', callback);
                 }
             }, function (err, results) {
                 res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
@@ -164,6 +156,59 @@ module.exports = function(app, db, passport) {
         }
     });
 };
+
+function getGithubOrgData(org, callback) {
+    options = {
+        url: "https://api.github.com/orgs/" + org + "/repos?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+        headers: {
+            'User-Agent': config.github.clientApplicationName
+        }
+    };
+    request(options, function(error, response, body) {
+        if(error) callback(error, null);
+
+        var jsonGithub = JSON.parse(body);
+
+        var total_stargazers = 0;
+        var total_watchers = 0;
+        var total_open_issues = 0;
+
+        var repoList = [];
+
+        for(var i in jsonGithub) {
+            var repo = jsonGithub[i];
+            total_stargazers += repo.stargazers_count;
+            total_open_issues += repo.open_issues_count;
+
+            repoList.push(repoHandler(repo.url));
+        }
+
+        function repoHandler(repoUrl) {
+            return function(callback) {
+                options = {
+                    url: repoUrl + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+                    headers: {
+                        'User-Agent': config.github.clientApplicationName
+                    }
+                };
+                request(options, function(error, response, body) {
+                    var jsonGithub = JSON.parse(body);
+                    total_watchers += jsonGithub.subscribers_count;
+                    callback(null, total_watchers);
+                });
+            };
+        }
+
+        async.parallel(repoList, function() {
+            var githubStats = {
+                'stargazers': total_stargazers,
+                'watchers': total_watchers,
+                'open_issues': total_open_issues,
+            };
+            callback(null, githubStats);
+        });
+    });
+}
 
 function handleEventData(githubEventsJSON) {
 
@@ -295,4 +340,62 @@ function handleEventData(githubEventsJSON) {
     }
 
     return Events;
+}
+
+/*
+    Uses the Twitter API to search for tweets containing searchText
+    Returns an array of tweets:
+
+    Example:
+        tweets: [
+            {
+                'user': {
+                    'name': 'BC Dev',
+                    'screen_name': 'bcdevx',
+                    'avatar': 'https://.../.png',
+                    'url': 'https://twitter.com/bcdevx'
+                },
+                'text': 'An example tweet here'
+                'url': 'https://twitter.com/...' (url to tweet on Twitter)
+                'created_at': 'Mon May 11 17:02:39 +0000 2015'
+            },
+            ...
+        ]
+ */
+function searchTwitter(searchText, callback) {
+    var client = new Twitter({
+        consumer_key: config.twitter.consumer_key,
+        consumer_secret: config.twitter.consumer_secret,
+        access_token_key: config.twitter.access_token_key,
+        access_token_secret: config.twitter.access_token_secret
+    });
+
+    client.get('search/tweets', {q: searchText}, function(error, tweets, response) {
+        if(error) {
+            // We return no error so the async call will continue
+            return callback(null, []);
+        }
+
+        var tweetList = [];
+
+        for(var i in tweets.statuses) {
+            var tweet = tweets.statuses[i];
+
+            tweetList.push(
+                {
+                    user: {
+                        name: tweet.user.name,
+                        screen_name: tweet.user.screen_name,
+                        avatar: tweet.user.profile_image_url_https,
+                        url: 'https://twitter.com/' + tweet.user.screen_name
+                    },
+                    text: twitter_text.autoLink(tweet.text),
+                    url: 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str,
+                    created_at: tweet.created_at
+                }
+            );
+        }
+
+        callback(null, tweetList);
+    });
 }

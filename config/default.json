@@ -187,5 +187,11 @@ The local files are intended to not be tracked in your version control system. E
     "api_email": "GOOGLE_API_EMAIL", // in Google Developer console (Service Account)
     "analytics_view_id": "GOOGLE_ANALYTICS_VIEW_ID", //in Google Analytics Console : Admin -> View -> View Settings -> View ID
     "client_id": "UA-XXXXXXX-X"
+  },
+  "twitter": {
+    "consumer_key": "twitter_consumer_key",
+    "consumer_secret": "twitter_consumer_secret",
+    "access_token_key": "twitter_access_token_key",
+    "access_token_secret": "twitter_access_token_secret"
   }
 }
