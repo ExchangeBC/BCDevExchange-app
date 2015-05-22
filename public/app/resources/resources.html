@@ -74,29 +74,16 @@ See the License for the specific language governing permissions and limitations 
             <span us-spinner="{radius:30, width:6, length: 18}" spinner-key="spinner-resources" spinner-start-active="true"></span>
 
             <li class="resource" ng-repeat="resource in filtered = (resources | filter:query | filter:{ catalogue: { short_name: selectedSource } }:hasMatchingSource | orderBy:predicate)">
-                <div class="row">
-                    <div class="col-md-9 col-lg-10">
-                        <h3 ng-bind-html="resource.title | highlight:query"></h3>
-                        <p ng-bind-html="resource.description | highlight:query"></p>
-                        <div class="tags" ng-if="resource.tags.length > 0">
-                            <span class="label label-default" ng-repeat="tag in resource.tags" ng-if="tag.display_name != resource.catalogue.tagToSearch" style="background-color: #{{ tag.colour|limitTo:6 }};"  ng-bind-html="tag.display_name | highlight:query">
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-lg-2">
-                        <ul class="list-unstyled">
-                            <li><a href="{{ resource.url }}" class="btn btn-primary btn-block">View on {{ resource.catalogue.short_name }}</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <p class="source text-muted">Source: <span ng-bind-html="resource.catalogue.name | highlight:query"></span> </p>
-                    </div>
-                    <div class="col-md-6 text-right-not-xs">
-                        <p class="source text-muted"><span ng-show="resource.updated_at">Last updated: <span am-time-ago="resource.updated_at" ng-bind-html="resource.updated_at | highlight:query"></span></span></p>
-                    </div>
-                </div>
+                <resource
+                    resource-title="resource.title"
+                    description="resource.description"
+                    tags="resource.tags"
+                    button-url="resource.url"
+                    button-text="'View on ' + resource.catalogue.short_name"
+                    source="resource.catalogue.name"
+                    last-updated="resource.updated_at"
+                    search-text="query"
+                ></resource>
             </li>
             <li ng-if="resources.length == 0" class="empty">
                 <div class="col-md-12">

@@ -64,31 +64,17 @@ See the License for the specific language governing permissions and limitations 
                 <span us-spinner="{radius:30, width:6, length: 18}" spinner-key="spinner-projects" spinner-start-active="true"></span>
 
                 <li class="resource" ng-repeat="project in filtered = (projects | filter:query | orderBy:predicate)">
-                    <div class="row">
-                        <div class="col-md-9 col-lg-10">
-                            <h3 ng-bind-html="project.title | highlight:query"></h3>
-                        </div>
-                        <div class="col-md-3 col-lg-2">
-                            <a href="{{ project.url }}" class="btn btn-primary btn-block" analytics-on ng-bind-html="'View on ' + project.source"></a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-9 col-lg-10">
-                            <p ng-bind-html="project.description | highlight:query"></p>
-                            <div class="tags" ng-if="project.tags.length > 0">
-                                <span class="label label-default" ng-repeat="tag in project.tags" style="background-color: #{{ tag.id|limitTo:6 }};"  ng-bind-html="tag.display_name | highlight:query">
-                                </span>
-                            </div>
-                            <p class="source text-muted">Last updated: <span am-time-ago="project.updated_at" ng-bind-html="project.updated_at"></span></p>
-                        </div>
-                        <div class="col-md-3 col-lg-2">
-                            <ul class="list-unstyled">
-                                <li ng-repeat="issue in project.issues" ng-if="issue.count > 0">
-                                    <a href="{{ issue.url }}" class="btn btn-primary btn-block btn-{{ issue.id }}" analytics-on ng-bind-html="issue.name + ' (' + issue.count + ')' | highlight:query"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <project
+                        project-title="project.title"
+                        description="project.description"
+                        tags="project.tags"
+                        button-url="project.url"
+                        button-text="'View on ' + project.source"
+                        button-extras="project.issues"
+                        source="project.source"
+                        last-updated="project.updated_at"
+                        search-text="query"
+                    ></project>
                 </li>
                 <li ng-if="projects.length == 0 && projectsLoaded" class="empty">
                     <div class="col-md-12">

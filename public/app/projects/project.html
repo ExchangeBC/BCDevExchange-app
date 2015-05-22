@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-9 col-lg-10">
+        <h3 ng-bind-html="project_title | highlight:query"></h3>
+        <p ng-bind-html="description | highlight:query"></p>
+        <div class="tags" ng-if="tags.length > 0">
+            <span class="label label-default" ng-repeat="tag in tags" style="background-color: #{{ tag.id|limitTo:6 }};"  ng-bind-html="tag.display_name | highlight:query">
+            </span>
+        </div>
+        <p class="source text-muted" ng-show="last_updated">Last updated: <span am-time-ago="last_updated" ng-bind-html="last_updated"></span></p>
+    </div>
+    <div class="col-md-3 col-lg-2">
+        <ul class="list-unstyled">
+            <li><a href="{{ button_url }}" class="btn btn-primary btn-block">{{ button_text }}</a></li>
+        </ul>
+        <ul class="list-unstyled">
+            <li ng-repeat="issue in button_extras" ng-if="issue.count > 0">
+                <a href="{{ issue.url }}" class="btn btn-primary btn-block btn-{{ issue.id }}" analytics-on ng-bind-html="issue.name + ' (' + issue.count + ')' | highlight:query"></a>
+            </li>
+        </ul>
+    </div>
+</div>

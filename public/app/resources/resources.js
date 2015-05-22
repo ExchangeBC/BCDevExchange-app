@@ -125,4 +125,21 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
         $scope.alerts.splice(index, 1);
     };
 
+}])
+.directive('resource', [function() {
+    return {
+        restrict: 'EA',
+        replace: false,
+        scope: {
+            resource_title: '=resourceTitle',
+            description: '=description',
+            tags: '=tags',
+            source: '=source',
+            button_text: '=buttonText',
+            button_url: '=buttonUrl',
+            last_updated: '=lastUpdated',
+            query: '=searchText'
+        },
+        templateUrl: '/app/resources/resource.html'
+    };
 }]);

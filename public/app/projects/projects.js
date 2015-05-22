@@ -75,9 +75,26 @@ angular.module('bcdevxApp.projects', ['ngRoute',  'ngResource'])
             });
         });
     }, function(error) {
-        console.log(error);
         $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + error.config.url + '</strong>.' });
-        projectListDeferred.resolve("error retrieving resources for  " + error.config.url);
+        projectListDeferred.resolve("error retrieving projects for  " + error.config.url);
         $scope.projectsLoaded = true;
     });
+}])
+.directive('project', [function() {
+    return {
+        restrict: 'EA',
+        replace: false,
+        scope: {
+            project_title: '=projectTitle',
+            description: '=description',
+            tags: '=tags',
+            source: '=source',
+            button_text: '=buttonText',
+            button_url: '=buttonUrl',
+            button_extras: '=buttonExtras',
+            last_updated: '=lastUpdated',
+            query: '=searchText'
+        },
+        templateUrl: '/app/projects/project.html'
+    };
 }]);
