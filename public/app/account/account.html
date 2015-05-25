@@ -17,22 +17,6 @@ See the License for the specific language governing permissions and limitations 
             <h1>Account Details</h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-4 messages-overlay">
-            <div ng-messages = "resultOfSaving" ng-hide="hideMessageDialog" class="fx-fade-up">
-                <span id='close' ng-click="hideDialog()">&times;</span>
-                <div ng-message ="success" class="message-success">
-                    {{resultOfSaving.success}}
-                </div>
-                <div ng-message ="error" class="message-warning">
-                    {{resultOfSaving.error}}
-                </div>
-                <div ng-message ="network_error" class="message-danger">
-                    {{resultOfSaving.network_error}}
-                </div>
-            </div>
-        </div>
-    </div>
     <form novalidate ng-submit="update(account)">
         <div class="row">
             <div class="col-md-4 col-sm-6 col-xs-12">
@@ -73,8 +57,28 @@ See the License for the specific language governing permissions and limitations 
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-2">
+            <div class="col-sm-2">
                 <button type="submit" class="btn btn-primary btn-block">Save</button>
+            </div>
+            <div class="col-sm-4">
+                <div class="sd">
+                    <div class="messages-overlay">
+                        <div ng-messages="resultOfSaving" ng-hide="hideMessageDialog" class="fx-fade-normal">
+                            <div ng-message="success" class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" ng-click="hideDialog()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                {{resultOfSaving.success}}
+                            </div>
+                            <div ng-message="error" class="message-warning">
+                                <button type="button" class="close" ng-click="hideDialog()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                {{resultOfSaving.error}}
+                            </div>
+                            <div ng-message="network_error" class="message-danger">
+                                <button type="button" class="close" ng-click="hideDialog()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                {{resultOfSaving.network_error}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </form>
