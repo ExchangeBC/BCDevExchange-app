@@ -42,7 +42,7 @@ module.exports = function(grunt) {
             },
 
             styles: {
-                files: ['less/bcdevx/**/*.less'],
+                files: ['less/bcdevx/**/*.less', 'less/shared/**/bcdevx-variables.less'],
                 tasks: ['less:bcdevx', 'cssmin:bcdevx']
             },
 

@@ -12,9 +12,44 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 -->
 
-
-
 <div class="splash" style="background-image: url(img/{{config.headerImage}})">
+    <div class="navbar navbar-default navbar-stats">
+        <div class="container">
+            <div class="navbar-header visible-xs">
+                <div class="col-xs-4">
+                    <i class="fa fa-users"></i> <span>{{ numbers.accounts }}</span> <span class="text-muted">users</span>
+                </div>
+                <div class="col-xs-4">
+                    <i class="fa fa-area-chart"></i> <span>{{ numbers.analytics.users }}</span> <span class="text-muted">visits</span>
+                </div>
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-stats">
+                    More stats
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-stats">
+                <div class="row">
+                    <div class="col-sm-2 hidden-xs">
+                            <i class="fa fa-users"></i> <span>{{ numbers.accounts }}</span> <span class="text-muted">users</span>
+                        </div>
+                    <div class="col-sm-2">
+                        <i class="fa fa-cubes"></i> <span>{{ numbers.resources }}</span> <span class="text-muted">resources</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <i class="fa fa-cogs"></i> <span>{{ numbers.projects }}</span> <span class="text-muted">projects</span>
+                    </div>
+                    <div class="col-sm-2 hidden-xs">
+                            <i class="fa fa-area-chart"></i> <span>{{ numbers.analytics.users }}</span> <span class="text-muted">visits</span>
+                        </div>
+                    <div class="col-sm-2">
+                        <i class="fa fa-twitter"></i> <span>{{ numbers.tweet_count }}</span> <span class="text-muted">tweets</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <i class="fa fa-star"></i> <span>{{ numbers.total_stars }}</span> <span class="text-muted"><span class="hidden-sm">GitHub</span> stars</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
 
         <div class="row text-center">
@@ -32,7 +67,7 @@ See the License for the specific language governing permissions and limitations 
 </div>
 
 <div class="container">
-    <div class="row">
+    <div>
         <div ng-show="!config.explorationContent" ng-cloak>
             <div class="content text-left">
                 <div class="row features-xl">
@@ -63,24 +98,7 @@ See the License for the specific language governing permissions and limitations 
                         </div>
                         <div class="numbers-mini">
                             <div class="row-fluid">
-                                <div class="col-md-2">
-                                    <i class="fa fa-users" title="Registered users"></i> <span>{{ numbers.accounts }}</span> <span class="visible-sm text-muted">registered users</span>
-                                </div>
-                                <div class="col-md-2">
-                                    <i class="fa fa-cubes" title="Resources on BCDevExchange"></i> <span>{{ numbers.resources }}</span> <span class="visible-sm text-muted">resources</span>
-                                </div>
-                                <div class="col-md-2">
-                                    <i class="fa fa-cogs" title="Projects on BCDevExchange"></i> <span>{{ numbers.projects }}</span> <span class="visible-sm text-muted">projects</span>
-                                </div>
-                                <div class="col-md-2">
-                                    <i class="fa fa-area-chart" title="Visits in the last 7 days"></i> <span>{{ numbers.analytics.users }}</span> <span class="visible-sm text-muted">visits past 7 days</span>
-                                </div>
-                                <div class="col-md-2">
-                                    <i class="fa fa-twitter" title="Tweets about #BCDev"></i> <span>{{ numbers.tweet_count }}</span> <span class="visible-sm text-muted">tweets about #BCDev</span>
-                                </div>
-                                <div class="col-md-2">
-                                    <i class="fa fa-star" title="Total stargazers on GitHub"></i> <span>{{ numbers.total_stars }}</span> <span class="visible-sm text-muted">stargazers on GitHub</span>
-                                </div>
+
                             </div>
                         </div>
                     </div>
