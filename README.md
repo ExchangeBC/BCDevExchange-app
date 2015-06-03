@@ -33,12 +33,21 @@ To automatically update/insert license, use:
 
 ## Server Deployment ##
 
-First time setup, you'll need a Linux server with:
+You'll need a Linux server with:
 
 - [nginx](http://nginx.org/)
 - [NodeJS via N](https://github.com/tj/n) Use version 0.12.x
 - [MongoDB](http://www.mongodb.org/)
 - [Bind as a local DNS cache](https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-caching-or-forwarding-dns-server-on-ubuntu-14-04)
+
+### First time setup
+
+Install [forever](https://www.npmjs.com/package/forever) globally using
+
+```
+sudo npm install -g forever
+```
+Next, set up the repo
 
 ```
 git clone --branch <master or discovery> git://github.com/BCDevExchange/BCDevExchange-app.git
@@ -46,9 +55,23 @@ cd BCDevExchange
 npm install --production
 chmod +x foreverme.sh
 ```
-You'll want to create a local configuration file in config called:
+You'll want to create a `local.json` configuration file in `/config`:
 
-`./config/local.json`
+```
+touch config/local.json
+```
+
+Spin up the server using `forever`:
+
+```
+forever start server.js
+```
+
+By default the server is available at [localhost:8000](http://localhost:8000).
+
+Following regular MongoDB installation and create new DBs and user accounts.  These names, usernames and passwords must be configured in your `/config/local.json`
+
+### Optional forever configuration
 
 Starting the NodeJS server in forever mode on bootup the rc.local way:
 
@@ -64,17 +87,15 @@ sudo -u bitnami /bin/bash /home/bitnami/apps/lab/BCDevExchange-app/foreverme.sh
 
 Stdout, stderr and forever logs are here:
 
-`<path to app root>log/`
+```
+<path to app root>/log/
+```
 
-Following regular nginx installation and feel free to use the sample configs are provided in under:
+Following regular nginx installation and feel free to use the sample configs are provided in under `/config/nginx`
 
-`/config/nginx`
+### Updating a deployment
 
-Following regular MongoDB installation and create new DBs and user accounts.  These names, usernames and passwords must be configured in your:
-
-`/config/local.conf`
-
-Updating deployment:
+Navigate to the app root (e.g. `/home/bitnami/apps/lab/BCDevExchange-app/`), then
 
 ```
 git pull
@@ -82,6 +103,8 @@ npm install --production
 forever list
 forever restart <pid>
 ```
+
+Where `<pid>` is the process ID of the environment you want to restart.
 
 ### Installing or Upgrading NodeJS via N
 
@@ -111,6 +134,9 @@ Then restart forever processes, post-install:
 forever list
 forever restart <pid>
 ```
+
+Where `<pid>` is the process ID of the environment you want to restart.
+
 ### Google Analytics API
 
 This is for setting up access to the Google Analytics API.  Those who do not have access to BCDevExchange's Google Analytics account can skip this step.  The site will function without Google Analytics set up.
