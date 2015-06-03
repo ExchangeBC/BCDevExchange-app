@@ -30,8 +30,8 @@ See the License for the specific language governing permissions and limitations 
   "ui": {
     "discoveryBanner": true,
     "linkedinLogin": false,
-    "resourcesPage": true,
-    "projectsPage": true,
+    "resourcesPage": false,
+    "projectsPage": false,
     "programsPage": true,
     "peoplePage": false,
     "numbersPage": true,
