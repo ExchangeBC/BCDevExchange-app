@@ -11,3 +11,5 @@ tmp
 /app/CNAME
 npm-debug.log
 /config/local.json
+data/
+mongod
