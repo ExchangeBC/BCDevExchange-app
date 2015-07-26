@@ -7,8 +7,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <base href="/">
-    <title></title>
-    <meta name="description" content="">
+    <title>BC Developers' Exchange</title>
+    <meta name="description"
+          content="Enhancing collaboration between Industry, Broader Public Sector, and Government, to allow for the sharing of digital resources and knowledge, and to help stimulate innovation and technology growth in BC.">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
@@ -20,14 +21,98 @@
       <!-- injector:css -->
       <!-- endinjector -->
     <!-- endbuild -->
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   </head>
-  <body ng-app="yeomanApp">
+  <body ng-app="bcdevxApp">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div ng-view=""></div>
+    <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="#/home" class="navbar-brand" analytics-on>BCDevExchange</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class='nav navbar-nav navbar-left'>
+                <li ng-show="config.resourcesPage" ng-cloak><a href="#/resources"  ng-cloak analytics-on>Resources</a></li>
+                <li ng-show="config.projectsPage" ng-cloak><a href="#/projects"  ng-cloak analytics-on>Projects</a></li>
+                <li ng-show="config.programsPage" ng-cloak><a href="#/programs"  ng-cloak analytics-on>Profiles</a></li>
+                <li ng-show="config.peoplePage" ng-cloak><a href="#/people"  ng-cloak analytics-on>People</a></li>
+                <li ng-show="config.numbersPage" ng-cloak><a href="#/numbers" ng-cloak analytics-on>Numbers</a></li>
+                <li class="dropdown">
+                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Community <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li ng-cloak><a href="http://blog.data.gov.bc.ca/" ng-cloak analytics-on>Blog</a></li>
+                    <li ng-cloak><a href="https://www.linkedin.com/grp/home?gid=8316252" ng-cloak analytics-on>Community</a></li>
+                    <li ng-cloak><a href="#/signup" ng-cloak analytics-on>Sign Up</a></li>
+                  </ul>
+                </li>
+            </ul>
+            <devx-login-list class="nav navbar-nav navbar-right"></devx-login-list>
+        </div>
+    </div>
+</div>
+    <div ng-view autoscroll="true"></div>
+    <div class="site-footer" ng-cloak>
+      <div class="container">
+          <div class="row">
+              <div class="col-xs-6">
+                  <a href="https://twitter.com/hashtag/BCDev" analytics-on>
+                      <i class="fa fa-twitter fa"></i>
+                  </a>
+                  &nbsp;&nbsp;
+                  <a href="https://github.com/BCDevExchange" analytics-on>
+                      <i class="fa fa-github fa"></i>
+                  </a>
+                  &nbsp;&nbsp;
+                  <a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>
+                      <i class="fa fa-envelope fa"></i>
+                  </a>
+                  &nbsp;&nbsp;
+                  <a href="http://blog.data.gov.bc.ca/" analytics-on>
+                      <i class="fa fa-comment fa"></i>
+                  </a>
+                  <ul class="site-footer-items">
+                      <li><a href="#/disclaimer" analytics-on>Disclaimer</a></li>
+                  </ul>
+              </div>
+              <div class="col-xs-6">
+                  <img src="img/bc-sponsor.jpg" class="pull-right"/>
+              </div>
+          </div>
+      </div>
+  </div>
+    <nav class="navbar navbar-displayBanner navbar-fixed-bottom ng-scope" ng-show="config.discoveryBanner" ng-cloak>
+      <div class="container">
+          <div class="navbar-left navbar-title-displayBanner">
+              Exploration <i class="fa fa-flask"></i> Lab
+              <button type="button" class="btn btn-info pull-right visible-xs" data-toggle="popover" data-placement="top" data-content="Under design and construction.  May change or disappear without notice. And, it may have a of couple bugs or two. <a href='https://github.com/BCDevExchange/BCDevExchange-app/issues' analytics-on>Provide us your feedback through <i class='fa fa-github'></i> GitHub!</a>"><i class="fa fa-question fa-lg"></i></button>
+          </div>
+          <div class="navbar-right">
+              <p class="navbar-text-displayBanner navbar-right hidden-xs">
+                  Under design and construction.  May change or disappear without notice.<br>
+                  And, it may have a of couple bugs or two.
+                  <strong><a href="https://github.com/BCDevExchange/BCDevExchange-app/issues" analytics-on>Provide us your feedback through <i class="fa fa-github"></i> GitHub!</a></strong>
+              </p>
+          </div>
+      </div>
+  </nav>
+
+    <script>
+      $(document).on('click','.navbar-collapse.in',function(e) {
+        if( $(e.target).is('a') ) {
+          $(this).collapse('hide');
+        }
+      });
+    </script>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
@@ -36,7 +121,8 @@
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-XXXXX-X');
+      ga('create', 'UA-58646145-1', 'auto');
+      ga('set', 'anonymizeIp', true);
       ga('send', 'pageview');
     </script>
 

@@ -1,0 +1,101 @@
+/*Files in the config directory are loaded in the following order:
+
+default.EXT
+default-{instance}.EXT
+{deployment}.EXT
+{deployment}-{instance}.EXT
+{hostname}.EXT
+{hostname}-{instance}.EXT
+{hostname}-{deployment}.EXT
+{hostname}-{deployment}-{instance}.EXT
+local.EXT
+local-{instance}.EXT
+local-{deployment}.EXT
+local-{deployment}-{instance}.EXT
+
+Where
+
+EXT can be .yml, .yaml, .coffee, .cson, .properties, .json, .json5, .hjson or .js depending on the format you prefer (see below)
+{instance} is an optional instance name string for Multi-Instance Deployments
+{hostname} is your server name, from the $HOST or $HOSTNAME environment variable or os.hostname() (in that order)
+{deployment} is the deployment name, from the $NODE_ENV environment variable
+The default.EXT file is designed to contain all configuration parameters from which other files may overwrite. Overwriting is done on a parameter by parameter basis, so subsequent files contain only the parameters unique for that override.
+
+{hostname} and {deployment} files allow you to tune configurations for a particular server or deployment. These files are designed to live along with other files in your version control system.
+
+The local files are intended to not be tracked in your version control system. External configuration management tools can write these files upon application deployment, before application loading.
+ */
+{
+  "http": {
+    "port": 6000,
+    "session": {
+      "secret": "kjaslkdjasdoiuasd87987ahldjkasj-@@(*(*)jjkhjash"
+    },
+    "serveStatic": true
+  },
+  "github": {
+    "clientID": "e8451b9d69794a98250f",
+    "clientSecret": "64a45fab0cec41d15cb312a386149b978e390f28",
+    "callbackURL": "https://lab.bcdevexchange.org/auth/github/callback"
+  },
+  "linkedin": {
+    "clientID": "75g4w5b338kf9h",
+    "clientSecret": "0fQiyfZxu8jwclJE",
+    "callbackURL": "https://lab.bcdevexchange.org/auth/linkedin/callback"
+  },
+"catalogues": [
+//    {
+//    "type": "GitHub",
+//    "name": "GitHub",
+//    "short_name": "GitHub",
+//    "tagToSearch": "BCDevExchange-Resource"
+//    },
+    {
+      "type": "GitHub-File",
+      "name": "GitHub",
+      "short_name": "GitHub",
+      "url": "repos/BCDevExchange/BCDevExchange-Resources/contents/resources.yml"
+    },
+    {
+      "type": "CKANv3",
+      "name": "City of Surrey Catalogue",
+      "short_name": "Surrey",
+      "baseUrl": "http://data.surrey.ca/api/3",
+      "baseViewUrl": "http://data.surrey.ca/dataset/",
+      "tagName": "tags",
+      "tagValue": "BCDevExchange"
+    },
+    {
+    "type": "CKANv3",
+    "name": "BC Digital Resource Catalogue",
+    "short_name": "BCDRC",
+    "baseUrl": "http://sandbox1.data.gov.bc.ca/api/3",
+    "baseViewUrl": "http://sandbox1.data.gov.bc.ca/dataset/",
+    	"tagName": "tags",
+	"tagValue": "BCDevExchange"
+    }
+    ],
+  "ui": {
+      "discoveryBanner": true,
+      "linkedinLogin": false,
+      "resourcesPage": false,
+      "projectsPage": false,
+      "peoplePage": false,
+      "programsPage": true,
+      "numbersPage": false,
+      "labLink": false,
+      "explorationContent": true,
+      "labURL": "https://ev-xchange-app-f-wa.c9.io"
+  },
+  "google_analytics": {
+    "api_email": "937373515917-sqdqgt53afe9qtov7t6toqfi51ju10bp@developer.gserviceaccount.com", // in Google Developer console (Service Account)
+    "analytics_view_id": "96468114",
+    "key_file": "/home/bcdevteam/apps/lab/gakey.pem"
+  },
+  "twitter": {
+    "consumer_key": "285SXcwhGgfXGOlDIZkA",
+    "consumer_secret": "4RSL1tcrywIxJSWa4iKEbX1zcJKEtxdJl56pvUA",
+    "access_token_key": "19158324-ffI4EU1sfhEG0X0EIpjmwNmCv2C4PVxknmLs4r2gV",
+    "access_token_secret": "muEysJvjXH9tzNjKWlYYsN0PFsng5fLDc2hMoKYBRqGLs"
+  }
+}

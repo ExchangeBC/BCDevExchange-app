@@ -1,0 +1,197 @@
+/*
+Copyright 2015 Province of British Columbia
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and limitations under the License.
+*/
+
+/*Files in the config directory are loaded in the following order:
+
+default.EXT
+default-{instance}.EXT
+{deployment}.EXT
+{deployment}-{instance}.EXT
+{hostname}.EXT
+{hostname}-{instance}.EXT
+{hostname}-{deployment}.EXT
+{hostname}-{deployment}-{instance}.EXT
+local.EXT
+local-{instance}.EXT
+local-{deployment}.EXT
+local-{deployment}-{instance}.EXT
+
+Where
+
+EXT can be .yml, .yaml, .coffee, .cson, .properties, .json, .json5, .hjson or .js depending on the format you prefer (see below)
+{instance} is an optional instance name string for Multi-Instance Deployments
+{hostname} is your server name, from the $HOST or $HOSTNAME environment variable or os.hostname() (in that order)
+{deployment} is the deployment name, from the $NODE_ENV environment variable
+The default.EXT file is designed to contain all configuration parameters from which other files may overwrite. Overwriting is done on a parameter by parameter basis, so subsequent files contain only the parameters unique for that override.
+
+{hostname} and {deployment} files allow you to tune configurations for a particular server or deployment. These files are designed to live along with other files in your version control system.
+
+The local files are intended to not be tracked in your version control system. External configuration management tools can write these files upon application deployment, before application loading.
+ */
+{
+  "node": {
+      "clusterEnabled": true,
+      "workers": 2
+  },
+  "http": {
+      "port": 8000,
+      "session": {
+          "secret": "change me in local.json"
+      },
+	  "serveStatic": false,
+      "static": {
+        "maxage": "1h"
+      },
+      "cookieOptions": {
+        "httpOnly": true,
+        "secure": true,
+        "domain": ".bcdevexchange.org"
+      }
+  },
+  "access": {
+      "admin": [
+        "5509ebed689961d420ae7086", // Greg on localhost
+        "5509ffd557cd3a30f55561a7", // Greg on prod
+        "55107ac46cf1c6bad4713f41", // Devin
+        "550c7213b57aeabb35edd9e0", // Peter
+        "5539799570244d30a26cc453", // Loren
+        "552807030c7ea51a52aea2ea", // David H
+        "552c49070c7ea51a52aea2ed", // Todd W
+        "553ab11e70244d30a26cc45f", // Paul R
+        "550b0ca2064c3ab3f556815b" // Alex
+      ]
+  },
+  "github": {
+    "clientID": "overwrite_clientID",
+    "clientSecret": "overwrite_clientSecret",
+    "callbackURL": "https://bcdevexchange.org/auth/github/callback",
+    "clientApplicationName": "BCDevExchange", // application name associated with the clientID in github settings
+    "baseURL": "https://api.github.com",
+    "name": "github",
+    "cacheMaxAge": "5" // Cache max-age in seconds
+  },
+  "linkedin": {
+    "clientID": "overwrite_clientID",
+    "clientSecret": "overwrite_clientSecret",
+    "callbackURL": "https://bcdevexchange.org/auth/linkedin/callback",
+    "clientApplicationName": "", // application name associated with the clientID in linkedin settings
+    "baseURL": "https://api.linkedin.com/v1",
+    "name": "linkedin"
+  },
+  "catalogues": [
+    {
+      "type": "CKANv3",
+      "name": "BC Data Catalogue",
+      "short_name": "BCDC",
+      "baseUrl": "http://catalogue.data.gov.bc.ca/api/3",
+      "baseViewUrl": "http://catalogue.data.gov.bc.ca/dataset/",
+      "tagName": "tags",
+      "tagValue": "BCDevExchange"
+    },
+    {
+      "type": "CKANv3",
+      "name": "City of Surrey Catalogue",
+      "short_name": "Surrey",
+      "baseUrl": "http://data.surrey.ca/api/3",
+      "baseViewUrl": "http://data.surrey.ca/dataset/",
+      //"tagName": "res_format",
+      //"tagValue": "api"
+      "tagName": "tags",
+      "tagValue": "BCDevExchange"
+    },
+    //{
+    //  "type": "GitHub",
+    //  "name": "GitHub",
+    //  "short_name": "GitHub",
+    //  "tagToSearch": "BCDevExchange-Resource"
+    //},
+    {
+      "type": "GitHub-File",
+      "name": "GitHub",
+      "short_name": "GitHub",
+      "url": "repos/BCDevExchange/BCDevExchange-Resources/contents/resources.yml"
+    }
+  ],
+  "projectLabels": [
+    {
+      "id": "helpwanted",
+      "name": "help wanted",
+      "colour": "#159818"
+    },
+    {
+      "id": "enhancement",
+      "name": "enhancement",
+      "colour": "#84b6eb"
+    },
+    {
+      "id": "question",
+      "name": "question",
+      "colour": "#cc317c"
+    }
+  ],
+  "projects": [
+    //{
+    //  "type": "github",
+    //  "url": "search/repositories",
+    //  "file": "readme",
+    //  "tag": "BCDevExchange-Project"
+    //},
+    {
+      "type": "github-file",
+      "url": "repos/BCDevExchange/BCDevExchange-Projects/contents/projects.yml"
+    }
+  ],
+  "programs": [
+    //{
+    //  "type": "github",
+    //  "url": "search/repositories",
+    //  "file": "readme",
+    //  "tag": "BCDevExchange-Project"
+    //},
+    {
+      "type": "github-file",
+      "url": "repos/BCDevExchange/BCDevExchange-Programs/contents/directory.yml"
+    }
+  ],
+  "mongodb": {
+    "connectionString": "mongodb://localhost/bcdevexchange",
+    "sessionStoreUrl": "mongodb://localhost/session-store"
+  },
+  "ui": {
+      "headerImage": "header5.jpg",
+      "headerImageLicenseHtml": "Memorial Arena in Kelowna photo by <a href='https://www.flickr.com/photos/42373177@N07/' analytics-on>Jason Drury</a>. Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/' analytics-on>CC BY-NC-SA 2.0</a>)",
+      "discoveryBanner": false,
+      "linkedinLogin": false,
+      "resourcescallbackURLage": true,
+      "resourcesPage": false,
+      "programsPage": true,
+      "projectsPage": false,
+      "peoplePage": false,
+      "numbersPage": false,
+      "labLink": true,
+      "explorationContent": true,
+      "labURL": "https://lab.bcdevexchange.org"
+  },
+  "google_analytics": {
+    "api_email": "GOOGLE_API_EMAIL", // in Google Developer console (Service Account)
+    "analytics_view_id": "GOOGLE_ANALYTICS_VIEW_ID", //in Google Analytics Console : Admin -> View -> View Settings -> View ID
+    "client_id": "UA-XXXXXXX-X"
+  },
+  "twitter": {
+    "consumer_key": "twitter_consumer_key",
+    "consumer_secret": "twitter_consumer_secret",
+    "access_token_key": "twitter_access_token_key",
+    "access_token_secret": "twitter_access_token_secret"
+  }
+}
