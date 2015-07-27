@@ -105,15 +105,6 @@
           </div>
       </div>
   </nav>
-
-    <script>
-      $(document).on('click','.navbar-collapse.in',function(e) {
-        if( $(e.target).is('a') ) {
-          $(this).collapse('hide');
-        }
-      });
-    </script>
-
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -204,5 +195,12 @@
           <script src="app/signup/signup.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->
+  <script>
+    $(document).on('click','.navbar-collapse.in',function(e) {
+      if( $(e.target).is('a') ) {
+        $(this).collapse('hide');
+      }
+    });
+  </script>
 </body>
 </html>
