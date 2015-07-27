@@ -23,7 +23,7 @@ See the License for the specific language governing permissions and limitations 
             <p><button type="button" class="btn btn-default pull-right btn-sm" ng-click="showEmaillist = ! showEmaillist">Email List</button></p>
             <p>{{people.length}} total users</p>
             <code ng-class="{ 'hidden': ! showEmaillist }" ng-repeat="person in people" ng-hide="!person.email || !person.contactPreferences.notifyMeOfAllUpdates">
-                {{person.name}} <{{person.email}}>;<br>
+                {{person.name}} &lt;{{person.email}}&gt;;<br>
             </code>
             <br>
             <ul class="resources-list list-unstyled table-bordered">
