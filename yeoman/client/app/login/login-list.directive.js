@@ -19,7 +19,7 @@ angular.module('bcdevxApp.auth')
             clazz:'@class',
             analytics: '@'
         },
-        templateUrl: 'app/login/login-list.html',
+        templateUrl: '/app/login/login-list.html',
 
 
         controller: ['$scope', '$rootScope', '$modal', 'AuthService',

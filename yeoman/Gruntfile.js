@@ -323,7 +323,8 @@ module.exports = function (grunt) {
           removeScriptTypeAttributes: true,
           removeStyleLinkTypeAttributes: true
         },
-        usemin: 'app/app.js'
+        usemin: 'app/app.js',
+        prefix: '/'
       },
       main: {
         cwd: '<%= yeoman.client %>',
@@ -473,9 +474,7 @@ module.exports = function (grunt) {
     less: {
       options: {
         paths: [
-          '<%= yeoman.client %>/bower_components',
-          '<%= yeoman.client %>/app',
-          '<%= yeoman.client %>/components'
+          '<%= yeoman.client %>/app'
         ]
       },
       server: {
