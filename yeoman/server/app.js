@@ -223,7 +223,7 @@ if (config.node.clusterEnabled &&
     if (config.http.serveStatic) {
         app.use(express.static(__dirname + '/../client', {"maxage": config.http.static.maxage}));
     }
-
+    require('./config/express')(app);
     // ====== routes ======
     require('./routes/auth')(app, db, passport);
     require('./routes/config')(app, db, passport);
