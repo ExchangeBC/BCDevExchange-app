@@ -86,118 +86,6 @@ if (config.node.clusterEnabled &&
         }
     ));
 
-    function passportStrategySetup(req, accessToken, refreshToken, extProfile, done) {
-
-        if (!req.user) {
-            // not logged in
-            // look for existing account
-
-            db.getAccountByIdentity(extProfile.id, true,
-                function (err, account) {
-                    if (err) {
-                        logger.error(err);
-                        return done(err, null);
-                    }
-
-                    if (account) {
-
-                        // Update token
-                        for (var i = 0; i < account.identities.length; i++) {
-                            if (account.identities[i].identifier === extProfile.id) {
-                                account.identities[i].accessToken = accessToken;
-                                account.identities[i].refreshToken = refreshToken;
-                            }
-                        }
-
-                        account.save(function (err) {
-                            if (err) {
-                                logger.error(err);
-                                return done(err, null);
-                            }
-
-                            account.loggedInContext = extProfile.provider;
-                            return done(null, account);
-                        });
-
-                    } else {
-                        // create a new account
-                        db.createAccount(extProfile, accessToken, refreshToken, function (err, updatedAcct) {
-                            updatedAcct.loggedInContext = extProfile.provider;
-                            return done(null, updatedAcct);
-                        });
-                    }
-
-                });
-
-        } else {
-            // logged in
-            // associate new identity to existing account
-            // or merge identities if necessary
-
-            var loggedInContext = req.user.loggedInContext;
-
-            db.getAccountById(req.user._id, false,
-                function (err, account) {
-                    if (err) {
-                        logger.error(err);
-                        return done(err, null);
-                    }
-
-                    if (account) {
-
-                        db.addIdentity(account, extProfile, accessToken, refreshToken, function (err, updatedAcct) {
-                            updatedAcct.loggedInContext = loggedInContext;
-
-
-                            // check if a different account exists associated to the identity the user just logged in with
-                            db.getAccountByIdentity(extProfile.id, true,
-                                function (err, otherAcct) {
-                                    if (err) {
-                                        logger.error(err);
-                                        return done(err, null);
-                                    }
-
-                                    if (otherAcct && otherAcct.id != updatedAcct.id) {
-                                        // need to remove this account object
-                                        var profiles = otherAcct.profiles;
-                                        otherAcct.remove(function (err, removedAcct) {
-                                            if (err) {
-                                                logger.error(err);
-                                                return done(err, null);
-                                            }
-
-                                            async.each(profiles, function (profile, callback) {
-                                                profile.remove(function (err, pr) {
-                                                    if (err) {
-                                                        callback(err);
-                                                    }
-                                                    callback();
-                                                });
-                                            }, function (err) {
-                                                if (err) {
-                                                    logger.error(err);
-                                                    return done(err, null);
-                                                }
-
-                                                return done(null, updatedAcct);
-                                            });
-
-                                        })
-
-                                    } else {
-                                        // no account found
-                                        return done(null, updatedAcct);
-                                    }
-                                });
-                        });
-
-                    } else {
-                        // this shouldn't happen
-                        // TODO return error
-                    }
-                });
-        }
-    }
 
     // Init express and put on our helmet (security protections)
     var app = express();
@@ -236,4 +124,117 @@ if (config.node.clusterEnabled &&
     app.listen(app.get('port'), function () {
         logger.info("Node app is running on port " + app.get('port'));
     });
+}
+
+function passportStrategySetup(req, accessToken, refreshToken, extProfile, done) {
+
+    if (!req.user) {
+        // not logged in
+        // look for existing account
+
+        db.getAccountByIdentity(extProfile.id, true,
+            function (err, account) {
+                if (err) {
+                    logger.error(err);
+                    return done(err, null);
+                }
+
+                if (account) {
+
+                    // Update token
+                    for (var i = 0; i < account.identities.length; i++) {
+                        if (account.identities[i].identifier === extProfile.id) {
+                            account.identities[i].accessToken = accessToken;
+                            account.identities[i].refreshToken = refreshToken;
+                        }
+                    }
+
+                    account.save(function (err) {
+                        if (err) {
+                            logger.error(err);
+                            return done(err, null);
+                        }
+
+                        account.loggedInContext = extProfile.provider;
+                        return done(null, account);
+                    });
+
+                } else {
+                    // create a new account
+                    db.createAccount(extProfile, accessToken, refreshToken, function (err, updatedAcct) {
+                        updatedAcct.loggedInContext = extProfile.provider;
+                        return done(null, updatedAcct);
+                    });
+                }
+
+            });
+
+    } else {
+        // logged in
+        // associate new identity to existing account
+        // or merge identities if necessary
+
+        var loggedInContext = req.user.loggedInContext;
+
+        db.getAccountById(req.user._id, false,
+            function (err, account) {
+                if (err) {
+                    logger.error(err);
+                    return done(err, null);
+                }
+
+                if (account) {
+
+                    db.addIdentity(account, extProfile, accessToken, refreshToken, function (err, updatedAcct) {
+                        updatedAcct.loggedInContext = loggedInContext;
+
+
+                        // check if a different account exists associated to the identity the user just logged in with
+                        db.getAccountByIdentity(extProfile.id, true,
+                            function (err, otherAcct) {
+                                if (err) {
+                                    logger.error(err);
+                                    return done(err, null);
+                                }
+
+                                if (otherAcct && otherAcct.id !== updatedAcct.id) {
+                                    // need to remove this account object
+                                    var profiles = otherAcct.profiles;
+                                    otherAcct.remove(function (err, removedAcct) {
+                                        if (err) {
+                                            logger.error(err);
+                                            return done(err, null);
+                                        }
+
+                                        async.each(profiles, function (profile, callback) {
+                                            profile.remove(function (err, pr) {
+                                                if (err) {
+                                                    callback(err);
+                                                }
+                                                callback();
+                                            });
+                                        }, function (err) {
+                                            if (err) {
+                                                logger.error(err);
+                                                return done(err, null);
+                                            }
+
+                                            return done(null, updatedAcct);
+                                        });
+
+                                    })
+
+                                } else {
+                                    // no account found
+                                    return done(null, updatedAcct);
+                                }
+                            });
+                    });
+
+                } else {
+                    // this shouldn't happen
+                    // TODO return error
+                }
+            });
+    }
 }

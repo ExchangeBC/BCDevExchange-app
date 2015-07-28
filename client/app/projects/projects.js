@@ -12,6 +12,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
+'use strict';
 angular.module('bcdevxApp.projects', ['ngRoute',  'ngResource'])
 .config(['$routeProvider', function($routeProvider) {
 }])
@@ -33,11 +34,11 @@ angular.module('bcdevxApp.projects', ['ngRoute',  'ngResource'])
     $scope.alerts = [];
 
     $scope.startSpin = function(){
-        usSpinnerService.spin("spinner-1");
+        usSpinnerService.spin('spinner-1');
     };
 
     $scope.stopSpin = function(){
-        usSpinnerService.stop("spinner-1");
+        usSpinnerService.stop('spinner-1');
     };
 
     var projectListDeferred = $q.defer();
@@ -48,20 +49,20 @@ angular.module('bcdevxApp.projects', ['ngRoute',  'ngResource'])
 
     projectPromise.then(
         function(value){
-            usSpinnerService.stop("spinner-projects");
+            usSpinnerService.stop('spinner-projects');
         }
     );
 
     sourcePromise.then(
         function(value){
-            usSpinnerService.stop("spinner-sources");
+            usSpinnerService.stop('spinner-sources');
         }
     );
 
     ProjectListService.get({}, function(data) {
 
         $scope.projects = data.projects;
-        projectListDeferred.resolve("resource list length: " + data.projects.length);
+        projectListDeferred.resolve('resource list length: ' + data.projects.length);
         $scope.projectsLoaded = true;
 
         angular.forEach($scope.projects, function (project, key) {
@@ -70,13 +71,13 @@ angular.module('bcdevxApp.projects', ['ngRoute',  'ngResource'])
 
                 // flatten model for angularjs sort
                 angular.forEach($scope.projects[key].issues, function (issue, issueKey) {
-                    $scope.projects[key]["_count_" + issue.id] = issue.count;
+                    $scope.projects[key]['_count_' + issue.id] = issue.count;
                 });
             });
         });
     }, function(error) {
         $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + error.config.url + '</strong>.' });
-        projectListDeferred.resolve("error retrieving projects for  " + error.config.url);
+        projectListDeferred.resolve('error retrieving projects for  ' + error.config.url);
         $scope.projectsLoaded = true;
     });
 }])

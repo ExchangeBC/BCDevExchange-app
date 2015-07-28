@@ -12,6 +12,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
+'use strict';
 angular.module('bcdevxApp.programs')
 .factory('ProgramListService', ['$resource', function($resource) {
     return $resource('/programs');
@@ -28,11 +29,11 @@ angular.module('bcdevxApp.programs')
     $scope.alerts = [];
 
     $scope.startSpin = function(){
-        usSpinnerService.spin("spinner-1");
+        usSpinnerService.spin('spinner-1');
     };
 
     $scope.stopSpin = function(){
-        usSpinnerService.stop("spinner-1");
+        usSpinnerService.stop('spinner-1');
     };
 
     var programListDeferred = $q.defer();
@@ -43,25 +44,25 @@ angular.module('bcdevxApp.programs')
 
     programPromise.then(
         function(value){
-            usSpinnerService.stop("spinner-programs");
+            usSpinnerService.stop('spinner-programs');
         }
     );
 
     sourcePromise.then(
         function(value){
-            usSpinnerService.stop("spinner-sources");
+            usSpinnerService.stop('spinner-sources');
         }
     );
 
     ProgramListService.get({}, function(data) {
 
         $scope.programs = data.programs;
-        programListDeferred.resolve("resource list length: " + data.programs.length);
+        programListDeferred.resolve('resource list length: ' + data.programs.length);
         $scope.programsLoaded = true;
 
     }, function(error) {
         $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + error.config.url + '</strong>.' });
-        programListDeferred.resolve("error retrieving programs for  " + error.config.url);
+        programListDeferred.resolve('error retrieving programs for  ' + error.config.url);
         $scope.programsLoaded = true;
     });
 }]);

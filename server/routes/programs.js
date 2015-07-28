@@ -21,6 +21,30 @@ var crypto = require('crypto');
 var clone = require('clone');
 var merge = require('merge');
 
+var getProgramsFromArray = function (programList, success, error) {
+    async.concat(programList, getPrograms, function (err, results) {
+        if (err) error(err);
+        else {
+
+            // filter out invisible
+            for (var i = 0; i < results.length; i++) {
+                var program = results[i];
+                if (program.visible !== "yes" &&
+                    program.visible !== "y" &&
+                    program.visible !== "true") {
+
+                    // remove from result
+                    results.splice(i, 1);
+
+                    // decrement the counter
+                    i--;
+                }
+            }
+            success(results);
+        }
+    });
+};
+
 module.exports = function(app, db, passport) {
 
     app.get('/programs/', function (req, res) {
@@ -42,33 +66,9 @@ module.exports = function(app, db, passport) {
     });
 };
 
-var getProgramsFromArray = function (programList, success, error) {
-    async.concat(programList, getPrograms, function (err, results) {
-        if (err) error(err);
-        else {
-
-            // filter out invisible
-            for (var i = 0; i < results.length; i++) {
-                var program = results[i];
-                if (program.visible != "yes" &&
-                    program.visible != "y" &&
-                    program.visible != "true") {
-
-                    // remove from result
-                    results.splice(i, 1);
-
-                    // decrement the counter
-                    i--;
-                }
-            }
-            success(results);
-        }
-    });
-};
-
 function getPrograms(program, callback) {
 
-    if (program.type == "github-file") {
+    if (program.type === "github-file") {
         getGitHubFileProgram(program, callback);
     }
     else {
@@ -78,7 +78,7 @@ function getPrograms(program, callback) {
 }
 
 function getGitHubFileProgram(ghConfig, callback) {
-    options = {
+    var options = {
         url: 'https://api.github.com/' + ghConfig.url + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
         headers: {
             'User-Agent': config.github.clientApplicationName
@@ -87,7 +87,7 @@ function getGitHubFileProgram(ghConfig, callback) {
     request(options, function (error, response, body) {
         if (!error &&
             typeof response !== 'undefined' &&
-            response.statusCode == 200) {
+            response.statusCode === 200) {
 
             // parse out the yaml from content block
             var json = JSON.parse(body);
@@ -140,14 +140,14 @@ function getProgramDetails (title, callback) {
     // First get the directory to figure out what repo it is
     getGitHubFileProgram(config.programs[0], function (error, result) {
         if (error) {
-            logger.error('Error while fetching GitHub content: %s; response: %s; body: %s', error, response, body);
+            logger.error('Error while fetching GitHub content: %s', error);
             return callback(error);
         }
 
         // find entry in the result
         var program;
         for (var k in result) {
-            if (result[k].title.toUpperCase() == title.toUpperCase()) {
+            if (result[k].title.toUpperCase() === title.toUpperCase()) {
                 program = result[k];
                 break;
             }
@@ -162,7 +162,7 @@ function getProgramDetails (title, callback) {
         }
 
         // Call github for file contents
-        options = {
+        var options = {
             url: 'https://api.github.com/repos/' + program.url + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
             headers: {
                 'User-Agent': config.github.clientApplicationName
@@ -171,7 +171,7 @@ function getProgramDetails (title, callback) {
         request(options, function (error, response, body) {
             if (!error &&
                 typeof response !== 'undefined' &&
-                response.statusCode == 200) {
+                response.statusCode === 200) {
 
                 // parse out the yaml from content block
                 var json = JSON.parse(body);

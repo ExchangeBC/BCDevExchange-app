@@ -25,7 +25,7 @@ module.exports = function(app, db, passport) {
         var admins = config.access.admin;
         var granted = false;
         for (var i = 0; i < admins.length; i++) {
-            if (req.user._id == admins[i]) {
+            if (req.user._id === admins[i]) {
                 granted = true;
             }
         }
@@ -58,7 +58,7 @@ function getGitHubUser(account, callback) {
 
     if (!accessToken) return callback("Missing access token.");
 
-    options = {
+    var options = {
         url: 'https://api.github.com/user?access_token=' + accessToken + "&client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
         headers: {
             'User-Agent': config.github.clientApplicationName
@@ -67,7 +67,7 @@ function getGitHubUser(account, callback) {
     request(options, function (error, response, body) {
         if (!error &&
             typeof response !== 'undefined' &&
-            response.statusCode == 200) {
+            response.statusCode === 200) {
 
             // parse out the yaml from content block
             var json = JSON.parse(body);
@@ -106,7 +106,7 @@ function getGitHubUserEmails(accessToken, callback) {
 
     if (!accessToken) return callback("Missing access token.");
 
-    options = {
+    var options = {
         url: 'https://api.github.com/user/emails?access_token=' + accessToken + "&client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
         headers: {
             'User-Agent': config.github.clientApplicationName
@@ -115,7 +115,7 @@ function getGitHubUserEmails(accessToken, callback) {
     request(options, function (error, response, body) {
         if (!error &&
             typeof response !== 'undefined' &&
-            response.statusCode == 200) {
+            response.statusCode === 200) {
 
             // parse out the yaml from content block
             var json = JSON.parse(body);
