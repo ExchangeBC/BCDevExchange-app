@@ -9,3 +9,4 @@ mongod
 data/
 /config/local.json
 npm-debug.log
+/log

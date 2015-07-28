@@ -11,7 +11,7 @@
 
 #!/bin/bash
 cwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-APPLICATION_PATH=$cwd"/server.js"
+APPLICATION_PATH=$cwd"/dist/server/app.js"
 LOG=$cwd"/log/forever.log"
 STDOUT=$cwd"/log/stdout.log"
 STDERR=$cwd"/log/stderr.log"
