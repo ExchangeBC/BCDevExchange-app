@@ -19,6 +19,7 @@
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
+      <link rel="stylesheet" href="app/custom.css">
       <link rel="stylesheet" href="app/style.css">
       <!-- endinjector -->
     <!-- endbuild -->
@@ -31,36 +32,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a href="#/home" class="navbar-brand" analytics-on>BCDevExchange</a>
-            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse" id="navbar-main">
-            <ul class='nav navbar-nav navbar-left'>
-                <li ng-show="config.resourcesPage" ng-cloak><a href="#/resources"  ng-cloak analytics-on>Resources</a></li>
-                <li ng-show="config.projectsPage" ng-cloak><a href="#/projects"  ng-cloak analytics-on>Projects</a></li>
-                <li ng-show="config.programsPage" ng-cloak><a href="#/programs"  ng-cloak analytics-on>Profiles</a></li>
-                <li ng-show="config.peoplePage" ng-cloak><a href="#/people"  ng-cloak analytics-on>People</a></li>
-                <li ng-show="config.numbersPage" ng-cloak><a href="#/numbers" ng-cloak analytics-on>Numbers</a></li>
-                <li class="dropdown">
-                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Community <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li ng-cloak><a href="http://blog.data.gov.bc.ca/" ng-cloak analytics-on>Blog</a></li>
-                    <li ng-cloak><a href="https://www.linkedin.com/grp/home?gid=8316252" ng-cloak analytics-on>Community</a></li>
-                    <li ng-cloak><a href="#/signup" ng-cloak analytics-on>Sign Up</a></li>
-                  </ul>
-                </li>
-            </ul>
-            <devx-login-list class="nav navbar-nav navbar-right"></devx-login-list>
-        </div>
-    </div>
-</div>
+    <div ng-include="'/app/header/header.html'"></div>
     <div ng-view autoscroll="true"></div>
     <div class="site-footer" ng-cloak>
       <div class="container">
@@ -171,6 +143,8 @@
       <script src="bower_components/fitvids/jquery.fitvids.js"></script>
       <script src="bower_components/raf.js/raf.js"></script>
       <script src="bower_components/smoothscroll/dist/smoothscroll.js"></script>
+      <script src="bower_components/requirejs/require.js"></script>
+      <script src="bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
 
@@ -182,7 +156,6 @@
           <script src="app/disclaimer/disclaimer.js"></script>
           <script src="app/home/home.js"></script>
           <script src="app/js/TweenMax.js"></script>
-          <script src="app/js/modernizr-custom.js"></script>
           <script src="app/lab/lab.js"></script>
           <script src="app/login/auth.js"></script>
           <script src="app/login/login-list.directive.js"></script>
