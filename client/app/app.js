@@ -186,8 +186,3 @@ function extendDeep(dst) {
     );
     return dst;
 }
-
-// Init all popovers
-$(function () {
-    $('[data-toggle="popover"]').popover({html:true});
-});
