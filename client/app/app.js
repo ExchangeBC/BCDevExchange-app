@@ -131,6 +131,10 @@ app.config(['$routeProvider', '$httpProvider',
             templateUrl:'/app/programs/edit-programs.html',
             controller: 'ProgramsEditCtrl as vm'
         })
+        .when('/programs/BC Laws',{
+            templateUrl: '/app/programs/wp-view-program.html',
+            controller:'ViewProgramCtrl as vm'
+        })
         .when('/programs/:programName',{
             templateUrl: '/app/programs/view-program.html',
             controller:'ViewProgramCtrl as vm'
