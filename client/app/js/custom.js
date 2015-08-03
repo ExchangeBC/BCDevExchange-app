@@ -2994,10 +2994,8 @@ var wpCustomFn = function($){
 			et_fix_video_wmode('.fluid-width-video-wrapper');
 
 			et_fix_slider_height();
-		} );
 
-		$( window ).load( function(){
-			if ( et_is_fixed_nav ) {
+            if ( et_is_fixed_nav ) {
 				et_calculate_header_values();
 				et_fix_page_container_position();
 			}
