@@ -26,17 +26,18 @@
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   </head>
-  <body ng-app="bcdevxApp" class="et_pb_button_helper_class et_fullwidth_nav et_fixed_nav et_show_nav et_hide_primary_logo et_pb_gutter windows et_pb_gutters3 et_primary_nav_dropdown_animation_fade et_secondary_nav_dropdown_animation_fade et_pb_footer_columns4 et_header_style_centered et_pb_pagebuilder_layout et_right_sidebar chrome">
+  <body ng-app="bcdevxApp" ng-controller='bcdevController' class="et_pb_button_helper_class et_fullwidth_nav et_fixed_nav et_show_nav et_hide_primary_logo et_pb_gutter windows et_pb_gutters3 et_primary_nav_dropdown_animation_fade et_secondary_nav_dropdown_animation_fade et_pb_footer_columns4 et_header_style_centered et_pb_pagebuilder_layout et_right_sidebar chrome">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
     <div id="page-container">
-      <div ng-include="'/app/header/header.html'"></div>
+      <div notify-load='header' ng-include="'/app/header/header.html'"></div>
       <div id="et-main-area">
-        <div  id="main-content" ng-view autoscroll="true"></div>
-        <div ng-include="'/app/footer/footer.html'"></div>
+        <div  notify-load='mainContent' id="main-content" ng-view autoscroll="true"></div>
+        <span class="et_pb_scroll_top et-pb-icon"></span>
+        <div  notify-load='footer' ng-include="'/app/footer/footer.html'"></div>
       </div>
     </div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

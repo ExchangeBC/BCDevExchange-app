@@ -1,4 +1,4 @@
-(function($){
+var wpCustomFn = function($){
 	jQuery.fn.reverse = [].reverse;
 	$.et_pb_simple_slider = function(el, options) {
 		var settings = $.extend( {
@@ -3466,4 +3466,4 @@
 			$('body').addClass( 'parallax-map-support' );
 		}
 	} );
-})(jQuery)
+}

@@ -50,143 +50,170 @@ app.value('duScrollGreedy', true);
 app.value('duScrollOffset', 80);
 
 app.config(['$routeProvider', '$httpProvider',
-    function($routeProvider, $httpProvider) {
+    function ($routeProvider, $httpProvider) {
 
 
     // check if user is connected
-    var checkLoggedIn = function($q, $timeout, $location, AccountService, $modal) {
-        var deferred = $q.defer();
-        var promise = AccountService.getCurrentAccount();
+    var checkLoggedIn = function ($q, $timeout, $location, AccountService, $modal) {
+      var deferred = $q.defer();
+      var promise = AccountService.getCurrentAccount();
 
-        promise.then(
-            function(data){
-                    deferred.resolve(data);
-            },
-            function(data){
-                //console.log('Did not find logged-in user');
-                //var modalInstance = $modal.open({
-                //    templateUrl: 'login/login.html',
-                //    controller: 'LoginModalCtrl'
-                //});
-                deferred.reject(data);
-            }
-        );
+      promise.then(
+        function (data) {
+          deferred.resolve(data);
+        },
+        function (data) {
+          //console.log('Did not find logged-in user');
+          //var modalInstance = $modal.open({
+          //    templateUrl: 'login/login.html',
+          //    controller: 'LoginModalCtrl'
+          //});
+          deferred.reject(data);
+        }
+      );
 
-        return deferred.promise;
+      return deferred.promise;
     };
 
     $routeProvider
-        .when('/home', {
-            templateUrl: '/app/home/home.html',
-            controller: 'HomeCtrl'
-        })
-        .when('/signup', {
-            templateUrl: '/app/signup/signup.html',
-            controller: 'SignupCtrl'
-        })
-        .when('/account', {
-            templateUrl: '/app/account/account.html',
-            controller: 'AccountCtrl',
-            resolve: {
-                currentUser: checkLoggedIn
-            }
-        })
-        .when('/lab', {
-            templateUrl: '/app/lab/lab.html',
-            controller: 'LabCtrl'
-        })
-        .when('/resources', {
-            templateUrl: '/app/resources/resources.html',
-            controller: 'ResourcesCtrl'
-        })
-        .when('/resources/register', {
-            templateUrl: '/app/resources/register.html',
-            controller: 'ResourcesRegisterController'
-        })
-        .when('/programs', {
-            templateUrl: '/app/programs/programs.html',
-            controller: 'ProgramsCtrl'
-        })
-        .when('/projects', {
-            templateUrl: '/app/projects/projects.html',
-            controller: 'ProjectsCtrl'
-        })
-        .when('/projects/register', {
-            templateUrl: '/app/projects/register.html',
-            controller: 'ProjectsRegisterController'
-        })
-        .when('/people', {
-            templateUrl: '/app/people/people.html',
-            controller: 'PeopleCtrl'
-        })
-        .when('/disclaimer', {
-            templateUrl: '/app/disclaimer/disclaimer.html',
-            controller: 'DisclaimerCtrl'
-        })
-        .when('/numbers', {
-            templateUrl: '/app/numbers/numbers.html',
-            controller: 'NumbersCtrl'
-        })
-        .when('/programs/edit',{
-            templateUrl:'/app/programs/edit-programs.html',
-            controller: 'ProgramsEditCtrl as vm'
-        })
-        .when('/programs/BC Laws',{
-            templateUrl: '/app/programs/wp-view-program.html',
-            controller:'ViewProgramCtrl as vm'
-        })
-        .when('/programs/:programName',{
-            templateUrl: '/app/programs/view-program.html',
-            controller:'ViewProgramCtrl as vm'
-        })
-        .otherwise({redirectTo: '/home'});
+      .when('/home', {
+        templateUrl: '/app/home/home.html',
+        controller: 'HomeCtrl'
+      })
+      .when('/signup', {
+        templateUrl: '/app/signup/signup.html',
+        controller: 'SignupCtrl'
+      })
+      .when('/account', {
+        templateUrl: '/app/account/account.html',
+        controller: 'AccountCtrl',
+        resolve: {
+          currentUser: checkLoggedIn
+        }
+      })
+      .when('/lab', {
+        templateUrl: '/app/lab/lab.html',
+        controller: 'LabCtrl'
+      })
+      .when('/resources', {
+        templateUrl: '/app/resources/resources.html',
+        controller: 'ResourcesCtrl'
+      })
+      .when('/resources/register', {
+        templateUrl: '/app/resources/register.html',
+        controller: 'ResourcesRegisterController'
+      })
+      .when('/programs', {
+        templateUrl: '/app/programs/programs.html',
+        controller: 'ProgramsCtrl'
+      })
+      .when('/projects', {
+        templateUrl: '/app/projects/projects.html',
+        controller: 'ProjectsCtrl'
+      })
+      .when('/projects/register', {
+        templateUrl: '/app/projects/register.html',
+        controller: 'ProjectsRegisterController'
+      })
+      .when('/people', {
+        templateUrl: '/app/people/people.html',
+        controller: 'PeopleCtrl'
+      })
+      .when('/disclaimer', {
+        templateUrl: '/app/disclaimer/disclaimer.html',
+        controller: 'DisclaimerCtrl'
+      })
+      .when('/numbers', {
+        templateUrl: '/app/numbers/numbers.html',
+        controller: 'NumbersCtrl'
+      })
+      .when('/programs/edit', {
+        templateUrl: '/app/programs/edit-programs.html',
+        controller: 'ProgramsEditCtrl as vm'
+      })
+      .when('/programs/BC Laws', {
+        templateUrl: '/app/programs/wp-view-program.html',
+        controller: 'ViewProgramCtrl as vm'
+      })
+      .when('/programs/:programName', {
+        templateUrl: '/app/programs/view-program.html',
+        controller: 'ViewProgramCtrl as vm'
+      })
+      .otherwise({
+        redirectTo: '/home'
+      });
 
     // add an interceptor for AJAX errors
-    $httpProvider.interceptors.push(function($q, $location, $log) {
-        return {
-            // optional method
-            'responseError': function (rejection) {
-                // do something on error
-                if (rejection.status === 401) {
-                    $location.url('/home');
-                }else if(rejection.status === 0){
-                    //console.log('Bummer, looks like you hit a network connection error, please check your internet connection or make sure the server is running.');
-                }
-                return $q.reject(rejection);
-            }
-        };
+    $httpProvider.interceptors.push(function ($q, $location, $log) {
+      return {
+        // optional method
+        'responseError': function (rejection) {
+          // do something on error
+          if (rejection.status === 401) {
+            $location.url('/home');
+          } else if (rejection.status === 0) {
+            //console.log('Bummer, looks like you hit a network connection error, please check your internet connection or make sure the server is running.');
+          }
+          return $q.reject(rejection);
+        }
+      };
     });
 
 }]);
 
-app.config(['usSpinnerConfigProvider', function(usSpinnerConfigProvider) {
-    usSpinnerConfigProvider.setDefaults({color: 'darkturquoise'});
+app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
+  usSpinnerConfigProvider.setDefaults({
+    color: 'darkturquoise'
+  });
 }]);
 
-app.run(function($rootScope, $http) {
-    // Add config to ALL scopes, only makes sense instead of passing in everywhere
-    $http.get('/config').
-        success(function(data, status, headers, config) {
-            $rootScope.config = data;
-        });
+app.run(function ($rootScope, $http) {
+  // Add config to ALL scopes, only makes sense instead of passing in everywhere
+  $http.get('/config').
+  success(function (data, status, headers, config) {
+    $rootScope.config = data;
+  });
 });
 
 // Common functions for AngularJS
 function extendDeep(dst) {
-    angular.forEach(arguments, function (obj) {
-            if (obj !== dst) {
-                angular.forEach(obj, function (value, key) {
-                        if (dst[key] && dst[key].constructor && dst[key].constructor === Object) {
-                            extendDeep(dst[key], value);
-                        } else if (dst[key] && dst[key].constructor && dst[key].constructor === Array) {
-                            dst[key].concat(value);
-                        } else if(!angular.isFunction(dst[key])) {
-                            dst[key] = value;
-                        }
-                    }
-                );
-            }
+  angular.forEach(arguments, function (obj) {
+    if (obj !== dst) {
+      angular.forEach(obj, function (value, key) {
+        if (dst[key] && dst[key].constructor && dst[key].constructor === Object) {
+          extendDeep(dst[key], value);
+        } else if (dst[key] && dst[key].constructor && dst[key].constructor === Array) {
+          dst[key].concat(value);
+        } else if (!angular.isFunction(dst[key])) {
+          dst[key] = value;
         }
-    );
-    return dst;
+      });
+    }
+  });
+  return dst;
 }
+
+app.controller('bcdevController', ['$scope', function ($scope) {
+  $scope.domsLoaded = {
+    'header': false,
+    'footer': false,
+    'mainContent': false
+  }
+  $scope.notifyLoad = function (nm) {
+    $scope.domsLoaded[nm] = true
+    for (var property in $scope.domsLoaded) {
+      if ($scope.domsLoaded.hasOwnProperty(property)) {
+        if (!$scope.domsLoaded[property]) return
+      }
+    }
+    wpCustomFn($)
+  }
+}])
+app.directive('notifyLoad', function () {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
+      scope.notifyLoad(attrs['notifyLoad'])
+    }
+  }
+})
