@@ -51,11 +51,11 @@ article, aside, footer, header, hgroup, nav, section { display: block; }
 
 @font-face {
 	font-family: 'ETmodules';
-	src:url('includes/builder/fonts/ETmodules_v2_4.eot');
-	src:url('includes/builder/fonts/ETmodules_v2_4.eot?#iefix') format('embedded-opentype'),
-		url('includes/builder/fonts/ETmodules_v2_4.ttf') format('truetype'),
-		url('includes/builder/fonts/ETmodules_v2_4.woff') format('woff'),
-		url('includes/builder/fonts/ETmodules_v2_4.svg#ETmodules') format('svg');
+	src:url('../assets/fonts/ETmodules_v2_4.eot');
+	src:url('../assets/fonts/ETmodules_v2_4.eot?#iefix') format('embedded-opentype'),
+		url('../assets/fonts/ETmodules_v2_4.ttf') format('truetype'),
+		url('../assets/fonts/ETmodules_v2_4.woff') format('woff'),
+		url('../assets/fonts/ETmodules_v2_4.svg#ETmodules') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

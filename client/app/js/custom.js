@@ -1007,7 +1007,7 @@ var wpCustomFn = function($){
 			} );
 		}
 
-		$et_pb_carousel  = $( '.et_pb_carousel' );
+		var $et_pb_carousel  = $( '.et_pb_carousel' );
 		if ( $et_pb_carousel.length ) {
 			$et_pb_carousel.each( function() {
 				var $this_carousel = $(this),
@@ -3464,4 +3464,4 @@ var wpCustomFn = function($){
 			$('body').addClass( 'parallax-map-support' );
 		}
 	} );
-}
+};

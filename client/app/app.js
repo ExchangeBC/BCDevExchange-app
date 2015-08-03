@@ -206,7 +206,7 @@ app.controller('bcdevController', ['$scope', function ($scope) {
         if (!$scope.domsLoaded[property]) return
       }
     }
-    wpCustomFn($)
+    wpCustomFn && wpCustomFn(jQuery)
   }
 }])
 app.directive('notifyLoad', function () {
