@@ -3299,9 +3299,9 @@ var wpCustomFn = function ($) {
     }
 
     if ($et_pb_number_counter.length) {
+      $et_pb_number_counter.trigger('resize.waypoints');
       $et_pb_number_counter.each(function () {
         var $this_counter = $(this);
-        $this_counter.trigger('resize.waypoints');
         $this_counter.waypoint({
           offset: '75%',
           handler: function () {
