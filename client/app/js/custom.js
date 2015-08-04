@@ -1,4 +1,3 @@
-'use strict'
 /* jshint ignore:start */
 var wpCustomFn = function ($) {
   jQuery.fn.reverse = [].reverse;
