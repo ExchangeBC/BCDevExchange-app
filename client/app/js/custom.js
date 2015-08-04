@@ -1,3 +1,5 @@
+'use strict'
+/* jshint ignore:start */
 var wpCustomFn = function ($) {
   jQuery.fn.reverse = [].reverse;
   $.et_pb_simple_slider = function (el, options) {
@@ -45,7 +47,7 @@ var wpCustomFn = function ($) {
 
     $et_slider.et_animation_running = false;
 
-    $.data(el, "et_pb_simple_slider", $et_slider);
+    $.data(el, 'et_pb_simple_slider', $et_slider);
 
     $et_slide.eq(0).addClass('et-pb-active-slide');
 
@@ -3653,3 +3655,4 @@ var wpCustomFn = function ($) {
     $('body').addClass('parallax-map-support');
   }
 };
+/* jshint ignore:end */

@@ -203,7 +203,7 @@ app.controller('bcdevController', ['$scope', function ($scope) {
     $scope.domsLoaded[nm] = true
     for (var property in $scope.domsLoaded) {
       if ($scope.domsLoaded.hasOwnProperty(property)) {
-        if (!$scope.domsLoaded[property]) return
+        if (!$scope.domsLoaded[property]) {return}
       }
     }
     wpCustomFn && wpCustomFn(jQuery)
@@ -213,7 +213,7 @@ app.directive('notifyLoad', function () {
   return {
     restrict: 'A',
     link: function (scope, element, attrs) {
-      scope.notifyLoad(attrs['notifyLoad'])
+      scope.notifyLoad(attrs.notifyLoad)
     }
   }
 })
