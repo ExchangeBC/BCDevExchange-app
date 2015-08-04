@@ -844,7 +844,6 @@ var wpCustomFn = function($){
 		$et_top_navigation = $('#et-top-navigation'),
 		$logo = $('#logo');
 
-	$(document).ready( function(){
 		var $et_top_menu = $( 'ul.nav' ),
 			$et_search_icon = $( '#et_search_icon' );
 
@@ -2066,6 +2065,7 @@ var wpCustomFn = function($){
 		if ( $et_pb_number_counter.length ) {
 			$et_pb_number_counter.each(function(){
 				var $this_counter = $(this);
+                $this_counter.removeData('easyPieChart' );
 				$this_counter.easyPieChart({
 					easing: 'easeInOutCirc',
 					animate: {
@@ -2984,7 +2984,6 @@ var wpCustomFn = function($){
 			et_fix_testimonial_inner_width();
 		} );
 
-		$( window ).ready( function(){
 			if ( $.fn.fitVids ) {
 				$( '.et_pb_slide_video' ).fitVids();
 
@@ -3121,10 +3120,11 @@ var wpCustomFn = function($){
 				if ( $et_pb_number_counter.length ) {
 					$et_pb_number_counter.each(function(){
 						var $this_counter = $(this);
+                        $this_counter.trigger('resize.waypoints');
 						$this_counter.waypoint({
 							offset: '75%',
 							handler: function() {
-								$this_counter.data('easyPieChart').update( $this_counter.data('number-value') );
+								$this_counter.data('easyPieChart') && $this_counter.data('easyPieChart').update( $this_counter.data('number-value') );
 							}
 						});
 					});
@@ -3223,7 +3223,6 @@ var wpCustomFn = function($){
 				}
 			}
 
-		} );
 
 		function et_pb_smooth_scroll( $target, $top_section, speed, easing ) {
 			var $window_width = $( window ).width();
@@ -3463,5 +3462,4 @@ var wpCustomFn = function($){
 		if ( $('.et_pb_section_parallax').length && $('.et_pb_map').length ) {
 			$('body').addClass( 'parallax-map-support' );
 		}
-	} );
 };
