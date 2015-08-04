@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and limitations 
 */
 'use strict';
 angular.module('bcdevxApp.services', [])
-.factory('AccountService', ['$resource', '$q', '$log', function($resource, $q, $log) {
+.factory('AccountService', ['$resource', '$q', function($resource, $q) {
     var accountService = this;
     var accountUrl = '/account';
     var accountCheckUrl = '/accountCheck';
