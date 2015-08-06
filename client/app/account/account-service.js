@@ -11,9 +11,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
-
+'use strict';
 angular.module('bcdevxApp.services', [])
-.factory('AccountService', ['$resource', '$q', '$log', function($resource, $q, $log) {
+.factory('AccountService', ['$resource', '$q', function($resource, $q) {
     var accountService = this;
     var accountUrl = '/account';
     var accountCheckUrl = '/accountCheck';

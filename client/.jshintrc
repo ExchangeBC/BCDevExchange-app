@@ -3,7 +3,7 @@
   "browser": true,
   "esnext": true,
   "bitwise": true,
-  "camelcase": true,
+  "camelcase": false,
   "curly": true,
   "eqeqeq": true,
   "immed": true,
@@ -18,6 +18,8 @@
   "strict": true,
   "trailing": true,
   "smarttabs": true,
+  "asi": true,
+  "expr": true,
   "globals": {
     "jQuery": true,
     "angular": true,

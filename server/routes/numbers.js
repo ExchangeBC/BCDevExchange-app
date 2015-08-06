@@ -26,21 +26,21 @@ module.exports = function(app, db, passport) {
     app.get('/numbers/:source?', function (req, res) {
 
         if (req.params.source) {
-            if (req.params.source == 'resources') {
+            if (req.params.source === 'resources') {
                 resources.getResourcesFromArray(config.catalogues, function (result) {
                     res.send({"resources": result.length});
                 }, function (error) {
                     res.status(500);
                 });
             }
-            else if (req.params.source == 'projects') {
+            else if (req.params.source === 'projects') {
                 projects.getProjectsFromArray(config.projects, function (result) {
                     res.send({"projects": result.length});
                 }, function (error) {
                     res.status(500);
                 });
             }
-            else if (req.params.source == 'accounts') {
+            else if (req.params.source === 'accounts') {
                 db.countGitHubAccounts(function (err, result) {
                     if (err) {
                         res.status(500);
@@ -79,7 +79,7 @@ module.exports = function(app, db, passport) {
                     getGithubOrgData('BCGov', callback);
                 },
                 bcdevx_latest: function(callback) {
-                    options = {
+                    var options = {
                         url: "https://api.github.com/orgs/BCDevExchange/events?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
                         headers: {
                             'User-Agent': config.github.clientApplicationName
@@ -100,7 +100,7 @@ module.exports = function(app, db, passport) {
                  }*/
                 },
                 bcgov_latest: function(callback) {
-                    options = {
+                    var options = {
                         url: "https://api.github.com/orgs/bcgov/events?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
                         headers: {
                             'User-Agent': config.github.clientApplicationName
@@ -158,7 +158,7 @@ module.exports = function(app, db, passport) {
 };
 
 function getGithubOrgData(org, callback) {
-    options = {
+    var options = {
         url: "https://api.github.com/orgs/" + org + "/repos?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
         headers: {
             'User-Agent': config.github.clientApplicationName

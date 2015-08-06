@@ -45,16 +45,16 @@ module.exports = function(app, db, passport) {
 
                 var options = {};
                 var authContext = req.user.loggedInContext;
-                if (authContext == config.github.name) {
+                if (authContext === config.github.name) {
                     options = {
                         url: config.github.baseURL + '/user',
                         headers: {
                             'User-Agent': config.github.clientApplicationName
                         }
                     };
-                } else if (authContext == config.linkedin.name) {
-                    baseURL = config.linkedin.baseURL;
-                    appName = config.linkedin.clientApplicationName;
+                } else if (authContext === config.linkedin.name) {
+                    var baseURL = config.linkedin.baseURL;
+                    var appName = config.linkedin.clientApplicationName;
 
                     options = {
                         url: config.linkedin.baseURL + '/people/~:(id,formatted-name)',
@@ -76,18 +76,18 @@ module.exports = function(app, db, passport) {
                 request(options, function (error, response, body) {
                     if (!error &&
                         typeof response !== 'undefined' &&
-                        response.statusCode == 200) {
+                        response.statusCode === 200) {
 
                         var json = JSON.parse(body);
 
                         // fill in details that aren't stored on our side
-                        if (authContext == config.github.name) {
+                        if (authContext === config.github.name) {
                             account.profiles[0].name = {
                                 identityOrigin: authContext,
                                 attributeName: 'name',
                                 value: json.name
                             };
-                        } else if (authContext == config.linkedin.name) {
+                        } else if (authContext === config.linkedin.name) {
                             account.profiles[0].name = {
                                 identityOrigin: authContext,
                                 attributeName: 'name',

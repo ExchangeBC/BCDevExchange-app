@@ -12,6 +12,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
+'use strict';
 angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
 .config(['$routeProvider', function($routeProvider) {
 }])
@@ -33,7 +34,6 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
             '$q', '$resource',
 
     function($rootScope, $scope, $location, $window, usSpinnerService, ResourceList, SourceList, ResourceDetailsService, $q, $resource) {
-
     // Filter vars
     $scope.selectedSource = '';
     $scope.selectedSourceTitle = '';
@@ -53,11 +53,11 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
     $scope.alerts = [];
 
     $scope.startSpin = function(){
-        usSpinnerService.spin("spinner-1");
+        usSpinnerService.spin('spinner-1');
     };
 
     $scope.stopSpin = function(){
-        usSpinnerService.stop("spinner-1");
+        usSpinnerService.stop('spinner-1');
     };
 
     var resourceListDeferred = $q.defer();
@@ -68,19 +68,33 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
 
     resourcePromise.then(
         function(value){
-            usSpinnerService.stop("spinner-resources");
+            usSpinnerService.stop('spinner-resources');
         }
     );
 
     sourcePromise.then(
         function(value){
-            usSpinnerService.stop("spinner-sources");
+            usSpinnerService.stop('spinner-sources');
         }
     );
 
     SourceList.get({}, function(data) {
         $scope.sources = data.sources;
         var sourcesByUrl = [];
+        function sourceHandler(response) {
+            var resources = response.resources;
+            for(var j in resources) {
+                $scope.resources.push(resources[j]);
+            }
+            $scope.loadedSources.push(source);
+            resourceListDeferred.resolve('resource list length: ' + resources.length);
+        }
+
+        function sourceErrorHandler(error) {
+            $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + sourceName + '</strong>.' });
+            resourceListDeferred.resolve('error retrieving resources for  ' + error.config.url);
+        }
+
         for(var i in data.sources) {
             var source = data.sources[i];
             var sourceData = $resource('/resources/:source', {}, { timeout: 10 });
@@ -90,25 +104,11 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
                 sourceErrorHandler
             );
         }
-        sourceListDeferred.resolve("source list length: " + data.sources.length);
-
-        function sourceHandler(response) {
-            var resources = response.resources;
-            for(var j in resources) {
-                $scope.resources.push(resources[j]);
-            }
-            $scope.loadedSources.push(source);
-            resourceListDeferred.resolve("resource list length: " + resources.length);
-        }
-
-        function sourceErrorHandler(error) {
-            $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + sourceName + '</strong>.' });
-            resourceListDeferred.resolve("error retrieving resources for  " + error.config.url);
-        }
+        sourceListDeferred.resolve('source list length: ' + data.sources.length);
     });
 
     $scope.hasMatchingSource = function(actual, expected) {
-        if(!expected || !!expected && (actual == expected)){
+        if(!expected || !!expected && (actual === expected)){
             return true;
         }else{
             return false;

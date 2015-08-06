@@ -19,6 +19,14 @@ var logger = require('../../common/logging.js').logger;
 var yaml = require('js-yaml');
 var crypto = require('crypto');
 var urlParser = require('url');
+var getResourcesFromArray = function (resourceList, success, error) {
+    async.concat(resourceList, getCatalogueItems, function (err, results) {
+        if (err) error(err);
+        else {
+            success(results);
+        }
+    });
+};
 
 module.exports = function(app, db, passport) {
 
@@ -32,7 +40,7 @@ module.exports = function(app, db, passport) {
             var source = req.params.source;
             for(var i in config.catalogues) {
                 var resource = config.catalogues[i];
-                if(source == resource.type.toLowerCase() || source == resource.short_name.toLowerCase()) {
+                if(source === resource.type.toLowerCase() || source === resource.short_name.toLowerCase()) {
                     resourceList.push(resource);
                 }
             }
@@ -67,7 +75,7 @@ module.exports = function(app, db, passport) {
             return;
         }
         if (!req.params.url) { res.send(400, "Missing url parameter."); return; }
-        if (req.params.source != "GitHub") { res.send(400, "At this time, source must be GitHub."); return; }
+        if (req.params.source !== "GitHub") { res.send(400, "At this time, source must be GitHub."); return; }
 
         getGitHubRepo(req.params.url, function (error, results) {
             results.source = req.params.source;
@@ -80,30 +88,21 @@ module.exports = function(app, db, passport) {
     });
 };
 
-var getResourcesFromArray = function (resourceList, success, error) {
-    async.concat(resourceList, getCatalogueItems, function (err, results) {
-        if (err) error(err);
-        else {
-            success(results);
-        }
-    });
-};
-
 module.exports.getResourcesFromArray = getResourcesFromArray;
 
 // Just gets items from CKAN v3 compatible APIs
 function getCatalogueItems (catalogue, callback) {
-    if (catalogue.type == "CKANv3") {
+    if (catalogue.type === "CKANv3") {
         getCKANCatalogueItems(catalogue, function (err, results) {
             callback(err, results);
         });
     }
-    else if (catalogue.type == "GitHub") {
+    else if (catalogue.type === "GitHub") {
         getGitHubCatalogueItems(catalogue, function (err, results) {
             callback(err, results);
         });
     }
-    else if (catalogue.type == "GitHub-File") {
+    else if (catalogue.type === "GitHub-File") {
         getGitHubFileCatalogueItems(catalogue, function (err, results) {
             callback(err, results);
         });
@@ -111,7 +110,7 @@ function getCatalogueItems (catalogue, callback) {
 }
 
 function getGitHubFileCatalogueItems (catalogue, callback) {
-    options = {
+    var options = {
         url: 'https://api.github.com/' + catalogue.url + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
         headers: {
             'User-Agent': config.github.clientApplicationName
@@ -120,7 +119,7 @@ function getGitHubFileCatalogueItems (catalogue, callback) {
     request(options, function (error, response, body) {
         if (!error &&
             typeof response !== 'undefined' &&
-            response.statusCode == 200) {
+            response.statusCode === 200) {
 
             // parse out the yaml from content block
             var json = JSON.parse(body);
@@ -166,7 +165,7 @@ function parseGitHubFileResults(result, callback) {
 }
 
 function getGitHubCatalogueItems (catalogue, callback) {
-    options = {
+    var options = {
         url: 'https://api.github.com/search/repositories?q="' + catalogue.tagToSearch + '"+in:readme&client_id=' + config.github.clientID + "&client_secret=" + config.github.clientSecret,
         headers: {
             'User-Agent': config.github.clientApplicationName
@@ -175,7 +174,7 @@ function getGitHubCatalogueItems (catalogue, callback) {
     request(options, function (error, response, body) {
         if (!error &&
             typeof response !== 'undefined' &&
-            response.statusCode == 200) {
+            response.statusCode === 200) {
 
             var json = JSON.parse(body);
             response.resume();
@@ -197,7 +196,7 @@ function getCKANCatalogueItems (catalogue, callback) {
     request(catalogue.baseUrl + '/action/package_search?q=' + catalogue.tagName + ':' + catalogue.tagValue + '&rows=200', function (error, response, body) {
         if (!error &&
             typeof response !== 'undefined' &&
-            response.statusCode == 200) {
+            response.statusCode === 200) {
 
             var json = JSON.parse(body);
 
@@ -277,7 +276,7 @@ function getGitHubRepo(fullRepoUrl, callback) {
 
     var path = urlParser.parse(fullRepoUrl).pathname;
 
-    options = {
+    var options = {
         url: 'https://api.github.com/repos' + path + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
         headers: {
             'User-Agent': config.github.clientApplicationName
@@ -287,7 +286,7 @@ function getGitHubRepo(fullRepoUrl, callback) {
     request(options, function (error, response, body) {
         if (!error &&
             typeof response !== 'undefined' &&
-            response.statusCode == 200) {
+            response.statusCode === 200) {
 
             var json = JSON.parse(body);
 

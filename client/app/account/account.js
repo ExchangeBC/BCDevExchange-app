@@ -11,7 +11,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
-
+'use strict';
 angular.module('bcdevxApp.account', ['ngRoute', 'ngResource', 'ngMessages', 'ngFx', 'ngAnimate'])
 .controller('AccountCtrl', ['$rootScope', '$scope', '$location', '$window', 'AccountService', '$timeout',
     function($rootScope, $scope, $location, $window, AccountService, $timeout) {

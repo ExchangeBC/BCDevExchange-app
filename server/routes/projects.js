@@ -22,6 +22,15 @@ var urlParser = require('url');
 var clone = require('clone');
 var merge = require('merge');
 
+var getProjectsFromArray = function (projectList, success, error) {
+    async.concat(projectList, getProjects, function (err, results) {
+        if (err) error(err);
+        else {
+            success(results);
+        }
+    });
+};
+
 module.exports = function(app, db, passport) {
 
     app.get('/projects/:source?', function (req, res) {
@@ -44,7 +53,7 @@ module.exports = function(app, db, passport) {
             return;
         }
         if (!req.params.url) { res.send(400, "Missing url parameter."); return; }
-        if (req.params.source != "GitHub") { res.send(400, "At this time, source must be GitHub."); return; }
+        if (req.params.source !== "GitHub") { res.send(400, "At this time, source must be GitHub."); return; }
 
         getGitHubRepoAndLabels(req.params.url, function (error, results) {
             results.source = req.params.source;
@@ -57,30 +66,21 @@ module.exports = function(app, db, passport) {
     });
 };
 
-var getProjectsFromArray = function (projectList, success, error) {
-    async.concat(projectList, getProjects, function (err, results) {
-        if (err) error(err);
-        else {
-            success(results);
-        }
-    });
-};
-
 module.exports.getProjectsFromArray = getProjectsFromArray;
 
 function getProjects(project, callback) {
 
-    if(project.type == "github") {
+    if(project.type === "github") {
         getGitHubProject(project, callback);
     }
-    else if (project.type == "github-file") {
+    else if (project.type === "github-file") {
         getGitHubFileProject(project, callback);
     }
 
 }
 
 function getGitHubProject(ghConfig, callback) {
-    options = {
+    var options = {
         url: 'https://api.github.com/' + ghConfig.url + '?q="' + ghConfig.tag + '"+in:' + ghConfig.file + "&client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
         headers: {
             'User-Agent': config.github.clientApplicationName
@@ -89,7 +89,7 @@ function getGitHubProject(ghConfig, callback) {
     request(options, function (error, response, body) {
         if (!error &&
             typeof response !== 'undefined' &&
-            response.statusCode == 200) {
+            response.statusCode === 200) {
 
             var json = JSON.parse(body);
 
@@ -122,7 +122,7 @@ function parseGitHubResults(result, callback) {
 }
 
 function getGitHubFileProject(ghConfig, callback) {
-    options = {
+    var options = {
         url: 'https://api.github.com/' + ghConfig.url + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
         headers: {
             'User-Agent': config.github.clientApplicationName
@@ -131,7 +131,7 @@ function getGitHubFileProject(ghConfig, callback) {
     request(options, function (error, response, body) {
         if (!error &&
             typeof response !== 'undefined' &&
-            response.statusCode == 200) {
+            response.statusCode === 200) {
 
             // parse out the yaml from content block
             var json = JSON.parse(body);
@@ -183,7 +183,7 @@ function getGitHubRepoAndLabels(fullRepoUrl, callback) {
     // Call both repo details and repo issues, merge once completes
     async.parallel([
         function (callback) {
-            options = {
+            var options = {
                 url: 'https://api.github.com/repos' + path + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
                 headers: {
                     'User-Agent': config.github.clientApplicationName
@@ -193,7 +193,7 @@ function getGitHubRepoAndLabels(fullRepoUrl, callback) {
             request(options, function (error, response, body) {
                 if (!error &&
                     typeof response !== 'undefined' &&
-                    response.statusCode == 200) {
+                    response.statusCode === 200) {
 
                     var json = JSON.parse(body);
 
@@ -211,14 +211,14 @@ function getGitHubRepoAndLabels(fullRepoUrl, callback) {
         },
         function (callback){
             // Get the label counts from issues
-            options = { url: 'https://api.github.com/repos' + path + "/issues?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+            var options = { url: 'https://api.github.com/repos' + path + "/issues?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
                 headers: {
                     'User-Agent': config.github.clientApplicationName
                 }};
             request(options, function (error, response, body) {
                 if (!error &&
                     typeof response !== 'undefined' &&
-                    response.statusCode == 200) {
+                    response.statusCode === 200) {
 
                     var issuesJson = JSON.parse(body);
 
@@ -262,10 +262,10 @@ function parseGitHubIssuesResult(issues, fullRepoUrl) {
     // if its open and found in our config
     // count it up
     for (i = 0; i < issues.length; i++) {
-        if (issues[i].state == "open") {
+        if (issues[i].state === "open") {
             for (var j = 0; j < issues[i].labels.length; j++) {
                 for (var k = 0; k < result.issues.length; k++) {
-                    if (issues[i].labels[j].name == result.issues[k].name) {
+                    if (issues[i].labels[j].name === result.issues[k].name) {
                         result.issues[k].count++;
                     }
                 }
