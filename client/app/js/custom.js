@@ -3384,7 +3384,7 @@ var wpCustomFn = function ($) {
 
               clone_header_height = $clone_header.prependTo('body').height();
 
-              fix_padding = parseInt($main_container_wrapper.css('padding-top')) - clone_header_height - secondary_nav_height + 1;
+              //fix_padding = parseInt($main_container_wrapper.css('padding-top')) - clone_header_height - secondary_nav_height + 1;
 
               $main_container_wrapper.css('margin-top', -fix_padding);
 
@@ -3394,7 +3394,7 @@ var wpCustomFn = function ($) {
           } else {
             $main_header.removeClass('et-fixed-header');
             $top_header.removeClass('et-fixed-header');
-            $main_container_wrapper.css('margin-top', '-1px');
+//            $main_container_wrapper.css('margin-top', '-1px');
           }
           setTimeout(function () {
             et_set_search_form_css();
