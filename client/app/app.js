@@ -133,7 +133,8 @@ app.config(['$routeProvider', '$httpProvider',
       })
       .when('/programs/BC Laws', {
         templateUrl: '/app/programs/wp-view-program.html',
-        controller: 'ViewProgramCtrl as vm'
+        controller: 'ViewProgramCtrl as vm',
+        caseInsensitiveMatch: true
       })
       .when('/programs/:programName', {
         templateUrl: '/app/programs/view-program.html',
@@ -203,7 +204,9 @@ app.controller('bcdevController', ['$scope', function ($scope) {
     $scope.domsLoaded[nm] = true
     for (var property in $scope.domsLoaded) {
       if ($scope.domsLoaded.hasOwnProperty(property)) {
-        if (!$scope.domsLoaded[property]) {return}
+        if (!$scope.domsLoaded[property]) {
+          return
+        }
       }
     }
     wpCustomFn && wpCustomFn(jQuery)
