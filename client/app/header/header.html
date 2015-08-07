@@ -20,7 +20,9 @@
         </li>
         <li ng-show="config.numbersPage" ng-cloak><a href="#/numbers" ng-cloak analytics-on>Numbers</a>
         </li>
-        <li class="dropdown">
+        <li ng-show="config.labLink" ng-cloak><a href="#/lab" ng-cloak analytics-on>Labs</a>
+        </li>
+        <li ng-show="config.communityMenu" class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Community <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li ng-cloak><a href="http://blog.data.gov.bc.ca/" ng-cloak analytics-on>Blog</a>

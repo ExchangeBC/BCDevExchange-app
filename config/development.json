@@ -36,6 +36,7 @@ See the License for the specific language governing permissions and limitations 
     "peoplePage": false,
     "numbersPage": true,
     "labLink": true,
+    "communityMenu": false,
     "explorationContent": true,
     "labURL": "http://localhost:8000"
   },

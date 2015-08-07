@@ -180,6 +180,7 @@ The local files are intended to not be tracked in your version control system. E
       "peoplePage": false,
       "numbersPage": false,
       "labLink": true,
+      "communityMenu": true,
       "explorationContent": true,
       "labURL": "https://lab.bcdevexchange.org"
   },
