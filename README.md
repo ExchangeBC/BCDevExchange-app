@@ -14,48 +14,39 @@ This web app is built on the MEAN stack:
 -  MongoDB
 -  nginx
 
+The app has been retrofitted with [Yeoman](http://yeoman.io/) [angular-fullstack generator](https://github.com/DaftMonk/generator-angular-fullstack).
+
 ## Getting Started ##
 
 You'll need [MongoDB](http://www.mongodb.org/), [NodeJS](http://nodejs.org/), and [Git](http://git-scm.com/downloads). Clone this repo from GitHub, change directory to the repo root.
 
 1. Run `npm install`.
 2. Install [Grunt](http://gruntjs.com) for the command line via `npm install -g grunt-cli`.
-3. Run `grunt` (default task) to build out the necessary assets for running the site.
-4. Run `grunt server` to start a Node server.  Defaults to [localhost:8000](http://localhost:8000).
-
-## Development ##
-
-We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development, but contributors are free to use any editor.
+3. Run `grunt serve` to start a Node server.  Defaults to [localhost:9000](http://localhost:000).
 
 ### Grunt
 We also use [Grunt](http://gruntjs.com) to automate some of the development process.  Some notable tasks:
 
 ```
-grunt
+grunt serve
 ```
-
-The default Grunt task will build out all of the site's assets.  This is useful for the first-time setup or if you need a clean version of the minified files.  The files output from this task are:
-
-* `public/js/lib.min.js`
-    All of the Javascript files from Bower dependencies.
-
-* `public/js/app.min.js`
-    All of the Javascript app files (inside `public/app/`).
-
-* `public/css/lib.min.css`
-    All of the CSS files from Bower dependencies.
-
-* `public/css/bcdevx.min.css`
-    All of the BCDevExchange CSS (e.g. customized Bootstrap).
-
+Launches site in development environment. No client-side optimization (js uglification etc) is performed to facilitate debugging.
 
 ```
-grunt server
+grunt serve:debug
 ```
 
-This will start a Node server and automatically restart if any changes are detected in `app/` or `/config`.  Additionally, it will rebuild JS assets when changes are detected in `public/app` or `bower_components`, and will recompile LESS when changes are detected in `/less`.
+Launches node-inspector for server-side debugging. Node-inspector has been configured to disable source code discovery by default to speedup loading. To expose source code to node-inspector, drag-N-drop `/server` folder to node-inspector browser.
 
-Intermediate steps (like `uglify` or `cssmin`) can be executed separately.  For a full list of available Grunt tasks, run `grunt --help`.
+```
+grunt serve:dist
+```
+Build and launch site in production environment. Client-side optimization is performed as part of the build process.
+
+```
+grunt build
+```
+Build production environment without launch the site. 
 
 ### Gulp
 
