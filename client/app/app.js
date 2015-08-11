@@ -54,7 +54,7 @@ app.config(['$routeProvider', '$httpProvider',
 
 
     // check if user is connected
-    var checkLoggedIn = function ($q, $timeout, $location, AccountService, $modal) {
+    var checkLoggedIn = function ($q, $timeout, $location, AccountService) {
       var deferred = $q.defer();
       var promise = AccountService.getCurrentAccount();
 
@@ -145,7 +145,7 @@ app.config(['$routeProvider', '$httpProvider',
       });
 
     // add an interceptor for AJAX errors
-    $httpProvider.interceptors.push(function ($q, $location, $log) {
+    $httpProvider.interceptors.push(function ($q, $location) {
       return {
         // optional method
         'responseError': function (rejection) {
@@ -171,7 +171,7 @@ app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
 app.run(function ($rootScope, $http) {
   // Add config to ALL scopes, only makes sense instead of passing in everywhere
   $http.get('/config').
-  success(function (data, status, headers, config) {
+  success(function (data) {
     $rootScope.config = data;
   });
 });
@@ -209,7 +209,7 @@ app.controller('bcdevController', ['$scope', function ($scope) {
         }
       }
     }
-    wpCustomFn && wpCustomFn(jQuery)
+    window.wpCustomFn && window.wpCustomFn(jQuery)
   }
 }])
 app.directive('notifyLoad', function () {

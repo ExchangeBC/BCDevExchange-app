@@ -13,9 +13,7 @@ See the License for the specific language governing permissions and limitations 
 */
 
 'use strict';
-angular.module('bcdevxApp.services').factory('ProgramService', ['$resource', '$q', programService]);
-
-function programService($resource, $q) {
+angular.module('bcdevxApp.services').factory('ProgramService', ['$resource', '$q', function ($resource, $q) {
     var programApi = '/programs/name/';
 
     return {
@@ -25,13 +23,13 @@ function programService($resource, $q) {
 
             var res = $resource(programApi + pName);
             res.get([],
-                function(program, getResponseHeaders){
+                function(program){
                     var md = program.markdown;
                     deferred.resolve(md);
                 },
                 function(responseError){
-                    var errorMsg = "Response error in getting resource from url " + programApi + ", error code: " + responseError.status;
-                    deferred.reject("errorMsg");
+                    var errorMsg = 'Response error in getting resource from url ' + programApi + ', error code: ' + responseError.status;
+                    deferred.reject(errorMsg);
                 }
             );
 
@@ -39,3 +37,4 @@ function programService($resource, $q) {
         }
     };
 }
+]);

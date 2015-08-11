@@ -14,12 +14,10 @@ See the License for the specific language governing permissions and limitations 
 
 'use strict';
 angular.module('bcdevxApp.numbers', ['ngRoute',  'ngResource'])
-.config(['$routeProvider', function($routeProvider) {
-}])
 .factory('NumbersCountService', ['$resource', function($resource) {
     return $resource('/numbers');
 }])
-.controller('NumbersCtrl', ['$scope', 'NumbersCountService', '$q', 'usSpinnerService', function($scope, NumbersCountService, $q, usSpinnerService) {
+.controller('NumbersCtrl', ['$scope', 'NumbersCountService', '$q', 'usSpinnerService', function($scope, NumbersCountService) {
     $scope.numbers = {
         isLoaded: false,
         accounts: '-',
@@ -57,15 +55,15 @@ angular.module('bcdevxApp.numbers', ['ngRoute',  'ngResource'])
     });
 
 }])
-.directive('countUp', ['$compile',function($compile,$timeout) {
+.directive('countUp', ['$compile',function($compile) {
     return {
         restrict: 'E',
         replace: false,
         scope: {
-            countTo: "=countTo",
+            countTo: '=countTo',
             interval: '=interval'
         },
-        controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element, $attrs, $timeout) {
+        controller: ['$scope', '$element', function ($scope, $element) {
             $scope.millis = 0;
             if ($element.html().trim().length === 0) {
                 $element.append($compile('<span>{{millis}}</span>')($scope));

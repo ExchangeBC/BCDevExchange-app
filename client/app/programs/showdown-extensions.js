@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and limitations 
 'use strict';
 (function(){
 
-    var bootstrapExtensions = function(converter){
+    var bootstrapExtensions = function(){
         var row;
         /**
          * Represents content enclosed between column tags
@@ -142,7 +142,7 @@ See the License for the specific language governing permissions and limitations 
 
         function test(regex1, regex2, line){
             if(!!line && !!line.trim()){
-                return (regex1.test(line) | regex2.test(line));
+                return (regex1.test(line) || regex2.test(line));
             }else{
                 return false;
             }
@@ -242,7 +242,7 @@ See the License for the specific language governing permissions and limitations 
                     return text.replace(/--->/g, '-->');
                 }},
                 { type: 'lang', filter: function(text) {
-                    return text.replace(/!\[(.*)\]\((.*)\)/, "<img src=\'$2\' class=\'img-responsive\' alt=\'$1\' />");
+                    return text.replace(/!\[(.*)\]\((.*)\)/, '<img src=\'$2\' class=\'img-responsive\' alt=\'$1\' />');
                 }},
                 { type: 'output', filter: function(text) {
                     return makeHTMLColumns(text);
@@ -253,5 +253,7 @@ See the License for the specific language governing permissions and limitations 
     // Client-side export
     if (typeof window !== 'undefined' && window.Showdown && window.Showdown.extensions) { window.Showdown.extensions.btexts = bootstrapExtensions; }
     // Server-side export
-    if (typeof module !== 'undefined') module.exports = bootstrapExtensions;
+    if (typeof module !== 'undefined') {
+      module.exports = bootstrapExtensions;
+    }
 })();

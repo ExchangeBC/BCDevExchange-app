@@ -14,10 +14,8 @@ See the License for the specific language governing permissions and limitations 
 
 'use strict';
 angular.module('bcdevxApp.auth', ['ngRoute', 'bcdevxApp.services'])
-.config(['$routeProvider', function($routeProvider) {
-}])
-.factory( 'AuthService', ['$http', '$location', '$rootScope', 'AccountService',
-    function($http, $location, $rootScope, AccountService) {
+.factory( 'AuthService', ['$http', '$location',
+    function($http, $location) {
 
     // Redirect to the given url (defaults to '/')
     function redirect(url) {

@@ -47,7 +47,7 @@ angular.module('bcdevxApp.auth')
                         vm.userid = data.id;
                         vm.doShow = true;
                     },
-                    function(data){
+                    function(){
                         vm.username = '';
                         vm.doShow = true;
                     }
@@ -56,7 +56,7 @@ angular.module('bcdevxApp.auth')
         }],
         controllerAs: 'loginlistCtrl',
 
-        link: function(scope, iElement, iAttrs){
+        link: function(scope, iElement){
             iElement.children()[0].className = scope.clazz;
         }
 

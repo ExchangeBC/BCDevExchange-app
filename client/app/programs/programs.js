@@ -43,13 +43,13 @@ angular.module('bcdevxApp.programs')
     var sourcePromise = sourceListDeferred.promise;
 
     programPromise.then(
-        function(value){
+        function(){
             usSpinnerService.stop('spinner-programs');
         }
     );
 
     sourcePromise.then(
-        function(value){
+        function(){
             usSpinnerService.stop('spinner-sources');
         }
     );
