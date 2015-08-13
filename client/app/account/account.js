@@ -26,7 +26,7 @@ angular.module('bcdevxApp.account', ['ngRoute', 'ngResource', 'ngMessages', 'ngF
     $scope.update = function(account) {
         AccountService.save($location.search().id, account).then(
             function() {
-                $scope.resultOfSaving = {success:"You have updated your account."};
+                $scope.resultOfSaving = {success:'You have updated your account.'};
                 $scope.hideMessageDialog = false;
                 $timeout(function(){
                     $scope.hideMessageDialog = true;
@@ -34,9 +34,9 @@ angular.module('bcdevxApp.account', ['ngRoute', 'ngResource', 'ngMessages', 'ngF
             },
             function(errorObj) {
                 if(errorObj.status === 0){
-                    $scope.resultOfSaving = {network_error: "Snap! Please check your network connection. \n And make sure the server is online."};
+                    $scope.resultOfSaving = {network_error: 'Snap! Please check your network connection. \n And make sure the server is online.'};
                 }else{
-                    $scope.resultOfSaving = {error:"Bummer, error happened while saving your account, \n Please try again. \n errorObj.status"};
+                    $scope.resultOfSaving = {error:'Bummer, error happened while saving your account, \n Please try again. \n errorObj.status'};
                 }
                 $scope.hideMessageDialog = false;
             }

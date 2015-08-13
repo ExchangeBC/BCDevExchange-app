@@ -15,10 +15,6 @@ See the License for the specific language governing permissions and limitations 
 'use strict';
 angular.module('bcdevxApp.home', ['ngRoute'])
 
-.config(['$routeProvider', function($routeProvider) {
-
-}])
-
 .factory('NumbersCountService', ['$resource', function($resource) {
     return $resource('/numbers');
 }])

@@ -14,8 +14,6 @@ See the License for the specific language governing permissions and limitations 
 
 'use strict';
 angular.module('bcdevxApp.projects', ['ngRoute',  'ngResource'])
-.config(['$routeProvider', function($routeProvider) {
-}])
 .factory('ProjectListService', ['$resource', function($resource) {
     return $resource('/projects');
 }])
@@ -48,13 +46,13 @@ angular.module('bcdevxApp.projects', ['ngRoute',  'ngResource'])
     var sourcePromise = sourceListDeferred.promise;
 
     projectPromise.then(
-        function(value){
+        function(){
             usSpinnerService.stop('spinner-projects');
         }
     );
 
     sourcePromise.then(
-        function(value){
+        function(){
             usSpinnerService.stop('spinner-sources');
         }
     );
@@ -70,7 +68,7 @@ angular.module('bcdevxApp.projects', ['ngRoute',  'ngResource'])
                 extendDeep($scope.projects[key], detailProject);
 
                 // flatten model for angularjs sort
-                angular.forEach($scope.projects[key].issues, function (issue, issueKey) {
+                angular.forEach($scope.projects[key].issues, function (issue) {
                     $scope.projects[key]['_count_' + issue.id] = issue.count;
                 });
             });

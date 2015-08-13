@@ -14,9 +14,6 @@ See the License for the specific language governing permissions and limitations 
 
 'use strict';
 angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
-.config(['$routeProvider', function($routeProvider) {
-}])
-
 .factory('ResourceList', ['$resource', function($resource) {
     return $resource('/resources');
 }])
@@ -67,13 +64,13 @@ angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
     var sourcePromise = sourceListDeferred.promise;
 
     resourcePromise.then(
-        function(value){
+        function(){
             usSpinnerService.stop('spinner-resources');
         }
     );
 
     sourcePromise.then(
-        function(value){
+        function(){
             usSpinnerService.stop('spinner-sources');
         }
     );

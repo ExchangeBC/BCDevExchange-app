@@ -13,9 +13,7 @@ See the License for the specific language governing permissions and limitations 
 */
 
 'use strict';
-angular.module('bcdevxApp.programs', []).controller('ProgramsEditCtrl', programsEditCtrl);
-
-function programsEditCtrl(){
+angular.module('bcdevxApp.programs', []).controller('ProgramsEditCtrl', function (){
     var vm = this;
     vm.mdDisplay ='';
 
@@ -30,4 +28,4 @@ function programsEditCtrl(){
         //console.log("setting property on display directive ");
 
     };
-}
+});

@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and limitations 
 */
 
 angular.module('bcdevxApp.lab', ['ngRoute',  'ngResource'])
-.config(['$routeProvider', function($routeProvider) {
+.config([function() {
 }])
-.controller('LabCtrl', ['$scope', function($scope) {
+.controller('LabCtrl', [function() {
 }]);

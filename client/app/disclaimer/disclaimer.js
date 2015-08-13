@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and limitations 
 */
 
 angular.module('bcdevxApp.disclaimer', ['ngRoute',  'ngResource'])
-.config(['$routeProvider', function($routeProvider) {
+.config([function() {
 }])
-.controller('DisclaimerCtrl', ['$scope', function($scope) {
+.controller('DisclaimerCtrl', [function() {
 }]);

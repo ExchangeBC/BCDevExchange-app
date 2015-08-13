@@ -13,23 +13,24 @@ See the License for the specific language governing permissions and limitations 
 */
 
 'use strict';
-angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramService','$routeParams','$rootScope',viewProgramCtrl]);
 
-function viewProgramCtrl(ProgramService, $routeParams, $rootScope){
+angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramService', '$routeParams', '$rootScope',
+function (ProgramService, $routeParams, $rootScope) {
     var vm = this;
-    vm.mdDisplay ='';
+    vm.mdDisplay = '';
 
     var mdContentPromise = ProgramService.getProgramByName($routeParams.programName);
     vm.programName = $routeParams.programName;
-    mdContentPromise.then(function(md){
-        if(!!md){
-            vm.mdDisplay = md;
-            $rootScope.$broadcast('bdTocUpdate');
-        }else{
-            vm.mdDisplay = "No content found for program named '" + $routeParams.programName + '\'.';
-        }
+    mdContentPromise.then(function (md) {
+      if (!!md) {
+        vm.mdDisplay = md;
+        $rootScope.$broadcast('bdTocUpdate');
+      } else {
+        vm.mdDisplay = 'No content found for program named \'' + $routeParams.programName + '\'.';
+      }
 
-    }, function(errorMessage){
-        vm.mdDisplay = errorMessage;
+    }, function (errorMessage) {
+      vm.mdDisplay = errorMessage;
     });
 }
+]);
