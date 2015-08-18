@@ -133,12 +133,12 @@ app.config(['$routeProvider', '$httpProvider',
       })
       .when('/programs/BC Laws', {
         templateUrl: '/app/programs/wp-view-program.html',
-        controller: 'ViewProgramCtrl as vm',
+        controller: 'ViewProgramCtrl',
         caseInsensitiveMatch: true
       })
       .when('/programs/:programName', {
         templateUrl: '/app/programs/view-program.html',
-        controller: 'ViewProgramCtrl as vm'
+        controller: 'ViewProgramCtrl'
       })
       .otherwise({
         redirectTo: '/home'

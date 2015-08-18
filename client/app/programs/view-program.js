@@ -14,23 +14,26 @@ See the License for the specific language governing permissions and limitations 
 
 'use strict';
 
-angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramService', '$routeParams', '$rootScope',
-function (ProgramService, $routeParams, $rootScope) {
-    var vm = this;
-    vm.mdDisplay = '';
+angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramService', '$routeParams', '$rootScope', '$scope',
+function (ProgramService, $routeParams, $rootScope, $scope) {
+    $scope.mdDisplay = '';
 
     var mdContentPromise = ProgramService.getProgramByName($routeParams.programName);
-    vm.programName = $routeParams.programName;
+    $scope.programName = $routeParams.programName;
     mdContentPromise.then(function (md) {
       if (!!md) {
-        vm.mdDisplay = md;
+        $scope.mdDisplay = md;
         $rootScope.$broadcast('bdTocUpdate');
       } else {
-        vm.mdDisplay = 'No content found for program named \'' + $routeParams.programName + '\'.';
+        $scope.mdDisplay = 'No content found for program named \'' + $routeParams.programName + '\'.';
       }
 
     }, function (errorMessage) {
-      vm.mdDisplay = errorMessage;
+      $scope.mdDisplay = errorMessage;
     });
+
+    // Turn off automatic editor creation first.
+    window.CKEDITOR.disableAutoInline = true;
+    window.CKEDITOR.inline( 'editor1' );
 }
 ]);
