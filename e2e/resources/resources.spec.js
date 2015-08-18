@@ -28,7 +28,7 @@ describe('Resources', function() {
 
     it('should filter resources by source', function() {
         element(by.cssContainingText('span', 'Filter by source')).click();
-        element(by.cssContainingText('a', 'BC Data Catalogue')).click();
+        element(by.cssContainingText('a', 'BC Digital Resource Catalogue')).click();
         var resources = element.all(by.repeater('resource in filtered'));
         resources.then(function(rcs) {
             expect(rcs.length).toEqual(1);

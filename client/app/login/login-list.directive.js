@@ -34,7 +34,7 @@ angular.module('bcdevxApp.auth')
 
             vm.login = function () {
                 var modalInstance = $modal.open({
-                    templateUrl: 'app/login/login.html',
+                    templateUrl: '/app/login/login.html',
                     controller: 'LoginModalCtrl'
                 });
             };
