@@ -172,3 +172,27 @@ exports.countDualAccounts = function (callback) {
     callback(err, result)
   })
 }
+
+exports.getPrograms = function (cb) {
+  models.program.find().lean().exec(function (err, res) {
+    cb(err, res)
+  })
+}
+
+exports.getProgram = function (programId, cb) {
+  models.program.find({
+    '_id': programId
+  }).lean().exec(function (err, res) {
+    cb(err, res)
+  })
+}
+
+exports.createProgram = function (program, cb) {
+  models.program.create(program, function (err, res) {
+    cb(err, res)
+  })
+}
+
+exports.updateProgram = function (programId, program, cb) {}
+
+exports.deleteProgram = function (programId, cb) {}
