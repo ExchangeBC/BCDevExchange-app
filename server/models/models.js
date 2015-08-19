@@ -12,46 +12,47 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
+'use strict'
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-
+var mongoose = require('mongoose')
 
 var attributeOriginDef = {
-    identityOrigin: String, // where this attribute originated from
-    attributeName: String, // name of attribute from origin
-    value: String // denormalized value
-};
+  identityOrigin: String, // where this attribute originated from
+  attributeName: String, // name of attribute from origin
+  value: String // denormalized value
+}
 
-var accountSchema = new Schema({
-    loggedInContext: String,
-    identities: [{
-        origin: String, // GitHub or LinkedIn
-        identifier: String, // User's identifier from origin
-        accessToken: String,
-        refreshToken: String,
-        attributes: [{ // a collection of identity attributes
-            name: String,
-            value: String
+exports.account = mongoose.model('Account', new mongoose.Schema({
+  loggedInContext: String,
+  identities: [{
+    origin: String, // GitHub or LinkedIn
+    identifier: String, // User's identifier from origin
+    accessToken: String,
+    refreshToken: String,
+    attributes: [{ // a collection of identity attributes
+      name: String,
+      value: String
         }]
     }],
-    profiles: [{ type: Schema.Types.ObjectId, ref: 'Profile' }]
-});
+  profiles: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Profile'
+  }]
+}))
 
-var profileSchema = new Schema({
-    type: String, // Individual or Organization
-    name: attributeOriginDef, // display name for profile
-    visible: Boolean,
-    contact: {
-        email: attributeOriginDef
-    },
-    contactPreferences: {
-        notifyMeOfAllUpdates: Boolean
-    }
-});
+exports.profile = mongoose.model('Profile', new mongoose.Schema({
+  type: String, // Individual or Organization
+  name: attributeOriginDef, // display name for profile
+  visible: Boolean,
+  contact: {
+    email: attributeOriginDef
+  },
+  contactPreferences: {
+    notifyMeOfAllUpdates: Boolean
+  }
+}))
 
-
-module.exports = {
-    Account : mongoose.model('Account', accountSchema),
-    Profile : mongoose.model('Profile', profileSchema)
-};
+// a schemaless schema
+exports.program = mongoose.model('Program', new mongoose.Schema({}, {
+  strict: false
+}))
