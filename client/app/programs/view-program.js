@@ -12,28 +12,29 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-'use strict';
+'use strict'
 
-angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramService', '$routeParams', '$rootScope', '$scope',
-function (ProgramService, $routeParams, $rootScope, $scope) {
-    $scope.mdDisplay = '';
+angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramService', '$routeParams', '$rootScope', '$scope', 'Programs'
+function (ProgramService, $routeParams, $rootScope, $scope, Programs) {
+    $scope.mdDisplay = ''
 
-    var mdContentPromise = ProgramService.getProgramByName($routeParams.programName);
-    $scope.programName = $routeParams.programName;
+    var mdContentPromise = ProgramService.getProgramByName($routeParams.programName)
+    $scope.programName = $routeParams.programName
     mdContentPromise.then(function (md) {
       if (!!md) {
-        $scope.mdDisplay = md;
-        $rootScope.$broadcast('bdTocUpdate');
+        $scope.mdDisplay = md
+        $rootScope.$broadcast('bdTocUpdate')
       } else {
-        $scope.mdDisplay = 'No content found for program named \'' + $routeParams.programName + '\'.';
+        $scope.mdDisplay = 'No content found for program named \'' + $routeParams.programName + '\'.'
       }
 
     }, function (errorMessage) {
-      $scope.mdDisplay = errorMessage;
-    });
+      $scope.mdDisplay = errorMessage
+    })
 
     // Turn off automatic editor creation first.
-    window.CKEDITOR.disableAutoInline = true;
-    window.CKEDITOR.inline( 'editor1' );
+    window.CKEDITOR.disableAutoInline = true
+    var editor = window.CKEDITOR.inline( 'editor1' )
+    editor.on('blur', function(evt){console.log('to be saved')})
 }
-]);
+])

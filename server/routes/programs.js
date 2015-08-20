@@ -21,6 +21,7 @@ var yaml = require('js-yaml')
 var crypto = require('crypto')
 var clone = require('clone')
 var merge = require('merge')
+var db = require('../models/db')
 
 var getProgramsFromArray = function (programList, success, error) {
   async.concat(programList, getPrograms, function (err, results) {
@@ -72,6 +73,12 @@ module.exports = function (app, db, passport) {
         res.send(500)
       }
       res.send(result)
+    })
+  })
+
+  app.patch('/programs/:id', function(req,res){
+    db.updateProgram(id, req).then(function(data){
+      res.end()
     })
   })
 }
