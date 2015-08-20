@@ -122,6 +122,7 @@ function parseGitHubFileResults(result, callback) {
         "logo": result.logo,
         "tags": [],
         "url": result.url,
+        "id": result.id,
         "visible": result.visible
     };
 
