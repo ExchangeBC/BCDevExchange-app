@@ -131,13 +131,10 @@ app.config(['$routeProvider', '$httpProvider',
         templateUrl: '/app/programs/edit-programs.html',
         controller: 'ProgramsEditCtrl as vm'
       })
-      .when('/programs/BC Laws', {
-        templateUrl: '/app/programs/wp-view-program.html',
-        controller: 'ViewProgramCtrl',
-        caseInsensitiveMatch: true
-      })
       .when('/programs/:programName', {
-        templateUrl: '/app/programs/view-program.html',
+        templateUrl: function(params){
+          return ((params.programName && params.programName.match(/BC Laws/i))?'/app/programs/wp-view-program.html':'/app/programs/view-program.html')
+        },
         controller: 'ViewProgramCtrl'
       })
       .otherwise({

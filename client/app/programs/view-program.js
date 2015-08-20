@@ -14,8 +14,7 @@ See the License for the specific language governing permissions and limitations 
 
 'use strict'
 
-angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramService', '$routeParams', '$rootScope', '$scope', 'Programs'
-function (ProgramService, $routeParams, $rootScope, $scope, Programs) {
+angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramService', '$routeParams', '$rootScope', '$scope', 'Programs', function (ProgramService, $routeParams, $rootScope, $scope, Programs) {
     $scope.mdDisplay = ''
 
     var mdContentPromise = ProgramService.getProgramByName($routeParams.programName)
@@ -32,9 +31,13 @@ function (ProgramService, $routeParams, $rootScope, $scope, Programs) {
       $scope.mdDisplay = errorMessage
     })
 
-    // Turn off automatic editor creation first.
-    window.CKEDITOR.disableAutoInline = true
-    var editor = window.CKEDITOR.inline( 'editor1' )
-    editor.on('blur', function(evt){console.log('to be saved')})
+    try {
+      // Turn off automatic editor creation first.
+      window.CKEDITOR.disableAutoInline = true
+      var editor = window.CKEDITOR.inline('editor1')
+      editor.on('blur', function (evt) {
+        console.log('to be saved')
+      })
+    } catch (e) {}
 }
 ])
