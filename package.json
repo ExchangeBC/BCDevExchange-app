@@ -30,6 +30,7 @@
     "method-override": "~1.0.0",
     "mongoose": "3.8.x",
     "morgan": "~1.0.0",
+    "node-uuid": "^1.4.3",
     "passport": "^0.2.1",
     "passport-github2": "^0.1.9",
     "passport-linkedin-oauth2": "^1.2.1",

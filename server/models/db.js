@@ -186,7 +186,7 @@ exports.getPrograms = function (cb) {
 exports.getProgram = function (programId, cb) {
   var deferred = Q.defer()
   models.program.find({
-    '_id': programId
+    'id': programId
   }).lean().exec(function (err, res) {
     if(err) deferred.reject(err)
     else deferred.resolve(res)
@@ -196,6 +196,7 @@ exports.getProgram = function (programId, cb) {
 
 exports.createProgram = function (program, cb) {
   var deferred = Q.defer()
+  program.id = require('node-uuid').v4()
   models.program.create(program, function (err, res) {
     if(err) deferred.reject(err)
     else deferred.resolve(res)
