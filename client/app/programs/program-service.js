@@ -12,29 +12,39 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-'use strict';
+'use strict'
 angular.module('bcdevxApp.services').factory('ProgramService', ['$resource', '$q', function ($resource, $q) {
-    var programApi = '/programs/name/';
+    var programApi = '/programs/'
 
     return {
 
-        getProgramByName: function(pName) {
-            var deferred = $q.defer();
+      getProgramByName: function (pName) {
+        var deferred = $q.defer()
 
-            var res = $resource(programApi + pName);
-            res.get([],
-                function(program){
-                    var md = program.markdown;
-                    deferred.resolve(md);
-                },
-                function(responseError){
-                    var errorMsg = 'Response error in getting resource from url ' + programApi + ', error code: ' + responseError.status;
-                    deferred.reject(errorMsg);
-                }
-            );
-
-            return deferred.promise;
-        }
-    };
+        var res = $resource(programApi + 'name/' + pName)
+        res.get([],
+          function (program) {
+            var md = program.markdown
+            deferred.resolve(md)
+          },
+          function (responseError) {
+            var errorMsg = 'Response error in getting resource from url ' + programApi + ', error code: ' + responseError.status
+            deferred.reject(errorMsg)
+          }
+        )
+        return deferred.promise
+      }
+    }
 }
-]);
+])
+
+angular.module('bcdevxApp.services').factory('Programs', ['$resource', function ($resource) {
+  return $resource('programs/:id', {}, {
+    update: {
+      method: 'PATCH'
+    },
+    create: {
+      method: 'POST'
+    }
+  })
+}])
