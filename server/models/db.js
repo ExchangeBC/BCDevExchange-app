@@ -17,6 +17,7 @@ See the License for the specific language governing permissions and limitations 
 var mongoose = require('mongoose')
 var config = require('config')
 var logger = require('../../common/logging.js').logger
+var Q = require('Q')
 
 var dbURI = config.mongodb.connectionString
 
@@ -174,25 +175,45 @@ exports.countDualAccounts = function (callback) {
 }
 
 exports.getPrograms = function (cb) {
+  var deferred = Q.defer()
   models.program.find().lean().exec(function (err, res) {
-    cb(err, res)
+    if(err) deferred.reject(err)
+    else deferred.resolve(res)
   })
+  return deferred.progress.nodeify(cb)
 }
 
 exports.getProgram = function (programId, cb) {
+  var deferred = Q.defer()
   models.program.find({
-    '_id': programId
+    'id': programId
   }).lean().exec(function (err, res) {
-    cb(err, res)
+    if(err) deferred.reject(err)
+    else deferred.resolve(res)
   })
+  return deferred.progress.nodeify(cb)
 }
 
 exports.createProgram = function (program, cb) {
+  var deferred = Q.defer()
+  program.id = require('node-uuid').v4()
   models.program.create(program, function (err, res) {
-    cb(err, res)
+    if(err) deferred.reject(err)
+    else deferred.resolve(res)
   })
+  return deferred.promise.nodeify(cb)
 }
 
-exports.updateProgram = function (programId, program, cb) {}
+exports.updateProgram = function (programId, programPatch, cb) {
+  var deferred = Q.defer()
+  exports.getProgram(programId).then(function(res){
+    var updatedProgram = require('util')._extend(require('util')._extend({}, res), programPatch)
+    models.program.findOneAndUpdate({_id: programId}, updatedProgram, function(err, res){
+      if(err) deferred.reject(err)
+      else deferred.resolve(res)
+    })
+  })
+  return deferred.promise.nodeify(cb)
+}
 
 exports.deleteProgram = function (programId, cb) {}

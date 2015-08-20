@@ -54,5 +54,6 @@ exports.profile = mongoose.model('Profile', new mongoose.Schema({
 
 // a schemaless schema
 exports.program = mongoose.model('Program', new mongoose.Schema({}, {
-  strict: false
+  strict: false,
+  id: false
 }))
