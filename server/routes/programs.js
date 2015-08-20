@@ -72,12 +72,14 @@ module.exports = function (app, db, passport) {
       if (error) {
         res.send(500)
       }
-      res.send(result)
+      db.getProgramByName(req.params.title).then(function (data) {
+        res.send(require('util')._extend(require('util')._extend({}, result), data))
+      })
     })
   })
 
-  app.patch('/programs/:id', function(req,res){
-    db.updateProgram(id, req).then(function(data){
+  app.patch('/programs/:id', function (req, res) {
+    db.updateProgram(id, req).then(function (data) {
       res.end()
     })
   })

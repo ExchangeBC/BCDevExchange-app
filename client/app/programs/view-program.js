@@ -19,9 +19,9 @@ angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramServ
 
     var mdContentPromise = ProgramService.getProgramByName($routeParams.programName)
     $scope.programName = $routeParams.programName
-    mdContentPromise.then(function (md) {
-      if (!!md) {
-        $scope.mdDisplay = md
+    mdContentPromise.then(function (program) {
+      if (!!program) {
+        $scope.mdDisplay = program.markdown
         $rootScope.$broadcast('bdTocUpdate')
       } else {
         $scope.mdDisplay = 'No content found for program named \'' + $routeParams.programName + '\'.'
