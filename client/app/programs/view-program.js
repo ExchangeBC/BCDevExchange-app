@@ -21,6 +21,7 @@ angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramServ
     $scope.programName = $routeParams.programName
     mdContentPromise.then(function (program) {
       if (!!program) {
+        $scope.program = program
         $scope.mdDisplay = program.markdown
         $rootScope.$broadcast('bdTocUpdate')
       } else {
