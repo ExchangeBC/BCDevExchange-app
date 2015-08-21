@@ -176,22 +176,33 @@ exports.countDualAccounts = function (callback) {
 
 exports.getPrograms = function (cb) {
   var deferred = Q.defer()
-  models.program.find().lean().exec(function (err, res) {
+  models.program.find().select('-_id -__v').lean().exec(function (err, res) {
     if(err) deferred.reject(err)
     else deferred.resolve(res)
   })
-  return deferred.progress.nodeify(cb)
+  return deferred.promise.nodeify(cb)
 }
 
 exports.getProgram = function (programId, cb) {
   var deferred = Q.defer()
   models.program.find({
     'id': programId
-  }).lean().exec(function (err, res) {
+  }).select('-_id -__v').lean().exec(function (err, res) {
     if(err) deferred.reject(err)
     else deferred.resolve(res)
   })
-  return deferred.progress.nodeify(cb)
+  return deferred.promise.nodeify(cb)
+}
+
+exports.getProgramByName = function (programNm, cb) {
+  var deferred = Q.defer()
+  models.program.findOne({
+    'name': programNm
+  }).select('-_id -__v').lean().exec(function (err, res) {
+    if(err) deferred.reject(err)
+    else deferred.resolve(res)
+  })
+  return deferred.promise.nodeify(cb)
 }
 
 exports.createProgram = function (program, cb) {
@@ -208,7 +219,7 @@ exports.updateProgram = function (programId, programPatch, cb) {
   var deferred = Q.defer()
   exports.getProgram(programId).then(function(res){
     var updatedProgram = require('util')._extend(require('util')._extend({}, res), programPatch)
-    models.program.findOneAndUpdate({_id: programId}, updatedProgram, function(err, res){
+    models.program.findOneAndUpdate({id: programId}, updatedProgram, function(err, res){
       if(err) deferred.reject(err)
       else deferred.resolve(res)
     })
