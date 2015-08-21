@@ -32,11 +32,20 @@ angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramServ
     }, function (errorMessage) {
       $scope.mdDisplay = errorMessage
     })
+}
+])
 
-    try {
-      // Turn off automatic editor creation first.
+
+angular.module('bcdevxApp.programs').directive('inlineEditable', function () {
+  return {
+    restrict: 'A',
+    link: function ($scope, element, attrs) {
+      element.attr('contenteditable', true)
+        // Turn off automatic editor creation first.
       window.CKEDITOR.disableAutoInline = true
-      var editor = window.CKEDITOR.inline('editor1')
+        // don't show tooltip besides cursor
+      window.CKEDITOR.config.title = false
+      var editor = window.CKEDITOR.inline(element[0])
       editor.on('blur', function (evt) {
         var programPatch = {
           content: {
@@ -47,6 +56,6 @@ angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramServ
           id: $scope.program.id
         }, programPatch)
       })
-    } catch (e) {}
-}
-])
+    }
+  }
+})
