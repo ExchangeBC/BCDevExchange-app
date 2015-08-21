@@ -17,7 +17,7 @@ See the License for the specific language governing permissions and limitations 
 var mongoose = require('mongoose')
 var config = require('config')
 var logger = require('../../common/logging.js').logger
-var Q = require('Q')
+var Q = require('q')
 
 var dbURI = config.mongodb.connectionString
 
