@@ -24,7 +24,7 @@ angular.module('bcdevxApp.services').factory('ProgramService', ['$resource', '$q
         var res = $resource(programApi + 'name/' + pName)
         res.get([],
           function (program) {
-            deferred.resolve(program)
+            deferred.resolve(program.toJSON())
           },
           function (responseError) {
             var errorMsg = 'Response error in getting resource from url ' + programApi + ', error code: ' + responseError.status

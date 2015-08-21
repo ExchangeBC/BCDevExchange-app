@@ -219,7 +219,7 @@ exports.updateProgram = function (programId, programPatch, cb) {
   var deferred = Q.defer()
   exports.getProgram(programId).then(function(res){
     var updatedProgram = require('util')._extend(require('util')._extend({}, res), programPatch)
-    models.program.findOneAndUpdate({_id: programId}, updatedProgram, function(err, res){
+    models.program.findOneAndUpdate({id: programId}, updatedProgram, function(err, res){
       if(err) deferred.reject(err)
       else deferred.resolve(res)
     })

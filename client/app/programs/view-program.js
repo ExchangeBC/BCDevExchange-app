@@ -19,6 +19,7 @@ angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramServ
 
     var mdContentPromise = ProgramService.getProgramByName($routeParams.programName)
     $scope.programName = $routeParams.programName
+    $scope.programs = Programs
     mdContentPromise.then(function (program) {
       if (!!program) {
         $scope.program = program
@@ -37,7 +38,14 @@ angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramServ
       window.CKEDITOR.disableAutoInline = true
       var editor = window.CKEDITOR.inline('editor1')
       editor.on('blur', function (evt) {
-        console.log('to be saved')
+        var programPatch = {
+          content: {
+            description: this.getData()
+          }
+        }
+        $scope.programs.update({
+          id: $scope.program.id
+        }, programPatch)
       })
     } catch (e) {}
 }

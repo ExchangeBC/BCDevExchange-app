@@ -79,7 +79,7 @@ module.exports = function (app, db, passport) {
   })
 
   app.patch('/programs/:id', function (req, res) {
-    db.updateProgram(id, req).then(function (data) {
+    db.updateProgram(req.params.id, req.body).then(function (data) {
       res.end()
     })
   })
