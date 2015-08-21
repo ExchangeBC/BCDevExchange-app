@@ -185,7 +185,7 @@ exports.getPrograms = function (cb) {
 
 exports.getProgram = function (programId, cb) {
   var deferred = Q.defer()
-  models.program.find({
+  models.program.findOne({
     'id': programId
   }).select('-_id -__v').lean().exec(function (err, res) {
     if(err) deferred.reject(err)
