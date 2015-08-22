@@ -14,13 +14,14 @@ See the License for the specific language governing permissions and limitations 
 
 'use strict'
 
-angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramService', '$routeParams', '$rootScope', '$scope', 'Programs', function (ProgramService, $routeParams, $rootScope, $scope, Programs) {
+angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramService', '$routeParams', '$rootScope', '$scope', 'Programs', 'usSpinnerService', function (ProgramService, $routeParams, $rootScope, $scope, Programs, usSpinnerService) {
     $scope.mdDisplay = ''
 
     var mdContentPromise = ProgramService.getProgramByName($routeParams.programName)
     $scope.programName = $routeParams.programName
     $scope.programs = Programs
     mdContentPromise.then(function (program) {
+      usSpinnerService.stop('spinner-program-desc')
       if (!!program) {
         $scope.program = program
         $scope.mdDisplay = program.markdown
