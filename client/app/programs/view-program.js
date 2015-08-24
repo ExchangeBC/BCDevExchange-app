@@ -42,7 +42,7 @@ angular.module('bcdevxApp.programs').directive('inlineEditable', function () {
     restrict: 'A',
     link: function ($scope, element, attrs) {
       element.attr('contenteditable', true)
-        // Turn off automatic editor creation first.
+      // Turn off automatic editor creation first.
       window.CKEDITOR.disableAutoInline = true
         // don't show tooltip besides cursor
       window.CKEDITOR.config.title = false
