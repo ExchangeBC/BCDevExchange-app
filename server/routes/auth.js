@@ -16,186 +16,187 @@ var config = require('config')
 var logger = require('../../common/logging.js').logger
 var request = require('request')
 
-module.exports = function(app, db, passport) {
+module.exports = function (app, db, passport) {
 
-// simple route middleware to ensure user is authenticated
-// use this route middleware on any resource that needs to be protected
-// if the request is authenticated the request will proceed
-    function ensureAuthenticated(req, res, next) {
-        if (req.isAuthenticated()) {
-            return next()
-        } else {
-            res.sendStatus(401)
+  // simple route middleware to ensure user is authenticated
+  // use this route middleware on any resource that needs to be protected
+  // if the request is authenticated the request will proceed
+  function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      return next()
+    } else {
+      res.sendStatus(401)
+    }
+  }
+
+  function loginCallbackHandler(req, res, logger) {
+
+    res.redirect('/#/account?id=' + req.user.id)
+
+  }
+
+  function populateAccount(req, res, id, db, config, logger) {
+    db.getAccountById(id, true,
+      function (err, account) {
+        if (err) {
+          logger.error(err)
+          res.sendStatus(500)
         }
-    }
 
-    function loginCallbackHandler(req, res, logger) {
+        var options = {}
+        var authContext = req.user.loggedInContext
+        if (authContext === config.github.name) {
+          options = {
+            url: config.github.baseURL + '/user',
+            headers: {
+              'User-Agent': config.github.clientApplicationName
+            }
+          }
+        } else if (authContext === config.linkedin.name) {
+          var baseURL = config.linkedin.baseURL
+          var appName = config.linkedin.clientApplicationName
 
-        res.redirect('/#/account?id=' + req.user.id)
-
-    }
-
-    function populateAccount(req, res, id, db, config, logger) {
-        db.getAccountById(id, true,
-            function (err, account) {
-                if (err) {
-                    logger.error(err)
-                    res.sendStatus(500)
-                }
-
-                var options = {}
-                var authContext = req.user.loggedInContext
-                if (authContext === config.github.name) {
-                    options = {
-                        url: config.github.baseURL + '/user',
-                        headers: {
-                            'User-Agent': config.github.clientApplicationName
-                        }
-                    }
-                } else if (authContext === config.linkedin.name) {
-                    var baseURL = config.linkedin.baseURL
-                    var appName = config.linkedin.clientApplicationName
-
-                    options = {
-                        url: config.linkedin.baseURL + '/people/~:(id,formatted-name)',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'x-li-format': 'json'
-                        }
-                    }
-                }
-
-                var accessToken = ""
-                var i = 0
-                while (i < req.user.identities.length) {
-                    if (req.user.identities[i].origin === authContext) {
-                        accessToken = req.user.identities[i].accessToken
-                        break
-                    }
-                    i++
-                }
-
-                request(options, function (error, response, body) {
-                    if (!error &&
-                        typeof response !== 'undefined' &&
-                        response.statusCode === 200) {
-
-                        var json = JSON.parse(body)
-
-                        // fill in details that aren't stored on our side
-                        if (authContext === config.github.name) {
-                            account.profiles[0].name = {
-                                identityOrigin: authContext,
-                                attributeName: 'name',
-                                value: json.login
-                            }
-                        } else if (authContext === config.linkedin.name) {
-                            account.profiles[0].name = {
-                                identityOrigin: authContext,
-                                attributeName: 'name',
-                                value: json.formattedName
-                            }
-                        }
-
-                        res.send(account)
-                    }
-                    else if (error) {
-                        logger.error('Error while fetching user info', error, body)
-                        res.sendStatus(500)
-                    }
-                }).auth(null, null, true, accessToken)
-
-            })
-    }
-    // ===== authentication page routing ======
-
-    // GET /auth/github
-    // use passport.authenticate() as route middleware to authenticate the request
-    app.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }),
-        function(req, res) {
-            console.log("response from github: " + res)
-            //the request will be redirected to github for auth, so this function will not be called
-        })
-
-    // GET /auth/github/callback
-    // use passport.authenticate() as route middleware to authenticate the request
-    // if auth fails, the user will be redirected back to the login page
-    // otherwise, the primary route function will be called which will redirect the user to the home page
-    app.get('/auth/github/callback',
-        passport.authenticate('github', {
-            scope: ['user', 'repo'],
-            failureRedirect: '/#/login'
-        }),
-        function(req, res) {
-            loginCallbackHandler(req, res, logger)
-        })
-
-    // GET /auth/linkedin
-    // use passport.authenticate() as route middleware to authenticate the request
-    app.get('/auth/linkedin',
-        passport.authenticate('linkedin'),
-        function(req, res) {
-            //the request will be redirected to linkedin for auth, so this function will not be called
-        })
-
-    // GET /auth/linkedin/callback
-    // use passport.authenticate() as route middleware to authenticate the request
-    // if auth fails, the user will be redirected back to the login page
-    // otherwise, the primary route function will be called which will redirect the user to the home page
-    app.get('/auth/linkedin/callback',
-        passport.authenticate('linkedin', {
-            failureRedirect: '/#/login'
-        }),
-        function(req, res) {
-            loginCallbackHandler(req, res, logger)
-        })
-
-    // ===== logout routing ======
-
-    app.post('/logout', function(req, res) {
-        req.logOut()
-        req.session.destroy()
-        res.sendStatus(200)
-    })
-
-    // ===== account page routing ======
-
-    app.get('/account/:id', ensureAuthenticated, function(req, res) {
-        populateAccount(req, res, req.params.id, db, config, logger)
-    })
-
-    app.get('/account', ensureAuthenticated, function(req, res) {
-        populateAccount(req, res, req.user._id, db, config, logger)
-    })
-    app.get('/accountCheck', function(req, res) {
-        if(req.isAuthenticated()){
-            populateAccount(req, res, req.user._id, db, config, logger)
-        }else{
-            res.sendStatus(403)
+          options = {
+            url: config.linkedin.baseURL + '/people/~:(id,formatted-name)',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-li-format': 'json'
+            }
+          }
         }
+
+        var accessToken = ""
+        var i = 0
+        while (i < req.user.identities.length) {
+          if (req.user.identities[i].origin === authContext) {
+            accessToken = req.user.identities[i].accessToken
+            break
+          }
+          i++
+        }
+
+        request(options, function (error, response, body) {
+          if (!error &&
+            typeof response !== 'undefined' &&
+            response.statusCode === 200) {
+
+            var json = JSON.parse(body)
+
+            // fill in details that aren't stored on our side
+            if (authContext === config.github.name) {
+              account.profiles[0].name = {
+                identityOrigin: authContext,
+                attributeName: 'name',
+                value: json.login
+              }
+            } else if (authContext === config.linkedin.name) {
+              account.profiles[0].name = {
+                identityOrigin: authContext,
+                attributeName: 'name',
+                value: json.formattedName
+              }
+            }
+
+            res.send(account)
+          } else if (error) {
+            logger.error('Error while fetching user info', error, body)
+            res.sendStatus(500)
+          }
+        }).auth(null, null, true, accessToken)
+
+      })
+  }
+  // ===== authentication page routing ======
+
+  // GET /auth/github
+  // use passport.authenticate() as route middleware to authenticate the request
+  app.get('/auth/github', passport.authenticate('github', {
+      scope: ['user:email']
+    }),
+    function (req, res) {
+      console.log("response from github: " + res)
+        //the request will be redirected to github for auth, so this function will not be called
     })
 
-    app.post('/account/:id', ensureAuthenticated, function(req, res) {
-        var acctData = req.body
-
-        db.getAccountById(acctData._id, true,
-            function (err, account) {
-                if (err) {
-                    logger.error(err)
-                }
-
-                if (account) {
-                    account.profiles[0].visible = acctData.profiles[0].visible
-                    account.profiles[0].contactPreferences.notifyMeOfAllUpdates = acctData.profiles[0].contactPreferences.notifyMeOfAllUpdates
-                    account.profiles[0].save(function (err) {
-                        if (err) {
-                            logger.error(err)
-                        }
-
-                        res.json(account)
-
-                    })
-                }
-            })
+  // GET /auth/github/callback
+  // use passport.authenticate() as route middleware to authenticate the request
+  // if auth fails, the user will be redirected back to the login page
+  // otherwise, the primary route function will be called which will redirect the user to the home page
+  app.get('/auth/github/callback',
+    passport.authenticate('github', {
+      scope: ['user', 'repo'],
+      failureRedirect: '/#/login'
+    }),
+    function (req, res) {
+      loginCallbackHandler(req, res, logger)
     })
+
+  // GET /auth/linkedin
+  // use passport.authenticate() as route middleware to authenticate the request
+  app.get('/auth/linkedin',
+    passport.authenticate('linkedin'),
+    function (req, res) {
+      //the request will be redirected to linkedin for auth, so this function will not be called
+    })
+
+  // GET /auth/linkedin/callback
+  // use passport.authenticate() as route middleware to authenticate the request
+  // if auth fails, the user will be redirected back to the login page
+  // otherwise, the primary route function will be called which will redirect the user to the home page
+  app.get('/auth/linkedin/callback',
+    passport.authenticate('linkedin', {
+      failureRedirect: '/#/login'
+    }),
+    function (req, res) {
+      loginCallbackHandler(req, res, logger)
+    })
+
+  // ===== logout routing ======
+
+  app.post('/logout', function (req, res) {
+    req.logOut()
+    req.session.destroy()
+    res.sendStatus(200)
+  })
+
+  // ===== account page routing ======
+
+  app.get('/account/:id', ensureAuthenticated, function (req, res) {
+    populateAccount(req, res, req.params.id, db, config, logger)
+  })
+
+  app.get('/account', ensureAuthenticated, function (req, res) {
+    populateAccount(req, res, req.user._id, db, config, logger)
+  })
+  app.get('/accountCheck', function (req, res) {
+    if (req.isAuthenticated()) {
+      populateAccount(req, res, req.user._id, db, config, logger)
+    } else {
+      res.sendStatus(403)
+    }
+  })
+
+  app.post('/account/:id', ensureAuthenticated, function (req, res) {
+    var acctData = req.body
+
+    db.getAccountById(acctData._id, true,
+      function (err, account) {
+        if (err) {
+          logger.error(err)
+        }
+
+        if (account) {
+          account.profiles[0].visible = acctData.profiles[0].visible
+          account.profiles[0].contactPreferences.notifyMeOfAllUpdates = acctData.profiles[0].contactPreferences.notifyMeOfAllUpdates
+          account.profiles[0].save(function (err) {
+            if (err) {
+              logger.error(err)
+            }
+
+            res.json(account)
+
+          })
+        }
+      })
+  })
 }
