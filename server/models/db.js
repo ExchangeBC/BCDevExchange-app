@@ -18,6 +18,7 @@ var mongoose = require('mongoose')
 var config = require('config')
 var logger = require('../../common/logging.js').logger
 var Q = require('q')
+var _ = require('lodash')
 
 var dbURI = config.mongodb.connectionString
 
@@ -218,7 +219,7 @@ exports.createProgram = function (program, cb) {
 exports.updateProgram = function (programId, programPatch, cb) {
   var deferred = Q.defer()
   exports.getProgram(programId).then(function(res){
-    var updatedProgram = require('util')._extend(require('util')._extend({}, res), programPatch)
+    var updatedProgram = _.merge(res, programPatch)
     models.program.findOneAndUpdate({id: programId}, updatedProgram, function(err, res){
       if(err) deferred.reject(err)
       else deferred.resolve(res)
