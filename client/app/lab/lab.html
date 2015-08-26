@@ -53,21 +53,87 @@ See the License for the specific language governing permissions and limitations 
                 <p>In the Labs you will find experiments; ideas that need to be proven. Everything in the Labs needs to be tested, validated and refined. Like any experiments, some will work and others will fail. So be prepared that some of what you see here will disappear.</p>
 
                 <p>Work in the Labs will be tagged with either ‘Inspiration’ or ‘Exploration’. Inspiration means early stage, back-of-the-napkin type of ideas. Exploration contains work that is functional and can be tested, such as working software, but that is not ‘production ready.’</p>
-                <br/>
-                <div class="list-group">
-                    <a href="https://sandbox1.apis.gov.bc.ca/apim/store/apis/info?name=BCLaws&version=1.0.0&provider=admin#!/content/get_content_aspectId_get_0" class="list-group-item" analytics-on>
-                        <h4 class="list-group-item-heading">BCLaws API Management</h4>
-                        <p class="list-group-item-text">We're looking into API Management tools, and using the BCLaws API as a pathfinder</p>
-                    </a>
-                    <a href="https://sandbox1.data.gov.bc.ca/dataset?download_audience=Public" class="list-group-item" analytics-on>
-                        <h4 class="list-group-item-heading">CKAN/BCDC Sandbox</h4>
-                        <p class="list-group-item-text">We're adding and modifying extensions to the BCDC</p>
-                    </a>
-                    <a href="https://sandbox1.apis.gov.bc.ca/apim/store/" class="list-group-item" analytics-on>
-                        <h4 class="list-group-item-heading">WSO2 Sandbox</h4>
-                        <p class="list-group-item-text">We're configuring WSO2 to help support API Management</p>
-                    </a>
-                </div>
+
+                <p>
+                    <!-- Button trigger modal -->
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Create New Lab Space <span class="caret"></span></button>
+                    <div class="collapse" id="collapseExample">
+                      <div class="well">
+                        <form role="form" class="form-horizontal">
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-md-2 control-label">Space Name</label>
+                                <div class="col-sm-12 col-md-3 col-lg-5">
+                                  <input type="text" style="display: inline;" class="form-control" id="projectName" placeholder="e.g. 'daveapp'">
+                                </div>
+                                <div class="col-xs-12 col-md-3 text-left hidden-sm hidden-xs" style="padding-left:0;margin-left:0;">
+                                    <span style="line-height: 2.5em;">- labs.bcdevexchange.org</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-md-2 control-label">Lab Location</label>
+                                <div class="col-md-3">
+                                    <select class="form-control">
+                                        <option>Self-hosted</option>
+                                        <option disabled="disabled">BCDevX Hosted (Coming Soon)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                  <input type="text" style="display: inline;" class="form-control" id="projectName" placeholder="e.g. 'ec2-45-22-12-81.us-2.compute.amazonaws.com/app'">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-md-2 control-label">Visibility</label>
+                                <div class="col-md-8">
+                                    <div class="radio-inline">
+                                        <label><input type="radio" name="visibility" /> Private Space</label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label><input type="radio" name="visibility" /> Public Space</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-md-2 control-label">Terms Of Use</label>
+                                <div class="col-md-8">
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> I agree that the work I do in the lab is not production work
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> I agree that no personal information is or will be stored in the lab
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-primary pull-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Create Space</button>
+                            </div>
+
+                        </form>
+                      </div>
+                    </div>
+                </p>
+
+                <hr />
+
+                <section>
+                    <div><h3>Existing Labs</h3></div>
+
+                    <ul class="list-group" style="margin-top:15px;">
+                        <li class="list-group-item">
+                            <h4 class="list-group-item-heading">First Voices Language Revitalization</h4>
+                            <p class="list-group-item-text">We're looking into API Management tools, and using the BCLaws API as a pathfinder</p>
+                            <p><button class="btn btn-default">Launch Codenvy</button> <button class="btn btn-default">Launch C9</button> <button class="btn btn-default">Project Profile</button> <button class="btn btn-default">View on Github</button></p>
+                        </li>
+                    </ul>
+                </section>
             </div>
         </div>
     </div>
