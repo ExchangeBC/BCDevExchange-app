@@ -87,7 +87,7 @@ module.exports = function (app, db, passport) {
               account.profiles[0].name = {
                 identityOrigin: authContext,
                 attributeName: 'name',
-                value: json.login
+                value: json.name || json.login
               }
             } else if (authContext === config.linkedin.name) {
               account.profiles[0].name = {
