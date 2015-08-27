@@ -11,78 +11,79 @@ Unless required by applicable law or agreed to in writing, software distributed 
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
-'use strict';
+'use strict'
 angular.module('bcdevxApp.services', [])
-.factory('AccountService', ['$resource', '$q', function($resource, $q) {
-    var accountService = this;
-    var accountUrl = '/account';
-    var accountCheckUrl = '/accountCheck';
-    /*
-      Returns a promise, when resolved with empty object, indicating no authenticated user found.
-     */
-    accountService.getCurrentUser = function(){
-        var deferred = $q.defer();
-        var actPromise = $resource(accountCheckUrl).get().$promise;
+  .factory('AccountService', ['$resource', '$q', function ($resource, $q) {
+    var accountService = this
+    var accountUrl = '/account'
+    var accountCheckUrl = '/accountCheck'
+      /*
+        Returns a promise, when resolved with empty object, indicating no authenticated user found.
+       */
+    accountService.getCurrentUser = function () {
+      var deferred = $q.defer()
+      var actPromise = $resource(accountCheckUrl).get().$promise
 
-        var currentUser = {
-        };
+      var currentUser = {}
 
-        actPromise.then(
-            function(data){
-                if(!!data.profiles){
-                    currentUser.displayName = data.profiles[0].name.value;
-                    currentUser.id = data._id;
-                    currentUser.siteAdmin = data.siteAdmin || false
-                    deferred.resolve(currentUser);
-                }else{
-                    //console.log("No authenticated user found.");
-                    deferred.resolve(currentUser);
-                }
-            },
-            function(error){
-                //console.log("Error in accessing resource: " + accountCheckUrl + ", error code" + error.status);
-                currentUser.error = error.toString();
-                deferred.reject(currentUser);
-            }
-        );
+      actPromise.then(
+        function (data) {
+          if (!!data.profiles) {
+            currentUser.displayName = data.profiles[0].name.value
+            currentUser.id = data._id
+            currentUser.siteAdmin = data.siteAdmin || false
+            deferred.resolve(currentUser)
+          } else {
+            //console.log("No authenticated user found.")
+            deferred.resolve(currentUser)
+          }
+        },
+        function (error) {
+          //console.log("Error in accessing resource: " + accountCheckUrl + ", error code" + error.status)
+          currentUser.error = error.toString()
+          deferred.reject(currentUser)
+        }
+      )
 
-        return deferred.promise;
-    };
+      return deferred.promise
+    }
 
-    accountService.getCurrentAccount = function(){
-        var accountPromise = $resource(accountUrl).get().$promise;
-        return accountPromise;
-    };
+    accountService.getCurrentAccount = function () {
+      var accountPromise = $resource(accountUrl).get().$promise
+      return accountPromise
+    }
 
-    accountService.getAccountById = function(accountId){
-        var deferred = $q.defer();
-        $resource(accountUrl + '/:id').get(
-            {id: accountId},
+    accountService.getAccountById = function (accountId) {
+      var deferred = $q.defer()
+      $resource(accountUrl + '/:id').get({
+          id: accountId
+        },
 
-            function(data){
-                deferred.resolve(data);
-            },
-            function(error){
-                deferred.reject(error);
-            }
-        );
-        return deferred.promise;
-    };
+        function (data) {
+          deferred.resolve(data)
+        },
+        function (error) {
+          deferred.reject(error)
+        }
+      )
+      return deferred.promise
+    }
 
-    accountService.save = function(accountId, accountData){
-        var deferred = $q.defer();
-        $resource(accountUrl + '/:id').save(
-            {id: accountId},
-            accountData,
+    accountService.save = function (accountId, accountData) {
+      var deferred = $q.defer()
+      $resource(accountUrl + '/:id').save({
+          id: accountId
+        },
+        accountData,
 
-            function(data){
-                deferred.resolve(data);
-            },
-            function(error){
-                deferred.reject(error);
-            }
-        );
-        return deferred.promise;
-    };
-    return accountService;
-}]);
+        function (data) {
+          deferred.resolve(data)
+        },
+        function (error) {
+          deferred.reject(error)
+        }
+      )
+      return deferred.promise
+    }
+    return accountService
+}])
