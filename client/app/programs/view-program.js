@@ -44,7 +44,7 @@ angular.module('bcdevxApp.programs').directive('inlineEditable', ['AccountServic
     link: function ($scope, element, attrs) {
       $scope.$on('contentReady', function () {
         AccountService.getCurrentUser().then(function (currUser) {
-          if (!$scope.program.editors || $scope.program.editors.indexOf(currUser.id) < 0) {
+          if (!currUser.siteAdmin && (!$scope.program.editors || $scope.program.editors.indexOf(currUser.id) < 0)) {
             return
           }
           element.attr('contenteditable', true)

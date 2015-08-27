@@ -32,6 +32,7 @@ angular.module('bcdevxApp.services', [])
                 if(!!data.profiles){
                     currentUser.displayName = data.profiles[0].name.value;
                     currentUser.id = data._id;
+                    currentUser.siteAdmin = data.siteAdmin || false
                     deferred.resolve(currentUser);
                 }else{
                     //console.log("No authenticated user found.");
