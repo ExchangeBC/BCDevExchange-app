@@ -77,12 +77,7 @@ angular.module('bcdevxApp.programs').directive('inlineEditable', ['AccountServic
             editor.on('loaded', function () {
               var editable = editor.editable(this.element)
               editable.hasFocus = true
-              editor.once('contentDom', function () {
-                editor.focusManager.add(this.element)
-                editor.focusManager.focus(this.element)
-              }, this)
             })
-
           })
         })
       })
