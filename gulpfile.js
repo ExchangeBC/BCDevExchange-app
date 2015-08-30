@@ -25,7 +25,7 @@ var concat = require('gulp-concat');
 
 var targetFile = ['!**/bower_components/**/', '!public/bootstrap/**/',
                     '!**/gulpfile.js', '!public/js/**/*.*',
-                    'public/**/*.html', 'public/**/*.js', 'app/**/*.js','config/**/*.json'];
+                    'public/**/*.html', 'public/**/*.js', 'app/**/*.js','config/**/*.json','*.js'];
 
 var licenseFile = 'copyright-apache2.txt';
 
