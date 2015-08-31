@@ -1,3 +1,16 @@
+/*
+Copyright 2015 Province of British Columbia
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and limitations under the License.
+*/
 // Generated on 2015-07-26 using generator-angular-fullstack 2.0.13
 'use strict';
 
@@ -568,8 +581,12 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('serve', function (target) {
+    if (target === 'dist-nobuild') {
+      return grunt.task.run(['env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
+    }
+
     if (target === 'dist') {
-      return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
+      return grunt.task.run(['build', 'serve:dist-nobuild']);
     }
 
     if (target === 'debug') {
