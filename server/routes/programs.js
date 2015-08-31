@@ -79,8 +79,19 @@ module.exports = function (app, db, passport) {
   })
 
   app.patch('/programs/:id', function (req, res) {
-    db.updateProgram(req.params.id, req.body).then(function (data) {
-      res.end()
+    if (req.user.siteAdmin) {
+      db.updateProgram(req.params.id, req.body).then(function (data) {
+        res.end()
+      })
+      return
+    }
+
+    db.getProgram(req.params.id).then(function (program) {
+      if (program.editors && program.editors.indexOf(req.user._id) >= 0) {
+        db.updateProgram(req.params.id, req.body).then(function (data) {
+          res.end()
+        })
+      }
     })
   })
 }

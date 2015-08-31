@@ -6,9 +6,8 @@
 
       <div class=" et_pb_row et_pb_row_0">
 
-        <div class="et_pb_column et_pb_column_1_2 et_pb_column_0">
-          <div class="et_pb_text et_pb_module et_pb_bg_layout_dark et_pb_text_align_left  et_pb_text_0">
-            &nbsp;
+        <div class="et_pb_column et_pb_column_1_2">
+          <div inline-editable ng-bind-html='program.content.logo' style='text-align: center'>
           </div>
           <!-- .et_pb_text -->
         </div>
@@ -317,11 +316,8 @@
                 <p style="text-align: left;">
                   <a name="skillsweneed"></a>
                 </p>
-                <ul>
-                  <li style="text-align: left;"><a href="http://iux.ca/#schema">Schema Developer</a>
-                  </li>
-                </ul>
-
+                <div inline-editable ng-bind-html='program.content.skills' style="text-align: left;">
+                </div>
               </div>
             </div>
             <!-- .et_pb_blurb_content -->
@@ -336,14 +332,8 @@
               </div>
               <div class="et_pb_blurb_container">
                 <h4><a href="#">Community</a></h4>
-
-                <ul>
-                  <li style="text-align: left;"><a href="https://github.com/BCDevExchange/BCDevExchange-app/graphs/contributors">Contributors</a>
-                  </li>
-                  <li style="text-align: left;"><a href="https://github.com/BCDevExchange/BCDevExchange-app/watchers">People</a>
-                  </li>
-                </ul>
-
+                <div inline-editable ng-bind-html='program.content.community' style="text-align: left;">
+                </div>
               </div>
             </div>
             <!-- .et_pb_blurb_content -->
@@ -485,18 +475,6 @@
     color: inherit;
   }
 
-  .et_pb_text_0 {
-    font-size: 18px;
-    padding-top: 5px;
-    padding-right: 5px;
-    padding-bottom: 5px;
-    padding-left: 5px;
-    margin-top: 5px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-  }
-
   .et_pb_blurb_1.et_pb_blurb h4 {
     font-size: 20px;
     letter-spacing: 2px;
@@ -518,15 +496,6 @@
   .et_pb_blurb_3.et_pb_blurb h4 {
     font-size: 20px;
     letter-spacing: 2px;
-  }
-
-  .et_pb_column_0 {
-    background-color: #ffffff;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 134px 87px;
-    height: 87px;
-    background-image: url(/img/BCLawsLogo.png);
   }
 
   #page-container {
