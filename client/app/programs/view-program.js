@@ -14,26 +14,31 @@ See the License for the specific language governing permissions and limitations 
 
 'use strict'
 
-angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramService', '$routeParams', '$rootScope', '$scope', 'Programs', 'usSpinnerService', function (ProgramService, $routeParams, $rootScope, $scope, Programs, usSpinnerService) {
-    $scope.mdDisplay = ''
+angular.module('bcdevxApp.programs').config(function ($sceProvider) {
+    // fully trust content editor
+    $sceProvider.enabled(false)
+  })
+  .controller('ViewProgramCtrl', ['ProgramService', '$routeParams', '$rootScope', '$scope', 'Programs', 'usSpinnerService', '$sce', function (ProgramService, $routeParams, $rootScope, $scope, Programs, usSpinnerService, $sce) {
+      $scope.mdDisplay = ''
 
-    var mdContentPromise = ProgramService.getProgramByName($routeParams.programName)
-    $scope.programName = $routeParams.programName
-    $scope.programs = Programs
-    mdContentPromise.then(function (program) {
-      usSpinnerService.stop('spinner-program-desc')
-      if (!!program) {
-        $scope.program = program
-        $scope.mdDisplay = program.markdown
-        $rootScope.$broadcast('bdTocUpdate')
-        $scope.$broadcast('contentReady')
-      } else {
-        $scope.mdDisplay = 'No content found for program named \'' + $routeParams.programName + '\'.'
-      }
+      var mdContentPromise = ProgramService.getProgramByName($routeParams.programName)
+      $scope.programName = $routeParams.programName
+      $scope.programs = Programs
+      mdContentPromise.then(function (program) {
+        usSpinnerService.stop('spinner-program-desc')
+        if (!!program) {
+          $scope.program = program
+          $scope.x = $sce.trustAsHtml(program.content.logo)
+          $scope.mdDisplay = program.markdown
+          $rootScope.$broadcast('bdTocUpdate')
+          $scope.$broadcast('contentReady')
+        } else {
+          $scope.mdDisplay = 'No content found for program named \'' + $routeParams.programName + '\'.'
+        }
 
-    }, function (errorMessage) {
-      $scope.mdDisplay = errorMessage
-    })
+      }, function (errorMessage) {
+        $scope.mdDisplay = errorMessage
+      })
 }
 ])
 
@@ -41,7 +46,7 @@ angular.module('bcdevxApp.programs').controller('ViewProgramCtrl', ['ProgramServ
 angular.module('bcdevxApp.programs').directive('inlineEditable', ['AccountService', function (AccountService) {
   // Turn off automatic editor creation first.
   window.CKEDITOR.disableAutoInline = true
-  // don't show tooltip besides cursor
+    // don't show tooltip besides cursor
   window.CKEDITOR.config.title = false
 
   return {
