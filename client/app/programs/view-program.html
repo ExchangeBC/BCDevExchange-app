@@ -1,31 +1,480 @@
-<!--
-Copyright 2015 Province of British Columbia
+<article>
+  <div class="entry-content">
+    <div class="et_pb_section et_pb_inner_shadow  et_pb_section_0 et_pb_with_background et_section_regular">
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
--->
-<div class="container">
-    <div class="row page-header">
-        <div class="col-lg-12">
-            <h1>{{programName}}</h1>
+      <div class=" et_pb_row et_pb_row_0">
+
+        <div class="et_pb_column et_pb_column_1_2">
+          <div inline-editable ng-bind-html='program.content.logo' style='text-align: center'>
+          </div>
+          <!-- .et_pb_text -->
         </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_2 et_pb_column_1">
+          <span us-spinner="{radius:20, width:6, length: 15}" spinner-key="spinner-program-desc" spinner-start-active="true"></span>
+          <div inline-editable class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_1" ng-bind-html='program.content.description' />
+          <!-- .et_pb_text -->
+        </div>
+        <!-- .et_pb_column -->
+
+      </div>
+      <!-- .et_pb_row -->
+
     </div>
-    <div class="row">
-        <div class="col-sm-9">
-            <div btf-markdown="mdDisplay" class="fx-fade-left">
+    <!-- .et_pb_section -->
+    <div class="et_pb_section  et_pb_section_1 et_pb_with_background et_section_regular">
+
+
+
+      <div class="et_pb_row et_pb_row_1 et_pb_row_4col">
+
+        <div class="et_pb_column et_pb_column_1_4 et_pb_column_2">
+          <div class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_0 et_pb_blurb_position_top">
+            <div class="et_pb_blurb_content">
+              <div class="et_pb_main_blurb_image"><a href="#workwithus"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated" style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span></a>
+              </div>
+              <div class="et_pb_blurb_container">
+                <h4><a href="#workwithus">Work With Us</a></h4>
+
+              </div>
             </div>
+            <!-- .et_pb_blurb_content -->
+          </div>
+          <!-- .et_pb_blurb -->
         </div>
-        <div class="col-sm-3 hidden-xs">
-            <div class="sidebar" ui-scrollfix="94">
-                <bd-toc selector="h2"></bd-toc>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_4 et_pb_column_3">
+          <div class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_1 et_pb_blurb_position_top">
+            <div class="et_pb_blurb_content">
+              <div class="et_pb_main_blurb_image"><a href="#resources"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated" style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span></a>
+              </div>
+              <div class="et_pb_blurb_container">
+                <h4><a href="#resources">Resources</a></h4>
+
+              </div>
             </div>
+            <!-- .et_pb_blurb_content -->
+          </div>
+          <!-- .et_pb_blurb -->
         </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_4 et_pb_column_4">
+          <div class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_2 et_pb_blurb_position_top">
+            <div class="et_pb_blurb_content">
+              <div class="et_pb_main_blurb_image"><a href="#skillsweneed"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated" style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span></a>
+              </div>
+              <div class="et_pb_blurb_container">
+                <h4><a href="#skillsweneed">Skills We Need</a></h4>
+
+              </div>
+            </div>
+            <!-- .et_pb_blurb_content -->
+          </div>
+          <!-- .et_pb_blurb -->
+        </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_4 et_pb_column_5">
+          <div class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_3 et_pb_blurb_position_top">
+            <div class="et_pb_blurb_content">
+              <div class="et_pb_main_blurb_image">
+                <a href="https://github.com/BCDevExchange/BCLaws-API-Management"><img class="et-waypoint et_pb_animation_top et-animated" src='img/GitHub-Mark-Light-120px-plus.png' width='95px' />
+                </a>
+              </div>
+              <div class="et_pb_blurb_container">
+                <h4><a href="https://github.com/BCDevExchange/BCLaws-API-Management">GitHub</a></h4>
+
+              </div>
+            </div>
+            <!-- .et_pb_blurb_content -->
+          </div>
+          <!-- .et_pb_blurb -->
+        </div>
+        <!-- .et_pb_column -->
+
+      </div>
+      <!-- .et_pb_row -->
+
     </div>
-</div>
+    <!-- .et_pb_section -->
+    <div class="et_pb_section  et_pb_section_2 et_section_regular">
+
+
+
+      <div class=" et_pb_row et_pb_row_2">
+
+        <div class="et_pb_column et_pb_column_1_3 et_pb_column_6">
+          <div class="et_pb_number_counter et_pb_module et_pb_bg_layout_light  et_pb_number_counter_0" data-number-value="1296">
+            <div class="percent" style="color:#7EBEC5">
+              <p><span class="percent-value"></span>
+              </p>
+            </div>
+            <h3>Api Calls Today</h3>
+            <canvas height="0" width="0"></canvas>
+          </div>
+          <!-- .et_pb_number_counter -->
+        </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_3 et_pb_column_7">
+          <div class="et_pb_number_counter et_pb_module et_pb_bg_layout_light  et_pb_number_counter_1" data-number-value="36">
+            <div class="percent" style="color:#7EBEC5">
+              <p><span class="percent-value"></span>
+              </p>
+            </div>
+            <h3>Commits Today</h3>
+            <canvas height="0" width="0"></canvas>
+          </div>
+          <!-- .et_pb_number_counter -->
+        </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_3 et_pb_column_8">
+          <div class="et_pb_number_counter et_pb_module et_pb_bg_layout_light  et_pb_number_counter_2" data-number-value="6">
+            <div class="percent" style="color:#7EBEC5">
+              <p><span class="percent-value"></span>
+              </p>
+            </div>
+            <h3>New Watchers Today</h3>
+            <canvas height="0" width="0"></canvas>
+          </div>
+          <!-- .et_pb_number_counter -->
+        </div>
+        <!-- .et_pb_column -->
+
+      </div>
+      <!-- .et_pb_row -->
+
+    </div>
+    <!-- .et_pb_section -->
+    <div class="et_pb_section  et_pb_section_3 et_pb_with_background et_section_regular">
+
+
+
+      <div class=" et_pb_row et_pb_row_3">
+
+        <div class="et_pb_column et_pb_column_4_4 et_pb_column_9">
+          <div class="et_pb_promo et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_cta_0 et_pb_no_bg">
+            <div class="et_pb_promo_description">
+
+
+            </div>
+            <a class="et_pb_promo_button et_pb_button" href="https://github.com/BCDevExchange/garbage-day">Go To GitHub</a>
+          </div>
+        </div>
+        <!-- .et_pb_column -->
+
+      </div>
+      <!-- .et_pb_row -->
+
+    </div>
+    <!-- .et_pb_section -->
+    <div class="et_pb_section et_pb_inner_shadow et_pb_section_parallax  et_pb_section_4 et_pb_with_background et_section_regular">
+
+
+
+      <div class=" et_pb_row et_pb_row_4">
+
+        <div class="et_pb_column et_pb_column_4_4 et_pb_column_10">
+          <div id="HPFont" class="et_pb_text et_pb_module et_pb_bg_layout_dark et_pb_text_align_left  et_pb_text_2">
+            <a name="workwithus"></a>
+            <p></p>
+            <h1 style="text-align: center;">Work With Us</h1>
+
+          </div>
+          <!-- .et_pb_text -->
+        </div>
+        <!-- .et_pb_column -->
+
+      </div>
+      <!-- .et_pb_row -->
+
+    </div>
+    <!-- .et_pb_section -->
+    <div class="et_pb_section et_pb_section_parallax  et_pb_section_5 et_pb_with_background et_section_specialty et_section_transparent">
+      <div class="et_parallax_bg" style="height: 576.5px; transform: translate(0px, -241.95px); background-image: url(/img/header4.jpg);"></div>
+      <div class="et_pb_row">
+
+        <div class="et_pb_column et_pb_column_1_3 et_pb_column_11 et_pb_column_single">
+          <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_3">
+
+            <h2>Work Underway Now</h2>
+
+          </div>
+          <!-- .et_pb_text -->
+          <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_4">
+            <div inline-editable ng-bind-html='program.content.work'></div>
+            <a href="#" class="small-button smallteal">More Work…</a>
+          </div>
+          <!-- .et_pb_text -->
+        </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_2_3 et_pb_column_12 et_pb_specialty_column">
+          <div class=" et_pb_row_inner et_pb_row_inner_0">
+            <div class="et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_0">
+              <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_5">
+
+                <h2 style="text-align: left;">Tasks &amp; Issues</h2>
+
+              </div>
+              <!-- .et_pb_text -->
+            </div>
+            <!-- .et_pb_column -->
+          </div>
+          <!-- .et_pb_row_inner -->
+          <div class=" et_pb_row_inner et_pb_row_inner_1">
+            <div class="et_pb_column et_pb_column_1_3 et_pb_column_inner et_pb_column_inner_1">
+              <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_6">
+                <div inline-editable ng-bind-html='program.content.tasks'></div>
+                <a href="https://github.com/BCDevExchange/garbage-day/labels/help%20wanted" class="small-button smallteal">More Tasks</a>
+              </div>
+              <!-- .et_pb_text -->
+            </div>
+            <!-- .et_pb_column -->
+            <div class="et_pb_column et_pb_column_1_3 et_pb_column_inner et_pb_column_inner_2">
+              <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_7">
+                <div inline-editable ng-bind-html='program.content.tasks'></div>
+                <a href="#" class="small-button smallteal">All Open Issues</a>
+              </div>
+              <!-- .et_pb_text -->
+            </div>
+            <!-- .et_pb_column -->
+          </div>
+          <!-- .et_pb_row_inner -->
+        </div>
+        <!-- .et_pb_column -->
+      </div>
+      <!-- .et_pb_row -->
+    </div>
+    <!-- .et_pb_section -->
+    <div class="et_pb_section  et_pb_section_6 et_pb_with_background et_section_regular">
+
+
+
+      <div class=" et_pb_row et_pb_row_5">
+
+        <div class="et_pb_column et_pb_column_4_4 et_pb_column_13">
+          <div class="et_pb_promo et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_cta_1 et_pb_no_bg">
+            <div class="et_pb_promo_description">
+
+
+            </div>
+            <a class="et_pb_promo_button et_pb_button" href="https://github.com/BCDevExchange/garbage-day">Go To GitHub</a>
+          </div>
+        </div>
+        <!-- .et_pb_column -->
+
+      </div>
+      <!-- .et_pb_row -->
+
+    </div>
+    <!-- .et_pb_section -->
+    <div class="et_pb_section  et_pb_section_7 et_section_regular">
+
+
+
+      <div class="et_pb_row et_pb_row_6 et_pb_row_4col">
+
+        <div class="et_pb_column et_pb_column_1_4 et_pb_column_14">
+          <div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_4 et_pb_blurb_position_top">
+            <div class="et_pb_blurb_content">
+              <div class="et_pb_main_blurb_image"><a href="#"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span></a>
+              </div>
+              <div class="et_pb_blurb_container">
+                <h4><a href="#">Resources</a></h4>
+                <p style="text-align: left;">
+                  <a name="resources"></a>
+                </p>
+                <div inline-editable ng-bind-html='program.content.resources' style="text-align: left;">
+                </div>
+              </div>
+            </div>
+            <!-- .et_pb_blurb_content -->
+          </div>
+          <!-- .et_pb_blurb -->
+        </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_4 et_pb_column_15">
+          <div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_5 et_pb_blurb_position_top">
+            <div class="et_pb_blurb_content">
+              <div class="et_pb_main_blurb_image"><a href="#"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span></a>
+              </div>
+              <div class="et_pb_blurb_container">
+                <h4><a href="#">Skills</a></h4>
+
+                <p style="text-align: left;">
+                  <a name="skillsweneed"></a>
+                </p>
+                <div inline-editable ng-bind-html='program.content.skills' style="text-align: left;">
+                </div>
+              </div>
+            </div>
+            <!-- .et_pb_blurb_content -->
+          </div>
+          <!-- .et_pb_blurb -->
+        </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_4 et_pb_column_16">
+          <div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_6 et_pb_blurb_position_top">
+            <div class="et_pb_blurb_content">
+              <div class="et_pb_main_blurb_image"><a href="#"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;">w</span></a>
+              </div>
+              <div class="et_pb_blurb_container">
+                <h4><a href="#">Community</a></h4>
+                <div inline-editable ng-bind-html='program.content.community' style="text-align: left;">
+                </div>
+              </div>
+            </div>
+            <!-- .et_pb_blurb_content -->
+          </div>
+          <!-- .et_pb_blurb -->
+        </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_4 et_pb_column_17">
+          <div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_7 et_pb_blurb_position_top">
+            <div class="et_pb_blurb_content">
+              <div class="et_pb_main_blurb_image"><a href="https://news.gov.bc.ca/"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span></a>
+              </div>
+              <div class="et_pb_blurb_container">
+                <h4><a href="https://news.gov.bc.ca/">News</a></h4>
+                <div inline-editable ng-bind-html='program.content.news' style="text-align: left;"></div>
+                <a href="https://news.gov.bc.ca/" class="small-button smallteal">More News</a>
+              </div>
+            </div>
+            <!-- .et_pb_blurb_content -->
+          </div>
+          <!-- .et_pb_blurb -->
+        </div>
+        <!-- .et_pb_column -->
+
+      </div>
+      <!-- .et_pb_row -->
+
+    </div>
+    <!-- .et_pb_section -->
+    <div class="et_pb_section  et_pb_section_8 et_pb_with_background et_section_specialty">
+
+      <div class="et_pb_row">
+
+        <div class="et_pb_column et_pb_column_1_2 et_pb_column_18 et_pb_column_single">
+          <div class="et_pb_bg_layout_dark" inline-editable ng-bind-html='program.content.contact'>
+          </div>
+          <!-- .et_pb_text -->
+        </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_2 et_pb_column_19 et_pb_specialty_column">
+          <div class=" et_pb_row_inner et_pb_row_inner_2">
+            <div class="et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_3">
+              <div class="et_pb_text et_pb_module et_pb_bg_layout_dark et_pb_text_align_left  et_pb_text_9">
+                <a href="#" class="icon-button people-icon"><span class="et-icon"></span></a><a href="mailto:tech@kamloops.ca?Subject=BC%20Developer%20Exchange%20Tech%20Contact" target="_top"> Technical Contact</a>
+                <p></p>
+                <div class="et-pb-modal-bottom-container"></div>
+
+              </div>
+              <!-- .et_pb_text -->
+            </div>
+            <!-- .et_pb_column -->
+          </div>
+          <!-- .et_pb_row_inner -->
+        </div>
+        <!-- .et_pb_column -->
+      </div>
+      <!-- .et_pb_row -->
+    </div>
+    <!-- .et_pb_section -->
+  </div>
+  <!-- .entry-content -->
+
+
+</article>
+
+<style type="text/css" id="et-builder-advanced-style">
+  .et_pb_blurb_5.et_pb_blurb {
+    font-size: 16px;
+  }
+
+  .et_pb_blurb_5.et_pb_blurb h4 {
+    letter-spacing: 2px;
+    line-height: 2em;
+  }
+
+  .et_pb_blurb_4.et_pb_blurb {
+    font-size: 16px;
+  }
+
+  .et_pb_blurb_6.et_pb_blurb h4 {
+    letter-spacing: 2px;
+    line-height: 2em;
+  }
+
+  .et_pb_blurb_6.et_pb_blurb {
+    font-size: 16px;
+  }
+
+  .et_pb_section_8 {
+    background-color: #707070;
+  }
+
+  .et_pb_blurb_7.et_pb_blurb {
+    font-size: 16px;
+  }
+
+  .et_pb_blurb_7.et_pb_blurb h4 {
+    letter-spacing: 2px;
+    line-height: 2em;
+  }
+
+  .et_pb_blurb_4.et_pb_blurb h4 {
+    letter-spacing: 2px;
+    line-height: 2em;
+  }
+
+  .et_pb_section_6 {
+    background-color: #494949;
+  }
+
+  .et_pb_blurb_0.et_pb_blurb h4 {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  .et_pb_section_1 {
+    background-color: #494949;
+  }
+
+  .et_pb_section_1 a:hover {
+    color: inherit;
+  }
+
+  .et_pb_blurb_1.et_pb_blurb h4 {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  .et_pb_blurb_2.et_pb_blurb h4 {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  .et_pb_section_4 {
+    background-color: #707070;
+  }
+
+  .et_pb_section_3 {
+    background-color: #494949;
+  }
+
+  .et_pb_blurb_3.et_pb_blurb h4 {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  #page-container {
+    margin-top: 50px;
+  }
+
+  @media only screen and ( min-width: 981px) {
+    .et_pb_section_1 {
+      padding-top: -50;
+    }
+  }
+</style>
