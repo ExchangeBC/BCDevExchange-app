@@ -109,7 +109,7 @@
               <p><span class="percent-value"></span>
               </p>
             </div>
-            <h3>Api Calls Today</h3>
+            <h3>Issues</h3>
             <canvas height="0" width="0"></canvas>
           </div>
           <!-- .et_pb_number_counter -->
@@ -121,7 +121,7 @@
               <p><span class="percent-value"></span>
               </p>
             </div>
-            <h3>Commits Today</h3>
+            <h3>Pull Request</h3>
             <canvas height="0" width="0"></canvas>
           </div>
           <!-- .et_pb_number_counter -->
@@ -133,7 +133,7 @@
               <p><span class="percent-value"></span>
               </p>
             </div>
-            <h3>New Watchers Today</h3>
+            <h3>Contributors</h3>
             <canvas height="0" width="0"></canvas>
           </div>
           <!-- .et_pb_number_counter -->
@@ -189,9 +189,7 @@
     </div>
     <!-- .et_pb_section -->
     <div class="et_pb_section et_pb_section_parallax  et_pb_section_5 et_pb_with_background et_section_specialty et_section_transparent">
-      <div class="et_parallax_bg" style="height: 576.5px; transform: translate(0px, -241.95px); background-image: url(/img/header4.jpg);"></div>
       <div class="et_pb_row">
-
         <div class="et_pb_column et_pb_column_1_3 et_pb_column_11 et_pb_column_single">
           <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_3">
 
@@ -201,7 +199,7 @@
           <!-- .et_pb_text -->
           <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_4">
             <div inline-editable ng-bind-html='program.content.work'></div>
-            <a href="#" class="small-button smallteal">More Work…</a>
+            <a href="{{program.githubUrl}}/pulls" class="small-button smallteal">More Work…</a>
           </div>
           <!-- .et_pb_text -->
         </div>
@@ -210,32 +208,21 @@
           <div class=" et_pb_row_inner et_pb_row_inner_0">
             <div class="et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_0">
               <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_5">
-
-                <h2 style="text-align: left;">Tasks &amp; Issues</h2>
-
+                <h2 style="text-align: left;">Issues</h2>
               </div>
               <!-- .et_pb_text -->
             </div>
             <!-- .et_pb_column -->
           </div>
           <!-- .et_pb_row_inner -->
-          <div class=" et_pb_row_inner et_pb_row_inner_1">
+          <div>
             <div class="et_pb_column et_pb_column_1_3 et_pb_column_inner et_pb_column_inner_1">
               <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_6">
                 <div inline-editable ng-bind-html='program.content.tasks'></div>
-                <a href="https://github.com/BCDevExchange/garbage-day/labels/help%20wanted" class="small-button smallteal">More Tasks</a>
+                <a href="{{program.githubUrl}}/issues" class="small-button smallteal">All Open Issues</a>
               </div>
               <!-- .et_pb_text -->
             </div>
-            <!-- .et_pb_column -->
-            <div class="et_pb_column et_pb_column_1_3 et_pb_column_inner et_pb_column_inner_2">
-              <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_7">
-                <div inline-editable ng-bind-html='program.content.tasks'></div>
-                <a href="#" class="small-button smallteal">All Open Issues</a>
-              </div>
-              <!-- .et_pb_text -->
-            </div>
-            <!-- .et_pb_column -->
           </div>
           <!-- .et_pb_row_inner -->
         </div>
@@ -458,7 +445,7 @@
     position: relative;
     top: -100px;
     visibility: hidden;
-}
+  }
 
   @media only screen and ( min-width: 981px) {
     .et_pb_section_1 {
