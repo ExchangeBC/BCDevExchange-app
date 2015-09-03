@@ -132,9 +132,7 @@ app.config(['$routeProvider', '$httpProvider',
         controller: 'ProgramsEditCtrl as vm'
       })
       .when('/programs/:programName', {
-        templateUrl: function(params){
-          return ((params.programName && (params.programName.match(/BC Laws/i) || params.programName.match(/FirstVoices Dictionary/i)) ) ?'/app/programs/wp-view-program.html':'/app/programs/view-program.html')
-        },
+        templateUrl: '/app/programs/view-program.html',
         controller: 'ViewProgramCtrl'
       })
       .otherwise({
