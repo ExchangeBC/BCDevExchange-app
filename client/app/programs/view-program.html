@@ -167,10 +167,7 @@
 
     </div>
     <!-- .et_pb_section -->
-    <div class="et_pb_section et_pb_inner_shadow et_pb_section_parallax  et_pb_section_4 et_pb_with_background et_section_regular">
-
-
-
+    <div class="et_pb_section et_pb_inner_shadow et_pb_section_parallax  et_pb_section_4 et_pb_with_background et_section_regular" style="background-image: url(/img/profile-background.png);">
       <div class=" et_pb_row et_pb_row_4">
         <div class="et_pb_column et_pb_column_4_4 et_pb_column_10">
           <div id="HPFont" class="et_pb_text et_pb_module et_pb_bg_layout_dark et_pb_text_align_left  et_pb_text_2">
@@ -186,45 +183,34 @@
       </div>
       <!-- .et_pb_row -->
 
-    </div>
-    <!-- .et_pb_section -->
-    <div class="et_pb_section et_pb_section_parallax  et_pb_section_5 et_pb_with_background et_section_specialty et_section_transparent">
       <div class="et_pb_row">
-        <div class="et_pb_column et_pb_column_1_3 et_pb_column_11 et_pb_column_single">
+        <div class="et_pb_column et_pb_column_1_2 et_pb_column_1 et_pb_column_single">
           <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_3">
 
-            <h2>Work Underway Now</h2>
+            <h2>Work Underway</h2>
 
           </div>
           <!-- .et_pb_text -->
           <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_4">
             <div inline-editable ng-bind-html='program.content.work'></div>
-            <a href="{{program.githubUrl}}/pulls" class="small-button smallteal">More Work…</a>
           </div>
           <!-- .et_pb_text -->
         </div>
         <!-- .et_pb_column -->
-        <div class="et_pb_column et_pb_column_2_3 et_pb_column_12 et_pb_specialty_column">
+        <div class="et_pb_column et_pb_column_1_2 et_pb_column_2">
           <div class=" et_pb_row_inner et_pb_row_inner_0">
             <div class="et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_0">
               <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_5">
-                <h2 style="text-align: left;">Issues</h2>
+                <h2>Backlog</h2>
               </div>
               <!-- .et_pb_text -->
             </div>
             <!-- .et_pb_column -->
           </div>
           <!-- .et_pb_row_inner -->
-          <div>
-            <div class="et_pb_column et_pb_column_1_3 et_pb_column_inner et_pb_column_inner_1">
-              <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_6">
-                <div inline-editable ng-bind-html='program.content.tasks'></div>
-                <a href="{{program.githubUrl}}/issues" class="small-button smallteal">All Open Issues</a>
-              </div>
-              <!-- .et_pb_text -->
-            </div>
+          <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_6">
+            <div inline-editable ng-bind-html='program.content.tasks'></div>
           </div>
-          <!-- .et_pb_row_inner -->
         </div>
         <!-- .et_pb_column -->
       </div>
@@ -445,6 +431,18 @@
     position: relative;
     top: -100px;
     visibility: hidden;
+  }
+
+  .et_pb_section_parallax {
+    color: white;
+  }
+
+  .et_pb_section_parallax a {
+    color: white;
+  }
+
+  .et_pb_section_parallax h2 {
+    color: white;
   }
 
   @media only screen and ( min-width: 981px) {
