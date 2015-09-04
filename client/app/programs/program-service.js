@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and limitations 
 
 'use strict'
 angular.module('bcdevxApp.services').factory('ProgramService', ['$resource', '$q', function ($resource, $q) {
-    var programApi = '/programs/'
+    var programApi = '/api/programs/'
 
     return {
 

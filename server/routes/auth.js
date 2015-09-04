@@ -31,7 +31,7 @@ module.exports = function (app, db, passport) {
 
   function loginCallbackHandler(req, res, logger) {
 
-    res.redirect('/#/account?id=' + req.user.id)
+    res.redirect('/account?id=' + req.user.id)
 
   }
 
@@ -125,7 +125,7 @@ module.exports = function (app, db, passport) {
   app.get('/auth/github/callback',
     passport.authenticate('github', {
       scope: ['user', 'repo'],
-      failureRedirect: '/#/login'
+      failureRedirect: '/login'
     }),
     function (req, res) {
       loginCallbackHandler(req, res, logger)
@@ -145,7 +145,7 @@ module.exports = function (app, db, passport) {
   // otherwise, the primary route function will be called which will redirect the user to the home page
   app.get('/auth/linkedin/callback',
     passport.authenticate('linkedin', {
-      failureRedirect: '/#/login'
+      failureRedirect: '/login'
     }),
     function (req, res) {
       loginCallbackHandler(req, res, logger)
@@ -161,14 +161,14 @@ module.exports = function (app, db, passport) {
 
   // ===== account page routing ======
 
-  app.get('/account/:id', ensureAuthenticated, function (req, res) {
+  app.get('/api/account/:id', ensureAuthenticated, function (req, res) {
     populateAccount(req, res, req.params.id, db, config, logger)
   })
 
-  app.get('/account', ensureAuthenticated, function (req, res) {
+  app.get('/api/account', ensureAuthenticated, function (req, res) {
     populateAccount(req, res, req.user._id, db, config, logger)
   })
-  app.get('/accountCheck', function (req, res) {
+  app.get('/api/accountCheck', function (req, res) {
     if (req.isAuthenticated()) {
       populateAccount(req, res, req.user._id, db, config, logger)
     } else {
@@ -176,7 +176,7 @@ module.exports = function (app, db, passport) {
     }
   })
 
-  app.post('/account/:id', ensureAuthenticated, function (req, res) {
+  app.post('/api/account/:id', ensureAuthenticated, function (req, res) {
     var acctData = req.body
 
     db.getAccountById(acctData._id, true,

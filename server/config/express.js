@@ -18,7 +18,6 @@ var config = require('./environment');
 module.exports = function(app) {
   var env = app.get('env');
 
-  app.set('views', config.root + '/server/views');
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');
   app.use(compression());
@@ -49,4 +48,5 @@ module.exports = function(app) {
     app.use(morgan('dev'));
     app.use(errorHandler()); // Error handler - has to be last
   }
+  app.set('views', [app.get('appPath'), config.root + '/server/views'])
 };

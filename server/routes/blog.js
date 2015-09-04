@@ -25,7 +25,7 @@ var db = require('../models/db')
 
 module.exports = function (app, db, passport) {
 
-  app.get('/blog/', function (req, res) {
+  app.get('/api/blog/', function (req, res) {
 
     var results = {
   "blog": [
