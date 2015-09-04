@@ -11,3 +11,4 @@ data/
 npm-debug.log
 log/
 temp/
+.project

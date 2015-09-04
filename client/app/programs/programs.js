@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and limitations 
 'use strict';
 angular.module('bcdevxApp.programs')
 .factory('ProgramListService', ['$resource', function($resource) {
-    return $resource('/programs');
+    return $resource('/api/programs');
 }])
 .controller('ProgramsCtrl', ['$scope', 'ProgramListService', '$q', 'usSpinnerService',
     function($scope, ProgramListService, $q, usSpinnerService) {

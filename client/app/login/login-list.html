@@ -13,13 +13,13 @@ See the License for the specific language governing permissions and limitations 
 -->
 <ul ng-show="loginlistCtrl.doShow">
     <li ng-hide="loginlistCtrl.username" ng-cloak>
-        <a href="#/signup" ng-cloak analytics-on>Sign Up</a>
+        <a href="/signup" ng-cloak analytics-on>Sign Up</a>
     </li>
     <li ng-hide="loginlistCtrl.username" ng-cloak>
         <a href="" ng-click="loginlistCtrl.login()" ng-cloak analytics-on>Log In</a>
     </li>
     <li ng-show="loginlistCtrl.username" ng-cloak class="fx-fade-up">
-        <a href="#/account?id={{loginlistCtrl.userid}}" ng-cloak analytics-on>
+        <a href="/account?id={{loginlistCtrl.userid}}" ng-cloak analytics-on>
             {{loginlistCtrl.username}}
         </a>
     </li>

@@ -50,8 +50,8 @@ var app = angular.module('bcdevxApp', [
 app.value('duScrollGreedy', true);
 app.value('duScrollOffset', 80);
 
-app.config(['$routeProvider', '$httpProvider',
-    function ($routeProvider, $httpProvider) {
+app.config(['$routeProvider', '$httpProvider', '$locationProvider',
+    function ($routeProvider, $httpProvider, $locationProvider) {
 
 
     // check if user is connected
@@ -159,7 +159,7 @@ app.config(['$routeProvider', '$httpProvider',
         }
       };
     });
-
+    $locationProvider.html5Mode(true)
 }]);
 
 app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {

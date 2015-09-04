@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and limitations 
 'use strict';
 angular.module('bcdevxApp.blog', ['ngRoute',  'ngResource'])
 .factory('BlogListService', ['$resource', function($resource) {
-    return $resource('/blog');
+    return $resource('/api/blog');
 }])
 .controller('BlogCtrl', ['$scope', 'BlogListService', '$q', 'usSpinnerService',
     function($scope, BlogListService, $q, usSpinnerService) {

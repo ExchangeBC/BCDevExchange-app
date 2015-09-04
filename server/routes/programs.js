@@ -51,7 +51,7 @@ var getProgramsFromArray = function (programList, success, error) {
 
 module.exports = function (app, db, passport) {
 
-  app.get('/programs/', function (req, res) {
+  app.get('/api/programs/', function (req, res) {
 
     getProgramsFromArray(config.programs, function (results) {
       var body = {
@@ -62,7 +62,7 @@ module.exports = function (app, db, passport) {
       res.sendStatus(500)
     })
   })
-  app.get('/programs/name/:title', function (req, res) {
+  app.get('/api/programs/name/:title', function (req, res) {
     if (!req.params.title) {
       res.send(400, "Missing url title.")
       return
@@ -78,7 +78,7 @@ module.exports = function (app, db, passport) {
     })
   })
 
-  app.patch('/programs/:id', function (req, res) {
+  app.patch('/api/programs/:id', function (req, res) {
     if (req.user.siteAdmin) {
       db.updateProgram(req.params.id, req.body).then(function (data) {
         res.end()
