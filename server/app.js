@@ -126,6 +126,7 @@ if (config.node.clusterEnabled && cluster.isMaster) {
   require('./routes/numbers')(app, db, passport)
   require('./routes/people')(app, db, passport)
   require('./routes/programs')(app, db, passport)
+  require('./routes/blog')(app, db, passport)
   require('./routes/projects')(app, db, passport)
   require('./routes/resources')(app, db, passport)
 

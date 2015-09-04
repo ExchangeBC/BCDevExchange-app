@@ -22,6 +22,7 @@ var app = angular.module('bcdevxApp', [
     'bcdevxApp.resources',
     'bcdevxApp.resources-register',
     'bcdevxApp.programs',
+    'bcdevxApp.blog',
     'bcdevxApp.projects',
     'bcdevxApp.projects-register',
     'bcdevxApp.people',
@@ -106,6 +107,10 @@ app.config(['$routeProvider', '$httpProvider',
       .when('/programs', {
         templateUrl: '/app/programs/programs.html',
         controller: 'ProgramsCtrl'
+      })
+      .when('/blog', {
+        templateUrl: '/app/blog/blog.html',
+        controller: 'BlogCtrl'
       })
       .when('/projects', {
         templateUrl: '/app/projects/projects.html',
