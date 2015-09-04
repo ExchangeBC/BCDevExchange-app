@@ -31,12 +31,12 @@ See the License for the specific language governing permissions and limitations 
                     <div class="col-sm-2 hidden-xs">
                             <i class="fa fa-users"></i> <span>{{ numbers.accounts }}</span> <span class="text-muted">users</span>
                         </div>
-                    <div class="col-sm-2">
+                    <!--div class="col-sm-2">
                         <i class="fa fa-cubes"></i> <span>{{ numbers.resources }}</span> <span class="text-muted">resources</span>
                     </div>
                     <div class="col-sm-2">
                         <i class="fa fa-cogs"></i> <span>{{ numbers.projects }}</span> <span class="text-muted">projects</span>
-                    </div>
+                    </div-->
                     <div class="col-sm-2 hidden-xs">
                             <i class="fa fa-area-chart"></i> <span>{{ numbers.analytics.users }}</span> <span class="text-muted">visits</span>
                         </div>
@@ -88,6 +88,24 @@ See the License for the specific language governing permissions and limitations 
             </div>
         </div>
 
+		<div ng-show="config.explorationContent" ng-cloak>
+            <div class="content text-left">
+                <div class="row features-xl">
+                    <div class="col-md-4 text-center">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <h2>Meet the  Early Adopters</h2>
+                        <ul>
+                            <li>The BCDevExchange experiment aims to make it easier for the B.C. public and tech sectors to innovate and collaborate on digital products and services.</li>
+                            <li>Meet the BCDevExchange early adopters who are testing this new model of innovation and collaboration.</li>
+                        </ul>
+                        <p><a href="#programs" analytics-on>View Profiles</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div ng-show="config.explorationContent" ng-cloak>
             <div class="content text-center">
                 <div class="row features-xl">
@@ -105,6 +123,8 @@ See the License for the specific language governing permissions and limitations 
                 </div>
             </div>
         </div>
+
+
 
         <div ng-show="config.explorationContent" ng-cloak>
             <div class="content text-left">
@@ -134,9 +154,8 @@ See the License for the specific language governing permissions and limitations 
                     </div>
                     <div class="col-md-8">
                         <h2>Become an Early Adopter</h2>
-                        <p>The BCDevExchange experiment aims to make innovation and to collaboration easier when developing public sector digital products and services.</p>
 
-                        <p>Kick-started by the Province of B.C., the BCDevExchange is in its early stages. Stay tuned for options on how your public sector organizations can get involved, and for the following guides:</p>
+                        <p>Kick-started by the Province of B.C., the BCDevExchange is in its early stages. Contact us for how your public sector organizations can get involved, and for the following guides:</p>
 
                         <ul>
                             <li>Guidelines for Employee use of GitHub</li>
@@ -178,7 +197,7 @@ See the License for the specific language governing permissions and limitations 
                 <div class="row features-md">
                     <div class="col-md-6 col-md-offset-3">
                         <i class="fa fa-github-alt"></i>
-                        <h2>Now on GitHub</h2>
+                        <h2>Visit us on GitHub</h2>
                         <p><a href="https://github.com/BCDevExchange" analytics-on>BCDevExchange is on GitHub</a>, openly sharing the code and concepts that drive this website. Fork a repo and share your ideas with us!</p>
                         <p>As part of the BCDevExchange experiment, the <a href="https://github.com/bcgov" analytics-on>Province of British Columbia</a> joined GitHub. Check out the Province’s open sourced code.</p>
                     </div>
@@ -233,7 +252,7 @@ See the License for the specific language governing permissions and limitations 
                 </div>
             </div>
         </div>
-            <div ng-show="config.explorationContent" ng-cloak>
+            <!--div ng-show="config.explorationContent" ng-cloak>
                 <div class="content text-left">
                     <div id="resources" class="row features-md">
                         <div class="col-md-4 text-center">
@@ -253,7 +272,7 @@ See the License for the specific language governing permissions and limitations 
                         </div>
                     </div>
                 </div>
-            </div>
+            </div-->
         </div>
 
         <div ng-show="config.explorationContent" ng-cloak>
@@ -263,13 +282,12 @@ See the License for the specific language governing permissions and limitations 
                         <i class="fa fa-cogs"></i>
                     </div>
                     <div class="col-md-8">
-                        <h2>Projects</h2>
-                        <p>Check out what's happening on our project page, find opportunities, and how you can contribute!</p>
+                        <h2>Featured Projects</h2>
+                        <p>Check out what's happening in our featured projects, find opportunities, and how you can contribute!</p>
                         <ul>
                             <li><a href="https://github.com/BCDevExchange/BCDevExchange-app" analytics-on>The BCDevExchange Experiment</a></li>
-                            <li><a href="https://github.com/BCDevExchange/BCLaws-API-Management" analytics-on>BCLaws API Management</a></li>
+                            <li><a href="https://github.com/BCDevExchange/API-Management" analytics-on>API Management</a></li>
                         </ul>
-                        <p><a href="#/projects" analytics-on>View projects</a></p>
                     </div>
 
                 </div>
@@ -289,6 +307,19 @@ See the License for the specific language governing permissions and limitations 
             </div>
         </div>
 
+        <div ng-show="config.explorationContent" ng-cloak>
+            <div class="content text-center">
+                <div class="row features-md">
+                    <div class="col-md-6 col-md-offset-3">
+                        <i class="fa fa-pencil"></i>
+                        <h2>The Blog</h2>
+                        <p>We are keeping your informed about the BCDevExchange on DataBC’s blog. Learn about the vision for the BCDevExchange, events, and opportunities to contribute.</p>
+                        <p>Check out the blog <a href="#/blog" analytics-on>here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="get_involved">
             <div class="content text-left">
                 <div class="row features-xl">
@@ -297,14 +328,10 @@ See the License for the specific language governing permissions and limitations 
                     </div>
                     <div class="col-md-8">
                         <h2>Get Involved</h2>
-                        <p>Discovery Days:</p>
-                        <p>We will invite tech entrepreneurs, startups, developers and public sector innovators to events that explore digital resources and business needs from a featured public sector organization or sector.</p>
-                        <p>Information sessions:</p>
-                        <p>We will host meetups for tech entrepreneurs, startups, developers and public sector innovators to learn more about the BCDevExchange experiment. Stay tuned for upcoming information sessions.</p>
+                        <p>Join the BCDevExchange:</p>
+                        <p>You are invited so signup as a member of the BCDevExchange using your GitHub account. Sign up here.</p>
                         <p>Email:</p>
                         <p>Please contact us via <a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>email</a> to stay informed of our progress or participate in the BCDevExchange experiment.</p>
-                        <p>Blog:</p>
-                        <p>We want your feedback on our blog! Go to <a href="http://blog.data.gov.bc.ca" analytics-on>blog.data.gov.bc.ca</a> and let us know what you think.</p>
                         <p>Twitter:</p>
                         <p>Follow <a href="https://twitter.com/data_bc" analytics-on>@Data_BC</a> and the hashtag <a href="https://twitter.com/hashtag/BCDev" analytics-on>#BCDev</a> on Twitter for announcements.</p>
                     </div>
