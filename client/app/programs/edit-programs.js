@@ -12,20 +12,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-'use strict';
+'use strict'
 angular.module('bcdevxApp.programs', []).controller('ProgramsEditCtrl', function (){
-    var vm = this;
-    vm.mdDisplay ='';
+    var vm = this
+    vm.mdDisplay =''
 
-    vm.mdInput='';
+    vm.mdInput=''
 
     vm.preview = function(){
-        //var temp = vm.mdInput.replace(/<!---/g, '<!--');
-        //temp = temp.replace(/--->/g, '-->');
-        //vm.mdDisplay = temp;
+        //var temp = vm.mdInput.replace(/<!---/g, '<!--')
+        //temp = temp.replace(/--->/g, '-->')
+        //vm.mdDisplay = temp
 
-        vm.mdDisplay = vm.mdInput;
-        //console.log("setting property on display directive ");
+        vm.mdDisplay = vm.mdInput
+        //console.log("setting property on display directive ")
 
-    };
-});
+    }
+})

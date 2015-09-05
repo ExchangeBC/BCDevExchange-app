@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and limitations 
 */
 
 // Declare app level module which depends on views, and components
-'use strict';
+'use strict'
 var app = angular.module('bcdevxApp', [
     'ngRoute',
     'bcdevxApp.home',
@@ -44,11 +44,11 @@ var app = angular.module('bcdevxApp', [
     'ui.utils',
     'angular-toc',
     'duScroll'
-]);
+])
 
 // Config scroll offsets
-app.value('duScrollGreedy', true);
-app.value('duScrollOffset', 80);
+app.value('duScrollGreedy', true)
+app.value('duScrollOffset', 80)
 
 app.config(['$routeProvider', '$httpProvider', '$locationProvider',
     function ($routeProvider, $httpProvider, $locationProvider) {
@@ -56,25 +56,25 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider',
 
     // check if user is connected
     var checkLoggedIn = function ($q, $timeout, $location, AccountService) {
-      var deferred = $q.defer();
-      var promise = AccountService.getCurrentAccount();
+      var deferred = $q.defer()
+      var promise = AccountService.getCurrentAccount()
 
       promise.then(
         function (data) {
-          deferred.resolve(data);
+          deferred.resolve(data)
         },
         function (data) {
-          //console.log('Did not find logged-in user');
+          //console.log('Did not find logged-in user')
           //var modalInstance = $modal.open({
           //    templateUrl: 'login/login.html',
           //    controller: 'LoginModalCtrl'
-          //});
-          deferred.reject(data);
+          //})
+          deferred.reject(data)
         }
-      );
+      )
 
-      return deferred.promise;
-    };
+      return deferred.promise
+    }
 
     $routeProvider
       .when('/home', {
@@ -142,7 +142,7 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider',
       })
       .otherwise({
         redirectTo: '/home'
-      });
+      })
 
     // add an interceptor for AJAX errors
     $httpProvider.interceptors.push(function ($q, $location) {
@@ -151,30 +151,30 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider',
         'responseError': function (rejection) {
           // do something on error
           if (rejection.status === 401) {
-            $location.url('/home');
+            $location.url('/home')
           } else if (rejection.status === 0) {
-            //console.log('Bummer, looks like you hit a network connection error, please check your internet connection or make sure the server is running.');
+            //console.log('Bummer, looks like you hit a network connection error, please check your internet connection or make sure the server is running.')
           }
-          return $q.reject(rejection);
+          return $q.reject(rejection)
         }
-      };
-    });
+      }
+    })
     $locationProvider.html5Mode(true)
-}]);
+}])
 
 app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
   usSpinnerConfigProvider.setDefaults({
     color: 'darkturquoise'
-  });
-}]);
+  })
+}])
 
 app.run(function ($rootScope, $http) {
   // Add config to ALL scopes, only makes sense instead of passing in everywhere
   $http.get('/config').
   success(function (data) {
-    $rootScope.config = data;
-  });
-});
+    $rootScope.config = data
+  })
+})
 
 // Common functions for AngularJS
 function extendDeep(dst) {
@@ -182,16 +182,16 @@ function extendDeep(dst) {
     if (obj !== dst) {
       angular.forEach(obj, function (value, key) {
         if (dst[key] && dst[key].constructor && dst[key].constructor === Object) {
-          extendDeep(dst[key], value);
+          extendDeep(dst[key], value)
         } else if (dst[key] && dst[key].constructor && dst[key].constructor === Array) {
-          dst[key].concat(value);
+          dst[key].concat(value)
         } else if (!angular.isFunction(dst[key])) {
-          dst[key] = value;
+          dst[key] = value
         }
-      });
+      })
     }
-  });
-  return dst;
+  })
+  return dst
 }
 
 app.controller('bcdevController', ['$scope', function ($scope) {

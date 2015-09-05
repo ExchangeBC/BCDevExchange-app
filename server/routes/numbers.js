@@ -12,15 +12,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-var async = require('async');
-var request = require('request');
-var config = require('config');
-var logger = require('../../common/logging.js').logger;
-var projects = require('./projects');
-var resources = require('./resources');
+var async = require('async')
+var request = require('request')
+var config = require('config')
+var logger = require('../../common/logging.js').logger
+var projects = require('./projects')
+var resources = require('./resources')
 
-var Twitter      = require('twitter');
-var twitter_text = require('twitter-text');
+var Twitter      = require('twitter')
+var twitter_text = require('twitter-text')
 
 module.exports = function(app, db, passport) {
     app.get('/numbers/:source?', function (req, res) {
@@ -28,55 +28,55 @@ module.exports = function(app, db, passport) {
         if (req.params.source) {
             if (req.params.source === 'resources') {
                 resources.getResourcesFromArray(config.catalogues, function (result) {
-                    res.send({"resources": result.length});
+                    res.send({"resources": result.length})
                 }, function (error) {
-                    res.status(500);
-                });
+                    res.status(500)
+                })
             }
             else if (req.params.source === 'projects') {
                 projects.getProjectsFromArray(config.projects, function (result) {
-                    res.send({"projects": result.length});
+                    res.send({"projects": result.length})
                 }, function (error) {
-                    res.status(500);
-                });
+                    res.status(500)
+                })
             }
             else if (req.params.source === 'accounts') {
                 db.countGitHubAccounts(function (err, result) {
                     if (err) {
-                        res.status(500);
+                        res.status(500)
                     }
                     else {
-                        res.send(result);
+                        res.send(result)
                     }
-                });
+                })
             }
 
         }
         else {
             async.parallel({
                 githubAccounts: function (callback) {
-                    db.countGitHubAccounts(callback);
+                    db.countGitHubAccounts(callback)
                 },
 
                 resources: function (callback) {
                     resources.getResourcesFromArray(config.catalogues, function (result) {
-                        callback(null, result.length);
+                        callback(null, result.length)
                     }, function (error) {
-                        callback(error, null);
-                    });
+                        callback(error, null)
+                    })
                 },
                 projects: function (callback) {
                     projects.getProjectsFromArray(config.projects, function (result) {
-                        callback(null, result.length);
+                        callback(null, result.length)
                     }, function (error) {
-                        callback(error, null);
-                    });
+                        callback(error, null)
+                    })
                 },
                 bcdevx: function(callback) {
-                    getGithubOrgData('BCDevExchange', callback);
+                    getGithubOrgData('BCDevExchange', callback)
                 },
                 bcgov: function(callback) {
-                    getGithubOrgData('BCGov', callback);
+                    getGithubOrgData('BCGov', callback)
                 },
                 bcdevx_latest: function(callback) {
                     var options = {
@@ -84,19 +84,19 @@ module.exports = function(app, db, passport) {
                         headers: {
                             'User-Agent': config.github.clientApplicationName
                         }
-                    };
+                    }
                     request(options, function(error, response, body) {
-                        if(error) callback(error, null);
+                        if(error) callback(error, null)
 
-                        var githubEventsJSON = JSON.parse(body);
-                        callback(null, handleEventData(githubEventsJSON));
-                    });
+                        var githubEventsJSON = JSON.parse(body)
+                        callback(null, handleEventData(githubEventsJSON))
+                    })
                 /*,
                  function(callback) {
-                 db.countLinkedInAccounts(callback);
+                 db.countLinkedInAccounts(callback)
                  },
                  function(callback) {
-                 db.countDualAccounts(callback);
+                 db.countDualAccounts(callback)
                  }*/
                 },
                 bcgov_latest: function(callback) {
@@ -105,33 +105,33 @@ module.exports = function(app, db, passport) {
                         headers: {
                             'User-Agent': config.github.clientApplicationName
                         }
-                    };
+                    }
                     request(options, function(error, response, body) {
-                        if(error) callback(error, null);
+                        if(error) callback(error, null)
 
-                        var githubEventsJSON = JSON.parse(body);
-                        callback(null, handleEventData(githubEventsJSON));
-                    });
+                        var githubEventsJSON = JSON.parse(body)
+                        callback(null, handleEventData(githubEventsJSON))
+                    })
                 },
                 analytics: function(callback) {
                     var googleapis = require('googleapis'),
                         JWT = googleapis.auth.JWT,
-                        analytics = googleapis.analytics('v3');
+                        analytics = googleapis.analytics('v3')
 
-                    var SERVICE_ACCOUNT_EMAIL = config.google_analytics.api_email;
-                    var SERVICE_ACCOUNT_KEY_FILE = config.google_analytics.key_file;
+                    var SERVICE_ACCOUNT_EMAIL = config.google_analytics.api_email
+                    var SERVICE_ACCOUNT_KEY_FILE = config.google_analytics.key_file
 
                     var authClient = new JWT(
                         SERVICE_ACCOUNT_EMAIL,
                         SERVICE_ACCOUNT_KEY_FILE,
                         null,
                         ['https://www.googleapis.com/auth/analytics.readonly']
-                    );
+                    )
 
                     authClient.authorize(function(err, tokens) {
                         if (err) {
-                            if(err) callback(null, '');
-                            return;
+                            if(err) callback(null, '')
+                            return
                         }
 
                         analytics.data.ga.get({
@@ -141,21 +141,21 @@ module.exports = function(app, db, passport) {
                             'end-date': 'yesterday',
                             'metrics': 'ga:users'
                         }, function(err, result) {
-                            if(err) callback(null, '');
-                            callback(null, {'users': result.totalsForAllResults['ga:users']});
-                        });
-                    });
+                            if(err) callback(null, '')
+                            callback(null, {'users': result.totalsForAllResults['ga:users']})
+                        })
+                    })
                 },
                 twitter_bcdev: function(callback) {
-                    searchTwitter('#BCDev', callback);
+                    searchTwitter('#BCDev', callback)
                 }
             }, function (err, results) {
-                res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge);
-                res.send(results);
-            });
+                res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge)
+                res.send(results)
+            })
         }
-    });
-};
+    })
+}
 
 function getGithubOrgData(org, callback) {
     var options = {
@@ -163,24 +163,24 @@ function getGithubOrgData(org, callback) {
         headers: {
             'User-Agent': config.github.clientApplicationName
         }
-    };
+    }
     request(options, function(error, response, body) {
-        if(error) callback(error, null);
+        if(error) callback(error, null)
 
-        var jsonGithub = JSON.parse(body);
+        var jsonGithub = JSON.parse(body)
 
-        var total_stargazers = 0;
-        var total_watchers = 0;
-        var total_open_issues = 0;
+        var total_stargazers = 0
+        var total_watchers = 0
+        var total_open_issues = 0
 
-        var repoList = [];
+        var repoList = []
 
         for(var i in jsonGithub) {
-            var repo = jsonGithub[i];
-            total_stargazers += repo.stargazers_count;
-            total_open_issues += repo.open_issues_count;
+            var repo = jsonGithub[i]
+            total_stargazers += repo.stargazers_count
+            total_open_issues += repo.open_issues_count
 
-            repoList.push(repoHandler(repo.url));
+            repoList.push(repoHandler(repo.url))
         }
 
         function repoHandler(repoUrl) {
@@ -190,13 +190,13 @@ function getGithubOrgData(org, callback) {
                     headers: {
                         'User-Agent': config.github.clientApplicationName
                     }
-                };
+                }
                 request(options, function(error, response, body) {
-                    var jsonGithub = JSON.parse(body);
-                    total_watchers += jsonGithub.subscribers_count;
-                    callback(null, total_watchers);
-                });
-            };
+                    var jsonGithub = JSON.parse(body)
+                    total_watchers += jsonGithub.subscribers_count
+                    callback(null, total_watchers)
+                })
+            }
         }
 
         async.parallel(repoList, function() {
@@ -204,21 +204,21 @@ function getGithubOrgData(org, callback) {
                 'stargazers': total_stargazers,
                 'watchers': total_watchers,
                 'open_issues': total_open_issues,
-            };
-            callback(null, githubStats);
-        });
-    });
+            }
+            callback(null, githubStats)
+        })
+    })
 }
 
 function handleEventData(githubEventsJSON) {
 
-    var Events = [];
+    var Events = []
 
     for(var i in githubEventsJSON) {
-        var Event = githubEventsJSON[i];
+        var Event = githubEventsJSON[i]
 
-        var description = '';
-        var icon = '';
+        var description = ''
+        var icon = ''
 
         // A detailed list of each type of event from Github
         // is available at
@@ -240,29 +240,29 @@ function handleEventData(githubEventsJSON) {
                         'when': Event.created_at,
                         'icon': 'comments'
                     }
-                };
-                Events.push(IssueCommentEvent);
-            break;
+                }
+                Events.push(IssueCommentEvent)
+            break
 
             case "IssuesEvent":
-                description = '';
-                icon = '';
+                description = ''
+                icon = ''
 
                 switch(Event.payload.action) {
                     case 'closed':
-                        description = 'closed issue';
-                        icon = 'times-circle';
-                    break;
+                        description = 'closed issue'
+                        icon = 'times-circle'
+                    break
 
                     case 'opened':
-                        description = 'created issue';
-                        icon = 'plus-circle';
-                    break;
+                        description = 'created issue'
+                        icon = 'plus-circle'
+                    break
 
                     case 'reopened':
-                        description = 'reopened issue';
-                        icon = 'chevron-circle-up';
-                    break;
+                        description = 'reopened issue'
+                        icon = 'chevron-circle-up'
+                    break
                 }
                 if(description) {
                     var IssuesEvent = {
@@ -279,41 +279,41 @@ function handleEventData(githubEventsJSON) {
                             'when': Event.created_at,
                             'icon': icon
                         }
-                    };
-                    Events.push(IssuesEvent);
+                    }
+                    Events.push(IssuesEvent)
                 }
-            break;
+            break
 
             case "PullRequestEvent":
-                description = '';
-                icon = '';
+                description = ''
+                icon = ''
 
                 switch(Event.payload.action) {
                     case 'closed':
                         if(Event.payload.pull_request.merged) {
-                            description = 'merged pull request';
-                            icon = 'code-fork';
+                            description = 'merged pull request'
+                            icon = 'code-fork'
                         }
                         else {
-                            description = 'closed pull request';
-                            icon = 'times-circle';
+                            description = 'closed pull request'
+                            icon = 'times-circle'
                         }
-                    break;
+                    break
 
                     case 'opened':
-                        description = 'created pull request';
-                        icon = 'code-fork';
-                    break;
+                        description = 'created pull request'
+                        icon = 'code-fork'
+                    break
 
                     case 'reopened':
-                        description = 'reopened pull request';
-                        icon = 'chevron-circle-up';
-                    break;
+                        description = 'reopened pull request'
+                        icon = 'chevron-circle-up'
+                    break
 
                     case 'synchronize':
-                        description = 'synchronized pull request';
-                        icon = 'code-fork';
-                    break;
+                        description = 'synchronized pull request'
+                        icon = 'code-fork'
+                    break
 
                 }
 
@@ -332,14 +332,14 @@ function handleEventData(githubEventsJSON) {
                             'when': Event.created_at,
                             'icon': icon
                         }
-                    };
-                    Events.push(PullRequestEvent);
+                    }
+                    Events.push(PullRequestEvent)
                 }
-            break;
+            break
         }
     }
 
-    return Events;
+    return Events
 }
 
 /*
@@ -368,18 +368,18 @@ function searchTwitter(searchText, callback) {
         consumer_secret: config.twitter.consumer_secret,
         access_token_key: config.twitter.access_token_key,
         access_token_secret: config.twitter.access_token_secret
-    });
+    })
 
     client.get('search/tweets', {q: searchText}, function(error, tweets, response) {
         if(error) {
             // We return no error so the async call will continue
-            return callback(null, []);
+            return callback(null, [])
         }
 
-        var tweetList = [];
+        var tweetList = []
 
         for(var i in tweets.statuses) {
-            var tweet = tweets.statuses[i];
+            var tweet = tweets.statuses[i]
 
             tweetList.push(
                 {
@@ -393,9 +393,9 @@ function searchTwitter(searchText, callback) {
                     url: 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str,
                     created_at: tweet.created_at
                 }
-            );
+            )
         }
 
-        callback(null, tweetList);
-    });
+        callback(null, tweetList)
+    })
 }

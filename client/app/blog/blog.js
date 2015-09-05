@@ -12,57 +12,57 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-'use strict';
+'use strict'
 angular.module('bcdevxApp.blog', ['ngRoute',  'ngResource'])
 .factory('BlogListService', ['$resource', function($resource) {
-    return $resource('/api/blog');
+    return $resource('/api/blog')
 }])
 .controller('BlogCtrl', ['$scope', 'BlogListService', '$q', 'usSpinnerService',
     function($scope, BlogListService, $q, usSpinnerService) {
 
     // Array of blog entries
-    $scope.blog = [];
-    $scope.blogLoaded = false;
-    $scope.predicateTitle = '';
+    $scope.blog = []
+    $scope.blogLoaded = false
+    $scope.predicateTitle = ''
 
     // Array of alerts
-    $scope.alerts = [];
+    $scope.alerts = []
 
     $scope.startSpin = function(){
-        usSpinnerService.spin('spinner-1');
-    };
+        usSpinnerService.spin('spinner-1')
+    }
 
     $scope.stopSpin = function(){
-        usSpinnerService.stop('spinner-1');
-    };
+        usSpinnerService.stop('spinner-1')
+    }
 
-    var blogListDeferred = $q.defer();
-    var blogPromise = blogListDeferred.promise;
+    var blogListDeferred = $q.defer()
+    var blogPromise = blogListDeferred.promise
 
-    var sourceListDeferred = $q.defer();
-    var sourcePromise = sourceListDeferred.promise;
+    var sourceListDeferred = $q.defer()
+    var sourcePromise = sourceListDeferred.promise
 
     blogPromise.then(
         function(){
-            usSpinnerService.stop('spinner-blog');
+            usSpinnerService.stop('spinner-blog')
         }
-    );
+    )
 
     sourcePromise.then(
         function(){
-            usSpinnerService.stop('spinner-sources');
+            usSpinnerService.stop('spinner-sources')
         }
-    );
+    )
 
     BlogListService.get({}, function(data) {
 
-        $scope.blog = data.blog;
-        blogListDeferred.resolve('resource list length: ' + data.blog.length);
-        $scope.blogLoaded = true;
+        $scope.blog = data.blog
+        blogListDeferred.resolve('resource list length: ' + data.blog.length)
+        $scope.blogLoaded = true
 
     }, function(error) {
-        $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + error.config.url + '</strong>.' });
-        blogListDeferred.resolve('error retrieving blog for  ' + error.config.url);
-        $scope.blogLoaded = true;
-    });
-}]);
+        $scope.alerts.push({ type: 'warning', msg: 'There was an error accessing data from <strong>' + error.config.url + '</strong>.' })
+        blogListDeferred.resolve('error retrieving blog for  ' + error.config.url)
+        $scope.blogLoaded = true
+    })
+}])
