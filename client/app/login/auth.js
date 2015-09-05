@@ -12,32 +12,32 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-'use strict';
+'use strict'
 angular.module('bcdevxApp.auth', ['ngRoute', 'bcdevxApp.services'])
 .factory( 'AuthService', ['$http', '$location',
     function($http, $location) {
 
     // Redirect to the given url (defaults to '/')
     function redirect(url) {
-        url = url || '/';
-        $location.path(url);
+        url = url || '/'
+        $location.path(url)
     }
 
     var service = {
 
         logout: function(redirectTo) {
             $http.post('/logout').then(function() {
-                redirect(redirectTo);
-            });
+                redirect(redirectTo)
+            })
         }
-    };
+    }
 
-    return service;
+    return service
 }])
 .controller('LoginModalCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
 
     $scope.cancel = function() {
-        $modalInstance.dismiss('cancel');
-    };
+        $modalInstance.dismiss('cancel')
+    }
 
-}]);
+}])
