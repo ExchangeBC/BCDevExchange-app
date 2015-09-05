@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and limitations 
 angular.module('bcdevxApp.home', ['ngRoute'])
 
 .factory('NumbersCountService', ['$resource', function($resource) {
-    return $resource('/numbers');
+    return $resource('/api/numbers');
 }])
 
 .controller('HomeCtrl', ['$scope', '$location', '$anchorScroll', 'NumbersCountService', function($scope, $location, $anchorScroll, NumbersCountService) {

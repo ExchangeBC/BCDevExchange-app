@@ -23,7 +23,7 @@ var Twitter      = require('twitter')
 var twitter_text = require('twitter-text')
 
 module.exports = function(app, db, passport) {
-    app.get('/numbers/:source?', function (req, res) {
+    app.get('/api/numbers/:source?', function (req, res) {
 
         if (req.params.source) {
             if (req.params.source === 'resources') {
