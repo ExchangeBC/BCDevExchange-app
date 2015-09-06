@@ -15,15 +15,15 @@ See the License for the specific language governing permissions and limitations 
 'use strict';
 angular.module('bcdevxApp.resources', ['ngRoute', 'ngSanitize', 'ui.highlight'])
 .factory('ResourceList', ['$resource', function($resource) {
-    return $resource('/resources');
+    return $resource('/api/resources');
 }])
 
 .factory('SourceList', ['$resource', function($resource) {
-    return $resource('/resources-sources');
+    return $resource('/api/resources-sources');
 }])
 
 .factory('ResourceDetailsService', function($resource){
-    return $resource('/resources/:source/url/:url', {source:'@source', url:'@url'});
+    return $resource('/api/resources/:source/url/:url', {source:'@source', url:'@url'});
 })
 
 .controller('ResourcesCtrl', ['$rootScope', '$scope', '$location', '$window',

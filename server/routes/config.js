@@ -18,7 +18,7 @@ var logger = require('../../common/logging.js').logger;
 module.exports = function(app, db, passport) {
 
     // ===== Low level conf for client side ======
-    app.get("/config",
+    app.get("/api/config",
         function (req, res) {
             res.send(config.ui);
         }

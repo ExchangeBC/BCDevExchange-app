@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and limitations 
 'use strict';
 angular.module('bcdevxApp.numbers', ['ngRoute',  'ngResource'])
 .factory('NumbersCountService', ['$resource', function($resource) {
-    return $resource('/numbers');
+    return $resource('/api/numbers');
 }])
 .controller('NumbersCtrl', ['$scope', 'NumbersCountService', '$q', 'usSpinnerService', function($scope, NumbersCountService) {
     $scope.numbers = {

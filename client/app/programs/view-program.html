@@ -33,10 +33,10 @@
         <div class="et_pb_column et_pb_column_1_4 et_pb_column_2">
           <div class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_0 et_pb_blurb_position_top">
             <div class="et_pb_blurb_content">
-              <div class="et_pb_main_blurb_image"><a href="#workwithus"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated" style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span></a>
+              <div class="et_pb_main_blurb_image"><a href="#workwithus" du-smooth-scroll><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated" style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span></a>
               </div>
               <div class="et_pb_blurb_container">
-                <h4><a href="#workwithus">Work With Us</a></h4>
+                <h4><a href="#workwithus" du-smooth-scroll>Work With Us</a></h4>
               </div>
             </div>
             <!-- .et_pb_blurb_content -->
@@ -47,10 +47,10 @@
         <div class="et_pb_column et_pb_column_1_4 et_pb_column_3">
           <div class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_1 et_pb_blurb_position_top">
             <div class="et_pb_blurb_content">
-              <div class="et_pb_main_blurb_image"><a href="#resources"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated" style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span></a>
+              <div class="et_pb_main_blurb_image"><a href="#resources" du-smooth-scroll><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated" style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span></a>
               </div>
               <div class="et_pb_blurb_container">
-                <h4><a href="#resources">Resources</a></h4>
+                <h4><a href="#resources" du-smooth-scroll>Resources</a></h4>
 
               </div>
             </div>
@@ -62,10 +62,10 @@
         <div class="et_pb_column et_pb_column_1_4 et_pb_column_4">
           <div class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_2 et_pb_blurb_position_top">
             <div class="et_pb_blurb_content">
-              <div class="et_pb_main_blurb_image"><a href="#skillsweneed"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated" style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span></a>
+              <div class="et_pb_main_blurb_image"><a href="#skillsweneed" du-smooth-scroll><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated" style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span></a>
               </div>
               <div class="et_pb_blurb_container">
-                <h4><a href="#skillsweneed">Skills We Need</a></h4>
+                <h4><a href="#skillsweneed" du-smooth-scroll>Skills We Need</a></h4>
 
               </div>
             </div>
@@ -171,10 +171,8 @@
       <div class=" et_pb_row et_pb_row_4">
         <div class="et_pb_column et_pb_column_4_4 et_pb_column_10">
           <div id="HPFont" class="et_pb_text et_pb_module et_pb_bg_layout_dark et_pb_text_align_left  et_pb_text_2">
-            <a class='anchor' name="workwithus"></a>
             <p></p>
-            <h1 style="text-align: center;">Work With Us</h1>
-
+            <h1 id="workwithus" style="text-align: center;">Work With Us</h1>
           </div>
           <!-- .et_pb_text -->
         </div>
@@ -235,8 +233,7 @@
       <div class="et_pb_row et_pb_row_6 et_pb_row_4col">
         <div class="et_pb_column et_pb_column_1_4 et_pb_column_14">
           <div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_4 et_pb_blurb_position_top">
-            <div class="et_pb_blurb_content">
-              <a class='anchor' name="resources"></a>
+            <div class="et_pb_blurb_content" id="resources">
               <div class="et_pb_main_blurb_image"><a href="#"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span></a>
               </div>
               <div class="et_pb_blurb_container">
@@ -252,8 +249,7 @@
         <!-- .et_pb_column -->
         <div class="et_pb_column et_pb_column_1_4 et_pb_column_15">
           <div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_5 et_pb_blurb_position_top">
-            <a class='anchor' name="skillsweneed"></a>
-            <div class="et_pb_blurb_content">
+            <div id="skillsweneed" class="et_pb_blurb_content">
               <div class="et_pb_main_blurb_image"><a href="#"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span></a>
               </div>
               <div class="et_pb_blurb_container">
@@ -424,13 +420,6 @@
 
   #page-container {
     margin-top: 50px;
-  }
-
-  a.anchor {
-    display: block;
-    position: relative;
-    top: -100px;
-    visibility: hidden;
   }
 
   .et_pb_section_parallax {

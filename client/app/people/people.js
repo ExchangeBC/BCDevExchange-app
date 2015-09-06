@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and limitations 
 'use strict';
 angular.module('bcdevxApp.people', ['ngRoute',  'ngResource'])
 .factory('PeopleListService', ['$resource', function($resource) {
-    return $resource('/people');
+    return $resource('/api/people');
 }])
 
 .controller('PeopleCtrl', ['$scope', 'PeopleListService', function($scope, PeopleListService) {
