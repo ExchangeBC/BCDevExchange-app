@@ -170,7 +170,7 @@ app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
 
 app.run(function ($rootScope, $http) {
   // Add config to ALL scopes, only makes sense instead of passing in everywhere
-  $http.get('/config').
+  $http.get('/api/config').
   success(function (data) {
     $rootScope.config = data
   })
