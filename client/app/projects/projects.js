@@ -15,10 +15,10 @@ See the License for the specific language governing permissions and limitations 
 'use strict';
 angular.module('bcdevxApp.projects', ['ngRoute',  'ngResource'])
 .factory('ProjectListService', ['$resource', function($resource) {
-    return $resource('/projects');
+    return $resource('/api/projects');
 }])
 .factory('ProjectDetailsService', function($resource){
-    return $resource('/projects/:source/url/:url', {source:'@source', url:'@url'});
+    return $resource('/api/projects/:source/url/:url', {source:'@source', url:'@url'});
 })
 .controller('ProjectsCtrl', ['$scope', 'ProjectListService', 'ProjectDetailsService', '$q', 'usSpinnerService',
     function($scope, ProjectListService, ProjectDetailsService, $q, usSpinnerService) {

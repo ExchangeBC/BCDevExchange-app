@@ -33,7 +33,7 @@ var getProjectsFromArray = function (projectList, success, error) {
 
 module.exports = function(app, db, passport) {
 
-    app.get('/projects/:source?', function (req, res) {
+    app.get('/api/projects/:source?', function (req, res) {
         if (req.params.length > 0) {
             // Handle specific requests
         }
@@ -47,7 +47,7 @@ module.exports = function(app, db, passport) {
             });
         }
     });
-    app.get('/projects/:source/url/:url', function (req, res) {
+    app.get('/api/projects/:source/url/:url', function (req, res) {
         if (!req.params.source) {
             res.send(400, "Missing source parameter.");
             return;
