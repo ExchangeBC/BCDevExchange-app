@@ -30,7 +30,7 @@ var getResourcesFromArray = function (resourceList, success, error) {
 
 module.exports = function(app, db, passport) {
 
-    app.get('/resources/:source?', function(req, res) {
+    app.get('/api/resources/:source?', function(req, res) {
         var resourceList = [];
 
         // Only get resources from a source type or specific source
@@ -59,17 +59,17 @@ module.exports = function(app, db, passport) {
 
     });
 
-    app.get('/resources-sources', function(req, res) {
+    app.get('/api/resources-sources', function(req, res) {
         var listOfCatalogues = [];
         for (var x in config.catalogues) {
             var catalogue = config.catalogues[x];
-            listOfCatalogues.push({'name': catalogue.name, 'url': '/resources/' + catalogue.short_name.toLowerCase(), 'short_name': catalogue.short_name});
+            listOfCatalogues.push({'name': catalogue.name, 'url': '/api/resources/' + catalogue.short_name.toLowerCase(), 'short_name': catalogue.short_name});
         }
 
         res.send({ "sources": listOfCatalogues });
     });
 
-    app.get('/resources/:source/url/:url', function (req, res) {
+    app.get('/api/resources/:source/url/:url', function (req, res) {
         if (!req.params.source) {
             res.send(400, "Missing source parameter.");
             return;
