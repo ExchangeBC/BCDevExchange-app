@@ -18,7 +18,7 @@ var config = require('config');
 var logger = require('../../common/logging.js').logger;
 
 module.exports = function(app, db, passport) {
-    app.get('/people', function(req, res) {
+    app.get('/api/people', function(req, res) {
         // authN
         if (!req.isAuthenticated()) return res.sendStatus(401);
         // simple, crude, yet effective: todo replace with proper authZ package
