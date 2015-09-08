@@ -25,12 +25,8 @@
     </div>
     <!-- .et_pb_section -->
     <div class="et_pb_section  et_pb_section_1 et_pb_with_background et_section_regular">
-
-
-
-      <div class="et_pb_row et_pb_row_1 et_pb_row_4col">
-
-        <div class="et_pb_column et_pb_column_1_4 et_pb_column_2">
+      <div class="et_pb_row et_pb_row_1 et_pb_row_{{nButtons}}col">
+        <div class="et_pb_column et_pb_column_1_{{nButtons}}" ng-hide="program.hideWorkWithUs">
           <div class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_0 et_pb_blurb_position_top">
             <div class="et_pb_blurb_content">
               <div class="et_pb_main_blurb_image"><a href="#workwithus" du-smooth-scroll><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated" style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span></a>
@@ -44,7 +40,7 @@
           <!-- .et_pb_blurb -->
         </div>
         <!-- .et_pb_column -->
-        <div class="et_pb_column et_pb_column_1_4 et_pb_column_3">
+        <div class="et_pb_column et_pb_column_1_{{nButtons}}">
           <div class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_1 et_pb_blurb_position_top">
             <div class="et_pb_blurb_content">
               <div class="et_pb_main_blurb_image"><a href="#resources" du-smooth-scroll><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated" style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span></a>
@@ -59,7 +55,7 @@
           <!-- .et_pb_blurb -->
         </div>
         <!-- .et_pb_column -->
-        <div class="et_pb_column et_pb_column_1_4 et_pb_column_4">
+        <div class="et_pb_column et_pb_column_1_{{nButtons}}"  ng-hide="program.hideSkillsWeNeed">
           <div class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_2 et_pb_blurb_position_top">
             <div class="et_pb_blurb_content">
               <div class="et_pb_main_blurb_image"><a href="#skillsweneed" du-smooth-scroll><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated" style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span></a>
@@ -74,7 +70,7 @@
           <!-- .et_pb_blurb -->
         </div>
         <!-- .et_pb_column -->
-        <div class="et_pb_column et_pb_column_1_4 et_pb_column_5">
+        <div class="et_pb_column et_pb_column_1_{{nButtons}}" ng-show="program.githubUrl">
           <div class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_3 et_pb_blurb_position_top">
             <div class="et_pb_blurb_content">
               <div class="et_pb_main_blurb_image">
@@ -97,14 +93,14 @@
 
     </div>
     <!-- .et_pb_section -->
-    <div class="et_pb_section  et_pb_section_2 et_section_regular">
+    <div class="et_pb_section  et_pb_section_2 et_section_regular" ng-hide="program.hideStatsSection">
 
 
 
       <div class=" et_pb_row et_pb_row_2">
 
         <div class="et_pb_column et_pb_column_1_3 et_pb_column_6">
-          <div class="et_pb_number_counter et_pb_module et_pb_bg_layout_light  et_pb_number_counter_0" data-number-value="1296">
+          <div class="et_pb_number_counter et_pb_module et_pb_bg_layout_light  et_pb_number_counter_0" data-number-value="1">
             <div class="percent" style="color:#7EBEC5">
               <p><span class="percent-value"></span>
               </p>
@@ -116,7 +112,7 @@
         </div>
         <!-- .et_pb_column -->
         <div class="et_pb_column et_pb_column_1_3 et_pb_column_7">
-          <div class="et_pb_number_counter et_pb_module et_pb_bg_layout_light  et_pb_number_counter_1" data-number-value="36">
+          <div class="et_pb_number_counter et_pb_module et_pb_bg_layout_light  et_pb_number_counter_1" data-number-value="0">
             <div class="percent" style="color:#7EBEC5">
               <p><span class="percent-value"></span>
               </p>
@@ -128,7 +124,7 @@
         </div>
         <!-- .et_pb_column -->
         <div class="et_pb_column et_pb_column_1_3 et_pb_column_8">
-          <div class="et_pb_number_counter et_pb_module et_pb_bg_layout_light  et_pb_number_counter_2" data-number-value="6">
+          <div class="et_pb_number_counter et_pb_module et_pb_bg_layout_light  et_pb_number_counter_2" data-number-value="3">
             <div class="percent" style="color:#7EBEC5">
               <p><span class="percent-value"></span>
               </p>
@@ -145,10 +141,7 @@
 
     </div>
     <!-- .et_pb_section -->
-    <div class="et_pb_section  et_pb_section_3 et_pb_with_background et_section_regular">
-
-
-
+    <div class="et_pb_section  et_pb_section_3 et_pb_with_background et_section_regular"  ng-hide="program.hideWorkWithUs">
       <div class=" et_pb_row et_pb_row_3">
 
         <div class="et_pb_column et_pb_column_4_4 et_pb_column_9">
@@ -164,10 +157,9 @@
 
       </div>
       <!-- .et_pb_row -->
-
     </div>
     <!-- .et_pb_section -->
-    <div class="et_pb_section et_pb_inner_shadow et_pb_section_parallax  et_pb_section_4 et_pb_with_background et_section_regular" style="background-image: url(/img/profile-background.png);">
+    <div class="et_pb_section et_pb_inner_shadow et_pb_section_parallax  et_pb_section_4 et_pb_with_background et_section_regular" style="background-image: url(/img/profile-background.png);" ng-hide="program.hideWorkWithUs">
       <div class=" et_pb_row et_pb_row_4">
         <div class="et_pb_column et_pb_column_4_4 et_pb_column_10">
           <div id="HPFont" class="et_pb_text et_pb_module et_pb_bg_layout_dark et_pb_text_align_left  et_pb_text_2">
@@ -215,7 +207,7 @@
       <!-- .et_pb_row -->
     </div>
     <!-- .et_pb_section -->
-    <div class="et_pb_section  et_pb_section_6 et_pb_with_background et_section_regular">
+    <div class="et_pb_section  et_pb_section_6 et_pb_with_background et_section_regular" ng-show="program.githubUrl">
       <div class=" et_pb_row et_pb_row_5">
         <div class="et_pb_column et_pb_column_4_4 et_pb_column_13">
           <div class="et_pb_promo et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_cta_1 et_pb_no_bg">
@@ -231,7 +223,7 @@
     <!-- .et_pb_section -->
     <div class="et_pb_section  et_pb_section_7 et_section_regular">
       <div class="et_pb_row et_pb_row_6 et_pb_row_4col">
-        <div class="et_pb_column et_pb_column_1_4 et_pb_column_14">
+        <div class="et_pb_column  et_pb_column_1_{{nButtons2}}">
           <div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_4 et_pb_blurb_position_top">
             <div class="et_pb_blurb_content" id="resources">
               <div class="et_pb_main_blurb_image"><a href="#"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span></a>
@@ -247,7 +239,7 @@
           <!-- .et_pb_blurb -->
         </div>
         <!-- .et_pb_column -->
-        <div class="et_pb_column et_pb_column_1_4 et_pb_column_15">
+        <div class="et_pb_column et_pb_column_1_{{nButtons2}}" ng-hide="program.hideSkillsWeNeed">
           <div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_5 et_pb_blurb_position_top">
             <div id="skillsweneed" class="et_pb_blurb_content">
               <div class="et_pb_main_blurb_image"><a href="#"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span></a>
@@ -263,7 +255,7 @@
           <!-- .et_pb_blurb -->
         </div>
         <!-- .et_pb_column -->
-        <div class="et_pb_column et_pb_column_1_4 et_pb_column_16">
+        <div class="et_pb_column et_pb_column_1_{{nButtons2}}" ng-hide="program.hideCommunity">
           <div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_6 et_pb_blurb_position_top">
             <div class="et_pb_blurb_content">
               <div class="et_pb_main_blurb_image"><a href="#"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;">w</span></a>
@@ -279,7 +271,7 @@
           <!-- .et_pb_blurb -->
         </div>
         <!-- .et_pb_column -->
-        <div class="et_pb_column et_pb_column_1_4 et_pb_column_17">
+        <div class="et_pb_column et_pb_column_1_{{nButtons2}}">
           <div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_7 et_pb_blurb_position_top">
             <div class="et_pb_blurb_content">
               <div class="et_pb_main_blurb_image"><a href="https://news.gov.bc.ca/"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span></a>
@@ -428,6 +420,10 @@
 
   .et_pb_section_parallax h2 {
     color: white;
+  }
+
+  .et_pb_column_1_1 {
+    float: inherit
   }
 
   @media only screen and ( min-width: 981px) {

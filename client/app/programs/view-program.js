@@ -28,8 +28,18 @@ angular.module('bcdevxApp.programs').config(function ($sceProvider) {
         usSpinnerService.stop('spinner-program-desc')
         if (!!program) {
           $scope.program = program
-          $scope.x = $sce.trustAsHtml(program.content.logo)
           $scope.mdDisplay = program.markdown
+          var nButtons = 4
+          if(program.hideWorkWithUs) nButtons--
+          if(program.hideSkillsWeNeed) nButtons--
+          if(!program.githubUrl) nButtons--
+          $scope.nButtons = nButtons
+          // bottom buttons
+          var nButtons2 = 4
+          if(program.hideSkillsWeNeed) nButtons2--
+          if(program.hideCommunity) nButtons2--
+          $scope.nButtons2 = nButtons2
+
           $rootScope.$broadcast('bdTocUpdate')
           $scope.$broadcast('contentReady')
         } else {
