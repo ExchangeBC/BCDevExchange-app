@@ -38,7 +38,7 @@ angular.module('bcdevxApp.services').factory('ProgramService', ['$resource', '$q
 ])
 
 angular.module('bcdevxApp.services').factory('Programs', ['$resource', function ($resource) {
-  return $resource('programs/:id', {}, {
+  return $resource('/api/programs/:id', {}, {
     update: {
       method: 'PATCH'
     },
