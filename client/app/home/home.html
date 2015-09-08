@@ -41,7 +41,7 @@ See the License for the specific language governing permissions and limitations 
                             <i class="fa fa-area-chart"></i> <span>{{ numbers.analytics.users }}</span> <span class="text-muted">visits</span>
                         </div>
                     <div class="col-sm-2">
-                        <i class="fa fa-twitter"></i> <span>{{ numbers.tweet_count }}</span> <span class="text-muted">tweets</span>
+                        <i class="fa fa-twitter"></i> <span>{{ 397 }}</span> <span class="text-muted">tweets</span>
                     </div>
                     <div class="col-sm-2">
                         <i class="fa fa-star"></i> <span>{{ numbers.total_stars }}</span> <span class="text-muted"><span class="hidden-sm">GitHub</span> stars</span>
@@ -89,20 +89,22 @@ See the License for the specific language governing permissions and limitations 
         </div>
 
 		<div ng-show="config.explorationContent" ng-cloak>
-            <div class="content text-left">
+            <div class="content text-center">
                 <div class="row features-xl">
-                    <div class="col-md-4 text-center">
+                    <!--div class="col-md-4 text-center"-->
+                    <div class="col-md-6 col-md-offset-3">
                         <i class="fa fa-users"></i>
                     </div>
-                    <div class="col-md-8">
-                        <h2>Meet the  Early Adopters</h2>
-                        <ul>
-                            <li>The BCDevExchange experiment aims to make it easier for the B.C. public and tech sectors to innovate and collaborate on digital products and services.</li>
-                            <li>Meet the BCDevExchange early adopters who are testing this new model of innovation and collaboration.</li>
-                        </ul>
-                        <p><a href="#programs" analytics-on>View Profiles</a></p>
-                    </div>
-                </div>
+                    <div class="col-md-12">
+                        <h2>Meet the Early Adopters</h2>
+                        <p class="lead">The BCDevExchange experiment aims to make it easier for the B.C. public and tech sectors to innovate and collaborate on digital products and services.Meet the BCDevExchange early adopters who are testing this new model of innovation and collaboration. <a href="#programs" analytics-on> View Profiles</a>
+                        </p>
+                        <!--p class="lead"><a href="#programs" analytics-on>View Profiles</a></p-->
+                        <div class="numbers-mini">
+                            <div class="row-fluid">
+                            </div>
+                       </div>
+                  </div>
             </div>
         </div>
 
