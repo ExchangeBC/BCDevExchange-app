@@ -433,6 +433,20 @@ module.exports = function (app, db, passport) {
         "__prefix": "wfw",
         "__text": "http://blog.data.gov.bc.ca/2015/03/the-province-of-bc-on-github/feed/"
       }
+    },
+    {
+      "title": "Introducing the BC Developers’ Exchange",
+      "link": "https://blog.data.gov.bc.ca/2015/02/introducing-the-bc-developers-exchange/",
+      "description": {
+        "__cdata": ""
+      }
+    },
+    {
+      "title": "How to deal with not knowing – BCDevExchange’s 4 principles",
+      "link": "https://blog.data.gov.bc.ca/2015/03/how-to-deal-with-not-knowing-bcdevexchanges-4-principles/",
+      "description": {
+        "__cdata": ""
+      }
     }
   ]
 };
