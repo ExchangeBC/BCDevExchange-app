@@ -22,6 +22,9 @@ var crypto = require('crypto')
 var clone = require('clone')
 var merge = require('merge')
 var db = require('../models/db')
+var _ = require('lodash')
+var Q = require('q')
+
 
 var getProgramsFromArray = function (programList, success, error) {
   async.concat(programList, getPrograms, function (err, results) {
@@ -68,12 +71,12 @@ module.exports = function (app, db, passport) {
       return
     }
 
-    getProgramDetails(req.params.title, function (error, result) {
-      if (error) {
-        res.send(500)
-      }
-      db.getProgramByName(req.params.title).then(function (data) {
-        res.send(require('util')._extend(require('util')._extend({}, result), data))
+    db.getProgramByName(req.params.title).then(function (data) {
+      getProgramDetails(data, function (error, result) {
+        if (error) {
+          res.send(500)
+        }
+        res.send(_.merge({}, result, data))
       })
     })
   })
@@ -168,35 +171,18 @@ function parseGitHubFileResults(result, callback) {
 
 }
 
-function getProgramDetails(title, callback) {
-
-  // First get the directory to figure out what repo it is
-  getGitHubFileProgram(config.programs[0], function (error, result) {
-    if (error) {
-      logger.error('Error while fetching GitHub content: %s', error)
-      return callback(error)
-    }
-
-    // find entry in the result
-    var program
-    for (var k in result) {
-      if (result[k].title.toUpperCase() === title.toUpperCase()) {
-        program = result[k]
-        break
-      }
-    }
-    if (!program) {
-      logger.error('Could not find title: %s in directory', title)
-      return callback("Bad config")
-    }
-    if (!program.url) {
-      logger.error('Could not find title: %s in directory', title)
-      return callback("Bad config")
-    }
-
-    // Call github for file contents
+function getProgramDetails(progData, callback) {
+  var deferred = Q.defer()
+    // Call github for stats
+  if (!progData.githubUrl) {
+    setTimeout(function () {
+      deferred.resolve({})
+    }, 0)
+    return deferred.promise.nodeify(callback)
+  }
+  async.concat(['/stats/contributors', '/issues'], function (item, cb) {
     var options = {
-      url: 'https://api.github.com/repos/' + program.url + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+      url: 'https://api.github.com/repos/' + progData.githubUrl.substr(progData.githubUrl.indexOf('github.com') + 11) + item + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
       headers: {
         'User-Agent': config.github.clientApplicationName
       }
@@ -205,21 +191,25 @@ function getProgramDetails(title, callback) {
       if (!error &&
         typeof response !== 'undefined' &&
         response.statusCode === 200) {
-
-        // parse out the yaml from content block
-        var json = JSON.parse(body)
-        var decodedContent = new Buffer(json.content, 'base64').toString('ascii')
-
-        var result = {
-          "markdown": decodedContent
-        }
-
-        return callback(null, result)
-
+        return cb(null, body)
       } else {
         logger.error('Error while fetching GitHub content: %s. response: %s. body: %s', error, response, body)
-        return callback(error)
+        return cb(error)
       }
     })
+  }, function (err, resArr) {
+    if (err) return deferred.reject(err)
+    var issuesPrArr = JSON.parse(resArr[1])
+    var issuesPrCnt = issuesPrArr.length
+    var prCnt = _.reduce(issuesPrArr, function (result, item) {
+      return result + ((item.pull_request) ? 1 : 0)
+    }, 0)
+    var res = {
+      contributors: JSON.parse(resArr[0]).length,
+      issues: issuesPrCnt - prCnt,
+      prs: prCnt
+    }
+    deferred.resolve(res)
   })
+  return deferred.promise.nodeify(callback)
 }
