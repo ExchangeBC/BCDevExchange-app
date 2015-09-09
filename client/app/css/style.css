@@ -2017,6 +2017,10 @@ Copyright (c) 2015 Daniel Eden
 	/*------------------------------------------------*/
 	/*------------------[FLUID GRID]------------------*/
 	/*------------------------------------------------*/
+	.et_pb_gutters3 .et_pb_column,
+	.et_pb_gutters3.et_pb_row .et_pb_column {
+		margin-right: 3%;
+	}
 	.et_pb_gutters3 .et_pb_column_4_4,
 	.et_pb_gutters3.et_pb_row .et_pb_column_4_4 {
 		width: 100%;

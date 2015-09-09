@@ -194,7 +194,7 @@ function extendDeep(dst) {
   return dst
 }
 
-app.controller('bcdevController', ['$scope', function ($scope) {
+app.controller('bcdevController', ['$scope', '$rootScope', function ($scope, $rootScope) {
   $scope.domsLoaded = {
     'header': false,
     'footer': false,
@@ -209,7 +209,9 @@ app.controller('bcdevController', ['$scope', function ($scope) {
         }
       }
     }
-    window.wpCustomFn && window.wpCustomFn(jQuery)
+    $rootScope.$on('bdTocUpdate',function(){
+      window.wpCustomFn && window.wpCustomFn(jQuery)
+    })
   }
 }])
 app.directive('notifyLoad', function () {

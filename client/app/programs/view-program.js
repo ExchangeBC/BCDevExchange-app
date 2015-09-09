@@ -39,8 +39,9 @@ angular.module('bcdevxApp.programs').config(function ($sceProvider) {
           if(program.hideSkillsWeNeed) nButtons2--
           if(program.hideCommunity) nButtons2--
           $scope.nButtons2 = nButtons2
-
-          $rootScope.$broadcast('bdTocUpdate')
+          setTimeout(function(){
+            $rootScope.$broadcast('bdTocUpdate')
+          },0)
           $scope.$broadcast('contentReady')
         } else {
           $scope.mdDisplay = 'No content found for program named \'' + $routeParams.programName + '\'.'
