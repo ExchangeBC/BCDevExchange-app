@@ -57,7 +57,6 @@ angular.module('bcdevxApp.blog', ['ngRoute',  'ngResource'])
     BlogListService.get({}, function(data) {
 
         $scope.blog = data.blog
-        console.log($scope.blog);
         blogListDeferred.resolve('resource list length: ' + data.blog.length)
         $scope.blogLoaded = true
 
