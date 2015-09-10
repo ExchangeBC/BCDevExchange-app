@@ -12,15 +12,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 -->
 
-<div class="splash" style="background-image: url(img/{{config.headerImage}})">
+<div class="splash" style="background-image: url(img/{{config.headerImage}}); background-position: 0 85%;">
     <div class="navbar navbar-default navbar-stats">
         <div class="container">
             <div class="navbar-header visible-xs">
                 <div class="col-xs-4">
-                    <i class="fa fa-users"></i> <span>{{ numbers.accounts }}</span> <span class="text-muted">users</span>
+                    <i class="fa fa-users"></i> <span>{{ numbers.accounts }}</span> <span class="text-muted">Users</span>
                 </div>
                 <div class="col-xs-4">
-                    <i class="fa fa-area-chart"></i> <span>{{ numbers.analytics.users }}</span> <span class="text-muted">visits</span>
+                    <i class="fa fa-area-chart"></i> <span>{{ numbers.analytics.users }}</span> <span class="text-muted">Visits</span>
                 </div>
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-stats">
                     More stats
@@ -29,7 +29,7 @@ See the License for the specific language governing permissions and limitations 
             <div class="navbar-collapse collapse" id="navbar-stats">
                 <div class="row">
                     <div class="col-sm-2 hidden-xs">
-                            <i class="fa fa-users"></i> <span>{{ numbers.accounts }}</span> <span class="text-muted">users</span>
+                            <i class="fa fa-users"></i> <span>{{ numbers.accounts }}</span> <span class="text-muted">Users</span>
                         </div>
                     <!--div class="col-sm-2">
                         <i class="fa fa-cubes"></i> <span>{{ numbers.resources }}</span> <span class="text-muted">resources</span>
@@ -38,7 +38,7 @@ See the License for the specific language governing permissions and limitations 
                         <i class="fa fa-cogs"></i> <span>{{ numbers.projects }}</span> <span class="text-muted">projects</span>
                     </div-->
                     <div class="col-sm-2 hidden-xs">
-                            <i class="fa fa-area-chart"></i> <span>{{ numbers.analytics.users }}</span> <span class="text-muted">visits</span>
+                            <i class="fa fa-area-chart"></i> <span>{{ numbers.analytics.users }}</span> <span class="text-muted">Visits</span>
                         </div>
                     <div class="col-sm-2">
                         <i class="fa fa-twitter"></i> <span>{{ 397 }}</span> <span class="text-muted">tweets</span>
@@ -88,26 +88,6 @@ See the License for the specific language governing permissions and limitations 
             </div>
         </div>
 
-		<div ng-show="config.explorationContent" ng-cloak>
-            <div class="content text-center">
-                <div class="row features-xl">
-                    <!--div class="col-md-4 text-center"-->
-                    <div class="col-md-6 col-md-offset-3">
-                        <i class="fa fa-users"></i>
-                    </div>
-                    <div class="col-md-12">
-                        <h2>Meet the Early Adopters</h2>
-                        <p class="lead">The BCDevExchange experiment aims to make it easier for the B.C. public and tech sectors to innovate and collaborate on digital products and services.Meet the BCDevExchange early adopters who are testing this new model of innovation and collaboration. <a href="#programs" analytics-on> View Profiles</a>
-                        </p>
-                        <!--p class="lead"><a href="#programs" analytics-on>View Profiles</a></p-->
-                        <div class="numbers-mini">
-                            <div class="row-fluid">
-                            </div>
-                       </div>
-                  </div>
-            </div>
-        </div>
-
         <div ng-show="config.explorationContent" ng-cloak>
             <div class="content text-center">
                 <div class="row features-xl">
@@ -126,7 +106,22 @@ See the License for the specific language governing permissions and limitations 
             </div>
         </div>
 
-
+		<div ng-show="config.explorationContent" ng-cloak>
+            <div class="content text-center">
+                <div class="row features-xl">
+                    <div class="col-md-12">
+                        <p><i class="fa fa-users"></i></p>
+                        <h2>Meet the Early Adopters</h2>
+                        <p class="lead">The BCDevExchange experiment aims to make it easier for the B.C. public and tech sectors to innovate and collaborate on digital products and services.Meet the BCDevExchange early adopters who are testing this new model of innovation and collaboration. <a href="/programs" analytics-on> View Profiles</a>
+                        </p>
+                        <!--p class="lead"><a href="#programs" analytics-on>View Profiles</a></p-->
+                        <div class="numbers-mini">
+                            <div class="row-fluid">
+                            </div>
+                       </div>
+                  </div>
+            </div>
+        </div>
 
         <div ng-show="config.explorationContent" ng-cloak>
             <div class="content text-left">
