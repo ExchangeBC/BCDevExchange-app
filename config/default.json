@@ -170,8 +170,8 @@ The local files are intended to not be tracked in your version control system. E
     "sessionStoreUrl": "mongodb://localhost/session-store"
   },
   "ui": {
-      "headerImage": "header5.jpg",
-      "headerImageLicenseHtml": "Memorial Arena in Kelowna photo by <a href='https://www.flickr.com/photos/42373177@N07/' analytics-on>Jason Drury</a>. Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/' analytics-on>CC BY-NC-SA 2.0</a>)",
+      "headerImage": "header6.jpg",
+      "headerImageLicenseHtml": "Monashee Mountain Range photo by <a href='https://www.flickr.com/photos/42373177@N07/' analytics-on>Jason Drury</a>. Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/' analytics-on>CC BY-NC-SA 2.0</a>)",
       "discoveryBanner": false,
       "linkedinLogin": false,
       "resourcescallbackURLage": true,
