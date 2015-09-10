@@ -153,7 +153,7 @@
         <!-- .et_pb_row -->
       </div>
       <!-- .et_pb_section -->
-      <div class="et_pb_section et_pb_inner_shadow et_pb_section_parallax  et_pb_section_4 et_pb_with_background et_section_regular" style="background-image: url(/img/profile-background.png);">
+      <div class="et_pb_section et_pb_inner_shadow et_pb_section_parallax  et_pb_section_4 et_pb_with_background et_section_regular" style="background-color:#35394A">
         <div class=" et_pb_row et_pb_row_4">
           <div class="et_pb_column et_pb_column_4_4 et_pb_column_10">
             <div id="HPFont" class="et_pb_text et_pb_module et_pb_bg_layout_dark et_pb_text_align_left  et_pb_text_2">
@@ -224,7 +224,7 @@
               <div class="et_pb_main_blurb_image"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span>
               </div>
               <div class="et_pb_blurb_container">
-                <h4><a href="#">Resources</a></h4>
+                <h4>Resources</h4>
                 <div inline-editable ng-bind-html='program.content.resources' style="text-align: left;">
                 </div>
               </div>
@@ -240,7 +240,7 @@
               <div class="et_pb_main_blurb_image"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span>
               </div>
               <div class="et_pb_blurb_container">
-                <h4><a href="#">Skills</a></h4>
+                <h4>Skills</h4>
                 <div inline-editable ng-bind-html='program.content.skills' style="text-align: left;">
                 </div>
               </div>
@@ -256,7 +256,7 @@
               <div class="et_pb_main_blurb_image"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;">w</span>
               </div>
               <div class="et_pb_blurb_container">
-                <h4><a href="#">Community</a></h4>
+                <h4>Community</h4>
                 <div inline-editable ng-bind-html='program.content.community' style="text-align: left;">
                 </div>
               </div>
@@ -266,13 +266,13 @@
           <!-- .et_pb_blurb -->
         </div>
         <!-- .et_pb_column -->
-        <div class="et_pb_column et_pb_column_1_{{nButtons2}}">
+        <div class="et_pb_column et_pb_column_1_{{nButtons2}}"  ng-hide="program.hideNews">
           <div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_7 et_pb_blurb_position_top">
             <div class="et_pb_blurb_content">
               <div class="et_pb_main_blurb_image"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span>
               </div>
               <div class="et_pb_blurb_container">
-                <h4><a href="https://news.gov.bc.ca/">News</a></h4>
+                <h4>News</h4>
                 <div inline-editable ng-bind-html='program.content.news' style="text-align: left;"></div>
               </div>
             </div>
@@ -300,7 +300,7 @@
         <div class="et_pb_column et_pb_column_1_2 et_pb_column_19 et_pb_specialty_column">
           <div class=" et_pb_row_inner et_pb_row_inner_2">
             <div class="et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_3">
-              <div inline-editable ng-bind-html='program.content.techContact'>
+              <div class="et_pb_bg_layout_dark" inline-editable ng-bind-html='program.content.techContact'>
               </div>
               <!-- .et_pb_text -->
             </div>

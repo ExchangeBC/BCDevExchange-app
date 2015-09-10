@@ -174,7 +174,8 @@ function parseGitHubFileResults(result, callback) {
 function getProgramDetails(progData, callback) {
   var deferred = Q.defer()
     // Call github for stats
-  if (!progData.githubUrl) {
+  var githubStatsUrl = progData.githubStatsUrl || progData.githubUrl
+  if (!githubStatsUrl) {
     setTimeout(function () {
       deferred.resolve({})
     }, 0)
@@ -183,7 +184,7 @@ function getProgramDetails(progData, callback) {
 
   var getGitHubStats = function (item, cb) {
     var options = {
-      url: 'https://api.github.com/repos/' + progData.githubUrl.substr(progData.githubUrl.indexOf('github.com') + 11) + item + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+      url: 'https://api.github.com/repos/' + githubStatsUrl.substr(githubStatsUrl.indexOf('github.com') + 11) + item + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
       headers: {
         'User-Agent': config.github.clientApplicationName
       }
