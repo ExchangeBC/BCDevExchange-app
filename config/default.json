@@ -12,6 +12,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
 
+
 /*Files in the config directory are loaded in the following order:
 
 default.EXT
@@ -169,17 +170,19 @@ The local files are intended to not be tracked in your version control system. E
     "sessionStoreUrl": "mongodb://localhost/session-store"
   },
   "ui": {
-      "headerImage": "header4.jpg",
-      "headerImageLicenseHtml": "Prospect Point Lighthouse and Lion's Gate Bridge photo by <a href='https://www.flickr.com/photos/colink/' analytics-on>colink</a>. Used under license (<a href='https://creativecommons.org/licenses/by-sa/2.0/' analytics-on>CC BY-SA 2.0</a>)",
+      "headerImage": "header5.jpg",
+      "headerImageLicenseHtml": "Memorial Arena in Kelowna photo by <a href='https://www.flickr.com/photos/42373177@N07/' analytics-on>Jason Drury</a>. Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/' analytics-on>CC BY-NC-SA 2.0</a>)",
       "discoveryBanner": false,
       "linkedinLogin": false,
       "resourcescallbackURLage": true,
-      "resourcesPage": true,
-      "programsPage": false,
-      "projectsPage": true,
+      "resourcesPage": false,
+      "programsPage": true,
+      "blogPage": true,
+      "projectsPage": false,
       "peoplePage": false,
       "numbersPage": false,
       "labLink": true,
+      "communityMenu": false,
       "explorationContent": true,
       "labURL": "https://lab.bcdevexchange.org"
   },
@@ -187,5 +190,11 @@ The local files are intended to not be tracked in your version control system. E
     "api_email": "GOOGLE_API_EMAIL", // in Google Developer console (Service Account)
     "analytics_view_id": "GOOGLE_ANALYTICS_VIEW_ID", //in Google Analytics Console : Admin -> View -> View Settings -> View ID
     "client_id": "UA-XXXXXXX-X"
+  },
+  "twitter": {
+    "consumer_key": "twitter_consumer_key",
+    "consumer_secret": "twitter_consumer_secret",
+    "access_token_key": "twitter_access_token_key",
+    "access_token_secret": "twitter_access_token_secret"
   }
 }
