@@ -11,12 +11,13 @@
 
 #!/bin/bash
 cwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-APPLICATION_PATH=$cwd"/server.js"
+APPLICATION_PATH=$cwd"/dist/server/app.js"
 LOG=$cwd"/log/forever.log"
 STDOUT=$cwd"/log/stdout.log"
 STDERR=$cwd"/log/stderr.log"
 MIN_UPTIME="5000"
 SPIN_SLEEP_TIME="2000"
+UNAME="discovery"
 
 export NODE_ENV=production
 export NODE_CONFIG_DIR=$cwd"/config"
@@ -29,4 +30,4 @@ forever \
 	  -e $STDERR \
       --minUptime $MIN_UPTIME \
       --spinSleepTime $SPIN_SLEEP_TIME \
-      start $APPLICATION_PATH
+      start --uid $UNAME $APPLICATION_PATH

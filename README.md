@@ -1,12 +1,9 @@
 # BCDevExchange Organization Web Site #
 <a rel="Exploration" href="https://github.com/BCDevExchange/docs/blob/master/discussion/projectstates.md"><img alt="Being designed and built, but in the lab. May change, disappear, or be buggy." style="border-width:0" src="http://bcdevexchange.org/badge/2.svg" title="Being designed and built, but in the lab. May change, disappear, or be buggy." /></a>
 
-<a href="https://codeclimate.com/github/BCDevExchange/BCDevExchange-app"><img src="https://codeclimate.com/github/BCDevExchange/BCDevExchange-app/badges/gpa.svg" /></a>
-
 The [BCDevExchange website](http://bcdevexchange.org/) is the public facing site for the BC Developers' Exchange - an experiment in tech innovation and collaboration.
 
-*We are open to pull requests!
-See our [contributing guide](https://github.com/BCDevExchange/BCDevExchange-app/blob/master/CONTRIBUTING.md) for the details.*
+*We are open to pull requests!  See our [contributing guide](https://github.com/BCDevExchange/BCDevExchange-app/blob/master/CONTRIBUTING.md) for the details.*
 
 ## MEAN Stack##
 This web app is built on the MEAN stack:
@@ -17,21 +14,61 @@ This web app is built on the MEAN stack:
 -  MongoDB
 -  nginx
 
-## Development ##
+The app has been retrofitted with [Yeoman](http://yeoman.io/) [angular-fullstack generator](https://github.com/DaftMonk/generator-angular-fullstack).
 
-You'll need [MongoDB](http://www.mongodb.org/), [NodeJS](http://nodejs.org/), and [Git](http://git-scm.com/downloads). Clone this repo from GitHub, change directory to the repo root and:
+## Getting Started ##
 
-`$ npm install `
+You'll need [MongoDB](http://www.mongodb.org/), [NodeJS](http://nodejs.org/), and [Git](http://git-scm.com/downloads). Clone this repo from GitHub, change directory to the repo root.
 
-We use [WebStorm](https://www.jetbrains.com/webstorm/download/) for development, but contributors are free to use any editor.
+1. Run `npm install`.
+2. Install [Grunt](http://gruntjs.com) for the command line via `npm install -g grunt-cli`.
+3. Run `grunt serve` to start a Node server.  Defaults to [localhost:9000](http://localhost:000).
 
-To ensure appropriate license is on every appropriate file, use:
+### Grunt
+We also use [Grunt](http://gruntjs.com) to automate some of the development process.  Some notable tasks:
 
-`gulp`
+```
+grunt serve
+```
+Launches site in development environment. No client-side optimization (js uglification etc) is performed to facilitate debugging.
+
+```
+grunt serve:debug
+```
+
+Enables Node debugger and launches node-inspector for server-side debugging. Node-inspector has been configured to disable source code discovery by default to speedup loading. Only executed code is available to Node-inspector. Therefore in order to set a breakpoint in a source file, you have to hit some web page that requires the source file first.
+
+```
+grunt serve:dist
+```
+Build and launch site in production environment. Client-side optimization is performed as part of the build process.
+
+```
+grunt build
+```
+Build production environment without launch the site. 
+
+### Gulp
+
+We use [Gulp](http://gulpjs.com) to ensure that each appropriate file in the repo has a license file attached to it.  These appear in the header of each appropriate file.  To check if the license is on every appropriate file, run
+
+```
+gulp
+```
 
 To automatically update/insert license, use:
 
-`gulp --update`
+```
+gulp --update
+```
+
+## Running Tests ##
+
+BCDevExchange currently uses [Protractor](https://angular.github.io/protractor/) for end-to-end testing.  To run the tests:
+
+1. Start the `webdriver-manager` with `webdriver-manager start`.
+2. Change to the `test/` directory from the repo root.
+3. Run `protractor` to execute the tests.  You may need to install Protractor globally with `npm install -g protractor`.
 
 ## Server Deployment ##
 
@@ -57,23 +94,9 @@ cd BCDevExchange
 npm install --production
 chmod +x foreverme.sh
 ```
-You'll want to create a `local.json` configuration file in `/config`:
+You'll want to create a local configuration file in config called:
 
-```
-touch config/local.json
-```
-
-Spin up the server using `forever`:
-
-```
-forever start server.js
-```
-
-By default the server is available at [localhost:8000](http://localhost:8000).
-
-Following regular MongoDB installation and create new DBs and user accounts.  These names, usernames and passwords must be configured in your `/config/local.json`
-
-### Optional forever configuration
+`./config/local.json`
 
 Starting the NodeJS server in forever mode on bootup the rc.local way:
 
@@ -93,7 +116,13 @@ Stdout, stderr and forever logs are here:
 <path to app root>/log/
 ```
 
-Following regular nginx installation and feel free to use the sample configs are provided in under `/config/nginx`
+Following regular nginx installation and feel free to use the sample configs are provided in under:
+
+`/config/nginx`
+
+Following regular MongoDB installation and create new DBs and user accounts.  These names, usernames and passwords must be configured in your:
+
+`/config/local.conf`
 
 ### Updating a deployment
 
@@ -139,6 +168,8 @@ forever restart <pid>
 
 Where `<pid>` is the process ID of the environment you want to restart.
 
+## Optional Server Setup
+
 ### Google Analytics API
 
 This is for setting up access to the Google Analytics API.  Those who do not have access to BCDevExchange's Google Analytics account can skip this step.  The site will function without Google Analytics set up.
@@ -176,7 +207,7 @@ This is for setting up access to the Google Analytics API.  Those who do not hav
 ```
 
 ## Server Sizing ##
-We've benchmarked performance for this site as it was running on a Microsoft Azure Standard D1 (One Core) 4 GB RAM VM using a [Bitnami packaged Ubuntu VM] (https://bitnami.com/stack/mean).
+We've benchmarked performance for this site as it was running on a Microsoft Azure Standard D1 (One Core) 4 GB RAM VM using a [Bitnami packaged Ubuntu VM](https://bitnami.com/stack/mean).
 
 Static file serving (all Ngnix): [4000 req/sec](http://loader.io/reports/7940cbcd4747e7eb202861f55e277839/results/90215bf18a137874d9fbc7cf9ca272ea)
 

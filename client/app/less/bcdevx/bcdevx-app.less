@@ -1,0 +1,613 @@
+/*
+Copyright 2015 Province of British Columbia
+
+               Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+                                                                                                                               WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and limitations under the License.
+*/
+
+@import "../shared/bcdevx-variables.less";
+
+// scrollbar fix
+html {
+  overflow-y: scroll;
+}
+
+// top banner =================
+
+.splash {
+  padding: @splash-top-padding @splash-right-left-padding @splash-bottom-padding;
+  background-color: @gray-darker;
+  background-size: cover;
+  /*background-attachment: fixed;*/   //enable this if you want the image to stay fixed while page scrolls
+  background-repeat: no-repeat;
+  background-position: left top;
+  color: @splash-color;
+  text-align: left;
+  /*min-height: 900px;*/
+
+  h1 {
+    text-align: left;
+    font-size: @splash-h1-font-size;
+    border-bottom: @splash-h1-border-bottom-width @splash-h1-border-bottom-style @splash-h1-border-bottom-color;
+  }
+
+  .lead {
+    text-align: left;
+    color: #223344;
+  }
+
+}
+
+.lead {
+  color: #6f6f6f;
+}
+
+@media(max-width:@screen-xs-min){
+  .splash {
+    background-position:0% 0%;
+  }
+}
+
+
+// lab banner ================
+
+
+.jumbotron-lab {
+  background-color: #339999;
+  border-top-width: 1px;
+  border-top-style: ridge;
+  margin: 44px 0px 0px 0px;
+  color: #ffffff;
+}
+
+// content ================
+
+.content {
+  padding-bottom: @content-bottom-padding;
+  margin: @content-top-margin @content-right-left-margin @content-bottom-margin;
+  border-bottom: 1px solid @content-border-color;
+
+  &-no-border {
+    border-bottom: none;
+  }
+
+  &-background-color {
+    padding: @content-colored-top-padding @content-colored-right-left-padding @content-colored-bottom-padding;
+    background-color: @content-colored-bg;
+  }
+
+}
+
+.features-xl .glyphicon, .features-xl .fa {
+  font-size: 150px;
+}
+
+.features-lg .glyphicon, .features-lg .fa {
+  font-size: 125px;
+}
+
+.features-md .glyphicon, .features-md .fa {
+  font-size: 100px;
+}
+
+.numbers-mini {
+  width: 600px;
+  font-size: 1.2em;
+  overflow: hidden;
+  margin: 20px auto;
+  padding: 10px;
+
+  .fa {
+    font-size: 1.4em;
+  }
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+
+  @media (max-width: 992px) {
+    .col-sm-3 {
+      padding-top: 10px;
+    }
+
+    .text-muted {
+      display: inline-block!important;
+    }
+  }
+}
+
+// rows =================
+
+.row-padded {
+  margin-top: @row-spacer;
+}
+
+// footers ============
+
+.site-footer {
+  margin-top: 20px;
+  padding-top: 20px;
+  font-size: 12px;
+  color: #777;
+  border-top: 1px solid #eee;
+}
+
+.site-footer-items {
+  list-style: none;
+  padding-left: 0px;
+  margin-top: 10px;
+}
+
+.site-footer-items li+li {
+  margin-left: 10px;
+}
+
+.site-footer-items li {
+  display: inline-block;
+  line-height: 16px;
+}
+
+// icons =================
+
+.padded-icon {
+  padding: @icon-top-bottom-padding @icon-right-left-padding;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+  max-width: 100%;
+  max-height: @icon-max-height;
+  height: auto;
+
+  &-navbar {
+    max-height: @icon-navbar-max-height;
+  }
+
+}
+
+.navbar-stats {
+  margin: 45px 0 0 0;
+  background: #555;
+  line-height: 45px;
+  color: #fff;
+  text-align: center;
+
+  .navbar-toggle {
+    padding: 0px;
+    line-height: 2.5;
+  }
+}
+
+// buttons ================
+
+.btn-github {
+  .button-variant(@btn-primary-color; @btn-github-bg; @btn-default-border);
+}
+
+.btn-linkedin {
+  .button-variant(@btn-primary-color; @btn-linkedin-bg; @btn-default-border);
+}
+
+.btn-helpwanted {
+  background-color: #159818;
+  border-color: #127000;
+
+  &:focus, &:hover {
+    background-color: #127000;
+    border-color: #0b4500;
+  }
+}
+
+.btn-enhancement {
+  background-color: #84b6eb;
+  border-color: #4591cc;
+
+  &:hover, &:focus {
+    background-color: #4591cc;
+    border-color: #296492;
+  }
+}
+
+.btn-question {
+  background-color: #e10076;
+  border-color: #b10068;
+
+  &:focus, &:hover {
+    background-color: #b10068;
+    border-color: #79005e;
+  }
+}
+
+// bottom display banner
+body {
+  padding-bottom: 75px !important;
+}
+
+.navbar-displayBanner {
+  background-color: #339999;
+  border-top-width: 1px;
+  border-top-style: ridge;
+}
+.navbar-title-displayBanner {
+  font-size: 300%;
+  color: white;
+}
+@media(max-width:@screen-md-min){
+  .navbar-title-displayBanner {
+    font-size: 200%;
+  }
+}
+.navbar-text-displayBanner {
+  padding-top: 5px;
+  font-size: 125%;
+  color: white;
+  a {
+    color: white;
+  }
+}
+
+@media(max-width:@screen-lg-min){
+  .navbar-title-displayBanner {
+    font-size: 200%;
+  }
+  .navbar-text-displayBanner {
+    padding-top: 5px;
+    font-size: 80%;
+  }
+}
+
+.navbar {
+  font-weight: 300;
+  font-size: 13px;
+  border: 0;
+
+  .dropdown-menu {
+    li {
+      a {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+// AngularJS fix to stop flicking when using ng-cloak
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
+// resources ===========
+
+.resource-list {
+  overflow: hidden;
+  min-height: 100px;
+  .resource {
+    -webkit-transition: 0.15s;
+    -moz-transition: 0.15s;
+    transition: 0.15s;
+    padding: 15px;
+    overflow: hidden;
+
+    &:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    h3 {
+      margin-top: 0;
+      line-height: 1;
+    }
+
+    .tags {
+      margin: 0 0 10px 0;
+
+      .label {
+        margin-right: 5px;
+        color: #fff;
+        font-weight: 700;
+        display: inline-block;
+      }
+    }
+
+    .list-unstyled li {
+      margin: 5px 0;
+    }
+
+    &.ng-enter {
+      transform: translateX(-100%);
+    }
+
+    &.ng-leave {
+      transform: translateX(0);
+    }
+
+    &.ng-enter.ng-enter-active {
+      transform: translateX(0);
+    }
+
+    &.ng-leave.ng-leave-active {
+      transform: translateX(-100%);
+    }
+  }
+
+  form {
+    margin: 0 0 20px 0;
+  }
+
+  .empty {
+    padding: 15px 0;
+  }
+}
+
+#stats {
+
+  .stats-row {
+    margin: 20px 0;
+    padding: 20px 0;
+
+    &:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  }
+
+  .stat {
+    padding: 20px 0;
+    h2 {
+      margin: 0;
+      font-size: 3em;
+      line-height: 1;
+
+      @media (max-width: 767px) {
+        margin-top: 10px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      text-align: center;
+    }
+  }
+
+  .activity-list {
+    border-top: 1px solid #ccc;
+
+    .activity {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+      line-height: 3em;
+
+      .tweet-text {
+        line-height: 1.25em;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+// labs ===========
+
+.labs-list-group{
+  margin-top:15px;
+
+  .list-group-item{
+    background-color:@brand-primary;
+    color:#fff;
+  }
+}
+
+// fix for padding on mobile
+.form-group {
+  input {
+    margin: 5px 0;
+  }
+}
+
+[role="button"] {
+  cursor: pointer;
+}
+
+
+.ui-match {
+  background-color: yellow;
+}
+
+// Sidebar
+
+.sidebar {
+  width: 262px;
+
+  &.home {
+    margin-top: 80px;
+  }
+
+  &.ui-scrollfix {
+    position: fixed;
+    top: 53px;
+    margin-top: 0;
+    width: 262px;
+  }
+
+  .nav {
+    li {
+      a {
+        display: inline-block;
+        font-weight: 500;
+        color: #6f6f6f;
+        padding: 3px 10px;
+        margin: 3px 0 3px 2px;
+
+        &:hover, &:focus {
+          color: #111;
+          background-color: transparent;
+        }
+
+        &.back-to-top {
+          color: #999;
+
+          &:hover, &:focus {
+            color: #111;
+          }
+        }
+      }
+
+      &.active {
+        a {
+          color: #111;
+          background-color: transparent;
+          border-left: 2px solid #111;
+          margin-left: 0;
+        }
+      }
+
+      &:hover:not(.active) {
+        a {
+          border-left: 1px solid #111;
+          margin-left: 1px;
+
+          &.back-to-top {
+            border-left: 0;
+            margin-left: 2px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// text alignment classes based on screen size ==========
+
+
+.text-left-not-xs, .text-left-not-sm, .text-left-not-md, .text-left-not-lg {
+  text-align: left;
+}
+.text-center-not-xs, .text-center-not-sm, .text-center-not-md, .text-center-not-lg {
+  text-align: center;
+}
+.text-right-not-xs, .text-right-not-sm, .text-right-not-md, .text-right-not-lg {
+  text-align: right;
+}
+.text-justify-not-xs, .text-justify-not-sm, .text-justify-not-md, .text-justify-not-lg {
+  text-align: justify;
+}
+
+@media (max-width: 767px) {
+  .text-left-not-xs, .text-center-not-xs, .text-right-not-xs, .text-justify-not-xs {
+    text-align: inherit;
+  }
+  .text-left-xs {
+    text-align: left;
+  }
+  .text-center-xs {
+    text-align: center;
+  }
+  .text-right-xs {
+    text-align: right;
+  }
+  .text-justify-xs {
+    text-align: justify;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .text-left-not-sm, .text-center-not-sm, .text-right-not-sm, .text-justify-not-sm {
+    text-align: inherit;
+  }
+  .text-left-sm {
+    text-align: left;
+  }
+  .text-center-sm {
+    text-align: center;
+  }
+  .text-right-sm {
+    text-align: right;
+  }
+  .text-justify-sm {
+    text-align: justify;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .text-left-not-md, .text-center-not-md, .text-right-not-md, .text-justify-not-md {
+    text-align: inherit;
+  }
+  .text-left-md {
+    text-align: left;
+  }
+  .text-center-md {
+    text-align: center;
+  }
+  .text-right-md {
+    text-align: right;
+  }
+  .text-justify-md {
+    text-align: justify;
+  }
+}
+@media (min-width: 1200px) {
+  .text-left-not-lg, .text-center-not-lg, .text-right-not-lg, .text-justify-not-lg {
+    text-align: inherit;
+  }
+  .text-left-lg {
+    text-align: left;
+  }
+  .text-center-lg {
+    text-align: center;
+  }
+  .text-right-lg {
+    text-align: right;
+  }
+  .text-justify-lg {
+    text-align: justify;
+  }
+}
+
+// program logo classes ==========
+.program_logo {
+  max-height: 75px;
+}
+
+.page-header-empty {
+  padding-bottom: 9.5px;
+  margin: 42px 0 21px;
+}
+
+.fa, .glyphicon {
+  &.is-small {
+    font-size: 36px;
+  }
+
+  &.is-medium {
+    font-size: 56px;
+  }
+
+  &.is-large {
+    font-size: 128px;
+  }
+
+  &.is-giant {
+    font-size: 256px;
+  }
+}
+
+.messages-overlay{
+    z-index: 100;
+    opacity: 0.9;
+}
+
+.cke_editable_inline:hover{
+  background-color: #eee;
+  border-radius: 5px;
+  background-image: url(/img/pen.png);
+  background-repeat: no-repeat;
+  background-position: top right;
+  cursor: pointer;
+}
+
+.cke_focus{
+  border: 3px dashed orange;
+  background-color: inherit!important;
+  background-image: none!important;
+  cursor: auto!important;
+}

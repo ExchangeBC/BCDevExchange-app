@@ -1,0 +1,153 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <base href="/">
+    <title>BC Developers' Exchange</title>
+    <meta name="description"
+          content="Enhancing collaboration between Industry, Broader Public Sector, and Government, to allow for the sharing of digital resources and knowledge, and to help stimulate innovation and technology growth in BC.">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(client) app/vendor.css -->
+      <!-- bower:css -->
+      <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,client}) app/app.css -->
+    <link rel="stylesheet" href="app/app.css">
+      <!-- injector:css -->
+      <link rel="stylesheet" href="app/css/custom.css">
+      <link rel="stylesheet" href="app/css/shortcodes.css">
+      <link rel="stylesheet" href="app/css/shortcodes_responsive.css">
+      <link rel="stylesheet" href="app/css/style.css">
+      <!-- endinjector -->
+    <!-- endbuild -->
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  </head>
+  <body ng-app="bcdevxApp" ng-controller='bcdevController' class="et_pb_button_helper_class et_fullwidth_nav et_fixed_nav et_show_nav et_hide_primary_logo et_pb_gutter windows et_pb_gutters3 et_primary_nav_dropdown_animation_fade et_secondary_nav_dropdown_animation_fade et_pb_footer_columns4 et_header_style_centered et_pb_pagebuilder_layout et_right_sidebar chrome">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div id="page-container">
+      <div notify-load='header' ng-include="'/app/header/header.html'"></div>
+      <div id="et-main-area">
+        <div  notify-load='mainContent' id="main-content" ng-view autoscroll="true"></div>
+        <span class="et_pb_scroll_top et-pb-icon"></span>
+        <div  notify-load='footer' ng-include="'/app/footer/footer.html'"></div>
+      </div>
+    </div>
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-58646145-1', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+    <script src="bower_components/ckeditor/ckeditor.js"></script>
+    <!-- build:js({client,node_modules}) app/vendor.js -->
+      <!-- bower:js -->
+      <script src="bower_components/jquery/dist/jquery.js"></script>
+      <script src="bower_components/angular/angular.js"></script>
+      <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+      <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+      <script src="bower_components/angular-route/angular-route.js"></script>
+      <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+      <script src="bower_components/angular-resource/angular-resource.js"></script>
+      <script src="bower_components/angular-loader/angular-loader.js"></script>
+      <script src="bower_components/respond-minmax/dest/respond.src.js"></script>
+      <script src="bower_components/waypoints/waypoints.js"></script>
+      <script src="bower_components/SHA-1/sha1.js"></script>
+      <script src="bower_components/angulartics/src/angulartics.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-adobe.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-chartbeat.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-cnzz.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-flurry.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-ga-cordova.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-ga.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-gtm.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-kissmetrics.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-mixpanel.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-piwik.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-scroll.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-segmentio.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-splunk.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-woopra.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-marketo.js"></script>
+      <script src="bower_components/angulartics/src/angulartics-intercom.js"></script>
+      <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
+      <script src="bower_components/moment/moment.js"></script>
+      <script src="bower_components/angular-moment/angular-moment.js"></script>
+      <script src="bower_components/angular-messages/angular-messages.js"></script>
+      <script src="bower_components/angular-animate/angular-animate.js"></script>
+      <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+      <script src="bower_components/spin.js/spin.js"></script>
+      <script src="bower_components/angular-spinner/angular-spinner.js"></script>
+      <script src="bower_components/gsap/src/uncompressed/TweenMax.js"></script>
+      <script src="bower_components/ngFx/dist/ngFx.js"></script>
+      <script src="bower_components/showdown/src/showdown.js"></script>
+      <script src="bower_components/angular-markdown-directive/markdown.js"></script>
+      <script src="bower_components/angular-encode-uri/dist/angular-encode-uri.js"></script>
+      <script src="bower_components/angular-table-of-contents/dest/angular-table-of-contents.js"></script>
+      <script src="bower_components/angular-scroll/angular-scroll.js"></script>
+      <script src="bower_components/showdown-icon/showdown-icon.js"></script>
+      <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+      <script src="bower_components/fitvids/jquery.fitvids.js"></script>
+      <script src="bower_components/raf.js/raf.js"></script>
+      <script src="bower_components/smoothscroll/dist/smoothscroll.js"></script>
+      <script src="bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.js"></script>
+      <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,client}) app/app.js -->
+        <script src="app/app.js"></script>
+          <!-- injector:js -->
+          <script src="app/account/account-service.js"></script>
+          <script src="app/account/account.js"></script>
+          <script src="app/blog/blog.js"></script>
+          <script src="app/disclaimer/disclaimer.js"></script>
+          <script src="app/home/home.js"></script>
+          <script src="app/js/TweenMax.js"></script>
+          <script src="app/js/custom.js"></script>
+          <script src="app/lab/lab.js"></script>
+          <script src="app/login/auth.js"></script>
+          <script src="app/login/login-list.directive.js"></script>
+          <script src="app/numbers/numbers.js"></script>
+          <script src="app/people/people.js"></script>
+          <script src="app/programs/edit-programs.js"></script>
+          <script src="app/programs/program-service.js"></script>
+          <script src="app/programs/programs-module.js"></script>
+          <script src="app/programs/programs.js"></script>
+          <script src="app/programs/showdown-extensions.js"></script>
+          <script src="app/programs/view-program.js"></script>
+          <script src="app/projects/projects.js"></script>
+          <script src="app/projects/register.js"></script>
+          <script src="app/resources/register.js"></script>
+          <script src="app/resources/resources.js"></script>
+          <script src="app/signup/signup.js"></script>
+          <!-- endinjector -->
+        <!-- endbuild -->
+
+  <script>
+    $(document).on('click','.navbar-collapse.in',function(e) {
+      if( $(e.target).is('a') ) {
+        $(this).collapse('hide');
+      }
+    });
+  </script>
+</body>
+</html>

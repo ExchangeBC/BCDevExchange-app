@@ -1,0 +1,45 @@
+<!--
+Copyright 2015 Province of British Columbia
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and limitations under the License.
+-->
+<div class="container">
+    <div class="row page-header">
+        <div class="col-lg-12">
+            <h2>Edit Programs</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default md-col-6">
+            <div class="panel-heading">
+                <h3 class="panel-title">Edit Markdown</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="comment">Type your content here:</label>
+                    <textarea class="form-control" ng-model="vm.mdInput" rows="10" id="comment"></textarea>
+                </div>
+            </div>
+            <button type="button" class="btn btn-default, btn-block" ng-click="vm.preview()">Preview</button>
+
+        </div>
+        <div class="panel panel-default md-col-6">
+            <div class="panel-heading">
+                <h3 class="panel-title">Preview</h3>
+            </div>
+            <div class="panel-body">
+                <div btf-markdown="vm.mdDisplay">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
