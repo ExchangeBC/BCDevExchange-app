@@ -180,7 +180,8 @@ function getProgramDetails(progData, callback) {
     }, 0)
     return deferred.promise.nodeify(callback)
   }
-  async.concat(['/stats/contributors', '/issues'], function (item, cb) {
+
+  var getGitHubStats = function (item, cb) {
     var options = {
       url: 'https://api.github.com/repos/' + progData.githubUrl.substr(progData.githubUrl.indexOf('github.com') + 11) + item + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
       headers: {
@@ -197,7 +198,14 @@ function getProgramDetails(progData, callback) {
         return cb(error)
       }
     })
-  }, function (err, resArr) {
+  }
+
+  async.parallel([function (cb) {
+      getGitHubStats('/stats/contributors', cb)
+    },
+                function (cb) {
+      getGitHubStats('/issues', cb)
+    }], function (err, resArr) {
     if (err) return deferred.reject(err)
     var issuesPrArr = JSON.parse(resArr[1])
     var issuesPrCnt = issuesPrArr.length
