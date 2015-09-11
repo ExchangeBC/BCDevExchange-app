@@ -3531,11 +3531,12 @@ var wpCustomFn = function ($) {
     });
 
     //Click event to scroll to top
-    $('.et_pb_scroll_top').click(function () {
+
+    $('.et_pb_scroll_top').off('click').on('click',(function () {
       $('html, body').animate({
         scrollTop: 0
       }, 800);
-    });
+    }));
   }
 
   if ($('.comment-reply-link').length) {
