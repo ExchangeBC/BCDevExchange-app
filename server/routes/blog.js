@@ -436,6 +436,7 @@ module.exports = function (app, db, passport) {
     },
     {
       "title": "Introducing the BC Developers’ Exchange",
+      "pubDate": "Wed, 25 Feb 2015 00:00:00 +0000",
       "link": "https://blog.data.gov.bc.ca/2015/02/introducing-the-bc-developers-exchange/",
       "description": {
         "__cdata": "By Peter Watkins, Executive Director, Commercialization Initiatives, Strategic Initiatives and Partnerships Division, Ministry of Technology, Innovation and Citizens’ Services What if brilliant developers could use real-time data feeds to create mobile phone transit apps to locate moving buses? The solution would be a win-win-win. Public transit organizations [&#8230;]"
@@ -443,6 +444,7 @@ module.exports = function (app, db, passport) {
     },
     {
       "title": "How to deal with not knowing – BCDevExchange’s 4 principles",
+      "pubDate": "Mon, 02 Mar 2015 00:00:00 +0000",
       "link": "https://blog.data.gov.bc.ca/2015/03/how-to-deal-with-not-knowing-bcdevexchanges-4-principles/",
       "description": {
         "__cdata": "By David Hume, Executive Director, Citizen Engagement, One of the reasons it’s exciting to be part of the BCDevExchange project is that it’s a journey—we know where we want to go, but what we find along the way is still to be discovered. As open and full of possibility as that sounds (and is), the rub comes when decisions need to be made about options that [&#8230;]"
