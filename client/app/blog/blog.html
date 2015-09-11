@@ -30,11 +30,12 @@ See the License for the specific language governing permissions and limitations 
                                 <span ng-show="predicateTitle == ''">Sort by</span><span class="source-name" ng-bind="predicateTitle"></span> <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" role="menu">
+                               <li><a href="" ng-click="predicate = predicateOrder; predicateTitle = 'Date'" analytics-on>Date</a></li>
                                <li><a href="" ng-click="predicate = 'title'; predicateTitle = 'Title A-Z'" analytics-on>Title A-Z</a></li>
                                 <li><a href="" ng-click="predicate = '-title'; predicateTitle = 'Title Z-A'" analytics-on>Title Z-A</a></li>
                               </ul>
                             </div>
-                            <input type="reset" class="btn btn-default" value="Reset" ng-click="selectedSource = ''; selectedSourceTitle = ''; query = ''; predicate = ''; predicateTitle = '';" />
+                            <input type="reset" class="btn btn-default" value="Reset" ng-click="selectedSource = ''; selectedSourceTitle = ''; query = ''; predicate = predicateOrder; predicateTitle = '';" />
                         </div>
                         <div class="clearfix">
                             <ng-pluralize class="pull-left" ng-show="filtered.length > 0" count="filtered.length"
