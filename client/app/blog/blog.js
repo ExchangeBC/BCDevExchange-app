@@ -17,12 +17,20 @@ angular.module('bcdevxApp.blog', ['ngRoute',  'ngResource'])
 .factory('BlogListService', ['$resource', function($resource) {
     return $resource('/api/blog')
 }])
-.controller('BlogCtrl', ['$scope', 'BlogListService', '$q', 'usSpinnerService',
-    function($scope, BlogListService, $q, usSpinnerService) {
+.controller('BlogCtrl', ['$scope', 'BlogListService', '$q', 'usSpinnerService', '$filter',
+    function($scope, BlogListService, $q, usSpinnerService, $filter) {
 
     // Array of blog entries
     $scope.blog = []
     $scope.blogLoaded = false
+    $scope.predicateOrder = function (post) { 
+        var date = new Date(post.pubDate);
+        console.log(date.getTime() + post.title)
+        return -(date.getTime());
+    };
+
+    $scope.predicate = $scope.predicateOrder;
+
     $scope.predicateTitle = ''
 
     // Array of alerts
@@ -57,6 +65,7 @@ angular.module('bcdevxApp.blog', ['ngRoute',  'ngResource'])
     BlogListService.get({}, function(data) {
 
         $scope.blog = data.blog
+        console.log($scope.blog);
         blogListDeferred.resolve('resource list length: ' + data.blog.length)
         $scope.blogLoaded = true
 
