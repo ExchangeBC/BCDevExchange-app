@@ -107,6 +107,11 @@ function getCatalogueItems (catalogue, callback) {
             callback(err, results);
         });
     }
+    else{
+      setTimeout(function(){
+        callback(null,null);
+      },0)
+    }
 }
 
 function getGitHubFileCatalogueItems (catalogue, callback) {
