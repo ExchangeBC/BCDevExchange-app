@@ -17,7 +17,7 @@ STDOUT=$cwd"/log/stdout.log"
 STDERR=$cwd"/log/stderr.log"
 MIN_UPTIME="5000"
 SPIN_SLEEP_TIME="2000"
-UNAME="discovery"
+UNAME="$1"
 
 export NODE_ENV=production
 export NODE_CONFIG_DIR=$cwd"/config"
