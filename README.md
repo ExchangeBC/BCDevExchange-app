@@ -37,17 +37,22 @@ Launches site in development environment. No client-side optimization (js uglifi
 grunt serve:debug
 ```
 
-Enables Node debugger and launches node-inspector for server-side debugging. Node-inspector has been configured to disable source code discovery by default to speedup loading. Only executed code is available to Node-inspector. Therefore in order to set a breakpoint in a source file, you have to hit some web page that requires the source file first.
+Enables Node debugger and launches node-inspector for server-side debugging. Node-inspector has been configured to disable source code discovery by default to speedup loading. Only executed code is available to Node-inspector. Therefore in order to set a breakpoint in a source file, you have to hit some web page that requires the source file first, then reload node-inspector in browser.
 
 ```
 grunt serve:dist
 ```
-Build and launch site in production environment. Client-side optimization is performed as part of the build process.
+Builds and launches site in production environment. Client-side optimization is performed as part of the build process.
 
 ```
 grunt build
 ```
-Build production environment without launch the site. 
+Builds production environment without launching the site. 
+
+```
+grunt dist-nobuild
+```
+Launches in production environment without build. 
 
 ### Gulp
 
