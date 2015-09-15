@@ -449,6 +449,14 @@ module.exports = function (app, db, passport) {
       "description": {
         "__cdata": "By David Hume, Executive Director, Citizen Engagement, One of the reasons it’s exciting to be part of the BCDevExchange project is that it’s a journey—we know where we want to go, but what we find along the way is still to be discovered. As open and full of possibility as that sounds (and is), the rub comes when decisions need to be made about options that [&#8230;]"
       }
+    },
+    {
+      "title": "BCDevExchange 2.0 Release",
+      "pubDate": "Mon, 14 Sep 2015 00:00:00 +0000",
+      "link": "http://blog.data.gov.bc.ca/2015/09/bcdevexchange-2-0-release/",
+      "description": {
+        "__cdata": "By Loren Mullane, Community Engagement, BCDevExchange Today, we launched a new iteration of the BCDevExchange website with new features to help B.C.’s public and tech sectors collaborate and experiment together. We believe collaboration between B.C.’s public and tech sector is a win-win – it will lead to better information technology products and services, which can [&#8230;]"
+      }
     }
   ]
 };
