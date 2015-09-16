@@ -45,14 +45,14 @@ grunt serve:dist
 Builds and launches site in production environment. Client-side optimization is performed as part of the build process.
 
 ```
+grunt serve:dist-nobuild
+```
+Launches in production environment without build. 
+
+```
 grunt build
 ```
 Builds production environment without launching the site. 
-
-```
-grunt dist-nobuild
-```
-Launches in production environment without build. 
 
 ### Gulp
 
