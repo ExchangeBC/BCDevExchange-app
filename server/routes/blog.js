@@ -457,6 +457,14 @@ module.exports = function (app, db, passport) {
       "description": {
         "__cdata": "By Loren Mullane, Community Engagement, BCDevExchange Today, we launched a new iteration of the BCDevExchange website with new features to help B.C.’s public and tech sectors collaborate and experiment together. We believe collaboration between B.C.’s public and tech sector is a win-win – it will lead to better information technology products and services, which can [&#8230;]"
       }
+    },
+    {
+      "title": "GitHub Harnesses the Power of the Crowd",
+      "pubDate": "Wed, 16 Sep 2015 00:00:00 +0000",
+      "link": "http://blog.data.gov.bc.ca/2015/09/github-harnesses-the-power-of-the-crowd/",
+      "description": {
+        "__cdata": "By Loren Mullane, Community Engagement, BCDevExchange As any coder will tell you, sometimes code breaks. Normally, fixing broken code falls on the original coder who needs to carve out time in their busy schedule. A fix can take time depending on how much other work a coder has. But there is another way. Enter GitHub, the popular online code sharing community. Operating [&#8230;]"
+      }
     }
   ]
 };
