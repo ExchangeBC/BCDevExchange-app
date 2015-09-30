@@ -31,7 +31,7 @@ module.exports = function (app, db, passport) {
 
   function loginCallbackHandler(req, res, logger) {
 
-    res.redirect('/account?id=' + req.user.id)
+    res.redirect('/account?login=success&id=' + req.user.id)
 
   }
 
