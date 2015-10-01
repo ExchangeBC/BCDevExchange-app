@@ -34,6 +34,7 @@ var app = angular.module('bcdevxApp', [
     'bcdevxApp.apiExplorer',
     'angulartics',
     'angulartics.google.analytics',
+    'angulartics.scroll',
     'ui.bootstrap',
     'angularSpinner',
     'angularMoment',

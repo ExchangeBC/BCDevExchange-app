@@ -54,7 +54,6 @@ angular.module('bcdevxApp.programs').config(function ($sceProvider) {
 }
 ])
 
-
 angular.module('bcdevxApp.programs').directive('inlineEditable', ['AccountService', function (AccountService) {
   // Turn off automatic editor creation first.
   window.CKEDITOR.disableAutoInline = true
@@ -98,6 +97,26 @@ angular.module('bcdevxApp.programs').directive('inlineEditable', ['AccountServic
           })
         })
       })
+    }
+  }
+}])
+
+angular.module('bcdevxApp.programs').directive('analyticsOutboundLinks', ['$analytics', function ($analytics) {
+
+  return {
+    restrict: 'A',
+    link: function ($scope, element, attrs) {
+      element.click(function(e) {
+        if (e.target.href.indexOf(window.location.hostname) == -1) {
+          $analytics.eventTrack('click', { category: 'outbound', label: e.target.href });
+        }
+      });
+
+      element.bind('contextmenu', function(e) {
+        if (e.target.href.indexOf(window.location.hostname) == -1) {
+          $analytics.eventTrack('right-click', { category: 'outbound', label: e.target.href });
+        }
+      });
     }
   }
 }])
