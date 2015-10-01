@@ -13,12 +13,16 @@ See the License for the specific language governing permissions and limitations 
 */
 
 'use strict'
+var request = require('request')
+var _ = require('lodash')
 
-angular.module('bcdevxApp.apiExplorer', ['swaggerUi'])
-  .run(function (swaggerModules, swaggerUiExternalReferences, swagger1ToSwagger2Converter) {
-    swaggerModules.add(swaggerModules.BEFORE_PARSE, swagger1ToSwagger2Converter)
-    swaggerModules.add(swaggerModules.BEFORE_PARSE, swaggerUiExternalReferences)
+module.exports = function (app, db, passport) {
+  app.get(/api\/proxy\/get\/(.+)/, function (req, res) {
+    request(req.params[0], function(err, response, body){
+      _.forOwn(response.headers, function(v, k){
+        res.set(k, v)
+      })
+      res.status(response.statusCode).send(body).end()
+    })
   })
-  .controller('ViewApiCtrl', ['$scope','$routeParams', function ($scope,$routeParams) {
-    $scope.url = $scope.swaggerUrl = '/api/proxy/get/' + encodeURIComponent($routeParams.swaggerUrl)
-}])
+}

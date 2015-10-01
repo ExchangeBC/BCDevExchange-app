@@ -129,6 +129,7 @@ if (config.node.clusterEnabled && cluster.isMaster) {
   require('./routes/blog')(app, db, passport)
   require('./routes/projects')(app, db, passport)
   require('./routes/resources')(app, db, passport)
+  require('./routes/proxy')(app, db, passport)
   // Angular Routes supporting html5 mode
   app.all('/*', function(req, res){
     res.render('index.html')
