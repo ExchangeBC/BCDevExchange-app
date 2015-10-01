@@ -1,0 +1,28 @@
+{
+  "basePath": "https://api.bcdevexchange.org:443/OPEN511/1.0.0",
+  "apiVersion": "1.0.0",
+  "resourcePath": "/jurisdiction",
+  "swaggerVersion": "1.2",
+  "apis": [{
+    "path": "/jurisdiction",
+    "operations": [{
+      "summary": "organizations or government entities publishing data through this Open511 API implementation.",
+      "nickname": "jurisdiction",
+      "auth_type": "None",
+      "throttling_tier": "Unlimited",
+      "method": "GET",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "parameters": [{
+        "description": "Asks for the response in a specific output format.  The possible values are: [xml, json].  The default is to return json.",
+        "name": "format",
+        "allowMultiple": false,
+        "type": "string",
+        "required": false,
+        "paramType": "query"
+      }]
+    }]
+  }]
+}

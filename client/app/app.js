@@ -31,6 +31,7 @@ var app = angular.module('bcdevxApp', [
     'bcdevxApp.lab',
     'bcdevxApp.disclaimer',
     'bcdevxApp.numbers',
+    'bcdevxApp.apiExplorer',
     'angulartics',
     'angulartics.google.analytics',
     'ui.bootstrap',
@@ -139,6 +140,10 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider',
       .when('/programs/:programName', {
         templateUrl: '/app/programs/view-program.html',
         controller: 'ViewProgramCtrl'
+      })
+      .when('/api-explorer/:swaggerUrl*', {
+        templateUrl: '/app/api-explorer/view-apis.html',
+        controller: 'ViewApiCtrl'
       })
       .otherwise({
         redirectTo: '/home'

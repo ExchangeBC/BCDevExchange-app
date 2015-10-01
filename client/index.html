@@ -14,6 +14,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
+      <link rel="stylesheet" href="bower_components/angular-swagger-ui/dist/css/swagger-ui.min.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -110,14 +111,18 @@
       <script src="bower_components/raf.js/raf.js"></script>
       <script src="bower_components/smoothscroll/dist/smoothscroll.js"></script>
       <script src="bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.js"></script>
+      <script src="bower_components/angular-swagger-ui/dist/scripts/swagger-ui.min.js"></script>
       <!-- endbower -->
-    <!-- endbuild -->
+          <script src="bower_components/angular-swagger-ui/dist/scripts/modules/swagger1-to-swagger2-converter.min.js"></script>
+          <script src="bower_components/angular-swagger-ui/dist/scripts/modules/swagger-external-references.min.js"></script>
 
+    <!-- endbuild -->
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
           <!-- injector:js -->
           <script src="app/account/account-service.js"></script>
           <script src="app/account/account.js"></script>
+          <script src="app/api-explorer/view-apis.js"></script>
           <script src="app/blog/blog.js"></script>
           <script src="app/disclaimer/disclaimer.js"></script>
           <script src="app/home/home.js"></script>

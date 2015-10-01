@@ -37,7 +37,8 @@
     "smoothscroll": "~0.1.0",
     "jquery.easy-pie-chart": "^2.1.5",
     "waypoints": "~2.0.3",
-    "ckeditor": "~4.5.2"
+    "ckeditor": "~4.5.2",
+    "angular-swagger-ui": "~0.2.3"
   },
   "resolutions": {
     "angular": "1.3.15"
