@@ -19,7 +19,7 @@ var _ = require('lodash')
 module.exports = function (app, db, passport) {
   app.get(/api\/proxy\/get\/(.+)/, function (req, res) {
     request(req.params[0], function(err, response, body){
-      _.forOwn(response.headers, function(v, k){
+      response.headers && _.forOwn(response.headers, function(v, k){
         res.set(k, v)
       })
       res.status(response.statusCode).send(body).end()
