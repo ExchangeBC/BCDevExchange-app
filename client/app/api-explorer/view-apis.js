@@ -15,10 +15,12 @@ See the License for the specific language governing permissions and limitations 
 'use strict'
 
 angular.module('bcdevxApp.apiExplorer', ['swaggerUi'])
-  .run(function (swaggerModules, swaggerUiExternalReferences, swagger1ToSwagger2Converter) {
+  .run(function (swaggerModules, swaggerUiExternalReferences, swagger1ToSwagger2Converter, swaggerExplorerProxy) {
     swaggerModules.add(swaggerModules.BEFORE_PARSE, swagger1ToSwagger2Converter)
     swaggerModules.add(swaggerModules.BEFORE_PARSE, swaggerUiExternalReferences)
+    swaggerModules.add(swaggerModules.BEFORE_EXPLORER_LOAD, swaggerExplorerProxy)
+    swaggerExplorerProxy.proxyUrl = '/api/proxy/'
   })
   .controller('ViewApiCtrl', ['$scope','$routeParams', function ($scope,$routeParams) {
-    $scope.swaggerUrl = '/api/proxy/get/' + encodeURIComponent($routeParams.swaggerUrl)
+    $scope.swaggerUrl = '/api/proxy/' + encodeURIComponent($routeParams.swaggerUrl)
 }])
