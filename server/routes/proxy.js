@@ -18,14 +18,15 @@ var _ = require('lodash')
 
 module.exports = function (app, db, passport) {
   app.all(/api\/proxy\/(.+)/, function (req, res) {
-	var opts = {
-	   url: req.params[0],
-	   method: req.method,
-	   qs: req.query,
-	   body: req.body
-	}
-    request(opts, function(err, response, body){
-      response.headers && _.forOwn(response.headers, function(v, k){
+    var opts = {
+      url: req.params[0],
+      method: req.method,
+      qs: req.query,
+      body: req.body,
+      json: true
+    }
+    request(opts, function (err, response, body) {
+      response.headers && _.forOwn(response.headers, function (v, k) {
         res.set(k, v)
       })
       res.status(response.statusCode).send(body).end()
