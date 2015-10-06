@@ -106,15 +106,15 @@ See the License for the specific language governing permissions and limitations 
             </div>
         </div>
 
-		<div ng-show="config.explorationContent" ng-cloak>
+		<div ng-show="config.explorationContent" ng-cloak analytics-on="scrollby" scrollby-offset="60%" analytics-event="scroll" analytics-category="fragment" analytics-label="#meet-the-early-adopters">
             <div class="content text-center">
                 <div class="row features-xl">
                     <div class="col-md-12">
                         <p><i class="fa fa-users"></i></p>
                         <h2>Meet the Early Adopters</h2>
-                        <p class="lead">The BCDevExchange experiment aims to make it easier for the B.C. public and tech sectors to innovate and collaborate on digital products and services. Meet the BCDevExchange early adopters who are testing this new model of innovation and collaboration. <a href="/programs" analytics-on> View Profiles</a>
+                        <p class="lead">The BCDevExchange experiment aims to make it easier for the B.C. public and tech sectors to innovate and collaborate on digital products and services. Meet the BCDevExchange early adopters who are testing this new model of innovation and collaboration. <a href="/programs"> View Profiles</a>
                         </p>
-                        <!--p class="lead"><a href="#programs" analytics-on>View Profiles</a></p-->
+                        <!--p class="lead"><a href="#programs">View Profiles</a></p-->
                         <div class="numbers-mini">
                             <div class="row-fluid">
                             </div>
@@ -123,7 +123,7 @@ See the License for the specific language governing permissions and limitations 
             </div>
         </div>
 
-        <div ng-show="config.explorationContent" ng-cloak>
+        <div ng-show="config.explorationContent" ng-cloak ng-cloak analytics-on="scrollby" scrollby-offset="60%" analytics-event="scroll" analytics-category="fragment" analytics-label="#the-idea">
             <div class="content text-left">
                 <div class="row features-xl">
                     <div class="col-md-4 text-center">
@@ -143,7 +143,7 @@ See the License for the specific language governing permissions and limitations 
             </div>
         </div>
 
-        <div ng-show="config.explorationContent" ng-cloak>
+        <div ng-show="config.explorationContent" ng-cloak analytics-on="scrollby" scrollby-offset="60%" analytics-event="scroll" analytics-category="fragment" analytics-label="#become-an-early-adopters">
             <div class="content text-left">
                 <div class="row features-xl">
                     <div class="col-md-4 text-center">
@@ -158,7 +158,7 @@ See the License for the specific language governing permissions and limitations 
                             <li>Guidelines for Employee use of GitHub</li>
                             <li>Open Source Licenses</li>
                         </ul>
-                        <p><a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>Email us</a> to find out more or <a href="/signup">sign up</a> and join our community.</p>
+                        <p><a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on analytics-event="click" analytics-category="email" analytics-label="Data AT gov.bc.ca">Email us</a> to find out more or <a href="/signup">sign up</a> and join our community.</p>
                     </div>
                 </div>
             </div>
@@ -183,20 +183,20 @@ See the License for the specific language governing permissions and limitations 
                         <i class="fa fa-envelope-o"></i>
                         <h2>The Invitation</h2>
                         <p>Tech entrepreneurs on the hunt for new business opportunities and innovation champions
-                            in the public sector are invited to help us test the idea. <a href="" ng-click="scrollTo('get-involved')" analytics-on>Learn how you can participate</a>.</p>
+                            in the public sector are invited to help us test the idea. <a href="" ng-click="scrollTo('get-involved')" analytics-on analytics-event="click" analytics-category="fragment" analytics-label="#get-involved">Learn how you can participate</a>.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div ng-show="config.explorationContent" ng-cloak>
+        <div ng-show="config.explorationContent" ng-cloak analytics-on="scrollby" scrollby-offset="40%" analytics-event="scroll" analytics-category="fragment" analytics-label="#visit-us-on-github">
             <div id="github" class="content text-center">
                 <div class="row features-md">
                     <div class="col-md-6 col-md-offset-3">
                         <i class="fa fa-github-alt"></i>
                         <h2>Visit us on GitHub</h2>
-                        <p><a href="https://github.com/BCDevExchange" target="_blank" analytics-on>BCDevExchange is on GitHub</a>, openly sharing the code and concepts that drive this website. Fork a repo and share your ideas with us!</p>
-                        <p>As part of the BCDevExchange experiment, the <a href="https://github.com/bcgov" target="_blank" analytics-on>Province of British Columbia</a> joined GitHub. Check out the Province’s open sourced code.</p>
+                        <p><a href="https://github.com/BCDevExchange" target="_blank" analytics-on analytics-event="click" analytics-category="outbound" analytics-label="github.com/BCDevExchange">BCDevExchange is on GitHub</a>, openly sharing the code and concepts that drive this website. Fork a repo and share your ideas with us!</p>
+                        <p>As part of the BCDevExchange experiment, the <a href="https://github.com/bcgov" target="_blank" analytics-on analytics-event="click" analytics-category="outbound" analytics-label="github.com/bcgov">Province of British Columbia</a> joined GitHub. Check out the Province’s open sourced code.</p>
                     </div>
                 </div>
             </div>
@@ -222,8 +222,8 @@ See the License for the specific language governing permissions and limitations 
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h4><a href="http://catalogue.data.gov.bc.ca/dataset?download_audience=Public" analytics-on>BC Data Catalogue</a></h4>
-                        <p>Discover data under permissive licenses such as the <a href="http://www.data.gov.bc.ca/local/dbc/docs/license/OGL-vbc2.0.pdf" analytics-on>Open Government License - British Columbia</a>.</p>
+                        <h4><a href="http://catalogue.data.gov.bc.ca/dataset?download_audience=Public" analytics-on analytics-event="click" analytics-category="outbound" analytics-label="catalogue.data.gov.bc.ca/dataset?download_audience=Public">BC Data Catalogue</a></h4>
+                        <p>Discover data under permissive licenses such as the <a href="http://www.data.gov.bc.ca/local/dbc/docs/license/OGL-vbc2.0.pdf" analytics-on analytics-event="click" analytics-category="outbound" analytics-label="data.gov.bc.ca/local/dbc/docs/license/OGL-vbc2.0.pdf">Open Government License - British Columbia</a>.</p>
                     </div>
                 </div>
 
@@ -234,14 +234,14 @@ See the License for the specific language governing permissions and limitations 
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h4><a href="http://www.bclaws.ca/civix/template/complete/api/index.html" target="_blank" analytics-on>BC Laws API</a></h4>
+                        <h4><a href="http://www.bclaws.ca/civix/template/complete/api/index.html" target="_blank"  analytics-on analytics-event="click" analytics-category="outbound" analytics-label="bclaws.ca/civix/template/complete/api/index.html">BC Laws API</a></h4>
                         <p>BC Laws is an electronic library providing free public access to the laws of British Columbia made available
-                            for use under the permissive <a href="http://www.bclaws.ca/standards/2014/QP-License_1.0.html" target="_blank" analytics-on>Queen's Printer License</a>.</p>
+                            for use under the permissive <a href="http://www.bclaws.ca/standards/2014/QP-License_1.0.html" target="_blank" analytics-on analytics-event="click" analytics-category="outbound" analytics-label="bclaws.ca/standards/2014/QP-License_1.0.html">Queen's Printer License</a>.</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h4><a href="https://developer.translink.ca/" target="_blank" analytics-on>TransLink Open API</a></h4>
+                        <h4><a href="https://developer.translink.ca/" target="_blank" analytics-on analytics-event="click" analytics-category="outbound" analytics-label="developer.translink.ca">TransLink Open API</a></h4>
                         <p>The TransLink Open API provides access to data associated with the regional bus network, bus
                         service operations and major road network allowing developers to build applications enriched
                         with TransLink data.</p>
@@ -272,7 +272,7 @@ See the License for the specific language governing permissions and limitations 
             </div-->
         </div>
 
-        <div ng-show="config.explorationContent" ng-cloak>
+        <div ng-show="config.explorationContent" ng-cloak analytics-on="scrollby" scrollby-offset="40%" analytics-event="scroll" analytics-category="fragment" analytics-label="#featured-projects">
             <div class="content text-left">
                 <div class="row features-xl">
                     <div class="col-md-4 text-center">
@@ -282,8 +282,8 @@ See the License for the specific language governing permissions and limitations 
                         <h2>Featured Projects</h2>
                         <p>Check out what's happening in our featured projects, find opportunities, and how you can contribute!</p>
                         <ul>
-                            <li><a href="https://github.com/BCDevExchange/BCDevExchange-app" target="_blank" analytics-on>The BCDevExchange Experiment</a></li>
-                            <li><a href="https://github.com/BCDevExchange/API-Management" target="_blank" analytics-on>API Management</a></li>
+                            <li><a href="https://github.com/BCDevExchange/BCDevExchange-app" target="_blank" analytics-on analytics-event="click" analytics-category="outbound" analytics-label="github.com/BCDevExchange/BCDevExchange-app">The BCDevExchange Experiment</a></li>
+                            <li><a href="https://github.com/BCDevExchange/API-Management" target="_blank" analytics-on analytics-event="click" analytics-category="outbound" analytics-label="github.com/BCDevExchange/API-Management">API Management</a></li>
                         </ul>
                     </div>
 
@@ -291,34 +291,34 @@ See the License for the specific language governing permissions and limitations 
             </div>
         </div>
 
-        <div ng-show="config.explorationContent" ng-cloak>
+        <div ng-show="config.explorationContent" ng-cloak analytics-on="scrollby" scrollby-offset="40%" analytics-event="scroll" analytics-category="fragment" analytics-label="#the-labs">
             <div class="content text-center">
                 <div class="row features-md">
                     <div class="col-md-6 col-md-offset-3">
                         <i class="fa fa-flask"></i>
                         <h2>The Labs</h2>
                         <p>The Labs showcase and share in-progress ideas and work from BCDevExchange early adopter public sector organizations.  As safe places to experiment, the Labs contain work under design and construction that may change, disappear, or be buggy.</p>
-                        <p>Visit the <a href="/lab" analytics-on>Labs</a></p>
+                        <p>Visit the <a href="/lab">Labs</a></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div ng-show="config.explorationContent" ng-cloak>
+        <div ng-show="config.explorationContent" ng-cloak analytics-on="scrollby" scrollby-offset="40%" analytics-event="scroll" analytics-category="fragment" analytics-label="#the-blog">
             <div class="content text-center">
                 <div class="row features-md">
                     <div class="col-md-6 col-md-offset-3">
                         <i class="fa fa-pencil"></i>
                         <h2>The Blog</h2>
                         <p>We are keeping you informed about the BCDevExchange on DataBC’s blog. Learn about the vision for the BCDevExchange, events, and opportunities to contribute.</p>
-                        <p>Check out the blog <a href="/blog" analytics-on>here</a></p>
+                        <p>Check out the blog <a href="/blog">here</a></p>
 
                         </div>
                 </div>
             </div>
         </div>
 
-        <div id="get_involved">
+        <div id="get_involved" analytics-on="scrollby" scrollby-offset="40%" analytics-event="scroll" analytics-category="fragment" analytics-label="#get-involved">
             <div class="content text-left">
                 <div class="row features-xl">
                     <div class="col-md-4 text-center">
@@ -329,9 +329,9 @@ See the License for the specific language governing permissions and limitations 
                         <p>Join the BCDevExchange:</p>
                         <p>You are invited to signup as a member of the BCDevExchange using your GitHub account. Sign up <a href="/signup">here.</a></p>
                         <p>Email:</p>
-                        <p>Please contact us via <a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>email</a> to stay informed of our progress or participate in the BCDevExchange experiment.</p>
+                        <p>Please contact us via <a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on analytics-event="click" analytics-category="email" analytics-label="Data AT gov.bc.ca">email</a> to stay informed of our progress or participate in the BCDevExchange experiment.</p>
                         <p>Twitter:</p>
-                        <p>Follow <a href="https://twitter.com/data_bc" target="_blank" analytics-on>@Data_BC</a> and the hashtag <a href="https://twitter.com/hashtag/BCDev" target="_blank" analytics-on>#BCDev</a> on Twitter for announcements.</p>
+                        <p>Follow <a href="https://twitter.com/data_bc" target="_blank" analytics-on analytics-event="click" analytics-category="outbound" analytics-label="twitter.com/data_bc">@Data_BC</a> and the hashtag <a href="https://twitter.com/hashtag/BCDev" target="_blank" analytics-on analytics-event="click" analytics-category="outbound" analytics-label="twitter.com/hashtag/BCDev">#BCDev</a> on Twitter for announcements.</p>
                     </div>
                 </div>
             </div>
@@ -354,7 +354,7 @@ See the License for the specific language governing permissions and limitations 
                 <div class="row features-xl text-center">
                     <div class="col-md-12">
                         <br/>
-                        <h4>Would your public sector organization like to be involved in the BCDevExchange experiment? <a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on>Email us</a> and get involved.</h4>
+                        <h4>Would your public sector organization like to be involved in the BCDevExchange experiment? <a href="mailto:Data@gov.bc.ca?subject=Feedback on BCDevExchange" analytics-on analytics-event="click" analytics-category="email" analytics-label="Data AT gov.bc.ca">Email us</a> and get involved.</h4>
                     </div>
                 </div>
             </div>
