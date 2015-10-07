@@ -465,6 +465,14 @@ module.exports = function (app, db, passport) {
       "description": {
         "__cdata": "By Loren Mullane, Community Engagement, BCDevExchange As any coder will tell you, sometimes code breaks. Normally, fixing broken code falls on the original coder who needs to carve out time in their busy schedule. A fix can take time depending on how much other work a coder has. But there is another way. Enter GitHub, the popular online code sharing community. Operating [&#8230;]"
       }
+    },
+    {
+      "title": "The Road to Innovation is DriveBC’s Open511",
+      "pubDate": "Tue, 06 Oct 2015 00:00:00 +0000",
+      "link": "http://blog.data.gov.bc.ca/2015/10/the-road-to-innovation-is-drivebcs-open511/",
+      "description": {
+        "__cdata": "Guest blog by Alex Ritchie, A/Director, Architecture and Standards, Ministry of Transportation and Infrastructure Developers and entrepreneurs can now leverage real-time road events data to build commercial apps and online services to inform travellers of potential travel delays. [&#8230;]"
+      }
     }
   ]
 };

@@ -30,8 +30,8 @@ See the License for the specific language governing permissions and limitations 
                                 <span ng-show="predicateTitle == ''">Sort by</span><span class="source-name" ng-bind="predicateTitle"></span> <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" role="menu">
-                               <li><a href="" ng-click="predicate = 'title'; predicateTitle = 'Title A-Z'" analytics-on>Title A-Z</a></li>
-                                <li><a href="" ng-click="predicate = '-title'; predicateTitle = 'Title Z-A'" analytics-on>Title Z-A</a></li>
+                               <li><a href="" ng-click="predicate = 'title'; predicateTitle = 'Title A-Z'">Title A-Z</a></li>
+                                <li><a href="" ng-click="predicate = '-title'; predicateTitle = 'Title Z-A'">Title Z-A</a></li>
                               </ul>
                             </div>
                             <input type="reset" class="btn btn-default" value="Reset" ng-click="selectedSource = ''; selectedSourceTitle = ''; query = ''; predicate = ''; predicateTitle = '';" />
@@ -62,7 +62,7 @@ See the License for the specific language governing permissions and limitations 
                             <br>
                         </div>
                         <div class="col-md-3 col-lg-2">
-                            <a href="/programs/{{ program.title|encodeUri }}" class="btn btn-primary btn-block" analytics-on ng-bind-html="'View'"></a>
+                            <a href="/programs/{{ program.title|encodeUri }}" class="btn btn-primary btn-block" ng-bind-html="'View'"></a>
                         </div>
                     </div>
                     <div class="row">
