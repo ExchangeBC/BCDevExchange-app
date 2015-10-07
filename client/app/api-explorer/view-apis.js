@@ -19,8 +19,9 @@ angular.module('bcdevxApp.apiExplorer', ['swaggerUi'])
     swaggerModules.add(swaggerModules.BEFORE_PARSE, swagger1ToSwagger2Converter)
     swaggerModules.add(swaggerModules.BEFORE_PARSE, swaggerUiExternalReferences)
     swaggerModules.add(swaggerModules.BEFORE_EXPLORER_LOAD, swaggerExplorerProxy)
+    swaggerModules.add(swaggerModules.BEFORE_LOAD, swaggerExplorerProxy)
     swaggerExplorerProxy.proxyUrl = '/api/proxy/'
   })
   .controller('ViewApiCtrl', ['$scope','$routeParams', function ($scope,$routeParams) {
-    $scope.swaggerUrl = '/api/proxy/' + encodeURIComponent($routeParams.swaggerUrl)
+    $scope.swaggerUrl = encodeURIComponent($routeParams.swaggerUrl)
 }])
