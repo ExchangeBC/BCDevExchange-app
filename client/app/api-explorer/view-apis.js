@@ -15,9 +15,10 @@ See the License for the specific language governing permissions and limitations 
 'use strict'
 
 angular.module('bcdevxApp.apiExplorer', ['swaggerUi'])
-  .run(function (swaggerModules, swaggerUiExternalReferences, swagger1ToSwagger2Converter, swaggerExplorerProxy) {
+  .run(function (swaggerModules, swaggerUiExternalReferences, swagger1ToSwagger2Converter, swaggerExplorerProxy, swaggerUiXmlFormatter) {
     swaggerModules.add(swaggerModules.BEFORE_PARSE, swagger1ToSwagger2Converter)
     swaggerModules.add(swaggerModules.BEFORE_PARSE, swaggerUiExternalReferences)
+    swaggerModules.add(swaggerModules.AFTER_EXPLORER_LOAD, swaggerUiXmlFormatter)
     swaggerModules.add(swaggerModules.BEFORE_EXPLORER_LOAD, swaggerExplorerProxy)
     swaggerModules.add(swaggerModules.BEFORE_LOAD, swaggerExplorerProxy)
     swaggerExplorerProxy.proxyUrl = '/api/proxy/'
