@@ -1,5 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/BCDevExchange/BCDevExchange-app.png?label=ready&title=Ready)](https://waffle.io/BCDevExchange/BCDevExchange-app)
-[![Build Status](https://sandbox1.apis.gov.bc.ca/cis/view/BCDevExchange/job/BCDevExchange-app/badge/icon)](https://sandbox1.apis.gov.bc.ca/cis/view/BCDevExchange/job/BCDevExchange-app/)
+[![Build Status](https://sandbox1.apis.gov.bc.ca/cis/job/uat-BCDevExchange-app/badge/icon)](https://sandbox1.apis.gov.bc.ca/cis/job/uat-BCDevExchange-app/)
 # BCDevExchange Organization Web Site #
 <a rel="Exploration" href="https://github.com/BCDevExchange/docs/blob/master/discussion/projectstates.md"><img alt="Being designed and built, but in the lab. May change, disappear, or be buggy." style="border-width:0" src="http://bcdevexchange.org/badge/2.svg" title="Being designed and built, but in the lab. May change, disappear, or be buggy." /></a>
 
