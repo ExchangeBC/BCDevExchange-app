@@ -130,6 +130,7 @@ if (config.node.clusterEnabled && cluster.isMaster) {
   require('./routes/projects')(app, db, passport)
   require('./routes/resources')(app, db, passport)
   require('./routes/proxy')(app, db, passport)
+  app.use("/swagger-editor", express.static(process.cwd() + "/node_modules/swagger-editor-src/dist"))
   // Angular Routes supporting html5 mode
   app.all('/*', function(req, res){
     res.render('index.html')

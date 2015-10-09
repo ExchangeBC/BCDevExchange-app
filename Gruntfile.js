@@ -444,6 +444,7 @@ module.exports = function (grunt) {
       dist: [
         'less',
         'imagemin',
+        'subgrunt',
         'svgmin'
       ]
     },
@@ -561,6 +562,12 @@ module.exports = function (grunt) {
           ]
         }
       }
+    },
+    
+    subgrunt:{
+        projects: {
+            'node_modules/swagger-editor-src': 'build'
+        }
     },
   });
 
