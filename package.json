@@ -37,7 +37,7 @@
     "q": "^1.4.1",
     "request": "^2.55.0",
     "serve-favicon": "~2.0.1",
-    "swagger-editor-src": "f-w/swagger-editor",
+    "swagger-editor-src": "BCDevExchange/swagger-editor",
     "twitter": "^1.2.5",
     "twitter-text": "^1.12.0",
     "winston": "^1.0.0"
