@@ -444,7 +444,6 @@ module.exports = function (grunt) {
       dist: [
         'less',
         'imagemin',
-        'subgrunt',
         'svgmin'
       ]
     },
@@ -565,9 +564,16 @@ module.exports = function (grunt) {
     },
     
     subgrunt:{
-        projects: {
-            'node_modules/swagger-editor-src': 'build'
-        }
+        dist:{
+            projects: {
+                'node_modules/swagger-editor-src': 'build'
+            }
+        },
+        dev:{
+            projects: {
+                'node_modules/swagger-editor-src': 'build:dev'
+            }
+        },
     },
   });
 
@@ -598,6 +604,7 @@ module.exports = function (grunt) {
 
     if (target === 'debug') {
       return grunt.task.run([
+        'subgrunt:dev',
         'clean:server',
         'env:all',
         'injector:less',
@@ -610,6 +617,7 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
+      'subgrunt:dev',
       'clean:server',
       'env:all',
       'injector:less',
@@ -666,6 +674,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build', [
+    'subgrunt:dist',
     'clean:dist',
     'injector:less',
     'concurrent:dist',
