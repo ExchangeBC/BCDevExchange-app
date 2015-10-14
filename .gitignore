@@ -14,4 +14,5 @@ temp/
 .project
 .svn
 config/.svn
+config/nginx
 /nbproject
