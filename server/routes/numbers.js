@@ -18,6 +18,7 @@ var config = require('config')
 var logger = require('../../common/logging.js').logger
 var projects = require('./projects')
 var resources = require('./resources')
+var db = require('../models/db')
 
 var Twitter      = require('twitter')
 var twitter_text = require('twitter-text')
@@ -363,25 +364,47 @@ function handleEventData(githubEventsJSON) {
         ]
  */
 function searchTwitter(searchText, callback) {
-    var client = new Twitter({
-        consumer_key: config.twitter.consumer_key,
-        consumer_secret: config.twitter.consumer_secret,
-        access_token_key: config.twitter.access_token_key,
-        access_token_secret: config.twitter.access_token_secret
+    db.getNumber({
+        source: 'twitter',
+        topic: '#BCDev'
+    }).then(function (numberData) {
+        var client = new Twitter({
+            consumer_key: config.twitter.consumer_key,
+            consumer_secret: config.twitter.consumer_secret,
+            access_token_key: config.twitter.access_token_key,
+            access_token_secret: config.twitter.access_token_secret
+        })
+        client.get('search/tweets', {'q': searchText, 'since_id': numberData.to_id}, function (error, tweets) {
+            if (error) {
+                // We return no error so the async call will continue
+                return callback(null, [])
+            }
+            if(tweets.length === 0){
+                // retrieve old list since there is nothing new;
+                // don't update numbers
+                client.get('search/tweets', {'q': searchText, 'max_id': numberData.to_id}, function (error, tweets) {
+                    numberData.newTweets = composeTwLst(tweets)
+                    callback(null, newNumber)
+                })
+                return
+            }
+            var tweetList = composeTwLst(tweets)
+            var newNumber = {}
+            newNumber.count = numberData.count + tweetList.length
+            newNumber.to_id = tweets.search_metadata.max_id_str
+            db.updateNumber(numberData._id, newNumber).then(function () {
+                newNumber.newTweets = tweetList
+                callback(null, newNumber)
+            })
+        })
     })
+}
 
-    client.get('search/tweets', {q: searchText}, function(error, tweets, response) {
-        if(error) {
-            // We return no error so the async call will continue
-            return callback(null, [])
-        }
-
-        var tweetList = []
-
-        for(var i in tweets.statuses) {
-            var tweet = tweets.statuses[i]
-
-            tweetList.push(
+function composeTwLst(tweets) {
+    var tweetList = []
+    for (var i in tweets.statuses) {
+        var tweet = tweets.statuses[i]
+        tweetList.push(
                 {
                     user: {
                         name: tweet.user.name,
@@ -393,9 +416,7 @@ function searchTwitter(searchText, callback) {
                     url: 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str,
                     created_at: tweet.created_at
                 }
-            )
-        }
-
-        callback(null, tweetList)
-    })
+        )
+    }
+    return tweetList
 }

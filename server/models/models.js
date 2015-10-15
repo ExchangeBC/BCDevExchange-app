@@ -52,8 +52,13 @@ exports.profile = mongoose.model('Profile', new mongoose.Schema({
   }
 }))
 
-// a schemaless schema
+// schemaless schemas
 exports.program = mongoose.model('Program', new mongoose.Schema({}, {
+  strict: false,
+  id: false
+}))
+
+exports.number = mongoose.model('Number', new mongoose.Schema({}, {
   strict: false,
   id: false
 }))

@@ -229,3 +229,21 @@ exports.updateProgram = function (programId, programPatch, cb) {
 }
 
 exports.deleteProgram = function (programId, cb) {}
+
+exports.getNumber = function(query,cb){
+  var deferred = Q.defer()
+  models.number.findOne(query).lean().exec(function (err, res) {
+    if(err) deferred.reject(err)
+    else deferred.resolve(res)
+  })
+  return deferred.promise.nodeify(cb)
+}
+
+exports.updateNumber = function(id, doc, cb){
+  var deferred = Q.defer()
+  models.number.where({_id: id }).update(doc, function (err, res) {
+    if(err) deferred.reject(err)
+    else deferred.resolve(res)
+  })
+  return deferred.promise.nodeify(cb)
+}
