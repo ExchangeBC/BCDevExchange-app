@@ -38,7 +38,7 @@ angular.module('bcdevxApp.home', ['ngRoute'])
         $scope.numbers.resources = data.resources;
         $scope.numbers.projects = data.projects;
         $scope.numbers.analytics = data.analytics || $scope.numbers.analytics;
-        $scope.numbers.tweet_count = data.twitter_bcdev.length;
+        $scope.numbers.tweet_count = data.twitter_bcdev.count;
         $scope.numbers.total_stars = data.bcdevx.stargazers + data.bcgov.stargazers;
     });
 }]);

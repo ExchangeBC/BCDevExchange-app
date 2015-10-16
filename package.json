@@ -35,6 +35,7 @@
     "passport-github2": "^0.1.9",
     "passport-linkedin-oauth2": "^1.2.1",
     "q": "^1.4.1",
+    "query-string": "^3.0.0",
     "request": "^2.55.0",
     "serve-favicon": "~2.0.1",
     "swagger-editor-src": "BCDevExchange/swagger-editor",

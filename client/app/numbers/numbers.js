@@ -51,7 +51,7 @@ angular.module('bcdevxApp.numbers', ['ngRoute',  'ngResource'])
         $scope.numbers.bcdevx_activity = data.bcdevx_latest;
         $scope.numbers.bcgov_activity = data.bcgov_latest;
         $scope.numbers.analytics = data.analytics || $scope.numbers.analytics;
-        $scope.numbers.twitter_bcdev = data.twitter_bcdev;
+        $scope.numbers.twitter_bcdev = data.twitter_bcdev.recentTweets;
     });
 
 }])
