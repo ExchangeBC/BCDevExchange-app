@@ -130,7 +130,8 @@ function getGitHubFileCatalogueItems(catalogue, callback) {
     url: 'https://api.github.com/' + catalogue.url + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
     headers: {
       'User-Agent': config.github.clientApplicationName
-    }
+    },
+    timeout: 5000
   }
   request(options, function (error, response, body) {
     if (!error &&
@@ -190,7 +191,8 @@ function getGitHubCatalogueItems(catalogue, callback) {
     url: 'https://api.github.com/search/repositories?q="' + catalogue.tagToSearch + '"+in:readme&client_id=' + config.github.clientID + "&client_secret=" + config.github.clientSecret,
     headers: {
       'User-Agent': config.github.clientApplicationName
-    }
+    },
+    timeout: 5000
   }
   request(options, function (error, response, body) {
     if (!error &&
@@ -215,25 +217,31 @@ function getGitHubCatalogueItems(catalogue, callback) {
 }
 
 function getCKANCatalogueItems(catalogue, callback) {
-  request(catalogue.baseUrl + '/action/package_search?q=' + catalogue.tagName + ':' + catalogue.tagValue + '&rows=200', function (error, response, body) {
-    if (!error &&
-      typeof response !== 'undefined' &&
-      response.statusCode === 200) {
+    request({
+        url: catalogue.baseUrl + '/action/package_search?q=' + catalogue.tagName + ':' + catalogue.tagValue + '&rows=200',
+        timeout: 5000
+    }, function (error, response, body) {
+        if (!error &&
+                typeof response !== 'undefined' &&
+                response.statusCode === 200) {
 
-      var json = JSON.parse(body)
+            var json = JSON.parse(body)
 
-      // remove extraneous info from result
-      async.concat(json.result.results, transformCKANResult, function (err, results) {
-        copyCatalogue(catalogue, results)
-        callback(err, results)
-      })
-    } else if (error) {
-      logger.error('Error while fetching %s content: %s, body: %s', catalogue.short_name, error, body)
-      callback({
-        'error': error.toString()
-      })
-    }
-  })
+            // remove extraneous info from result
+            async.concat(json.result.results, transformCKANResult, function (err, results) {
+                copyCatalogue(catalogue, results)
+                callback(err, results)
+            })
+        } else if (error) {
+            logger.error('Error while fetching %s content: %s, body: %s', catalogue.short_name, error, body)
+            callback({
+                'error': error.toString()
+            })
+        }
+        else{
+            callback(null,null)
+        }
+    })
 }
 
 function parseGitHubResourceResults(result, callback) {
@@ -306,7 +314,8 @@ function getGitHubRepo(fullRepoUrl, callback) {
     url: 'https://api.github.com/repos' + path + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
     headers: {
       'User-Agent': config.github.clientApplicationName
-    }
+    },
+    timeout: 5000
   }
 
   request(options, function (error, response, body) {
