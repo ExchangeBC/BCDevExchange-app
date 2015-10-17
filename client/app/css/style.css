@@ -795,7 +795,6 @@ body.chrome.parallax-map-support .et_pb_map { transform: inherit !important; }
 
 
 
-#main-content .container { padding-top: 58px; }
 	.et_full_width_page #main-content .container:before, .et_full_width_portfolio_page #main-content .container:before { display: none; }
 
 	#left-area .post-meta { font-size: 14px; padding-bottom: 15px; }
