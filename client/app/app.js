@@ -146,6 +146,9 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider',
         templateUrl: '/app/api-explorer/view-apis.html',
         controller: 'ViewApiCtrl'
       })
+      .when('/swagger-editor', {
+        templateUrl: '/app/swagger-editor/edit-swagger.html'
+      })
       .otherwise({
         redirectTo: '/home'
       })

@@ -48,11 +48,8 @@
     <!-- Add your site or application content here -->
     <div id="page-container">
       <div notify-load='header' ng-include="'/app/header/header.html'"></div>
-      <div id="et-main-area">
-        <div  notify-load='mainContent' id="main-content" ng-view autoscroll="true"></div>
-        <span class="et_pb_scroll_top et-pb-icon"></span>
-        <div  notify-load='footer' ng-include="'/app/footer/footer.html'"></div>
-      </div>
+      <div  notify-load='mainContent' id="main-content" ng-view autoscroll="true"></div>
+      <div  notify-load='footer' ng-include="'/app/footer/footer.html'"></div>
     </div>
 
     <!--[if lt IE 9]>

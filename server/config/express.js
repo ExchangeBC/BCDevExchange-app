@@ -35,7 +35,7 @@ module.exports = function(app) {
 
   if ('production' === env) {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')))
-    app.use("/swagger-editor", express.static(path.normalize(__dirname + '/../../../node_modules/swagger-editor-src/dist')))
+    app.use("/embedded/swagger-editor", express.static(path.normalize(__dirname + '/../../../node_modules/swagger-editor-src/dist')))
     app.use(express.static(path.join(config.root, 'public')))
     app.set('appPath', config.root + '/public')
     app.use(morgan('dev'))
@@ -43,8 +43,8 @@ module.exports = function(app) {
 
   if ('development' === env || 'test' === env) {
     app.use(require('connect-livereload')())
-    app.use("/swagger-editor", express.static(path.normalize(__dirname + '/../../node_modules/swagger-editor-src/.tmp')))
-    app.use("/swagger-editor", express.static(path.normalize(__dirname + '/../../node_modules/swagger-editor-src/app')))
+    app.use("/embedded/swagger-editor", express.static(path.normalize(__dirname + '/../../node_modules/swagger-editor-src/.tmp')))
+    app.use("/embedded/swagger-editor", express.static(path.normalize(__dirname + '/../../node_modules/swagger-editor-src/app')))
     app.use(express.static(path.join(config.root, '.tmp')))
     app.use(express.static(path.join(config.root, 'client')))
     app.set('appPath', 'client')
