@@ -1,6 +1,8 @@
 [![Stories in Ready](https://badge.waffle.io/BCDevExchange/BCDevExchange-app.png?label=ready&title=Ready)](https://waffle.io/BCDevExchange/BCDevExchange-app)
 [![Build Status](https://sandbox1.apis.gov.bc.ca/cis/job/uat-BCDevExchange-app/badge/icon)](https://sandbox1.apis.gov.bc.ca/cis/job/uat-BCDevExchange-app/)
 # BCDevExchange Organization Web Site #
+
+[![Join the chat at https://gitter.im/BCDevExchange/BCDevExchange-app](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/BCDevExchange/BCDevExchange-app?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 <a rel="Exploration" href="https://github.com/BCDevExchange/docs/blob/master/discussion/projectstates.md"><img alt="Being designed and built, but in the lab. May change, disappear, or be buggy." style="border-width:0" src="http://bcdevexchange.org/badge/2.svg" title="Being designed and built, but in the lab. May change, disappear, or be buggy." /></a>
 
 The [BCDevExchange website](http://bcdevexchange.org/) is the public facing site for the BC Developers' Exchange - an experiment in tech innovation and collaboration.
