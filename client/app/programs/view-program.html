@@ -314,13 +314,19 @@
       <!-- .et_pb_row -->
     </div>
     <!-- .et_pb_section -->
-  </div>
-  <!-- .entry-content -->
-
-
+    <div class="et_pb_section" ng-show="program.gitters">
+      <h1 id="engage" class="et_pb_text_align_center">Engage With Us</h1>
+      <div class="flex-container">
+        <div ng-repeat="n in program.gitters" class="flex-item" style="padding: 4px; border-radius: 25px; border: 2px solid #8AC007;width:{{100/program.gitters.length - 3}}%;">
+          <h3 style="text-align: center;"><a ng-attr-href='{{getGitterUrl(n,true)}}' title='Open {{n}} gitter in new window'  target="_blank">{{n}}</a></h3><br/>
+          <iframe ng-src="{{getGitterUrl(n)}}" style="height: 400px; width: 100%"></iframe>
+        </div>
+      </div>
+    </div>
+    <!-- .entry-content -->
 </article>
 
-<style type="text/css" id="et-builder-advanced-style">
+<style type="text/css">
   .et_pb_blurb_5.et_pb_blurb {
     font-size: 16px;
   }
@@ -422,4 +428,20 @@
       padding-top: -50;
     }
   }
+  
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: flex-start;
+  }
+
+  .flex-item {
+    order: 0;
+    flex: 1 1 auto;
+    align-self: auto;
+    margin: 10px;
+  }  
 </style>

@@ -51,6 +51,10 @@ angular.module('bcdevxApp.programs').config(function ($sceProvider) {
       }, function (errorMessage) {
         $scope.mdDisplay = errorMessage
       })
+      
+      $scope.getGitterUrl = function(gitterId, fullSite){
+        return 'https://gitter.im/' + gitterId + (fullSite?'':'/~embed')
+      }
 }
 ])
 
