@@ -32,6 +32,7 @@ var app = angular.module('bcdevxApp', [
     'bcdevxApp.disclaimer',
     'bcdevxApp.numbers',
     'bcdevxApp.apiExplorer',
+    'bcdevxApp.swaggerEditor',
     'angulartics',
     'angulartics.google.analytics',
     'angulartics.scroll',
@@ -146,8 +147,9 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider',
         templateUrl: '/app/api-explorer/view-apis.html',
         controller: 'ViewApiCtrl'
       })
-      .when('/swagger-editor', {
-        templateUrl: '/app/swagger-editor/edit-swagger.html'
+      .when('/swagger-editor:swaggerUrl*?', {
+        templateUrl: '/app/swagger-editor/edit-swagger.html',
+        controller: 'SwaggerEditorCtrl'
       })
       .otherwise({
         redirectTo: '/home'
