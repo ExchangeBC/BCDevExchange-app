@@ -26,9 +26,15 @@ module.exports = function (app, db, passport) {
       json: true
     }
     request(opts, function (err, response, body) {
-      response.headers && _.forOwn(response.headers, function (v, k) {
-        res.set(k, v)
-      })
+      if (err) {
+        return res.status(500).end()
+      }
+      try {
+        _.forOwn(response.headers, function (v, k) {
+          res.set(k, v)
+        })
+      } catch (ex) {
+      }
       res.status(response.statusCode).send(body).end()
     })
   })

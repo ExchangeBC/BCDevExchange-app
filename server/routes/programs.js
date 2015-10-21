@@ -183,8 +183,9 @@ function getProgramDetails(progData, callback) {
   }
 
   var getGitHubStats = function (item, cb) {
+    var ghRepo = githubStatsUrl.substr(githubStatsUrl.indexOf('github.com') + 11)
     var options = {
-      url: 'https://api.github.com/repos/' + githubStatsUrl.substr(githubStatsUrl.indexOf('github.com') + 11) + item + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
+      url: 'https://api.github.com/repos/' + ghRepo + item + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
       headers: {
         'User-Agent': config.github.clientApplicationName
       }
@@ -195,7 +196,7 @@ function getProgramDetails(progData, callback) {
         response.statusCode === 200) {
         return cb(null, body)
       } else {
-        logger.error('Error while fetching GitHub content: %s. response: %s. body: %s', error, response, body)
+        logger.error('Error fetching GitHub content for %s: %s. response: %s. body: %s', ghRepo + item, error, JSON.stringify(response), body)
         return cb(error)
       }
     })
@@ -204,7 +205,7 @@ function getProgramDetails(progData, callback) {
   async.parallel([function (cb) {
       getGitHubStats('/stats/contributors', cb)
     },
-                function (cb) {
+    function (cb) {
       getGitHubStats('/issues', cb)
     }], function (err, resArr) {
     if (err) return deferred.reject(err)
