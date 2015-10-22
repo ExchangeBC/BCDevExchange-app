@@ -149,7 +149,7 @@ module.exports = function (app, db, passport) {
                     })
                 },
                 twitter_bcdev: function (callback) {
-                    searchTwitter('#BCDev -filter:retweets', callback)
+                    searchTwitter('#BCDev', callback)
                 }
             }, function (err, results) {
                 res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge)
