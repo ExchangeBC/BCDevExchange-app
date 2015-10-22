@@ -1,16 +1,16 @@
 /*
-Copyright 2015 Province of British Columbia
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
-*/
+ Copyright 2015 Province of British Columbia
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and limitations under the License.
+ */
 
 'use strict'
 var async = require('async')
@@ -28,7 +28,8 @@ var Q = require('q')
 
 var getProgramsFromArray = function (programList, success, error) {
   async.concat(programList, getPrograms, function (err, results) {
-    if (err) error(err)
+    if (err)
+      error(err)
     else {
 
       // filter out invisible
@@ -67,15 +68,11 @@ module.exports = function (app, db, passport) {
   })
   app.get('/api/programs/name/:title', function (req, res) {
     if (!req.params.title) {
-      res.send(400, "Missing url title.")
-      return
+      return res.status(400).send("Missing url title.")
     }
 
     db.getProgramByName(req.params.title).then(function (data) {
       getProgramDetails(data, function (error, result) {
-        if (error) {
-          res.send(500)
-        }
         res.send(_.merge({}, result, data))
       })
     })
@@ -173,7 +170,7 @@ function parseGitHubFileResults(result, callback) {
 
 function getProgramDetails(progData, callback) {
   var deferred = Q.defer()
-    // Call github for stats
+  // Call github for stats
   var githubStatsUrl = progData.githubStatsUrl || progData.githubUrl
   if (!githubStatsUrl) {
     setTimeout(function () {
@@ -208,16 +205,20 @@ function getProgramDetails(progData, callback) {
     function (cb) {
       getGitHubStats('/issues', cb)
     }], function (err, resArr) {
-    if (err) return deferred.reject(err)
-    var issuesPrArr = JSON.parse(resArr[1])
-    var issuesPrCnt = issuesPrArr.length
-    var prCnt = _.reduce(issuesPrArr, function (result, item) {
-      return result + ((item.pull_request) ? 1 : 0)
-    }, 0)
-    var res = {
-      contributors: JSON.parse(resArr[0]).length,
-      issues: issuesPrCnt - prCnt,
-      prs: prCnt
+    var res = {}
+    try {
+      res.contributors = JSON.parse(resArr[0]).length
+    } catch (ex) {
+    }
+    try {
+      var issuesPrArr = JSON.parse(resArr[1])
+      var issuesPrCnt = issuesPrArr.length
+      var prCnt = _.reduce(issuesPrArr, function (result, item) {
+        return result + ((item.pull_request) ? 1 : 0)
+      }, 0)
+      res.issues = issuesPrCnt - prCnt
+      res.prs = prCnt
+    } catch (ex) {
     }
     deferred.resolve(res)
   })
