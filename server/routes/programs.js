@@ -197,7 +197,7 @@ function getProgramDetails(progData, callback) {
         return cb(null, body)
       } else {
         logger.error('Error fetching GitHub content for %s: %s. response: %s. body: %s', ghRepo + item, error, JSON.stringify(response), body)
-        return cb(error)
+        return cb(error || response.statusCode)
       }
     })
   }
