@@ -315,18 +315,27 @@
     </div>
     <!-- .et_pb_section -->
     <div class="et_pb_section" ng-show="program.gitters">
-      <h1 id="engage" class="et_pb_text_align_center">Engage With Us</h1>
-      <div class="flex-container">
+      <h1 class="et_pb_text_align_center">Engage With Us</h1>
+      <div id="engageWithUsContainer" class="flex-container">
         <div ng-repeat="n in program.gitters" class="flex-item" style="padding: 4px; border-radius: 25px; border: 2px solid #8AC007;width:{{100/program.gitters.length - 3}}%;">
           <h3 style="text-align: center;"><a ng-attr-href='{{getGitterUrl(n,true)}}' title='Open {{n}} gitter in new window'  target="_blank">{{n}}</a></h3><br/>
-          <iframe ng-src="{{getGitterUrl(n)}}" style="height: 400px; width: 100%"></iframe>
+          <iframe ng-src="{{getGitterUrl(n)}}" style="height: 400px; width: 100%; display:none"></iframe>
         </div>
       </div>
     </div>
     <!-- .entry-content -->
 </article>
 
-<style type="text/css">
+<script>
+  $('#engageWithUsContainer').waypoint({
+    offset: '80%',
+    handler: function () {
+     $('#engageWithUsContainer iframe').show(500)
+    }
+  })
+</script>
+
+<style scoped>
   .et_pb_blurb_5.et_pb_blurb {
     font-size: 16px;
   }
