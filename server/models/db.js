@@ -198,7 +198,7 @@ exports.getProgram = function (programId, cb) {
 exports.getProgramByName = function (programNm, cb) {
   var deferred = Q.defer()
   models.program.findOne({
-    'name': programNm
+    'name': { $regex : new RegExp(programNm, "i") }
   }).select('-_id -__v').lean().exec(function (err, res) {
     if(err) deferred.reject(err)
     else deferred.resolve(res)

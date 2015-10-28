@@ -3286,6 +3286,15 @@ var wpCustomFn = function ($) {
         $(this).addClass('et-animated');
       }
     });
+    
+    $('#engageWithUsContainer').waypoint({
+      offset: '80%',
+      handler: function (direction) {
+        if(direction === 'down'){
+          $('#engageWithUsContainer iframe').show(500)
+        }
+      }
+    })
 
     if ($et_pb_circle_counter.length) {
       $et_pb_circle_counter.each(function () {
