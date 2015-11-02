@@ -46,7 +46,8 @@ var app = angular.module('bcdevxApp', [
     'rt.encodeuri',
     'ui.utils',
     'angular-toc',
-    'duScroll'
+    'duScroll',
+    'infinite-scroll'
 ])
 
 // Config scroll offsets

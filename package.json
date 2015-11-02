@@ -41,7 +41,8 @@
     "swagger-editor-src": "BCDevExchange/swagger-editor",
     "twitter": "^1.2.5",
     "twitter-text": "^1.12.0",
-    "winston": "^1.0.0"
+    "winston": "^1.0.0",
+    "xml2js": "^0.4.15"
   },
   "devDependencies": {
     "connect-livereload": "~0.4.0",

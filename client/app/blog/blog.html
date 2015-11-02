@@ -41,7 +41,7 @@ See the License for the specific language governing permissions and limitations 
                             <ng-pluralize class="pull-left" ng-show="filtered.length > 0" count="filtered.length"
                                           when="{'0': '',
                                                  '1': '1 result',
-                                                 'other': '{{filtered.length}} results'}">
+                                                 'other': '{}{{lastReachedText}} results'}">
                             </ng-pluralize>
                             <div ng-show="false" class="pull-right">{{ loadedSources.length }} / {{ sources.length }} sources loaded</div>
                         </div>
@@ -51,23 +51,23 @@ See the License for the specific language governing permissions and limitations 
             <div class="col-lg-12">
                 <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><span ng-bind-html="alert.msg"></span></alert>
             </div>
-        <div class="col-md-12">
+        <div class="col-md-12" infinite-scroll="paginate()" infinite-scroll-distance='2'>
             <ul class="resource-list list-unstyled table-bordered">
                 <span us-spinner="{radius:30, width:6, length: 18}" spinner-key="spinner-blog" spinner-start-active="true"></span>
 
                 <li class="resource" ng-repeat="post in filtered = (blog | filter:query | orderBy:predicate)">
                     <div class="row">
                         <div class="col-md-9 col-lg-10">
-                             <a ng-href="{{post.link}}"><h3 ng-bind-html="post.title | highlight:query"></h3></a>
+                             <a ng-href="{{post.link[0]}}"><h3 ng-bind-html="post.title[0] | highlight:query"></h3></a>
                             <br>
                         </div>
                         <div class="col-md-3 col-lg-2">
-                            <a ng-href="{{post.link}}" class="btn btn-primary btn-block" ng-bind-html="'Read'"></a>
+                            <a ng-href="{{post.link[0]}}" class="btn btn-primary btn-block" ng-bind-html="'Read'"></a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-9 col-lg-10">
-                            <p ng-bind-html="post.description.__cdata | highlight:query"></p>
+                            <p ng-bind-html="post.description[0] | highlight:query"></p>
                         </div>
                     </div>
                 </li>
