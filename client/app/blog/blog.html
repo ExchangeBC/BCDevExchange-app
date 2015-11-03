@@ -41,7 +41,7 @@ See the License for the specific language governing permissions and limitations 
                             <ng-pluralize class="pull-left" ng-show="filtered.length > 0" count="filtered.length"
                                           when="{'0': '',
                                                  '1': '1 result',
-                                                 'other': '{}{{lastReachedText}} results'}">
+                                                 'other': '{}{{lastReached?&quot;&quot;:&quot;+&quot;}} results'}">
                             </ng-pluralize>
                             <div ng-show="false" class="pull-right">{{ loadedSources.length }} / {{ sources.length }} sources loaded</div>
                         </div>
