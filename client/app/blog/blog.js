@@ -63,7 +63,6 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
 
 
       $scope.lastReached = false
-      $scope.lastReachedText = '+'
       $scope.paginate = function () {
         if ($scope.lastReached)
           return
@@ -76,7 +75,6 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
         BlogListService.get(opt, function (data) {
           if (!data.blog || data.blog.length < 50) {
             $scope.lastReached = true
-            $scope.lastReachedText = ''
             if (!data.blog) {
               return
             }
