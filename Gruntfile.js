@@ -30,7 +30,8 @@ module.exports = function (grunt) {
     cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
     injector: 'grunt-asset-injector',
-    buildcontrol: 'grunt-build-control'
+    buildcontrol: 'grunt-build-control',
+    browserify: 'grunt-browserify'
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -72,9 +73,8 @@ module.exports = function (grunt) {
         files: [
           '<%= yeoman.client %>/{app,components}/**/*.js',
           '!<%= yeoman.client %>/{app,components}/**/*.spec.js',
-          '!<%= yeoman.client %>/{app,components}/**/*.mock.js',
-          '!<%= yeoman.client %>/app/app.js'],
-        tasks: ['injector:scripts']
+          '!<%= yeoman.client %>/{app,components}/**/*.mock.js'],
+        tasks: ['injector:scripts','browserify:dev']
       },
       injectCss: {
         files: [
@@ -428,9 +428,11 @@ module.exports = function (grunt) {
     concurrent: {
       server: [
         'less',
+        'browserify:dev'
       ],
       test: [
         'less',
+        'browserify:dev'
       ],
       debug: {
         tasks: [
@@ -443,6 +445,7 @@ module.exports = function (grunt) {
       },
       dist: [
         'less',
+        'browserify:dist',
         'imagemin',
         'svgmin'
       ]
@@ -575,6 +578,22 @@ module.exports = function (grunt) {
             }
         },
     },
+    browserify: {
+      dist: {
+        files: {
+          '.tmp/app/bundle.js': ['<%= yeoman.client %>/app/app.js']
+        }
+      },
+      dev: {
+        files: {
+          '.tmp/app/bundle.js': ['<%= yeoman.client %>/app/app.js']
+        },
+        options: {
+          browserifyOptions : { debug : true }
+        }
+      }
+    },
+    
   });
 
   // Used for delaying livereload until after server has restarted
