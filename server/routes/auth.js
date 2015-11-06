@@ -111,7 +111,9 @@ module.exports = function (app, db, passport) {
   // GET /auth/github
   // use passport.authenticate() as route middleware to authenticate the request
   app.get('/auth/github', function (req, res, next) {
-    req.session.auth_redirect = req.get('Referer')
+    if(req.get('Referer') && !req.get('Referer').match(/\/signup$/i)){ 
+      req.session.auth_redirect = req.get('Referer')
+    }
     next()
   }, passport.authenticate('github', {
     scope: ['user:email']
