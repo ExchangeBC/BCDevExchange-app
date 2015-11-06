@@ -1,12 +1,12 @@
 /*
  Copyright 2015 Province of British Columbia
-
+ 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
-
+ 
  http://www.apache.org/licenses/LICENSE-2.0
-
+ 
  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and limitations under the License.
@@ -15,6 +15,8 @@
 'use strict'
 var cluster = require('cluster')
 var config = require('config')
+var request = require('request')
+var Q = require('q')
 
 // Test if cluster mode is enabled
 if (config.node.clusterEnabled && cluster.isMaster) {
@@ -67,11 +69,11 @@ if (config.node.clusterEnabled && cluster.isMaster) {
 
   // use GitHubStrategy with Passport
   passport.use(new GitHubStrategy({
-      clientID: (process.env.GH_CLIENT_ID || config.github.clientID),
-      clientSecret: (process.env.GH_CLIENT_SECRET || config.github.clientSecret),
-      callbackURL: config.github.callbackURL,
-      passReqToCallback: true
-    },
+    clientID: (process.env.GH_CLIENT_ID || config.github.clientID),
+    clientSecret: (process.env.GH_CLIENT_SECRET || config.github.clientSecret),
+    callbackURL: config.github.callbackURL,
+    passReqToCallback: true
+  },
     function (req, accessToken, refreshToken, extProfile, done) {
       passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
     }
@@ -120,7 +122,7 @@ if (config.node.clusterEnabled && cluster.isMaster) {
     }))
   }
   require('./config/express')(app)
-    // ====== routes ======
+  // ====== routes ======
   require('./routes/auth')(app, db, passport)
   require('./routes/config')(app, db, passport)
   require('./routes/numbers')(app, db, passport)
@@ -131,7 +133,7 @@ if (config.node.clusterEnabled && cluster.isMaster) {
   require('./routes/resources')(app, db, passport)
   require('./routes/proxy')(app, db, passport)
   // Angular Routes supporting html5 mode
-  app.all('/*', function(req, res){
+  app.all('/*', function (req, res) {
     res.render('index.html')
   })
 
@@ -152,8 +154,25 @@ function passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
           logger.error(err)
           return done(err, null)
         }
+        var deferred = Q.defer()
+        if (!account) {
+          // create a new account
+          db.createAccount(extProfile, accessToken, refreshToken, function (err, updatedAcct) {
+            if (err) {
+              deferred.reject(err)
+            }
+            db.getAccountByIdentity(extProfile.id, true, function (err, acct) {
+              if (err) {
+                deferred.reject(err)
+              }
+              deferred.resolve(acct)
+            })
+          })
+        } else {
+          deferred.resolve(account)
+        }
 
-        if (account) {
+        deferred.promise.then(function (account) {
 
           // Update token
           var i = 0
@@ -165,23 +184,45 @@ function passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
             i++
           }
 
-          account.save(function (err) {
-            if (err) {
-              logger.error(err)
-              return done(err, null)
+          account.profiles[0].name = extProfile.displayName || extProfile.username
+          account.profiles[0].username = extProfile.username
+
+          var options = {
+            url: 'https://api.github.com/user/emails',
+            headers: {
+              'User-Agent': config.github.clientApplicationName,
+              'Authorization': 'bearer ' + accessToken
+            }
+          }
+          request(options, function (error, response, body) {
+            try {
+              var githubEventsJSON = JSON.parse(body)
+              account.profiles[0].contact.email = githubEventsJSON.map(function (o) {
+                return {
+                  'value': o.email,
+                  'identityOrigin': extProfile.provider
+                }
+              })
+            } catch (ex) {
             }
 
-            account.loggedInContext = extProfile.provider
-            return done(null, account)
-          })
+            account.profiles[0].save(function (err) {
+              if (err) {
+                logger.error(err)
+                return done(err, null)
+              }
+              account.save(function (err) {
+                if (err) {
+                  logger.error(err)
+                  return done(err, null)
+                }
 
-        } else {
-          // create a new account
-          db.createAccount(extProfile, accessToken, refreshToken, function (err, updatedAcct) {
-            updatedAcct.loggedInContext = extProfile.provider
-            return done(null, updatedAcct)
+                account.loggedInContext = extProfile.provider
+                return done(null, account)
+              })
+            })
           })
-        }
+        })
 
       })
 

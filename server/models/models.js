@@ -43,13 +43,16 @@ exports.account = mongoose.model('Account', new mongoose.Schema({
 exports.profile = mongoose.model('Profile', new mongoose.Schema({
   type: String, // Individual or Organization
   name: attributeOriginDef, // display name for profile
+  username: String,
   visible: Boolean,
   contact: {
-    email: attributeOriginDef
+    email: [attributeOriginDef]
   },
   contactPreferences: {
-    notifyMeOfAllUpdates: Boolean
+    notifyMeOfAllUpdates: Boolean 
   }
+},{
+  strict: false
 }))
 
 // schemaless schemas
