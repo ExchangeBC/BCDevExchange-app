@@ -69,6 +69,10 @@ module.exports = function (grunt) {
       }
     },
     watch: {
+      wireDep:{
+          files:['bower.json'],
+          tasks: ['wiredep']
+      },
       injectJS: {
         files: [
           '<%= yeoman.client %>/{app,components}/**/*.js',

@@ -15,6 +15,10 @@ See the License for the specific language governing permissions and limitations 
 // Declare app level module which depends on views, and components
 'use strict'
 require('ng-infinite-scroll')
+require('angular-ui-bootstrap')
+require('angular-route')
+require('angular-resource')
+require('angular-spinner')
 var app = angular.module('bcdevxApp', [
     'ngRoute',
     'bcdevxApp.home',

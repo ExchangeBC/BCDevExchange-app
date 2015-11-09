@@ -7,6 +7,10 @@
   "license": "Apache-2.0",
   "main": "server/app.js",
   "dependencies": {
+    "angular-resource": "^1.4.7",
+    "angular-route": "^1.4.7",
+    "angular-spinner": "^0.8.0",
+    "angular-ui-bootstrap": "^0.14.3",
     "async": "^0.9.0",
     "body-parser": "^1.12.2",
     "bower": "^1.4.x",
@@ -126,7 +130,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "postinstall": "bower install",
+    "postinstall": "bower prune && bower install",
     "prestart": "npm install",
     "start": "node server/app.js",
     "test": "grunt test",
