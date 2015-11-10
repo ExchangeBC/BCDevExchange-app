@@ -14,9 +14,9 @@
 
 module.exports = function (app, db, passport) {
   var config = require('config')
-  app.get("/api/mail/action/:action",
+  app.post("/api/mail",
     function (req, res) {
-      if (req.isAuthenticated() && req.params.action === 'lab') {
+      if (req.isAuthenticated() && req.body.action === 'lab') {
         try {
           var nodemailer = require('nodemailer');
           var transporter = nodemailer.createTransport();
@@ -24,7 +24,7 @@ module.exports = function (app, db, passport) {
           body += req.user.profiles[0].username
           body += req.user.profiles[0].name ? '(' + req.user.profiles[0].name + ')' : ''
           body += " requested access to lab. To grant access, open " 
-            + req.protocol + '://' + req.get('host') + '/lab/admin'
+            + req.protocol + '://' + req.get('host') + '/lab/admin.'
 
           transporter.sendMail({
             from: config.lab.email.sender,

@@ -87,3 +87,6 @@ angular.module('bcdevxApp.services', [])
     }
     return accountService
 }])
+.factory('EmailService', ['$resource', function($resource) {
+    return $resource('/api/mail')
+}])

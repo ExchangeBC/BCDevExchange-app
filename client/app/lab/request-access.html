@@ -12,16 +12,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 -->
 <div class="modal-body text-center">
-    <h3>Request Lab Access</h3><br/>
-    By submitting the request, you agree ...
+  <h3>Request Lab Access</h3><br/>
+  <div id="lab-request-message"><h4>By submitting the request, you agree</h4>
+    <div ng-include="'/app/disclaimer/disclaimer.html'" style='width:100%; max-height: 200px; display: inline-block; overflow: auto'/>
+  </div>
 </div>
 <div class="modal-footer">
-    <p>
-        <button type="cancel" ng-click="ok()" class="btn btn-primary">
-            Submit Request
-        </button>
-        <button type="cancel" ng-click="submit()" class="btn btn-primary">
-            Cancel
-        </button>
-    </p>
+  <p>
+    <button id="lab-request-submit" type="cancel" ng-click="submit()" class="btn btn-primary">
+      Agree and Submit Request
+    </button>
+    <button id="lab-request-cancel" type="cancel" ng-click="cancel()" class="btn btn-primary">
+      Cancel
+    </button>
+  </p>
 </div>

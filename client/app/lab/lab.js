@@ -12,7 +12,7 @@
  See the License for the specific language governing permissions and limitations under the License.
  */
 
-angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource'])
+angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
   .controller('LabCtrl', ['$scope', '$uibModal', function ($scope, $uibModal) {
       $scope.requestAccess = function () {
         $uibModal.open({
@@ -21,11 +21,20 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource'])
         })
       }
     }])
-  .controller('LabModalInstanceCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
-      $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel')
-      }
-      $scope.submit = function () {
-        $uibModalInstance.dismiss('submit')
-      }
-    }])
+  .controller('LabModalInstanceCtrl', ['$scope', '$uibModalInstance'
+      , 'EmailService', function ($scope, $uibModalInstance, EmailService) {
+        $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel')
+        }
+        $scope.submit = function () {
+          EmailService.save({'action':'lab'}, function(){
+            $('#lab-request-message').html('Request sent.')
+            $('#lab-request-submit').hide()
+            $('#lab-request-cancel').html('Ok')
+          },function(){
+            $('#lab-request-message').html('Error sending request. Please try later.')
+            $('#lab-request-submit').hide()
+            $('#lab-request-cancel').html('Ok')
+          })
+        }
+      }])
