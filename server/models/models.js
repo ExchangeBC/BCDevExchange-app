@@ -24,6 +24,7 @@ var attributeOriginDef = {
 
 exports.account = mongoose.model('Account', new mongoose.Schema({
   loggedInContext: String,
+  labRequestStatus: String,
   identities: [{
     origin: String, // GitHub or LinkedIn
     identifier: String, // User's identifier from origin
