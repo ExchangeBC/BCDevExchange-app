@@ -34,7 +34,7 @@ angular.module('bcdevxApp.auth', ['ngRoute', 'bcdevxApp.services'])
 
     return service
 }])
-.controller('LoginModalCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
+.controller('LoginModalCtrl', ['$scope', '$uibModalInstance', function($scope, $modalInstance) {
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel')

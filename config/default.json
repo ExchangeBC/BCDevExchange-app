@@ -196,5 +196,11 @@ The local files are intended to not be tracked in your version control system. E
     "consumer_secret": "twitter_consumer_secret",
     "access_token_key": "twitter_access_token_key",
     "access_token_secret": "twitter_access_token_secret"
+  },
+  "lab": {
+    "email":{
+      "sender": "nobody@bcdevexchange.org",
+      "recipients": []
+    }
   }
 }

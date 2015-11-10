@@ -23,7 +23,7 @@ angular.module('bcdevxApp.auth')
         templateUrl: '/app/login/login-list.html',
 
 
-        controller: ['$scope', '$rootScope', '$modal', 'AuthService',
+        controller: ['$scope', '$rootScope', '$uibModal', 'AuthService',
             function (scope, rootScope, $modal, AuthService) {
 
             var vm = this

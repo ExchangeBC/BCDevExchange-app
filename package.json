@@ -36,6 +36,7 @@
     "morgan": "~1.0.0",
     "ng-infinite-scroll": "^1.2.0",
     "node-uuid": "^1.4.3",
+    "nodemailer": "^1.9.0",
     "passport": "^0.2.1",
     "passport-github2": "^0.1.9",
     "passport-linkedin-oauth2": "^1.2.1",
