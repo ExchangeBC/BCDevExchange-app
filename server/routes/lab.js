@@ -18,19 +18,22 @@ module.exports = function (app, db, passport) {
   app.post("/api/lab/request",
     function (req, res) {
       if (!req.isAuthenticated()) {
-        return res.sendStatus(403)
+        return res.status(403).end()
       }
       db.getAccountById(req.user._id, false,
         function (err, account) {
           if (err) {
             logger.error(err)
-            return res.sendStatus(500)
+            return res.status(500).end()
+          }
+          if(account.labRequestStatus){
+            return res.status(403).send('You have previously sent a request. There is no need to resend.')
           }
           account.labRequestStatus = "pending"
           account.save(function (err) {
             if (err) {
               logger.error(err)
-              return res.sendStatus(500)
+              return res.status(500).end()
             }
             try {
               var nodemailer = require('nodemailer');
@@ -38,9 +41,8 @@ module.exports = function (app, db, passport) {
               var body = 'Hello,\n'
               body += req.user.profiles[0].username
               body += req.user.profiles[0].name ? '(' + req.user.profiles[0].name + ')' : ''
-              body += " requested access to lab. To grant access, open "
-                + req.protocol + '://' + req.get('host') + '/lab/admin.'
-
+              body += ' requested access to lab. To grant access, open '
+                + req.protocol + '://' + req.get('host') + '/lab/admin. If you cannot find the user in the approval pending list, chances are another site administrator has handled the request.'
               transporter.sendMail({
                 from: config.lab.email.sender,
                 to: config.lab.email.recipients.toString(),
@@ -49,7 +51,7 @@ module.exports = function (app, db, passport) {
               });
               return res.sendStatus(200)
             } catch (ex) {
-              return res.sendStatus(500)
+              return res.status(500).end()
             }
           })
         })

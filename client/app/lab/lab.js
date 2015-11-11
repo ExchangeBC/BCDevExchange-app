@@ -12,27 +12,44 @@
  See the License for the specific language governing permissions and limitations under the License.
  */
 
-angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource'])
-  .controller('LabCtrl', ['$scope', '$uibModal', function ($scope, $uibModal) {
+angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
+  .controller('LabCtrl', ['$scope', '$uibModal', 'AccountService', function ($scope, $uibModal, AccountService) {
+      AccountService.getCurrentUser().then(
+        function (cu) {
+          if (!cu.data.labRequestStatus) {
+            $scope.showRequestButton = true
+          }
+          if (cu.data.labRequestStatus === 'pending') {
+            $scope.showRequestPendingMsg = true
+          }
+        }
+      )
       $scope.requestAccess = function () {
         $uibModal.open({
           templateUrl: '/app/lab/request-access.html',
-          controller: 'LabModalInstanceCtrl'
+          controller: 'LabModalInstanceCtrl',
+          resolve: {
+            parentScope: function () {
+              return $scope
+            }
+          }
         })
       }
     }])
-  .controller('LabModalInstanceCtrl', ['$scope', '$uibModalInstance', '$resource'
-      , function ($scope, $uibModalInstance, $resource) {
+  .controller('LabModalInstanceCtrl', ['$scope', '$uibModalInstance', '$resource', 'parentScope'
+      , function ($scope, $uibModalInstance, $resource, parentScope) {
         $scope.cancel = function () {
           $uibModalInstance.dismiss('cancel')
         }
         $scope.submit = function () {
           $resource('/api/lab/request').save(function () {
             $('#lab-request-message').html('Request sent.')
+            parentScope.showRequestButton = false
+            parentScope.showRequestPendingMsg = true
             $('#lab-request-submit').hide()
             $('#lab-request-cancel').html('Ok')
-          }, function () {
-            $('#lab-request-message').html('Error sending request. Please try later.')
+          }, function (err) {
+            $('#lab-request-message').html(err.data || 'Error sending request. Please try later.')
             $('#lab-request-submit').hide()
             $('#lab-request-cancel').html('Ok')
           })

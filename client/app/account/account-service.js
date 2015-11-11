@@ -28,6 +28,7 @@ angular.module('bcdevxApp.services', [])
 
       actPromise.then(
         function (data) {
+          currentUser.data = data
           if (!!data.profiles) {
             currentUser.displayName = data.profiles[0].name.value
             currentUser.id = data._id

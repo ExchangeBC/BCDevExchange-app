@@ -141,7 +141,8 @@ See the License for the specific language governing permissions and limitations 
           downloadable from a public git repository.
           The service is powered by Jenkins supporting CI.
           <br/>
-          <button class='btn btn-primary' ng-click='requestAccess()'>Request Access</button>
+          <button ng-show='showRequestButton' class='btn btn-primary' ng-click='requestAccess()'>Request Access</button>
+          <uib-alert ng-show='showRequestPendingMsg'>You request is pending approval.</uib-alert>
         </section>
       </div>
     </div>
