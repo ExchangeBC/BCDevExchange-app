@@ -37,6 +37,7 @@ module.exports = function(app) {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')))
     app.use("/embedded/swagger-editor", express.static(path.normalize(__dirname + '/../../../node_modules/swagger-editor-src/dist')))
     app.use(express.static(path.join(config.root, 'public')))
+    app.use('/node_modules', express.static(path.normalize(__dirname + '/../../../node_modules')))
     app.set('appPath', config.root + '/public')
     app.use(morgan('dev'))
   }
@@ -45,6 +46,7 @@ module.exports = function(app) {
     app.use(require('connect-livereload')())
     app.use("/embedded/swagger-editor", express.static(path.normalize(__dirname + '/../../node_modules/swagger-editor-src/.tmp')))
     app.use("/embedded/swagger-editor", express.static(path.normalize(__dirname + '/../../node_modules/swagger-editor-src/app')))
+    app.use('/node_modules', express.static(path.normalize(__dirname + '/../../node_modules')))
     app.use(express.static(path.join(config.root, '.tmp')))
     app.use(express.static(path.join(config.root, 'client')))
     app.set('appPath', 'client')

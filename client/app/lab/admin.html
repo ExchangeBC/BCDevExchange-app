@@ -11,6 +11,11 @@ Unless required by applicable law or agreed to in writing, software distributed 
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 -->
-<ul class="table-bordered">
-  <li class="resource" ng-repeat="user in pendingUsers">{{user.profiles[0].username}}</li>
-</ul>
+
+<div id="grid1" ui-grid="gridOptions" class="grid"></div>
+<style type = "text/css" scoped>
+  .lab-admin-emails {
+    height:100%;
+    overflow: auto;
+  }
+</style>

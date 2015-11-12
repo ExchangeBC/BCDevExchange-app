@@ -11,8 +11,7 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and limitations under the License.
  */
-
-angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
+angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services', 'ui.grid'])
   .controller('LabCtrl', ['$scope', '$uibModal', 'AccountService', function ($scope, $uibModal, AccountService) {
       AccountService.getCurrentUser().then(
         function (cu) {
@@ -56,13 +55,29 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
         }
       }])
   .controller('LabAdminCtrl', ['$scope', 'AccountService', '$location', function ($scope, AccountService, $location) {
+      $scope.gridOptions = {
+        columnDefs: [
+          {field: 'User Name'},
+          {field: 'Emails', name: 'Emails', cellTemplate: '<div class="lab-admin-emails"><div ng-repeat="item in row.entity[col.field]">{{item}}</div></div>'},
+          {field: 'Approval Status'}
+        ],
+        rowHeight: 50
+      }
       AccountService.getCurrentUser().then(
         function (cu) {
           if (!cu.siteAdmin) {
             $location.path('/home')
           }
-          AccountService.query({q: {labRequestStatus:'pending'}}, function(accts){
-            $scope.pendingUsers = accts
+          AccountService.query({q: {labRequestStatus: 'pending'}}, function (accts) {
+            $scope.gridOptions.data = accts.map(function (e, i, a) {
+              return {
+                'User Name': e.profiles[0].username,
+                'Emails': e.profiles[0].contact.email.map(function (e, i, a) {
+                  return e.value
+                }),
+                'Approval Status': e.labRequestStatus
+              }
+            })
           })
         },
         function () {
