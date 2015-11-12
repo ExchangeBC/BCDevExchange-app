@@ -55,3 +55,15 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
           })
         }
       }])
+  .controller('LabAdminCtrl', ['$scope', 'AccountService', '$location', function ($scope, AccountService, $location) {
+      AccountService.getCurrentUser().then(
+        function (cu) {
+          if (!cu.siteAdmin) {
+            $location.path('/home')
+          }
+        },
+        function () {
+          $location.path('/home')
+        }
+      )
+    }])

@@ -105,6 +105,10 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider',
         templateUrl: '/app/lab/lab.html',
         controller: 'LabCtrl'
       })
+      .when('/lab/admin', {
+        templateUrl: '/app/lab/admin.html',
+        controller: 'LabAdminCtrl'
+      })
       .when('/resources', {
         templateUrl: '/app/resources/resources.html',
         controller: 'ResourcesCtrl'
