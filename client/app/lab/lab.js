@@ -61,6 +61,9 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
           if (!cu.siteAdmin) {
             $location.path('/home')
           }
+          AccountService.query({q: {labRequestStatus:'pending'}}, function(accts){
+            $scope.pendingUsers = accts
+          })
         },
         function () {
           $location.path('/home')

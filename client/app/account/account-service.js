@@ -14,9 +14,9 @@ See the License for the specific language governing permissions and limitations 
 'use strict'
 angular.module('bcdevxApp.services', [])
   .factory('AccountService', ['$resource', '$q', function ($resource, $q) {
-    var accountService = this
     var accountUrl = '/api/account'
     var accountCheckUrl = '/api/accountCheck'
+    var accountService = $resource(accountUrl)
       /*
         Returns a promise, when resolved with empty object, indicating no authenticated user found.
        */

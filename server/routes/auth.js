@@ -111,7 +111,7 @@ module.exports = function (app, db, passport) {
   // GET /auth/github
   // use passport.authenticate() as route middleware to authenticate the request
   app.get('/auth/github', function (req, res, next) {
-    if(req.get('Referer') && !req.get('Referer').match(/\/signup$/i)){ 
+    if (req.get('Referer') && !req.get('Referer').match(/\/signup$/i)) {
       req.session.auth_redirect = req.get('Referer')
     }
     next()
@@ -171,7 +171,19 @@ module.exports = function (app, db, passport) {
   })
 
   app.get('/api/account', ensureAuthenticated, function (req, res) {
-    populateAccount(req, res, req.user._id, db, config, logger)
+    if (!req.query.q) {
+      populateAccount(req, res, req.user._id, db, config, logger)
+    } else {
+      if (!req.user.siteAdmin) {
+        return res.sendStatus(403)
+      }
+      db.queryAccounts(JSON.parse(req.query.q), function (err, accts) {
+        if (err) {
+          return res.sendStatus(500)
+        }
+        res.send(accts)
+      })
+    }
   })
   app.get('/api/accountCheck', function (req, res) {
     if (req.isAuthenticated()) {
