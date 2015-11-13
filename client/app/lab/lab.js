@@ -16,7 +16,15 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
       AccountService.getCurrentUser().then(
         function (cu) {
           if (!cu.data.labRequestStatus) {
-            $scope.showRequestButton = true
+            if (cu.siteAdmin) {
+              $scope.showRequestButton = true
+            } else {
+              AccountService.query({q: 'isAProgramOwner'}, function (res) {
+                if (res.length > 0 && res[0]) {
+                  $scope.showRequestButton = true
+                }
+              })
+            }
           }
           if (cu.data.labRequestStatus === 'pending') {
             $scope.showRequestPendingMsg = true

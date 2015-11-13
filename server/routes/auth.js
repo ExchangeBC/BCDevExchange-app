@@ -184,6 +184,10 @@ module.exports = function (app, db, passport) {
   app.get('/api/account', ensureAuthenticated, function (req, res) {
     if (!req.query.q) {
       populateAccount(req, res, req.user._id, db, config, logger)
+    } else if (req.query.q === 'isAProgramOwner') {
+      db.getPrograms({editors: req.user._id}).then(function (data) {
+        res.send([data.length > 0])
+      })
     } else {
       if (!req.user.siteAdmin) {
         return res.sendStatus(403)

@@ -74,7 +74,7 @@ exports.getAccountByIdEx = function (accountId, populateProfiles, isLean, callba
   if (populateProfiles) {
     query = query.populate('profiles')
   }
-  if(isLean){
+  if (isLean) {
     query = query.lean()
   }
   query.exec(function (err, output) {
@@ -201,9 +201,21 @@ exports.countDualAccounts = function (callback) {
   })
 }
 
-exports.getPrograms = function (cb) {
+exports.getPrograms = function () {
+  var q = {}, cb
+  if (arguments.length > 0) {
+    var theArg = Array.prototype.pop.apply(arguments)
+    if (typeof theArg === "function") {
+      cb = theArg
+      if (arguments.length > 0) {
+        q = arguments[0]
+      }
+    } else {
+      q = theArg
+    }
+  }
   var deferred = Q.defer()
-  models.program.find().select('-_id -__v').lean().exec(function (err, res) {
+  models.program.find(q).select('-_id -__v').lean().exec(function (err, res) {
     if (err)
       deferred.reject(err)
     else
