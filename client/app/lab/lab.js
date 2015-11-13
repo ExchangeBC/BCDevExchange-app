@@ -15,6 +15,7 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
   .controller('LabCtrl', ['$scope', '$uibModal', 'AccountService', function ($scope, $uibModal, AccountService) {
       AccountService.getCurrentUser().then(
         function (cu) {
+          $scope.cu = cu
           if (!cu.data.labRequestStatus) {
             if (cu.siteAdmin) {
               $scope.showRequestButton = true
@@ -26,15 +27,12 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
               })
             }
           }
-          if (cu.data.labRequestStatus === 'pending') {
-            $scope.showRequestPendingMsg = true
-          }
         }
       )
       $scope.requestAccess = function () {
         $uibModal.open({
           templateUrl: '/app/lab/request-access.html',
-          controller: 'LabModalInstanceCtrl',
+          controller: 'LabModalRequestCtrl',
           resolve: {
             parentScope: function () {
               return $scope
@@ -43,7 +41,7 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
         })
       }
     }])
-  .controller('LabModalInstanceCtrl', ['$scope', '$uibModalInstance', '$resource', 'parentScope'
+  .controller('LabModalRequestCtrl', ['$scope', '$uibModalInstance', '$resource', 'parentScope'
       , function ($scope, $uibModalInstance, $resource, parentScope) {
         $scope.cancel = function () {
           $uibModalInstance.dismiss('cancel')
@@ -63,7 +61,7 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
         }
       }])
   .controller('LabAdminCtrl', ['$scope', 'AccountService', '$location', 'usSpinnerService', function ($scope, AccountService, $location, usSpinnerService) {
-      $scope.usersLoaded = false
+      $scope.dataLoaded = false
       $scope.alerts = []
       AccountService.getCurrentUser().then(
         function (cu) {
@@ -71,7 +69,7 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
             $location.path('/home')
           }
           AccountService.query({q: {labRequestStatus: {$ne: null}}}, function (accts) {
-            $scope.usersLoaded = true
+            $scope.dataLoaded = true
             usSpinnerService.stop('spinner-users')
             $scope.labUsers = accts
           })
@@ -95,5 +93,4 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
       $scope.closeAlert = function (index) {
         $scope.alerts.splice(index, 1)
       }
-
     }])

@@ -142,7 +142,9 @@ See the License for the specific language governing permissions and limitations 
           The service is powered by Jenkins supporting CI.
           <br/>
           <button ng-show='showRequestButton' class='btn btn-primary' ng-click='requestAccess()'>Request Access</button>
-          <uib-alert ng-show='showRequestPendingMsg'>You request is pending approval.</uib-alert>
+          <uib-alert ng-show="cu.data.labRequestStatus === 'pending'">You request is pending approval.</uib-alert>
+          <div ng-show="cu.data.labRequestStatus === 'approved'" ng-include="'/app/lab/user-instances.html'" >
+          </div>
         </section>
       </div>
     </div>
