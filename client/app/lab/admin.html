@@ -11,11 +11,70 @@ Unless required by applicable law or agreed to in writing, software distributed 
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 -->
+<div class="container">
+  <div class="row page-header">
+    <div class="col-lg-12">
+      <h1>Lab User Admin</h1>
+    </div>
+  </div>
+  <div class="resource-list row">
+    <div class="col-lg-12">
+      <form>
+        <div class="form-inline">
+          <div class="form-group">
+            <label class="sr-only" for="query_search">Search for keywords</label>
+            <input type="text" placeholder="Search for keywords" class="form-control" id="query_search" ng-model="query" />
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <span ng-show="predicateTitle == ''">Sort by</span><span class="source-name" ng-bind="predicateTitle"></span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="" ng-click="predicate = 'profiles[0].username'; predicateTitle = 'Username A-Z'">Username A-Z</a></li>
+                <li><a href="" ng-click="predicate = '-profiles[0].username'; predicateTitle = 'Username Z-A'">Username Z-A</a></li>
+                <li><a href="" ng-click="predicate = 'labRequestStatus'; predicateTitle = 'Approval Status A-Z'">Approval Status Z-A</a></li>
+                <li><a href="" ng-click="predicate = '-labRequestStatus'; predicateTitle = 'Approval Status Z-A'">Approval Status Z-A</a></li>
+              </ul>
+            </div>
+            <input type="reset" class="btn btn-default" value="Reset" ng-click="selectedSource = ''; selectedSourceTitle = ''; query = ''; predicate = ''; predicateTitle = '';" />
+          </div>
+          <div class="clearfix">
+            <ng-pluralize class="pull-left" ng-show="filtered.length > 0" count="filtered.length"
+                          when="{'0': '',
+                          '1': '1 result',
+                          'other': '{{filtered.length}} results'}">
+            </ng-pluralize>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-lg-12">
+      <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><span ng-bind-html="alert.msg"></span></alert>
+      <uib-alert>Please note: no email is sent when you take any action on a user. 
+      </uib-alert>
 
-<div id="grid1" ui-grid="gridOptions" class="grid"></div>
-<style type = "text/css" scoped>
-  .lab-admin-emails {
-    height:100%;
-    overflow: auto;
-  }
-</style>
+    </div>
+    <div class="col-md-12">
+      <ul class="resource-list list-unstyled table-bordered">
+        <span us-spinner="{radius:30, width:6, length: 18}" spinner-key="spinner-users" spinner-start-active="true"></span>
+        <li class="resource" ng-repeat="labUser in filtered = (labUsers| filter:query | orderBy: (predicate||'-labRequestStatus'))">
+          <div class="row">
+            <div class="col-md-9 col-lg-10">
+              <h3 ng-bind-html="labUser.profiles[0].username + ' ' + (labUser.profiles[0].name?'(' + labUser.profiles[0].name + ')':'') | highlight:query"></h3>
+              <p>Emails: <span ng-bind-html="concatedEmails(labUser) | highlight:query"/></p>
+              <p>Approval Status: <span ng-bind-html="labUser.labRequestStatus | highlight:query"/></p>
+            </div>
+            <div class="col-md-3 col-lg-2">
+              <button ng-hide="labUser.labRequestStatus === 'approved'" class="btn btn-primary btn-block" ng-click="changeApprovalStatus(labUser, 'approved')">Approve</button>
+              <button ng-hide="labUser.labRequestStatus === 'disapproved'" class="btn btn-primary btn-block" ng-click="changeApprovalStatus(labUser, 'disapproved')">Disapprove</button>
+            </div>
+          </div>
+        </li>
+        <li ng-show="filtered.length == 0 && usersLoaded && query" class="empty">
+          <div class="col-md-12">
+            No results for "{{ query}}".
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

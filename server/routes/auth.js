@@ -170,6 +170,17 @@ module.exports = function (app, db, passport) {
     populateAccount(req, res, req.params.id, db, config, logger)
   })
 
+  app.patch('/api/account/:id', ensureAuthenticated, function (req, res) {
+    if (!req.user.siteAdmin) {
+      return res.sendStatus(403)
+    }
+    db.updateAccount(req.params.id, req.body).then(function () {
+      res.end()
+    }, function () {
+      res.sendStatus(500)
+    })
+  })
+
   app.get('/api/account', ensureAuthenticated, function (req, res) {
     if (!req.query.q) {
       populateAccount(req, res, req.user._id, db, config, logger)

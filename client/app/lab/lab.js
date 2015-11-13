@@ -11,7 +11,7 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and limitations under the License.
  */
-angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services', 'ui.grid'])
+angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
   .controller('LabCtrl', ['$scope', '$uibModal', 'AccountService', function ($scope, $uibModal, AccountService) {
       AccountService.getCurrentUser().then(
         function (cu) {
@@ -54,34 +54,38 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services', 
           })
         }
       }])
-  .controller('LabAdminCtrl', ['$scope', 'AccountService', '$location', function ($scope, AccountService, $location) {
-      $scope.gridOptions = {
-        columnDefs: [
-          {field: 'User Name'},
-          {field: 'Emails', name: 'Emails', cellTemplate: '<div class="lab-admin-emails"><div ng-repeat="item in row.entity[col.field]">{{item}}</div></div>'},
-          {field: 'Approval Status'}
-        ],
-        rowHeight: 50
-      }
+  .controller('LabAdminCtrl', ['$scope', 'AccountService', '$location', 'usSpinnerService', function ($scope, AccountService, $location, usSpinnerService) {
+      $scope.usersLoaded = false
+      $scope.alerts = []
       AccountService.getCurrentUser().then(
         function (cu) {
           if (!cu.siteAdmin) {
             $location.path('/home')
           }
-          AccountService.query({q: {labRequestStatus: 'pending'}}, function (accts) {
-            $scope.gridOptions.data = accts.map(function (e, i, a) {
-              return {
-                'User Name': e.profiles[0].username,
-                'Emails': e.profiles[0].contact.email.map(function (e, i, a) {
-                  return e.value
-                }),
-                'Approval Status': e.labRequestStatus
-              }
-            })
+          AccountService.query({q: {labRequestStatus: {$ne: null}}}, function (accts) {
+            $scope.usersLoaded = true
+            usSpinnerService.stop('spinner-users')
+            $scope.labUsers = accts
           })
         },
         function () {
           $location.path('/home')
         }
       )
+      $scope.concatedEmails = function (acct) {
+        return acct.profiles[0].contact.email.map(function (e) {
+          return e.value
+        }).join(', ')
+      }
+      $scope.changeApprovalStatus = function (acct, status) {
+        AccountService.update({id: acct._id}, {labRequestStatus: status}, function () {
+          acct.labRequestStatus = status
+        }, function (err) {
+          $scope.alerts.push({type: 'warning', msg: 'There was an error accessing data <strong>' + JSON.stringify(err) + '</strong>.'})
+        })
+      }
+      $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1)
+      }
+
     }])
