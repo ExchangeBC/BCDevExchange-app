@@ -14,9 +14,9 @@
 'use strict'
 angular.module('bcdevxApp.services', [])
   .factory('AccountService', ['$resource', '$q', function ($resource, $q) {
-      var accountUrl = '/api/account/:id'
+      var accountUrl = '/api/account'
       var accountCheckUrl = '/api/accountCheck'
-      var accountService = $resource(accountUrl, {id: '@_id'}, {
+      var accountService = $resource(accountUrl + '/:id', {id: '@_id'}, {
         update: {
           method: 'PATCH'
         }})
