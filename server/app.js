@@ -15,8 +15,7 @@
 'use strict'
 var cluster = require('cluster')
 var config = require('config')
-var request = require('request')
-var Q = require('q')
+var auth = require('./routes/auth')
 
 // Test if cluster mode is enabled
 if (config.node.clusterEnabled && cluster.isMaster) {
@@ -75,7 +74,7 @@ if (config.node.clusterEnabled && cluster.isMaster) {
     passReqToCallback: true
   },
     function (req, accessToken, refreshToken, extProfile, done) {
-      passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
+      auth.passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
     }
   ))
 
@@ -89,7 +88,7 @@ if (config.node.clusterEnabled && cluster.isMaster) {
     scope: ['r_fullprofile'],
     state: true
   }, function (req, accessToken, refreshToken, extProfile, done) {
-    passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
+    auth.passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
   }))
 
 
@@ -123,7 +122,7 @@ if (config.node.clusterEnabled && cluster.isMaster) {
   }
   require('./config/express')(app)
   // ====== routes ======
-  require('./routes/auth').routes(app, db, passport)
+  auth.routes(app, db, passport)
   require('./routes/config')(app, db, passport)
   require('./routes/numbers')(app, db, passport)
   require('./routes/people')(app, db, passport)
@@ -141,158 +140,4 @@ if (config.node.clusterEnabled && cluster.isMaster) {
   app.listen(app.get('port'), function () {
     logger.info("Node app is running on port " + app.get('port'))
   })
-}
-
-function passportStrategySetup(req, accessToken, refreshToken, extProfile, done) {
-
-  if (!req.user) {
-    // not logged in
-    // look for existing account
-
-    db.getAccountByIdentity(extProfile.id, true,
-      function (err, account) {
-        if (err) {
-          logger.error(err)
-          return done(err, null)
-        }
-        var deferred = Q.defer()
-        if (!account) {
-          // create a new account
-          db.createAccount(extProfile, accessToken, refreshToken, function (err, updatedAcct) {
-            if (err) {
-              deferred.reject(err)
-            }
-            db.getAccountByIdentity(extProfile.id, true, function (err, acct) {
-              if (err) {
-                deferred.reject(err)
-              }
-              deferred.resolve(acct)
-            })
-          })
-        } else {
-          deferred.resolve(account)
-        }
-
-        deferred.promise.then(function (account) {
-
-          // Update token
-          var i = 0
-          while (i < account.identities.length) {
-            if (account.identities[i].identifier === extProfile.id) {
-              account.identities[i].accessToken = accessToken
-              account.identities[i].refreshToken = refreshToken
-            }
-            i++
-          }
-
-          account.profiles[0].name = extProfile.displayName || extProfile.username
-          account.profiles[0].username = extProfile.username
-
-          var options = {
-            url: 'https://api.github.com/user/emails',
-            headers: {
-              'User-Agent': config.github.clientApplicationName,
-              'Authorization': 'bearer ' + accessToken
-            }
-          }
-          request(options, function (error, response, body) {
-            try {
-              var githubEventsJSON = JSON.parse(body)
-              account.profiles[0].contact.email = githubEventsJSON.map(function (o) {
-                return {
-                  'value': o.email,
-                  'identityOrigin': extProfile.provider
-                }
-              })
-            } catch (ex) {
-            }
-
-            account.profiles[0].save(function (err) {
-              if (err) {
-                logger.error(err)
-                return done(err, null)
-              }
-              account.save(function (err) {
-                if (err) {
-                  logger.error(err)
-                  return done(err, null)
-                }
-
-                account.loggedInContext = extProfile.provider
-                return done(null, account)
-              })
-            })
-          })
-        })
-
-      })
-
-  } else {
-    // logged in
-    // associate new identity to existing account
-    // or merge identities if necessary
-
-    var loggedInContext = req.user.loggedInContext
-
-    db.getAccountById(req.user._id, false,
-      function (err, account) {
-        if (err) {
-          logger.error(err)
-          return done(err, null)
-        }
-
-        if (account) {
-
-          db.addIdentity(account, extProfile, accessToken, refreshToken, function (err, updatedAcct) {
-            updatedAcct.loggedInContext = loggedInContext
-
-
-            // check if a different account exists associated to the identity the user just logged in with
-            db.getAccountByIdentity(extProfile.id, true,
-              function (err, otherAcct) {
-                if (err) {
-                  logger.error(err)
-                  return done(err, null)
-                }
-
-                if (otherAcct && otherAcct.id !== updatedAcct.id) {
-                  // need to remove this account object
-                  var profiles = otherAcct.profiles
-                  otherAcct.remove(function (err, removedAcct) {
-                    if (err) {
-                      logger.error(err)
-                      return done(err, null)
-                    }
-
-                    async.each(profiles, function (profile, callback) {
-                      profile.remove(function (err, pr) {
-                        if (err) {
-                          callback(err)
-                        }
-                        callback()
-                      })
-                    }, function (err) {
-                      if (err) {
-                        logger.error(err)
-                        return done(err, null)
-                      }
-
-                      return done(null, updatedAcct)
-                    })
-
-                  })
-
-                } else {
-                  // no account found
-                  return done(null, updatedAcct)
-                }
-              })
-          })
-
-        } else {
-          // this shouldn't happen
-          // TODO return error
-        }
-      })
-  }
 }
