@@ -16,18 +16,18 @@ var config = require('config')
 var logger = require('../../common/logging.js').logger
 var request = require('request')
 
-module.exports = function (app, db, passport) {
-
-  // simple route middleware to ensure user is authenticated
-  // use this route middleware on any resource that needs to be protected
-  // if the request is authenticated the request will proceed
-  function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next()
-    } else {
-      res.sendStatus(401)
-    }
+// simple route middleware to ensure user is authenticated
+// use this route middleware on any resource that needs to be protected
+// if the request is authenticated the request will proceed
+var ensureAuthenticated = exports.ensureAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  } else {
+    res.sendStatus(401)
   }
+}
+
+exports.routes = function (app, db, passport) {
 
   function loginCallbackHandler(req, res, logger) {
     var dest = req.session.auth_redirect || ('/account?login=success&id=' + req.user.id)

@@ -123,7 +123,7 @@ if (config.node.clusterEnabled && cluster.isMaster) {
   }
   require('./config/express')(app)
   // ====== routes ======
-  require('./routes/auth')(app, db, passport)
+  require('./routes/auth').routes(app, db, passport)
   require('./routes/config')(app, db, passport)
   require('./routes/numbers')(app, db, passport)
   require('./routes/people')(app, db, passport)

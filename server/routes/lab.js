@@ -12,11 +12,12 @@
  See the License for the specific language governing permissions and limitations under the License.
  */
 
-var logger = require('../../common/logging.js').logger
-var Q = require('q')
-
 module.exports = function (app, db, passport) {
   var config = require('config')
+  var logger = require('../../common/logging.js').logger
+  var Q = require('q')
+  var auth = require('./auth.js')
+
   app.post("/api/lab/request",
     function (req, res) {
       if (!req.isAuthenticated()) {
@@ -72,4 +73,10 @@ module.exports = function (app, db, passport) {
       })
     }
   )
+
+  app.get('/api/lab/instances', auth.ensureAuthenticated, function (req, res, next) {
+    db.getLabInstances({creatorId: req.user._id}).then(function (data) {
+      res.send(data)
+    })
+  })
 }

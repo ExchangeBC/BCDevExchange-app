@@ -315,3 +315,14 @@ exports.updateAccount = function (accountId, accountPatch, cb) {
   })
   return deferred.promise.nodeify(cb)
 }
+
+exports.getLabInstances = function (q, cb) {
+  var deferred = Q.defer()
+  models.labInstance.find(q).lean().exec(function (err, res) {
+    if (err)
+      deferred.reject(err)
+    else
+      deferred.resolve(res)
+  })
+  return deferred.promise.nodeify(cb)
+}

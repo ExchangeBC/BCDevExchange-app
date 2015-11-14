@@ -94,3 +94,20 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
         $scope.alerts.splice(index, 1)
       }
     }])
+  .controller('LabUserInstCtrl', ['$scope', 'LabInstances', '$location', 'usSpinnerService', function ($scope, LabInstances, $location, usSpinnerService) {
+      LabInstances.query(null, function (res) {
+        $scope.labInstances = res
+      })
+    }])
+
+
+angular.module('bcdevxApp.services').factory('LabInstances', ['$resource', function ($resource) {
+    return $resource('/api/lab/instances/:id', {}, {
+      update: {
+        method: 'PATCH'
+      },
+      create: {
+        method: 'POST'
+      }
+    })
+  }])

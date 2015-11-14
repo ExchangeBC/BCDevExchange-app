@@ -66,3 +66,7 @@ exports.number = mongoose.model('Number', new mongoose.Schema({}, {
   strict: false,
   id: false
 }))
+
+exports.labInstance = mongoose.model('LabInstance', new mongoose.Schema({}, {
+  strict: false
+}))
