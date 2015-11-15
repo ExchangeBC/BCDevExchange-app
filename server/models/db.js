@@ -276,6 +276,7 @@ exports.updateProgram = function (programId, programPatch, cb) {
   return deferred.promise.nodeify(cb)
 }
 
+exports.Number = models.number
 exports.deleteProgram = function (programId, cb) {}
 
 exports.getNumber = function (query, cb) {

@@ -20,6 +20,7 @@ var projects = require('./projects')
 var resources = require('./resources')
 var db = require('../models/db')
 var _ = require('lodash')
+var Q = require('q')
 
 var Twitter = require('twitter')
 var twitter_text = require('twitter-text')
@@ -366,65 +367,80 @@ function searchTwitter(searchText, callback) {
         source: 'twitter',
         topic: '#BCDev'
     }).then(function (numberData) {
-        var isFirstIteration = true
-        var newNumberData = {}
-        _.assign(newNumberData, numberData)
-        delete newNumberData._id
-        
-        var _searchTwitter = function (params, cb) {
-            var client = new Twitter({
-                consumer_key: config.twitter.consumer_key,
-                consumer_secret: config.twitter.consumer_secret,
-                access_token_key: config.twitter.access_token_key,
-                access_token_secret: config.twitter.access_token_secret
+        var deferred = Q.defer()
+        if (numberData) {
+            deferred.resolve(numberData)
+        } else {
+            var newNumber = new db.Number({
+                source: 'twitter',
+                topic: '#BCDev',
+                count: 0
             })
-            client.get('search/tweets.json', params, cb)
-        }
-        var searchTwitterCB = function (error, tweets) {
-            if (error) {
-                // We return no error so the async call will continue
-                return callback(null, [])
-            }
-            if (tweets.statuses.length === 0) {
-                return callback(null, newNumberData)
-            }
-            newNumberData.count += tweets.statuses.length
-            if (isFirstIteration) {
-                isFirstIteration = false
-                newNumberData.to_id = tweets.search_metadata.max_id_str
-                var tweetList = []
-                for (var i in tweets.statuses) {
-                    var tweet = tweets.statuses[i]
-                    tweetList.push(
-                            {
-                                user: {
-                                    name: tweet.user.name,
-                                    screen_name: tweet.user.screen_name,
-                                    avatar: tweet.user.profile_image_url_https,
-                                    url: 'https://twitter.com/' + tweet.user.screen_name
-                                },
-                                text: twitter_text.autoLink(tweet.text),
-                                url: 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str,
-                                created_at: tweet.created_at
-                            }
-                    )
-                }
-                if (numberData.recentTweets) {
-                    tweetList = tweetList.concat(numberData.recentTweets)
-                }
-                tweetList.splice(15, tweetList.length)
-                newNumberData.recentTweets = tweetList
-            }
-            db.updateNumber(numberData._id, newNumberData).then(function(){
-                if (!tweets.search_metadata.next_results) {
-                    callback(null, newNumberData)
-                } else {
-                    var params = queryString.parse(tweets.search_metadata.next_results)
-                    params.since_id = numberData.to_id
-                    _searchTwitter(params, searchTwitterCB)
-                }
+            newNumber.save(function (err, data) {
+                deferred.resolve(data)
             })
         }
-        _searchTwitter({'q': searchText, 'since_id': numberData.to_id}, searchTwitterCB)
+        deferred.promise.then(function (numberData) {
+            var isFirstIteration = true
+            var newNumberData = {}
+            _.assign(newNumberData, numberData)
+            delete newNumberData._id
+
+            var _searchTwitter = function (params, cb) {
+                var client = new Twitter({
+                    consumer_key: config.twitter.consumer_key,
+                    consumer_secret: config.twitter.consumer_secret,
+                    access_token_key: config.twitter.access_token_key,
+                    access_token_secret: config.twitter.access_token_secret
+                })
+                client.get('search/tweets.json', params, cb)
+            }
+            var searchTwitterCB = function (error, tweets) {
+                if (error) {
+                    // We return no error so the async call will continue
+                    return callback(null, [])
+                }
+                if (tweets.statuses.length === 0) {
+                    return callback(null, newNumberData)
+                }
+                newNumberData.count += tweets.statuses.length
+                if (isFirstIteration) {
+                    isFirstIteration = false
+                    newNumberData.to_id = tweets.search_metadata.max_id_str
+                    var tweetList = []
+                    for (var i in tweets.statuses) {
+                        var tweet = tweets.statuses[i]
+                        tweetList.push(
+                                {
+                                    user: {
+                                        name: tweet.user.name,
+                                        screen_name: tweet.user.screen_name,
+                                        avatar: tweet.user.profile_image_url_https,
+                                        url: 'https://twitter.com/' + tweet.user.screen_name
+                                    },
+                                    text: twitter_text.autoLink(tweet.text),
+                                    url: 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str,
+                                    created_at: tweet.created_at
+                                }
+                        )
+                    }
+                    if (numberData.recentTweets) {
+                        tweetList = tweetList.concat(numberData.recentTweets)
+                    }
+                    tweetList.splice(15, tweetList.length)
+                    newNumberData.recentTweets = tweetList
+                }
+                db.updateNumber(numberData._id, newNumberData).then(function () {
+                    if (!tweets.search_metadata.next_results) {
+                        callback(null, newNumberData)
+                    } else {
+                        var params = queryString.parse(tweets.search_metadata.next_results)
+                        params.since_id = numberData.to_id
+                        _searchTwitter(params, searchTwitterCB)
+                    }
+                })
+            }
+            _searchTwitter({'q': searchText, 'since_id': numberData.to_id}, searchTwitterCB)
+        })
     })
 }

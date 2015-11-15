@@ -11,12 +11,14 @@ Unless required by applicable law or agreed to in writing, software distributed 
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
+
 // Protractor configuration
 // https://github.com/angular/protractor/blob/master/referenceConf.js
 
 'use strict';
 
 exports.config = {
+//  seleniumAddress: 'http://localhost:4444/wd/hub',
   // The timeout for each script run on the browser. This should be longer
   // than the maximum time your application needs to stabilize between tasks.
   allScriptsTimeout: 110000,
@@ -25,9 +27,7 @@ exports.config = {
   // with relative paths will be prepended with this.
   baseUrl: 'http://localhost:' + (process.env.PORT || '9000'),
 
-  // If true, only chromedriver will be started, not a standalone selenium.
-  // Tests for browsers other than chrome will not run.
-  chromeOnly: true,
+  directConnect: true,
 
   // list of files / patterns to load in the browser
   specs: [

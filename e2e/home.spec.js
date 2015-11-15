@@ -11,11 +11,19 @@ Unless required by applicable law or agreed to in writing, software distributed 
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
+'use strict';
+
+describe('Homepage', function() {
+
+    beforeEach(function() {
+        browser.get('/home');
+    });
 
 
 
-{
-  "http": {
-    "port": "PORT"
-  }
-}
+    it('should have BC Developers\' Exchange in the header', function() {
+        var h1 = element(by.tagName('h1'));
+        expect(h1.getText()).toBe('BC Developers\' Exchange');
+    });
+
+});
