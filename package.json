@@ -76,8 +76,8 @@
     "grunt-env": "~0.4.1",
     "grunt-express-server": "^0.5.1",
     "grunt-google-cdn": "^0.4.3",
+    "grunt-jasmine-nodejs": "^1.4.3",
     "grunt-karma": "~0.8.2",
-    "grunt-mocha-test": "~0.10.2",
     "grunt-modernizr": "^0.6.0",
     "grunt-newer": "~0.7.0",
     "grunt-ng-annotate": "^0.2.3",
@@ -119,11 +119,9 @@
     "karma-phantomjs-launcher": "~0.1.4",
     "karma-requirejs": "~0.2.1",
     "karma-script-launcher": "~0.1.0",
-    "load-grunt-tasks": "^3.1.0",
     "open": "~0.0.4",
     "requirejs": "~2.1.11",
     "shelljs": "^0.4.0",
-    "should": "~3.3.1",
     "supertest": "~0.11.0",
     "time-grunt": "~0.3.1"
   },
@@ -131,9 +129,9 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "postinstall": "bower prune && bower install",
+    "postinstall": "npm prune && bower prune && bower install",
     "prestart": "npm install",
-    "start": "node server\/app.js",
+    "start": "node server/app.js",
     "test": "grunt test",
     "install": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
   }
