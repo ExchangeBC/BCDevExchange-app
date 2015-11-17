@@ -88,14 +88,29 @@ module.exports = function (app, db, passport) {
   })
   .post(function (req, res, next) {
     var data = req.body
-    data.creatorId = req.user._id
-    var inst = new db.models.labInstance(data)
-    inst.save(function (err, data) {
-      if (err) {
-        return res.sendStatus(500)
-      }
-      return res.send(data)
-    })
+    if (!data._id) {
+      // create instance
+      data.creatorId = req.user._id
+      var inst = new db.models.labInstance(data)
+      inst.save(function (err, data) {
+        if (err) {
+          return res.sendStatus(500)
+        }
+        return res.send(data)
+      })
+    } else {
+      // update instance
+      var id = data._id
+      delete data._id
+      delete data.__v
+
+      db.models.labInstance.findByIdAndUpdate(id, data, function (err, doc) {
+        if (err) {
+          return res.sendStatus(500)
+        }
+        return res.sendStatus(200)
+      })
+    }
   })
   .delete(function (req, res) {
     db.models.labInstance.findByIdAndRemove(req.params.id, function (err) {

@@ -58,7 +58,7 @@ See the License for the specific language governing permissions and limitations 
               <p>Name: <span ng-bind-html="labInstance.name | highlight:query"/></p>
             </div>
             <div class="col-md-3 col-lg-2">
-              <button class="btn btn-primary btn-block" ng-click="edit(labInstance)">Edit</button>
+              <button class="btn btn-primary btn-block" ng-click="editInstance(labInstance)">Edit</button>
               <button class="btn btn-danger btn-block" ng-click="delete(labInstance)">Delete</button>
             </div>
           </div>
@@ -76,7 +76,7 @@ See the License for the specific language governing permissions and limitations 
       </ul>
     </div>
     <div class="col-sm-12">
-      <button class="btn btn-primary" ng-click="newInstance()">Create New Instance</button>
+      <button class="btn btn-primary" ng-click="editInstance()">Create New Instance</button>
     </div>
   </div>
 </div>

@@ -96,25 +96,28 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
     }
   }])
 .controller('LabUserInstCtrl', ['$scope', 'LabInstances', 'usSpinnerService', '$uibModal', function ($scope, LabInstances, usSpinnerService, $uibModal) {
-    LabInstances.query(null, function (data) {
-      $scope.labInstances = data
-      $scope.instancesLoaded = true
-      usSpinnerService.stop('spinner-instances')
-    }), function () {
-      usSpinnerService.stop('spinner-instances')
+    $scope.queryData = function () {
+      LabInstances.query(null, function (data) {
+        $scope.labInstances = data
+        $scope.instancesLoaded = true
+        usSpinnerService.stop('spinner-instances')
+      }), function () {
+        usSpinnerService.stop('spinner-instances')
+      }
     }
+    $scope.queryData()
     $scope.delete = function (item) {
       item.$delete(function () {
         $scope.labInstances.splice($scope.labInstances.indexOf(item), 1)
       })
     }
-    $scope.newInstance = function () {
+    $scope.editInstance = function (item) {
       $uibModal.open({
         templateUrl: '/app/lab/edit-instance.html',
         controller: 'LabModalInstanceCtrl',
         resolve: {
           item: function () {
-            return undefined
+            return item
           },
           parentScope: function () {
             return $scope
@@ -126,13 +129,19 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
 .controller('LabModalInstanceCtrl', ['$scope', '$uibModalInstance', '$resource', 'item',
   'LabInstances', 'parentScope', function ($scope, $uibModalInstance, $resource, item, LabInstances, parentScope) {
     $scope.modalHeader = (item === undefined ? 'New' : 'Modify') + ' Lab Instance'
-    $scope.item = JSON.parse(JSON.stringify(item || {}))
+    $scope.item = item || {}
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel')
     }
     $scope.submit = function () {
       LabInstances.save($scope.item, function (data) {
-        parentScope.labInstances.push(data)
+        if (!$scope.item._id) {
+          parentScope.labInstances.push(data)
+        }
+        $uibModalInstance.dismiss('done')
+      }, function () {
+        // something wrong; assume failued; requery
+        parentScope.queryData()
         $uibModalInstance.dismiss('done')
       })
     }
@@ -140,12 +149,5 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
 
 
 angular.module('bcdevxApp.services').factory('LabInstances', ['$resource', function ($resource) {
-    return $resource('/api/lab/instances/:id', {id: '@_id'}, {
-      update: {
-        method: 'PATCH'
-      },
-      create: {
-        method: 'POST'
-      }
-    })
+    return $resource('/api/lab/instances/:id', {id: '@_id'})
   }])
