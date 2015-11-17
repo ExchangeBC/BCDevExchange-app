@@ -24,9 +24,27 @@ See the License for the specific language governing permissions and limitations 
       <tbody>
         <tr>
           <td>Name</td>
-          <td>lab-<input ng-model="item.name"
-                     uib-tooltip='identify your web application' tooltip-trigger='focus'
-                     tooltip-placement='bottom' required unique>.bcdevexchange.org</td>
+          <td>https://lab-<input ng-model="item.name"
+                                 uib-tooltip='identify your web application' tooltip-trigger='focus'
+                                 tooltip-placement='bottom' required>.bcdevexchange.org</td>
+        </tr>
+        <tr>
+          <td>GitHub Owner/Repo</td>
+          <td><input ng-model="item.gitHubRepo"
+                     uib-tooltip='repo that contains the Dockerfile' tooltip-trigger='focus'
+                     tooltip-placement='bottom' required></td>
+        </tr>
+        <tr>
+          <td>Git Branch</td>
+          <td><input ng-model="item.gitHubBranch"
+                     uib-tooltip='default to Master' tooltip-trigger='focus'
+                     tooltip-placement='bottom' ></td>
+        </tr>
+        <tr>
+          <td>Path to Dockerfile in the branch</td>
+          <td><input ng-model="item.dockerfilePath"
+                     uib-tooltip='default to /Dockerfile' tooltip-trigger='focus'
+                     tooltip-placement='bottom'></td>
         </tr>
       </tbody></table>
   </div>

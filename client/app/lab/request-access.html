@@ -11,8 +11,12 @@ Unless required by applicable law or agreed to in writing, software distributed 
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 -->
-<div class="modal-body text-center">
-  <h3>Request Lab Access</h3><br/>
+<div class="modal-header">
+  <button type="button" class="close" ng-click="cancel()"
+          aria-hidden="true">&times;</button>
+  <h3>Request Lab Access</h3>
+</div>
+<div class="modal-body">
   <div id="lab-request-message"><h4>By submitting the request, you agree</h4>
     <div ng-include="'/app/disclaimer/disclaimer.html'" style='width:100%; max-height: 200px; display: inline-block; overflow: auto'/>
   </div>
@@ -22,7 +26,7 @@ See the License for the specific language governing permissions and limitations 
     <button id="lab-request-submit" type="cancel" ng-click="submit()" class="btn btn-primary">
       Agree and Submit Request
     </button>
-    <button id="lab-request-cancel" type="cancel" ng-click="cancel()" class="btn btn-primary">
+    <button id="lab-request-cancel" type="cancel" ng-click="cancel()" class="btn btn-warning">
       Cancel
     </button>
   </p>

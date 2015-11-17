@@ -14,22 +14,24 @@
 
 angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
 .controller('LabCtrl', ['$scope', '$uibModal', 'AccountService', function ($scope, $uibModal, AccountService) {
-    AccountService.getCurrentUser().then(
-    function (cu) {
-      $scope.cu = cu
-      if (!cu.data.labRequestStatus) {
-        if (cu.siteAdmin) {
-          $scope.showRequestButton = true
-        } else {
-          AccountService.query({q: 'isAProgramOwner'}, function (res) {
-            if (res.length > 0 && res[0]) {
-              $scope.showRequestButton = true
-            }
-          })
+    $scope.refreshCU = function () {
+      AccountService.getCurrentUser().then(
+      function (cu) {
+        $scope.cu = cu
+        if (!cu.data.labRequestStatus) {
+          if (cu.siteAdmin) {
+            $scope.showRequestButton = true
+          } else {
+            AccountService.query({q: 'isAProgramOwner'}, function (res) {
+              if (res.length > 0 && res[0]) {
+                $scope.showRequestButton = true
+              }
+            })
+          }
         }
-      }
+      })
     }
-    )
+    $scope.refreshCU()
     $scope.requestAccess = function () {
       $uibModal.open({
         templateUrl: '/app/lab/request-access.html',
@@ -51,7 +53,7 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
       $resource('/api/lab/request').save(function () {
         $('#lab-request-message').html('Request sent.')
         parentScope.showRequestButton = false
-        parentScope.showRequestPendingMsg = true
+        parentScope.refreshCU()
         $('#lab-request-submit').hide()
         $('#lab-request-cancel').html('Ok')
       }, function (err) {
