@@ -584,8 +584,8 @@ See the License for the specific language governing permissions and limitations 
 }
 
 .messages-overlay{
-    z-index: 100;
-    opacity: 0.9;
+  z-index: 100;
+  opacity: 0.9;
 }
 
 .cke_editable_inline:hover{
@@ -602,4 +602,14 @@ See the License for the specific language governing permissions and limitations 
   background-color: inherit!important;
   background-image: none!important;
   cursor: auto!important;
+}
+
+.css-form{
+  input.ng-invalid-required:focus,
+    input.ng-invalid-unique:focus,
+    input.ng-invalid-minlength:focus,
+    {
+    border: 2px solid #e9322d;
+    box-shadow: 0 0 6px #f8b9b7;
+  }
 }

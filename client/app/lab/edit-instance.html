@@ -1,0 +1,43 @@
+<!--
+Copyright 2015 Province of British Columbia
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and limitations under the License.
+-->
+<form name="form" class="css-form" novalidate>
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()"
+            aria-hidden="true">&times;</button>
+    <h3>{{modalHeader}}</h3>
+  </div>
+  <div class="modal-body">
+    <table class="table table-striped">
+      <col width="30%">
+      <col width="70%">
+      <tbody>
+        <tr>
+          <td>Name</td>
+          <td><input ng-model="item.name"
+                     tooltip='identify your web application' tooltip-trigger='focus'
+                     tooltip-placement='bottom' required unique>.bcdevexchange.org</td>
+        </tr>
+      </tbody></table>
+  </div>
+  <div class="modal-footer">
+    <p>
+      <button id="lab-instance-submit" ng-click="submit()" class="btn btn-primary" ng-disabled="form.$invalid">
+        Submit
+      </button>
+      <button id="lab-instance-cancel" type="cancel" ng-click="cancel()" class="btn btn-warning">
+        Cancel
+      </button>
+    </p>
+  </div>
+</form>

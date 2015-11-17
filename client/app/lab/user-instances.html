@@ -14,12 +14,12 @@ See the License for the specific language governing permissions and limitations 
 
 <div class="container" ng-controller="LabUserInstCtrl">
   <div class="row page-header">
-    <div class="col-lg-12">
+    <div class="col-sm-12">
       <h1>Your Lab Instances</h1>
     </div>
   </div>
   <div class="resource-list row">
-    <div class="col-lg-12">
+    <div class="col-sm-12">
       <form>
         <div class="form-inline">
           <div class="form-group">
@@ -46,18 +46,16 @@ See the License for the specific language governing permissions and limitations 
         </div>
       </form>
     </div>
-    <div class="col-lg-12">
+    <div class="col-sm-12">
       <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><span ng-bind-html="alert.msg"></span></alert>
     </div>
-    <div class="col-md-12">
+    <div class="col-sm-12">
       <ul class="resource-list list-unstyled table-bordered">
-        <span us-spinner="{radius:30, width:6, length: 18}" spinner-key="spinner-users" spinner-start-active="true"></span>
+        <span us-spinner="{radius:30, width:6, length: 18}" spinner-key="spinner-instances" spinner-start-active="true"></span>
         <li class="resource" ng-repeat="labInstance in filtered = (labInstances| filter:query | orderBy: (predicate||'-labRequestStatus'))">
           <div class="row">
             <div class="col-md-9 col-lg-10">
-              <h3 ng-bind-html="labInstance.profiles[0].username + ' ' + (labInstance.profiles[0].name?'(' + labInstance.profiles[0].name + ')':'') | highlight:query"></h3>
-              <p>Emails: <span ng-bind-html="concatedEmails(labInstance) | highlight:query"/></p>
-              <p>Approval Status: <span ng-bind-html="labInstance.labRequestStatus | highlight:query"/></p>
+              <p>Name: <span ng-bind-html="labInstance.name | highlight:query"/></p>
             </div>
             <div class="col-md-3 col-lg-2">
               <button class="btn btn-primary btn-block" ng-click="edit(labInstance)">Edit</button>
@@ -70,7 +68,15 @@ See the License for the specific language governing permissions and limitations 
             No results for "{{ query}}".
           </div>
         </li>
+        <li ng-show="labInstances.length == 0 && instancesLoaded" class="empty">
+          <div class="col-md-12">
+            No instances available.
+          </div>
+        </li>
       </ul>
+    </div>
+    <div class="col-sm-12">
+      <button class="btn btn-primary" ng-click="newInstance()">Create New Instance</button>
     </div>
   </div>
 </div>

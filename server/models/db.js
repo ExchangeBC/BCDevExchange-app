@@ -48,6 +48,7 @@ process.on('SIGINT', function () {
 // bring in models
 var models = require('./models')
 
+exports.models = models
 exports.Account = models.account
 exports.Profile = models.profile
 exports.getAccountsByOrigin = function (origin, callback) {
