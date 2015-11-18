@@ -56,7 +56,7 @@ See the License for the specific language governing permissions and limitations 
           <div class="row">
             <div class="col-sm-9">
               <div class="row"><div class="col-xs-4"> Name:</div> <div class="col-xs-8" ng-bind-html="labInstance.name | highlight:query"/></div>
-              <div class="row"><div class="col-xs-4"> GitHub Repo:</div> <div class="col-xs-8" ng-bind-html="labInstance.githubRepo | highlight:query"/></div>
+              <div class="row"><div class="col-xs-4"> GitHub Repo:</div> <div class="col-xs-8" ng-bind-html="(labInstance.githubRepoOwner + '/' + labInstance.githubRepo) | highlight:query"/></div>
               <div class="row"><div class="col-xs-4"> Git Branch:</div> <div class="col-xs-8" ng-bind-html="labInstance.gitBranch | highlight:query"/></div>
               <div class="row"><div class="col-xs-4"> Dockerfile Path:</div> <div class="col-xs-8" ng-bind-html="labInstance.dockerfilePath | highlight:query"/></div>
             </div>

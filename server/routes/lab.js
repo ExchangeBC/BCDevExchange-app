@@ -76,10 +76,12 @@ module.exports = function (app, db, passport) {
   )
 
   app.route('/api/lab/instances/:id?').all(auth.ensureAuthenticated).all(function (req, res, next) {
-    if (req.user.labRequestStatus !== 'approved') {
-      return res.sendStatus(403)
-    }
-    next()
+    db.getAccountById(req.user._id, false, function (err, acct) {
+      if (err || acct.labRequestStatus !== 'approved') {
+        return res.sendStatus(403)
+      }
+      next()
+    })
   })
   .get(function (req, res, next) {
     db.getLabInstances(req.query.q ? JSON.parse(req.query.q) : {creatorId: req.user._id}).then(function (data) {

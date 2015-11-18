@@ -31,21 +31,21 @@ See the License for the specific language governing permissions and limitations 
         </tr>
         <tr>
           <td>GitHub Owner/Repo</td>
-          <td><input ng-model="item.githubRepo"
+          <td><input ng-model="item.githubRepoOwner"
+                     uib-tooltip='GitHub owner that contains the Dockerfile repo.' tooltip-trigger='focus'
+                     tooltip-placement='top'>/<input ng-model="item.githubRepo"
                      uib-tooltip='GitHub repo that contains the Dockerfile.' tooltip-trigger='focus'
-                     tooltip-placement='top' required></td>
+                     tooltip-placement='top'></td>
         </tr>
         <tr>
           <td>Git Branch</td>
           <td><input ng-model="item.gitBranch"
-                     uib-tooltip='Default to master.' tooltip-trigger='focus'
-                     tooltip-placement='top' ></td>
+                     uib-tooltip='The branch used by CI to build docker image.' tooltip-trigger='focus'
+                     tooltip-placement='top'></td>
         </tr>
         <tr>
-          <td>Path to Dockerfile in the branch</td>
-          <td><input ng-model="item.dockerfilePath"
-                     uib-tooltip='Default to /Dockerfile.' tooltip-trigger='focus'
-                     tooltip-placement='top'></td>
+          <td>Dockerfile Path</td>
+          <td><input ng-model="item.dockerfilePath"></td>
         </tr>
         <tr>
           <td>Published Docker Port</td>
