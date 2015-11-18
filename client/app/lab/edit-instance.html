@@ -26,18 +26,18 @@ See the License for the specific language governing permissions and limitations 
           <td>Name</td>
           <td>          
             https://lab-<input ng-model="item.name" name='instName'
-                               uib-tooltip='{{nameTooltip}}' tooltip-trigger='focus' ng-pattern="/[a-zA-Z0-9_-]+/" unique-valid-name tooltip-placement='top' required>.bcdevexchange.org
+                               uib-tooltip='{{nameTooltip}}' tooltip-trigger='focus' ng-pattern="/[a-zA-Z0-9_-]+/" unique-valid-name tooltip-placement='top'>.bcdevexchange.org
           </td>
         </tr>
         <tr>
           <td>GitHub Owner/Repo</td>
-          <td><input ng-model="item.gitHubRepo"
+          <td><input ng-model="item.githubRepo"
                      uib-tooltip='GitHub repo that contains the Dockerfile.' tooltip-trigger='focus'
                      tooltip-placement='top' required></td>
         </tr>
         <tr>
           <td>Git Branch</td>
-          <td><input ng-model="item.gitHubBranch"
+          <td><input ng-model="item.gitBranch"
                      uib-tooltip='Default to master.' tooltip-trigger='focus'
                      tooltip-placement='top' ></td>
         </tr>
@@ -45,6 +45,12 @@ See the License for the specific language governing permissions and limitations 
           <td>Path to Dockerfile in the branch</td>
           <td><input ng-model="item.dockerfilePath"
                      uib-tooltip='Default to /Dockerfile.' tooltip-trigger='focus'
+                     tooltip-placement='top'></td>
+        </tr>
+        <tr>
+          <td>Published Docker Port</td>
+          <td><input ng-model="item.dockerPort"
+                     uib-tooltip="The port in docker that https://lab-{{item.name}}.bcdevexchange.org will proxy to." tooltip-trigger='focus'
                      tooltip-placement='top'></td>
         </tr>
       </tbody></table>

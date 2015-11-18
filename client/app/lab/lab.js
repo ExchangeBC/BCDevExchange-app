@@ -131,16 +131,14 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
 .controller('LabModalInstanceCtrl', ['$scope', '$uibModalInstance', '$resource', 'item',
   'LabInstances', 'parentScope', function ($scope, $uibModalInstance, $resource, item, LabInstances, parentScope) {
     $scope.modalHeader = (item === undefined ? 'New' : 'Modify') + ' Lab Instance'
-    $scope.item = item || {}
-    $scope.nameTooltip = 'identify your web application'
+    $scope.item = angular.copy(item || {})
+    $scope.nameTooltip = $scope.initNameTooltip = 'Identify your web application. Required.'
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel')
     }
     $scope.submit = function () {
       LabInstances.save($scope.item, function (data) {
-        if (!$scope.item._id) {
-          parentScope.labInstances.push(data)
-        }
+        parentScope.queryData()
         $uibModalInstance.dismiss('done')
       }, function () {
         // something wrong; assume failued; requery
@@ -162,13 +160,18 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
       })
 
       ctrl.$asyncValidators.uniqueValidName = function (modelValue, viewValue) {
-        if (ctrl.$isEmpty(modelValue)) {
-          // consider empty model valid
-          return $q.when()
-        }
         var def = $q.defer()
+        if (ctrl.$isEmpty(modelValue)) {
+          scope.nameTooltip = scope.initNameTooltip
+          return $q.reject()
+        }
 
-        LabInstances.query({'name': modelValue}, function (data) {
+        var query = {'name': modelValue}
+        if (scope.item._id) {
+          query._id = {$ne: scope.item._id}
+        }
+        var qryStr = JSON.stringify(query)
+        LabInstances.query({q: qryStr}, function (data) {
           if (data.length > 0) {
             def.reject()
             scope.nameTooltip = 'Name is already taken.'
