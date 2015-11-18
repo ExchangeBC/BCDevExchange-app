@@ -52,11 +52,12 @@ module.exports = function (app, db, passport) {
             return res.status(500).end()
           }
           try {
-            var nodemailer = require('nodemailer');
-            var transporter = nodemailer.createTransport();
+            var nodemailer = require('nodemailer')
+            var transporter = nodemailer.createTransport()
             var body = 'Hello,\n'
-            body += req.user.profiles[0].username
-            body += req.user.profiles[0].name ? '(' + req.user.profiles[0].name + ')' : ''
+            var user = req.user.profiles[0].username
+            user += req.user.profiles[0].name ? '(' + req.user.profiles[0].name + ')' : ''
+            body += user
             body += ' requested access to lab. To grant access, open '
             + req.protocol + '://' + req.get('host') + '/lab/admin. If you cannot find the user in the approval pending list, chances are another site administrator has handled the request.'
             transporter.sendMail({
@@ -64,7 +65,8 @@ module.exports = function (app, db, passport) {
               to: config.lab.email.recipients.toString(),
               subject: 'Request lab access',
               text: body
-            });
+            })
+            logger.info('Email sent for lab request from ' + user + '.')
             return res.sendStatus(200)
           } catch (ex) {
             return res.status(500).end()

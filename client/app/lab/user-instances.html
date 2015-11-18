@@ -30,8 +30,8 @@ See the License for the specific language governing permissions and limitations 
                 <span ng-show="!predicateTitle">Sort by</span><span class="source-name" ng-bind="predicateTitle"></span> <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="" ng-click="predicate = 'profiles[0].username'; predicateTitle = 'Name A-Z'">Name A-Z</a></li>
-                <li><a href="" ng-click="predicate = '-profiles[0].username'; predicateTitle = 'Name Z-A'">Name Z-A</a></li>
+                <li><a href="" ng-click="predicate = 'name'; predicateTitle = 'Name A-Z'">Name A-Z</a></li>
+                <li><a href="" ng-click="predicate = '-name'; predicateTitle = 'Name Z-A'">Name Z-A</a></li>
               </ul>
             </div>
             <input type="reset" class="btn btn-default" value="Reset" ng-click="selectedSource = ''; selectedSourceTitle = ''; query = ''; predicate = ''; predicateTitle = '';" />
@@ -55,10 +55,11 @@ See the License for the specific language governing permissions and limitations 
         <li class="resource" ng-repeat="labInstance in filtered = (labInstances| filter:query | orderBy: (predicate||'-labRequestStatus'))">
           <div class="row">
             <div class="col-sm-9">
-              <div class="row"><div class="col-xs-4"> Name:</div> <div class="col-xs-8" ng-bind-html="labInstance.name | highlight:query"/></div>
-              <div class="row"><div class="col-xs-4"> GitHub Repo:</div> <div class="col-xs-8" ng-bind-html="(labInstance.githubRepoOwner + '/' + labInstance.githubRepo) | highlight:query"/></div>
-              <div class="row"><div class="col-xs-4"> Git Branch:</div> <div class="col-xs-8" ng-bind-html="labInstance.gitBranch | highlight:query"/></div>
-              <div class="row"><div class="col-xs-4"> Dockerfile Path:</div> <div class="col-xs-8" ng-bind-html="labInstance.dockerfilePath | highlight:query"/></div>
+              <div class="row"><div class="col-xs-4">Name:</div> <div class="col-xs-8" ng-bind-html="labInstance.name | highlight:query"/></div>
+              <div class="row"><div class="col-xs-4">GitHub Repo:</div> <div class="col-xs-8" ng-bind-html="(labInstance.githubRepoOwner + '/' + labInstance.githubRepo) | highlight:query"/></div>
+              <div class="row"><div class="col-xs-4">Git Branch:</div> <div class="col-xs-8" ng-bind-html="labInstance.gitBranch | highlight:query"/></div>
+              <div class="row"><div class="col-xs-4">Dockerfile Path:</div> <div class="col-xs-8" ng-bind-html="labInstance.dockerfilePath | highlight:query"/></div>
+              <div class="row"><div class="col-xs-4">Published Docker Port:</div> <div class="col-xs-8" ng-bind-html="labInstance.dockerPort | highlight:query"/></div>
             </div>
             <div class="col-sm-3">
               <button class="btn btn-primary btn-block" ng-click="editInstance(labInstance)">Edit</button>
@@ -83,3 +84,8 @@ See the License for the specific language governing permissions and limitations 
     </div>
   </div>
 </div>
+<style type = "text/css" scoped>
+  .container{
+    width: 95%;
+  }
+</style>

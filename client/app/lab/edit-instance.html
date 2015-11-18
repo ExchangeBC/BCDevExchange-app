@@ -32,7 +32,7 @@ See the License for the specific language governing permissions and limitations 
         <tr>
           <td>GitHub Owner/Repo</td>
           <td><input ng-model="item.githubRepoOwner"
-                     uib-tooltip='GitHub owner that contains the Dockerfile repo.' tooltip-trigger='focus'
+                     uib-tooltip='GitHub owner that contains the Dockerfile repo' tooltip-trigger='focus'
                      tooltip-placement='top'>/<input ng-model="item.githubRepo"
                      uib-tooltip='GitHub repo that contains the Dockerfile.' tooltip-trigger='focus'
                      tooltip-placement='top'></td>
@@ -40,17 +40,19 @@ See the License for the specific language governing permissions and limitations 
         <tr>
           <td>Git Branch</td>
           <td><input ng-model="item.gitBranch"
-                     uib-tooltip='The branch used by CI to build docker image.' tooltip-trigger='focus'
+                     uib-tooltip='The branch used by CI to build docker image' tooltip-trigger='focus'
                      tooltip-placement='top'></td>
         </tr>
         <tr>
           <td>Dockerfile Path</td>
-          <td><input ng-model="item.dockerfilePath"></td>
+          <td><input ng-model="item.dockerfilePath"
+                     uib-tooltip='The path within the branch of the repo' tooltip-trigger='focus'
+                     tooltip-placement='top'></td>
         </tr>
         <tr>
           <td>Published Docker Port</td>
           <td><input ng-model="item.dockerPort"
-                     uib-tooltip="The port in docker that https://lab-{{item.name}}.bcdevexchange.org will proxy to." tooltip-trigger='focus'
+                     uib-tooltip="The port in docker that https://lab-{{item.name}}.bcdevexchange.org will proxy to" tooltip-trigger='focus'
                      tooltip-placement='top'></td>
         </tr>
       </tbody></table>
