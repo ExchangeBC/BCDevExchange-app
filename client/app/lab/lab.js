@@ -55,11 +55,11 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
         parentScope.showRequestButton = false
         parentScope.refreshCU()
         $('#lab-request-submit').hide()
-        $('#lab-request-cancel').html('Ok')
+        $('#lab-request-cancel').addClass('btn-primary').removeClass('btn-warning').html('Ok')
       }, function (err) {
         $('#lab-request-message').html(err.data || 'Error sending request. Please try later.')
         $('#lab-request-submit').hide()
-        $('#lab-request-cancel').html('Ok')
+        $('#lab-request-cancel').addClass('btn-primary').removeClass('btn-warning').html('Ok')
       })
     }
   }])
@@ -132,6 +132,7 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
   'LabInstances', 'parentScope', function ($scope, $uibModalInstance, $resource, item, LabInstances, parentScope) {
     $scope.modalHeader = (item === undefined ? 'New' : 'Modify') + ' Lab Instance'
     $scope.item = item || {}
+    $scope.nameTooltip = 'identify your web application'
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel')
     }
@@ -148,7 +149,39 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
       })
     }
   }])
+.directive('uniqueValidName', function ($q, $timeout, LabInstances) {
+  return {
+    require: 'ngModel',
+    link: function (scope, elm, attrs, ctrl) {
+      elm.bind('keypress', function (e) {
+        var char = String.fromCharCode(e.which || e.charCode || e.keyCode)
+        if (char.match(/[^a-zA-Z0-9_-]/)) {
+          e.preventDefault()
+          return false
+        }
+      })
 
+      ctrl.$asyncValidators.uniqueValidName = function (modelValue, viewValue) {
+        if (ctrl.$isEmpty(modelValue)) {
+          // consider empty model valid
+          return $q.when()
+        }
+        var def = $q.defer()
+
+        LabInstances.query({'name': modelValue}, function (data) {
+          if (data.length > 0) {
+            def.reject()
+            scope.nameTooltip = 'Name is already taken.'
+          } else {
+            scope.nameTooltip = 'Name is available.'
+            def.resolve()
+          }
+        })
+        return def.promise
+      }
+    }
+  }
+})
 
 angular.module('bcdevxApp.services').factory('LabInstances', ['$resource', function ($resource) {
     return $resource('/api/lab/instances/:id', {id: '@_id'})

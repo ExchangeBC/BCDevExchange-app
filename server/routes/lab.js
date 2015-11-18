@@ -82,7 +82,7 @@ module.exports = function (app, db, passport) {
     next()
   })
   .get(function (req, res, next) {
-    db.getLabInstances({creatorId: req.user._id}).then(function (data) {
+    db.getLabInstances((Object.keys(req.query).length > 0) ? req.query : {creatorId: req.user._id}).then(function (data) {
       res.send(data)
     })
   })
