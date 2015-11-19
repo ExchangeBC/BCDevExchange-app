@@ -82,7 +82,22 @@ module.exports = function (app, db, passport) {
       if (err || acct.labRequestStatus !== 'approved') {
         return res.sendStatus(403)
       }
-      next()
+      // make sure instance belongs to user
+      var instId
+      if (req.method === 'DELETE' && req.params.id) {
+        instId = req.params.id
+      } else if (req.method === 'POST' && req.body) {
+        instId = req.body._id
+      }
+      if (!instId) {
+        return next()
+      }
+      db.models.labInstance.findById(instId).lean().exec(function (err, data) {
+        if (!data.creatorId || data.creatorId !== req.user._id) {
+          return res.sendStatus(403)
+        }
+        return next()
+      })
     })
   })
   .get(function (req, res, next) {
