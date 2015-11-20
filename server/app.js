@@ -1,16 +1,16 @@
 /*
-Copyright 2015 Province of British Columbia
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
-*/
+ Copyright 2015 Province of British Columbia
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and limitations under the License.
+ */
 
 
 'use strict'
@@ -23,7 +23,7 @@ if (config.node.clusterEnabled && cluster.isMaster) {
 
   // Fork workers by config or # of CPUs if undefined
   var numCPUs = config.node.workers ||
-    require('os').cpus().length
+  require('os').cpus().length
 
   var i = 0
   while (i < numCPUs) {
@@ -51,7 +51,7 @@ if (config.node.clusterEnabled && cluster.isMaster) {
   var passport = require('passport')
   var GitHubStrategy = require('passport-github2').Strategy
   var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy
-  var async = require('async')
+  var proxy = require('./routes/proxy')
 
   // set up db connection
   var db = require('./models/db')
@@ -74,9 +74,9 @@ if (config.node.clusterEnabled && cluster.isMaster) {
     callbackURL: config.github.callbackURL,
     passReqToCallback: true
   },
-    function (req, accessToken, refreshToken, extProfile, done) {
-      auth.passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
-    }
+  function (req, accessToken, refreshToken, extProfile, done) {
+    auth.passportStrategySetup(req, accessToken, refreshToken, extProfile, done)
+  }
   ))
 
 
@@ -113,6 +113,7 @@ if (config.node.clusterEnabled && cluster.isMaster) {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  proxy.lab(app, db, passport)
   app.use(bodyParser.json())
 
   // ===== Static all files in public, only use locally as servers should use nginx =====
@@ -131,7 +132,7 @@ if (config.node.clusterEnabled && cluster.isMaster) {
   require('./routes/blog')(app, db, passport)
   require('./routes/projects')(app, db, passport)
   require('./routes/resources')(app, db, passport)
-  require('./routes/proxy')(app, db, passport)
+  proxy.api(app, db, passport)
   require('./routes/lab')(app, db, passport)
   // Angular Routes supporting html5 mode
   app.all('/*', function (req, res) {
