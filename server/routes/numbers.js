@@ -1,16 +1,16 @@
 /*
-Copyright 2015 Province of British Columbia
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
-*/
+ Copyright 2015 Province of British Columbia
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and limitations under the License.
+ */
 
 
 var async = require('async')
@@ -27,7 +27,7 @@ var Twitter = require('twitter')
 var twitter_text = require('twitter-text')
 var queryString = require('query-string')
 
-module.exports = function (app, db, passport) {
+exports.routes = function (app, db, passport) {
     app.get('/api/numbers/:source?', function (req, res) {
 
         if (req.params.source) {
@@ -151,7 +151,7 @@ module.exports = function (app, db, passport) {
                     })
                 },
                 twitter_bcdev: function (callback) {
-                    searchTwitter('#BCDev', callback)
+                    exports.searchTwitter('#BCDev', callback)
                 }
             }, function (err, results) {
                 res.set('Cache-Control', 'max-age=' + config.github.cacheMaxAge)
@@ -208,7 +208,7 @@ function getGithubOrgData(org, callback) {
             var githubStats = {
                 'stargazers': total_stargazers,
                 'watchers': total_watchers,
-                'open_issues': total_open_issues,
+                'open_issues': total_open_issues
             }
             callback(null, githubStats)
         })
@@ -363,10 +363,10 @@ function handleEventData(githubEventsJSON) {
  ...
  ]
  */
-function searchTwitter(searchText, callback) {
+exports.searchTwitter = function (searchText, callback) {
     db.getNumber({
         source: 'twitter',
-        topic: '#BCDev'
+        topic: searchText
     }).then(function (numberData) {
         var deferred = Q.defer()
         if (numberData) {

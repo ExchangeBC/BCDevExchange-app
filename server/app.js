@@ -126,7 +126,7 @@ if (config.node.clusterEnabled && cluster.isMaster) {
   // ====== routes ======
   auth.routes(app, db, passport)
   require('./routes/config')(app, db, passport)
-  require('./routes/numbers')(app, db, passport)
+  require('./routes/numbers').routes(app, db, passport)
   require('./routes/people')(app, db, passport)
   require('./routes/programs')(app, db, passport)
   require('./routes/blog')(app, db, passport)
