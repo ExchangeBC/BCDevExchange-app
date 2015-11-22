@@ -15,55 +15,90 @@
  */
 
 describe("LabCtrl", function () {
-    beforeEach(module('bcdevxApp.lab'))
-    var $controller, AccountService, deferred, $scope
-    beforeEach(inject(function (_$controller_, $rootScope, $q, _AccountService_) {
-        $controller = _$controller_
-        deferred = $q.defer()
-        $scope = $rootScope.$new()
-        AccountService = _AccountService_
-        spyOn(AccountService, 'getCurrentUser').and.returnValue(deferred.promise)
+  beforeEach(module('bcdevxApp.lab'))
+  var $controller, $scope
+  beforeEach(inject(function (_$controller_, $rootScope, $q) {
+    $controller = _$controller_
+    $scope = $rootScope.$new()
+  }))
+  describe('request button', function () {
+    var AccountService, deferred
+    beforeEach(inject(function (_AccountService_, $q) {
+      AccountService = _AccountService_
+      deferred = $q.defer()
+      spyOn(AccountService, 'getCurrentUser').and.returnValue(deferred.promise)
     }))
-    describe('request button', function () {
-        it('should show for initial site admins', function () {
-            deferred.resolve({
-                siteAdmin: true,
-                data: {}
-            })
-            $controller('LabCtrl', {$scope: $scope, $uibModal: {}, AccountService: AccountService
-            })
-            // call apply to invoke promise then
-            $scope.$apply()
-            expect(AccountService.getCurrentUser).toHaveBeenCalled()
-            expect($scope.showRequestButton).toBe(true)
-        })
-        it('should not show for approved site admins', function () {
-            deferred.resolve({
-                siteAdmin: true,
-                data: {labRequestStatus: 'approved'}
-            })
-            $controller('LabCtrl', {$scope: $scope, $uibModal: {}, AccountService: AccountService
-            })
-            // call apply to invoke promise then
-            $scope.$apply()
-            expect(AccountService.getCurrentUser).toHaveBeenCalled()
-            expect($scope.showRequestButton).toBeUndefined()
-        })
-        it('should show for initial program owners', function () {
-            spyOn(AccountService, 'query').and.callFake(function (q, cb) {
-                cb([1])
-            })
-            deferred.resolve({
-                siteAdmin: false,
-                data: {}
-            })
-            $controller('LabCtrl', {$scope: $scope, $uibModal: {}, AccountService: AccountService
-            })
-            // call apply to invoke promise then
-            $scope.$apply()
-            expect(AccountService.getCurrentUser).toHaveBeenCalled()
-            expect(AccountService.query).toHaveBeenCalled()
-            expect($scope.showRequestButton).toBe(true)
-        })
+    it('should show for initial site admins', function () {
+      deferred.resolve({
+        siteAdmin: true,
+        data: {}
+      })
+      $controller('LabCtrl', {$scope: $scope, $uibModal: {}, AccountService: AccountService
+      })
+      // call apply to invoke promise then
+      $scope.$apply()
+      expect(AccountService.getCurrentUser).toHaveBeenCalled()
+      expect($scope.showRequestButton).toBe(true)
     })
+    it('should not show for approved site admins', function () {
+      deferred.resolve({
+        siteAdmin: true,
+        data: {labRequestStatus: 'approved'}
+      })
+      $controller('LabCtrl', {$scope: $scope, $uibModal: {}, AccountService: AccountService
+      })
+      // call apply to invoke promise then
+      $scope.$apply()
+      expect(AccountService.getCurrentUser).toHaveBeenCalled()
+      expect($scope.showRequestButton).toBeUndefined()
+    })
+    it('should show for initial program owners', function () {
+      spyOn(AccountService, 'query').and.callFake(function (q, cb) {
+        cb([1])
+      })
+      deferred.resolve({
+        siteAdmin: false,
+        data: {}
+      })
+      $controller('LabCtrl', {$scope: $scope, $uibModal: {}, AccountService: AccountService
+      })
+      // call apply to invoke promise then
+      $scope.$apply()
+      expect(AccountService.getCurrentUser).toHaveBeenCalled()
+      expect(AccountService.query).toHaveBeenCalled()
+      expect($scope.showRequestButton).toBe(true)
+    })
+  })
+  describe('uniqueValidName directive', function () {
+    var LabInstances
+    beforeEach(inject(function ($compile, _LabInstances_) {
+      LabInstances = _LabInstances_
+      var element = angular.element(
+        '<form name="form">' +
+        '<input ng-model="item.name" name="instName" unique-valid-name />' +
+        '</form>'
+        )
+      $scope.item = {}
+      $compile(element)($scope)
+      form = $scope.form
+    }))
+    it('should reject duplicated name', function () {
+      spyOn(LabInstances, 'query').and.callFake(function (q, cb) {
+        cb([1])
+      })
+      form.instName.$setViewValue('a')
+      $scope.$digest()
+      expect($scope.item.name).toBeUndefined()
+      expect($scope.nameTooltip).toEqual('Name is already taken.')
+    })
+    it('should accept unique name', function () {
+      spyOn(LabInstances, 'query').and.callFake(function (q, cb) {
+        cb('')
+      })
+      form.instName.$setViewValue('a')
+      $scope.$digest()
+      expect($scope.item.name).toEqual('a')
+      expect($scope.nameTooltip).toEqual('Name is available.')
+    })
+  })
 })

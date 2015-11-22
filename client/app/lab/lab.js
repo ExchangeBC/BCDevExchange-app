@@ -147,7 +147,7 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
       })
     }
   }])
-.directive('uniqueValidName', function ($q, $timeout, LabInstances) {
+.directive('uniqueValidName', function ($q, LabInstances) {
   return {
     require: 'ngModel',
     link: function (scope, elm, attrs, ctrl) {
