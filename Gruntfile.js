@@ -237,7 +237,7 @@ module.exports = function (grunt) {
       target: {
         src: '<%= yeoman.client %>/index.html',
         ignorePath: '<%= yeoman.client %>/',
-        exclude: [/bootstrap-sass-official/, '/json3/', '/es5-shim/', '/requirejs/', /bootstrap.css/, /font-awesome.css/, '/ckeditor/', /angulartics-(?!ga)(?!scroll)/]
+        exclude: [/bootstrap-sass-official/, '/requirejs/', /bootstrap.css/, /font-awesome.css/, '/ckeditor/', /angulartics-(?!ga)(?!scroll)/]
       }
     },
     // Renames files for browser caching purposes
