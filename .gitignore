@@ -15,4 +15,4 @@ temp/
 .svn
 config/.svn
 config/nginx
-/nbproject
+/nbproject/private/
