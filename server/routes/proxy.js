@@ -16,6 +16,9 @@
 'use strict'
 var request = require('request')
 var _ = require('lodash')
+var config = require('config')
+var db = require('../models/db')
+var Q = require('q')
 
 exports.api = function (app, db, passport) {
   app.all(/api\/proxy\/(.+)/, function (req, res) {
@@ -43,31 +46,52 @@ exports.api = function (app, db, passport) {
 
 exports.lab = function (app, db, passport) {
   app.use(function (req, res, next) {
-    if (!req.hostname.match(/^lab-/)) {
+    var labRegEx = new RegExp("^" + config.lab.proxyHostNamePrefix + "lab-(.+)"
+      + config.lab.proxyHostNameSuffix)
+    var matches = req.hostname.match(labRegEx)
+    if (!matches) {
       return next()
     }
-    var headers = {}
-    _.merge(headers, req.headers)
-    delete headers.host
-    delete headers['accept-encoding']
-    var opts = {
-      url: 'http://www.yahoo.com',
-      method: req.method,
-      qs: req.query,
-      body: req.body,
-      headers: headers
-    }
-    request(opts, function (err, response, body) {
-      if (err) {
-        return res.status(500).end()
+    var url
+    db.getLabInstances({name: matches[1]}, function (err, data) {
+      if (err || !data || data.length < 1) {
+        return res.sendStatus(404)
       }
-      try {
-        _.forOwn(response.headers, function (v, k) {
-          res.set(k, v)
-        })
-      } catch (ex) {
+      if (data[0].type === 'proxy') {
+        url = data[0].siteUrl
       }
-      res.status(response.statusCode).send(body)
+      if (data[0].type === 'labInstance') {
+        if (!data[0].hostPort) {
+          return res.sendStatus(404)
+        }
+        url = config.lab.labInstanceProtocolAndHost + ":" + data[0].hostPort
+      }
+      if (!url) {
+        return res.sendStatus(404)
+      }
+      var headers = {}
+      _.merge(headers, req.headers)
+      delete headers.host
+      delete headers['accept-encoding']
+      var opts = {
+        url: url,
+        method: req.method,
+        qs: req.query,
+        body: req.body,
+        headers: headers
+      }
+      request(opts, function (err, response, body) {
+        if (err) {
+          return res.status(500).end()
+        }
+        try {
+          _.forOwn(response.headers, function (v, k) {
+            res.set(k, v)
+          })
+        } catch (ex) {
+        }
+        res.status(response.statusCode).send(body)
+      })
     })
   })
 }
