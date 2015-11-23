@@ -35,9 +35,9 @@ See the License for the specific language governing permissions and limitations 
             <input type="radio" ng-model="item.type" value="labInstance" />Proxy this namespace to a lab instance<br />
           </td>
         </tr>
-        <tr  ng-if="item.type === 'proxy'"><td>Site URL</td>
-          <td><input ng-model="item.siteUrl"
-                     uib-tooltip='Existing site URL. Required.' tooltip-trigger='focus'
+        <tr  ng-if="item.type === 'proxy'"><td>Existing Site URL</td>
+          <td><input type="url" ng-model="item.siteUrl"
+                     uib-tooltip='Required.' tooltip-trigger='focus'
                      tooltip-placement='top' required/></td>
         </tr>
       </tbody>
