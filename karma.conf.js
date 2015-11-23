@@ -30,7 +30,7 @@ module.exports = function(config) {
       'client/bower_components/angular-sanitize/angular-sanitize.js',
       'node_modules/angular-mocks/angular-mocks.js',
       '.tmp/app/bundle.js',
-      'client/app/**/!(app).js',
+      'client/app/**/*.js',
       'client/app/**/*.html'
     ],
 
@@ -49,7 +49,9 @@ module.exports = function(config) {
     },
 
     // list of files / patterns to exclude
-    exclude: [],
+    exclude: [
+      'client/app/**/*.browser.js',
+    ],
 
     // web server port
     port: 8080,

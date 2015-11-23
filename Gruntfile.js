@@ -530,7 +530,7 @@ module.exports = function (grunt) {
         files: {
           '<%= yeoman.client %>/index.html': [
             ['{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
-              '!{.tmp,<%= yeoman.client %>}/app/app.js',
+              '!{.tmp,<%= yeoman.client %>}/app/*.browser.js',
               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
           ]
@@ -587,12 +587,12 @@ module.exports = function (grunt) {
     browserify: {
       dist: {
         files: {
-          '.tmp/app/bundle.js': ['<%= yeoman.client %>/app/app.js']
+          '.tmp/app/bundle.js': ['<%= yeoman.client %>/app/app.browser.js']
         }
       },
       dev: {
         files: {
-          '.tmp/app/bundle.js': ['<%= yeoman.client %>/app/app.js']
+          '.tmp/app/bundle.js': ['<%= yeoman.client %>/app/app.browser.js']
         },
         options: {
           browserifyOptions: {debug: true}
