@@ -28,10 +28,10 @@ module.exports = function(config) {
       'client/bower_components/jquery/dist/jquery.js',
       'client/bower_components/angular/angular.js',
       'client/bower_components/angular-sanitize/angular-sanitize.js',
-      'node_modules/angular-mocks/angular-mocks.js',
       '.tmp/app/bundle.js',
       'client/app/**/*.js',
-      'client/app/**/*.html'
+      'client/app/**/*.html',
+      'node_modules/angular-mocks/angular-mocks.js'
     ],
 
     preprocessors: {

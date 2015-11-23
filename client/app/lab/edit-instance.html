@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and limitations 
     <h3>{{modalHeader}}</h3>
   </div>
   <div class="modal-body">
-    <table class="table table-striped">
+    <table class="table table-striped" style="margin-bottom: 0px;">
       <col width="30%">
       <col width="70%">
       <tbody>
@@ -26,34 +26,53 @@ See the License for the specific language governing permissions and limitations 
           <td>Name</td>
           <td>          
             https://lab-<input ng-model="item.name" name='instName'
-                               uib-tooltip='{{nameTooltip}}' tooltip-trigger='focus' ng-pattern="/[a-zA-Z0-9_-]+/" unique-valid-name tooltip-placement='top'>.bcdevexchange.org
+                               uib-tooltip='{{nameTooltip}}' tooltip-trigger='focus' ng-pattern="/[a-zA-Z0-9_-]+/" unique-valid-name tooltip-placement='top'/>.bcdevexchange.org
           </td>
         </tr>
+        <tr><td colspan="2">I want to:<br/>
+            <input type="radio" ng-model="item.type" value="nsOnly" />Reserve this namespace only<br />
+            <input type="radio" ng-model="item.type" value="proxy" />Proxy this namespace to an existing site<br />
+            <input type="radio" ng-model="item.type" value="labInstance" />Proxy this namespace to a lab instance<br />
+          </td>
+        </tr>
+        <tr  ng-if="item.type === 'proxy'"><td>Site URL</td>
+          <td><input ng-model="item.siteUrl"
+                     uib-tooltip='Existing site URL. Required.' tooltip-trigger='focus'
+                     tooltip-placement='top' required/></td>
+        </tr>
+      </tbody>
+    </table>
+    <table ng-if="item.type === 'labInstance'"  class="table table-striped">
+      <col width="30%">
+      <col width="70%">
+      <thead>
+        <tr><td colspan="2">Information to setup lab instance</td></tr>
+      </thead>
+      <tbody>
         <tr>
           <td>GitHub Owner/Repo</td>
           <td><input ng-model="item.githubRepoOwner"
-                     uib-tooltip='GitHub owner that contains the Dockerfile repo' tooltip-trigger='focus'
-                     tooltip-placement='top'>/<input ng-model="item.githubRepo"
-                     uib-tooltip='GitHub repo that contains the Dockerfile.' tooltip-trigger='focus'
-                     tooltip-placement='top'></td>
+                     uib-tooltip='GitHub owner that contains the Dockerfile repo. Required.' tooltip-trigger='focus'
+                     tooltip-placement='top' required/>/<input ng-model="item.githubRepo"
+                     uib-tooltip='GitHub repo that contains the Dockerfile. Required.' tooltip-trigger='focus'
+                     tooltip-placement='top' required/></td>
         </tr>
         <tr>
           <td>Git Branch</td>
           <td><input ng-model="item.gitBranch"
-                     uib-tooltip='The branch used to build docker image' tooltip-trigger='focus'
-                     tooltip-placement='top'></td>
+                     uib-tooltip='The branch used to build docker image. Required.' tooltip-trigger='focus'
+                     tooltip-placement='top' required></td>
         </tr>
         <tr>
           <td>Dockerfile Path</td>
           <td><input ng-model="item.dockerfilePath"
-                     uib-tooltip='The path within the branch of the repo' tooltip-trigger='focus'
-                     tooltip-placement='top'></td>
+                     uib-tooltip='The path within the branch of the repo. Required.' tooltip-trigger='focus'
+                     tooltip-placement='top' required></td>
         </tr>
         <tr>
           <td>Published Docker Port</td>
           <td><input ng-model="item.dockerPort"
-                     uib-tooltip="The port in docker that https://lab-{{item.name}}.bcdevexchange.org will proxy to" tooltip-trigger='focus'
-                     tooltip-placement='top'></td>
+                     uib-tooltip="The port in docker that https://lab-{{item.name}}.bcdevexchange.org will proxy to. Required." tooltip-trigger='focus' tooltip-placement='top' required/></td>
         </tr>
       </tbody></table>
   </div>

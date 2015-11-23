@@ -136,10 +136,15 @@ See the License for the specific language governing permissions and limitations 
         </section>
         <hr/> 
         <section>
-          <div><h2>DevOps Application Hosting</h2></div>
-          DevOps application hosting service allows qualified program owners to
-          test drive in a reserved namespace any Docker enabled web application 
-          downloadable from a GitHub repository. The service is powered by Jenkins supporting CI.
+          <div><h2>DevOps Namespace</h2></div>
+          DevOps namespace allows qualified program owners to
+          <ol type="1" class="list-group labs-list-group">
+            <li class="list-group-item">Reserve https://lab-&lt;your_namespace&gt;.bcdevexchange.org </li>
+            <li class="list-group-item">Test drive in the reserved namespace any Docker enabled web application 
+          downloadable from a GitHub repository. The service is powered by Jenkins supporting CI.</li>
+            <li class="list-group-item">Alternatively, program owners can also use the namespace to proxy 
+          an existing web site.</li>
+          </ol>
           <br/>
           <button ng-show='showRequestButton' class='btn btn-primary' ng-click='requestAccess()'>Request Access</button>
           <uib-alert ng-show="cu.data.labRequestStatus === 'pending'">You request is pending approval.</uib-alert>

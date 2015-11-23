@@ -130,9 +130,9 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
   }])
 .controller('LabModalInstanceCtrl', ['$scope', '$uibModalInstance', '$resource', 'item',
   'LabInstances', 'parentScope', function ($scope, $uibModalInstance, $resource, item, LabInstances, parentScope) {
-    $scope.modalHeader = (item === undefined ? 'New' : 'Modify') + ' Lab Instance'
+    $scope.modalHeader = (item === undefined ? 'New' : 'Modify') + ' Namespace'
     $scope.item = angular.copy(item || {dockerfilePath: '/Dockerfile', gitBranch: 'master'})
-    $scope.nameTooltip = $scope.initNameTooltip = 'Identify your web application. Required.'
+    $scope.nameTooltip = $scope.initNameTooltip = 'Identify your namespace. Required.'
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel')
     }
