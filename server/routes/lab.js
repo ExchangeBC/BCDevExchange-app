@@ -18,63 +18,65 @@ module.exports = function (app, db, passport) {
   var logger = require('../../common/logging.js').logger
   var Q = require('q')
   var auth = require('./auth.js')
+  var async = require('async')
+  var request = require('request')
 
   app.post("/api/lab/request",
-  function (req, res) {
-    if (!req.isAuthenticated()) {
-      return res.status(403).end()
-    }
-    var deferred = Q.defer()
-    if (req.user.siteAdmin) {
-      deferred.resolve()
-    } else {
-      db.getPrograms({editors: req.user._id}).then(function (data) {
-        if (data.length > 0) {
-          return deferred.resolve()
-        }
-        return deferred.reject()
-      })
-    }
-    deferred.promise.then(function () {
-      db.getAccountById(req.user._id, false,
-      function (err, account) {
-        if (err) {
-          logger.error(err)
-          return res.status(500).end()
-        }
-        if (account.labRequestStatus) {
-          return res.status(403).send('You have previously sent a request. There is no need to resend.')
-        }
-        account.labRequestStatus = "pending"
-        account.save(function (err) {
-          if (err) {
-            logger.error(err)
-            return res.status(500).end()
+    function (req, res) {
+      if (!req.isAuthenticated()) {
+        return res.status(403).end()
+      }
+      var deferred = Q.defer()
+      if (req.user.siteAdmin) {
+        deferred.resolve()
+      } else {
+        db.getPrograms({editors: req.user._id}).then(function (data) {
+          if (data.length > 0) {
+            return deferred.resolve()
           }
-          try {
-            var nodemailer = require('nodemailer')
-            var transporter = nodemailer.createTransport()
-            var body = 'Hello,\n'
-            var user = req.user.profiles[0].username
-            user += req.user.profiles[0].name ? '(' + req.user.profiles[0].name + ')' : ''
-            body += user
-            body += ' requested access to lab. To grant access, open '
-            + req.protocol + '://' + req.get('host') + '/lab/admin. If you cannot find the user in the approval pending list, chances are another site administrator has handled the request.'
-            transporter.sendMail({
-              from: config.lab.email.sender,
-              to: config.lab.email.recipients.toString(),
-              subject: 'Request lab access',
-              text: body
-            })
-            logger.info('Email sent for lab request from ' + user + '.')
-            return res.sendStatus(200)
-          } catch (ex) {
-            return res.status(500).end()
-          }
+          return deferred.reject()
         })
+      }
+      deferred.promise.then(function () {
+        db.getAccountById(req.user._id, false,
+          function (err, account) {
+            if (err) {
+              logger.error(err)
+              return res.status(500).end()
+            }
+            if (account.labRequestStatus) {
+              return res.status(403).send('You have previously sent a request. There is no need to resend.')
+            }
+            account.labRequestStatus = "pending"
+            account.save(function (err) {
+              if (err) {
+                logger.error(err)
+                return res.status(500).end()
+              }
+              try {
+                var nodemailer = require('nodemailer')
+                var transporter = nodemailer.createTransport()
+                var body = 'Hello,\n'
+                var user = req.user.profiles[0].username
+                user += req.user.profiles[0].name ? '(' + req.user.profiles[0].name + ')' : ''
+                body += user
+                body += ' requested access to lab. To grant access, open '
+                  + req.protocol + '://' + req.get('host') + '/lab/admin. If you cannot find the user in the approval pending list, chances are another site administrator has handled the request.'
+                transporter.sendMail({
+                  from: config.lab.email.sender,
+                  to: config.lab.email.recipients.toString(),
+                  subject: 'Request lab access',
+                  text: body
+                })
+                logger.info('Email sent for lab request from ' + user + '.')
+                return res.sendStatus(200)
+              } catch (ex) {
+                return res.status(500).end()
+              }
+            })
+          })
       })
-    })
-  }
+    }
   )
 
   app.route('/api/lab/instances/:id?').all(auth.ensureAuthenticated).all(function (req, res, next) {
@@ -100,43 +102,105 @@ module.exports = function (app, db, passport) {
       })
     })
   })
-  .get(function (req, res, next) {
-    db.getLabInstances(req.query.q ? JSON.parse(req.query.q) : {creatorId: req.user._id}).then(function (data) {
-      res.send(data)
-    })
-  })
-  .post(function (req, res, next) {
-    var data = req.body
-    if (!data._id) {
-      // create instance
-      data.creatorId = req.user._id
-      var inst = new db.models.labInstance(data)
-      inst.save(function (err, data) {
-        if (err) {
-          return res.sendStatus(500)
-        }
-        return res.send(data)
+    .get(function (req, res, next) {
+      db.getLabInstances(req.query.q ? JSON.parse(req.query.q) : {creatorId: req.user._id}).then(function (data) {
+        res.send(data)
       })
-    } else {
+    })
+    .post(function (req, res, next) {
+      var data = req.body
+      // create instance
+      function createInstance(callback) {
+        data.creatorId = req.user._id
+        var inst = new db.models.labInstance(data)
+        inst.save(function (err, data) {
+          if (err) {
+            return callback(err, data)
+          } else {
+            addKongApi(data, callback)
+          }
+        })
+      }
+      // add Kong API
+      function addKongApi(data, callback) {
+        var postData = {
+          name: data.get('name'),
+          upstream_url: data.get('siteUrl'),
+          request_host: config.lab.proxyHostNamePrefix + 'lab-' + data.get('name') + config.lab.proxyHostNameSuffix
+        }
+        request.post({url: config.lab.kongAdminUrl, form: postData}, function (err, response, body) {
+          var bodyObj = JSON.parse(body)
+          db.models.labInstance.findByIdAndUpdate(data._id, {kongId: bodyObj.id}, function (err, savedData) {
+            callback(err, savedData)
+          })
+        })
+      }
+      // TODO: add Jenkins job
+      function addJenkinsJob(callback) {
+        callback(null, null)
+      }
       // update instance
-      var id = data._id
-      delete data._id
-      delete data.__v
+      function updateInstance() {
 
-      db.models.labInstance.findByIdAndUpdate(id, data, function (err, doc) {
+        var id = data._id
+        delete data._id
+        delete data.__v
+
+        db.models.labInstance.findByIdAndUpdate(id, data, function (err, doc) {
+          callback(err, doc)
+        })
+      }
+      // update Kong API
+      function updateKongApi(callback) {
+        var patchData = {
+          name: data.name,
+          upstream_url: data.siteUrl,
+          request_host: config.lab.proxyHostNamePrefix + 'lab-' + data.name + config.lab.proxyHostNameSuffix
+        }
+        request.patch({url: config.lab.kongAdminUrl + data.kongId, form: patchData}, function (err, response, body) {
+          callback(err, {response: response, body: body})
+        })
+      }
+      // TODO: update Jenkins job
+      function updateJenkinsJob(callback) {
+        callback(null, null)
+      }
+
+      var parallelJobs
+      if (!data._id) {
+        parallelJobs = [createInstance]
+        switch (data.type) {
+          case 'labInstance':
+            parallelJobs.push(addJenkinsJob)
+            break
+        }
+      } else {
+        parallelJobs = [updateInstance]
+        switch (data.type) {
+          case 'labInstance':
+            parallelJobs.push(updateKongApi)
+            parallelJobs.push(updateJenkinsJob)
+            break
+          case 'proxy':
+            parallelJobs.push(updateKongApi)
+            break
+        }
+      }
+      async.parallel(parallelJobs, function (err, results) {
         if (err) {
           return res.sendStatus(500)
         }
+        return res.send(results[0])
+      })
+    })
+    .delete(function (req, res) {
+      db.models.labInstance.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+          return res.sendStatus(500)
+        }
+        // TODO: delete Kong API
+        // TODO: delete Jenkins job
         return res.sendStatus(200)
       })
-    }
-  })
-  .delete(function (req, res) {
-    db.models.labInstance.findByIdAndRemove(req.params.id, function (err) {
-      if (err) {
-        return res.sendStatus(500)
-      }
-      return res.sendStatus(200)
     })
-  })
 }
