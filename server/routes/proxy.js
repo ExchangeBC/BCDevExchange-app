@@ -47,8 +47,9 @@ exports.api = function (app, db, passport) {
 // This lab proxy is a backup. Use KONG as primary proxy engine
 exports.lab = function (app, db, passport) {
   app.use(function (req, res, next) {
-    var labRegEx = new RegExp("^" + config.lab.proxyHostNamePrefix + "lab-(.+)"
-      + config.lab.proxyHostNameSuffix)
+    var escapeStringRegexp = require('escape-string-regexp')
+    var labRegEx = new RegExp("^" + escapeStringRegexp(config.lab.proxyHostNamePrefix) + "(.+)"
+      + escapeStringRegexp(config.lab.proxyHostNameSuffix))
     var matches = req.hostname.match(labRegEx)
     if (!matches) {
       return next()

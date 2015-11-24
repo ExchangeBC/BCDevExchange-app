@@ -126,7 +126,7 @@ module.exports = function (app, db, passport) {
         var postData = {
           name: data.get('name'),
           upstream_url: data.get('siteUrl'),
-          request_host: config.lab.proxyHostNamePrefix + 'lab-' + data.get('name') + config.lab.proxyHostNameSuffix
+          request_host: config.lab.proxyHostNamePrefix + data.get('name') + config.lab.proxyHostNameSuffix
         }
         request.post({url: config.lab.kongAdminUrl, form: postData}, function (err, response, body) {
           var bodyObj = JSON.parse(body)
@@ -140,7 +140,7 @@ module.exports = function (app, db, passport) {
         callback(null, null)
       }
       // update instance
-      function updateInstance() {
+      function updateInstance(callback) {
 
         var id = data._id
         delete data._id
@@ -155,7 +155,7 @@ module.exports = function (app, db, passport) {
         var patchData = {
           name: data.name,
           upstream_url: data.siteUrl,
-          request_host: config.lab.proxyHostNamePrefix + 'lab-' + data.name + config.lab.proxyHostNameSuffix
+          request_host: config.lab.proxyHostNamePrefix + data.name + config.lab.proxyHostNameSuffix
         }
         request.patch({url: config.lab.kongAdminUrl + data.kongId, form: patchData}, function (err, response, body) {
           callback(err, {response: response, body: body})
@@ -194,13 +194,31 @@ module.exports = function (app, db, passport) {
       })
     })
     .delete(function (req, res) {
-      db.models.labInstance.findByIdAndRemove(req.params.id, function (err) {
-        if (err) {
-          return res.sendStatus(500)
+      db.models.labInstance.findById(req.params.id, function (error, data) {
+
+        function deleteInstance(callback) {
+          db.models.labInstance.findByIdAndRemove(req.params.id, function (err) {
+            callback(err, null)
+          })
         }
-        // TODO: delete Kong API
+        // delete Kong API
+        function deleteKongApi(callback) {
+          request.del(config.lab.kongAdminUrl + data.get('kongId'), function (err, response, body) {
+            callback(err, null)
+          })
+        }
         // TODO: delete Jenkins job
-        return res.sendStatus(200)
+        function deleteJenkinsJob(callback) {
+          callback(null, null)
+        }
+
+        var parallelJobs = [deleteInstance, deleteKongApi, deleteJenkinsJob]
+        async.parallel(parallelJobs, function (err, results) {
+          if (err) {
+            return res.sendStatus(500)
+          }
+          return res.sendStatus(200)
+        })
       })
     })
 }

@@ -22,6 +22,7 @@
     "cookie-parser": "~1.0.1",
     "ejs": "~0.8.4",
     "errorhandler": "~1.0.0",
+    "escape-string-regexp": "^1.0.3",
     "express": "^4.12.3",
     "express-session": "^1.11.1",
     "google-cdn-data": "^0.1.17",
