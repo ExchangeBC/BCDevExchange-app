@@ -103,7 +103,13 @@ module.exports = function (app, db, passport) {
     })
   })
     .get(function (req, res, next) {
-      db.getLabInstances(req.query.q ? JSON.parse(req.query.q) : {creatorId: req.user._id}).then(function (data) {
+      db.getLabInstances(req.query.q ? JSON.parse(req.query.q, function (key, value) {
+        if (value.toString().indexOf("__REGEXP ") == 0) {
+          var m = value.split("__REGEXP ")[1].match(/\/(.*)\/(.*)?/)
+          return new RegExp(m[1], m[2] || "")
+        } else
+          return value
+      }) : {creatorId: req.user._id}).then(function (data) {
         res.send(data)
       })
     })

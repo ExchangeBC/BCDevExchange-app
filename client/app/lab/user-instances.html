@@ -56,6 +56,7 @@ See the License for the specific language governing permissions and limitations 
           <div class="row">
             <div class="col-sm-9">
               <div class="row"><div class="col-xs-4">Name:</div> <div class="col-xs-8" ng-bind-html="labInstance.name | highlight:query"></div></div>
+              <div class="row"><div class="col-xs-4">Lab Url:</div> <a class="col-xs-8" ng-bind-html="'https://lab-'+(labInstance.name | highlight:query)+'.bcdevexchange.org'" target="_blank" ng-attr-href="{{'https://lab-'+labInstance.name+'.bcdevexchange.org'}}"></a></div>
               <div ng-if="labInstance.type === 'labInstance'">
                 <div class="row"><div class="col-xs-4">GitHub Repo:</div> <div class="col-xs-8" ng-bind-html="(labInstance.githubRepoOwner + '/' + labInstance.githubRepo) | highlight:query"></div></div>
                 <div class="row"><div class="col-xs-4">Git Branch:</div> <div class="col-xs-8" ng-bind-html="labInstance.gitBranch | highlight:query"></div></div>
@@ -63,7 +64,7 @@ See the License for the specific language governing permissions and limitations 
                 <div class="row"><div class="col-xs-4">Published Docker Port:</div> <div class="col-xs-8" ng-bind-html="labInstance.dockerPort | highlight:query"></div></div>
               </div>
               <div ng-if="labInstance.type === 'proxy'">
-                <div class="row"><div class="col-xs-4">Site Url:</div> <div class="col-xs-8" ng-bind-html="labInstance.siteUrl | highlight:query"></div></div>
+                <div class="row"><div class="col-xs-4">Proxied Site Url:</div> <a class="col-xs-8" ng-bind-html="labInstance.siteUrl | highlight:query" target="_blank" ng-attr-href="{{labInstance.siteUrl}}"></a></div>
               </div>
             </div>
             <div class="col-sm-3">
