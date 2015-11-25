@@ -9,27 +9,27 @@ The [BCDevExchange website](http://bcdevexchange.org/) is the public facing site
 
 *We are open to pull requests!  See our [contributing guide](https://github.com/BCDevExchange/BCDevExchange-app/blob/master/CONTRIBUTING.md) for the details.*
 
-## MEAN Stack##
+# Setting up Development Environment
+## Overview
 This web app is built on the MEAN stack:
 
--  AngularJS
--  Bootstrap
--  NodeJS
 -  MongoDB
--  nginx
+-  ExpressJS
+-  AngularJS
+-  NodeJS
 
-The app has been retrofitted with [Yeoman](http://yeoman.io/) [angular-fullstack generator](https://github.com/DaftMonk/generator-angular-fullstack).
+The app has been retrofitted with [Yeoman](http://yeoman.io/) [angular-fullstack generator](https://github.com/DaftMonk/generator-angular-fullstack) with one twist - phasing out bower in favor of browserify. Going forward, any client-side JS library should be added in `package.json` instead of `bower.json` and included by means of CommonJS.
 
-## Getting Started ##
+## Getting Started 
 
-You'll need [MongoDB](http://www.mongodb.org/), [NodeJS](http://nodejs.org/), and [Git](http://git-scm.com/downloads). Clone this repo from GitHub, change directory to the repo root.
+You'll need [MongoDB](http://www.mongodb.org/), [NodeJS](http://nodejs.org/), and [Git](http://git-scm.com/downloads). An IDE is optional. Clone this repo from GitHub, change directory to the repo root.
 
 1. Run `npm install`.
 2. Install [Grunt](http://gruntjs.com) for the command line via `npm install -g grunt-cli`.
 3. Run `grunt serve` to start a Node server.  Defaults to [localhost:9000](http://localhost:000).
 
 ### Grunt
-We also use [Grunt](http://gruntjs.com) to automate some of the development process.  Some notable tasks:
+We use [Grunt](http://gruntjs.com) to automate some of the development process.  Some notable tasks:
 
 ```
 grunt serve
@@ -57,6 +57,11 @@ grunt build
 ```
 Builds production environment without launching the site. 
 
+```
+grunt
+```
+Performs server-side and client-side (Karma) unit testing, then builds production environment without launching the site. 
+
 ### Gulp
 
 We use [Gulp](http://gulpjs.com) to ensure that each appropriate file in the repo has a license file attached to it.  These appear in the header of each appropriate file.  To check if the license is on every appropriate file, run
@@ -73,15 +78,16 @@ gulp --update
 
 ## Running Tests ##
 
-BCDevExchange currently uses [Protractor](https://angular.github.io/protractor/) for end-to-end testing.  To run the tests:
+All test scripts are written in [Jasmine 2](http://jasmine.github.io/) BDD format. BCDevExchange-app has 3 types of testing framework setup:
 
-1. Start the `webdriver-manager` with `webdriver-manager start`.
-2. Change to the `test/` directory from the repo root.
-3. Run `protractor` to execute the tests.  You may need to install Protractor globally with `npm install -g protractor`.
+1. [Protractor](https://angular.github.io/protractor/) for end-to-end testing.  Run `grunt test:e2e` to launch tests. Test scripts resides in `/e2e/**/*.spec.js`
+2. [Karma](http://karma-runner.github.io/) for client-side Angular unit testing. Run `grunt test:client` to launch tests. Test scripts resides in `/client/app/**/*.spec.js`
+3. [grunt-jasmine-nodejs](https://github.com/onury/grunt-jasmine-nodejs) for server-side NodeJS unit testing. Run `grunt test:server` to launch tests. Test scripts resides in `/server/**/*.spec.js`
 
+# Setting up Production Environment
 ## Server Deployment ##
 
-You'll need a Linux server with:
+We use a Linux server with:
 
 - [nginx](http://nginx.org/)
 - [NodeJS via N](https://github.com/tj/n) Use version 0.12.x
