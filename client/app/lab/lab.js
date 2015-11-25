@@ -167,7 +167,7 @@ angular.module('bcdevxApp.lab', ['ngRoute', 'ngResource', 'bcdevxApp.services'])
           }
 
 
-          var query = {'name': {$regex: new RegExp(modelValue, "i")}}
+          var query = {'name': {$regex: new RegExp('^' + modelValue + '$', "i")}}
           if (scope.item._id) {
             query._id = {$ne: scope.item._id}
           }
