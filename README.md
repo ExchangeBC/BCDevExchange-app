@@ -26,7 +26,8 @@ You'll need [MongoDB](http://www.mongodb.org/), [NodeJS](http://nodejs.org/), an
 
 1. Run `npm install`.
 2. Install [Grunt](http://gruntjs.com) for the command line via `npm install -g grunt-cli`.
-3. Run `grunt serve` to start a Node server.  Defaults to [localhost:9000](http://localhost:000).
+3. Adjust settings in `config/default.json`. For example, supply your client ID and secret for GitHub authentication. Instead of changing `config/default.json` directly, create file `config/local.json` and put changes there. Config file loading order is described in module [node-config](https://github.com/lorenwest/node-config/wiki/Configuration-Files#file-load-order).
+4. Run `grunt serve` to start a Node server.  Defaults to [localhost:9000](http://localhost:000).
 
 ### Grunt
 We use [Grunt](http://gruntjs.com) to automate some of the development process.  Some notable tasks:
