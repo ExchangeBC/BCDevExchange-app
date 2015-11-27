@@ -20,6 +20,7 @@ module.exports = function (app, db, passport) {
   var auth = require('./auth.js')
   var async = require('async')
   var request = require('request')
+  var _ = require('lodash')
 
   app.post("/api/lab/request",
     function (req, res) {
@@ -84,7 +85,7 @@ module.exports = function (app, db, passport) {
       if (err || acct.labRequestStatus !== 'approved') {
         return res.sendStatus(403)
       }
-      // make sure instance belongs to user
+// make sure instance belongs to user
       var instId
       if (req.method === 'DELETE' && req.params.id) {
         instId = req.params.id
@@ -123,7 +124,19 @@ module.exports = function (app, db, passport) {
           if (err) {
             return callback(err, data)
           } else {
-            addKongApi(data, callback)
+            switch (data.get('type')) {
+              case 'labInstance':
+                addJenkinsJob(data, function (err, data) {
+                  if (err) {
+                    return callback(err, null)
+                  }
+                  addKongApi(data, callback)
+                })
+                break;
+              case 'proxy':
+                addKongApi(data, callback)
+                break;
+            }
           }
         })
       }
@@ -141,9 +154,22 @@ module.exports = function (app, db, passport) {
           })
         })
       }
+
       // TODO: add Jenkins job
-      function addJenkinsJob(callback) {
-        callback(null, null)
+      function addJenkinsJob(data, callback) {
+        // reserved host port range, must not overlap with ephemeral port range
+        var resHostPortStart = 20001, resHostPortEnd = 25000, resHostPortRange = []
+        for (var i = resHostPortStart; i < resHostPortEnd; i++) {
+          resHostPortRange.push(i)
+        }
+        db.models.labInstance.find({type: 'labInstance', hostPort: {$ne: null}})
+          .distinct('hostPort').exec(function (err, results) {
+          var availablePorts = _.difference(resHostPortRange, results)
+          data.set('hostPort', availablePorts[Math.floor(availablePorts.length * Math.random())])
+          data.save(function (err) {
+            callback(err, data)
+          })
+        })
       }
       // update instance
       function updateInstance(callback) {
@@ -175,11 +201,6 @@ module.exports = function (app, db, passport) {
       var parallelJobs
       if (!data._id) {
         parallelJobs = [createInstance]
-        switch (data.type) {
-          case 'labInstance':
-            parallelJobs.push(addJenkinsJob)
-            break
-        }
       } else {
         parallelJobs = [updateInstance]
         switch (data.type) {
