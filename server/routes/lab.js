@@ -155,7 +155,7 @@ module.exports = function (app, db, passport) {
         })
       }
 
-      // TODO: add Jenkins job
+      // add Jenkins job
       function addJenkinsJob(data, callback) {
         // reserved host port range, must not overlap with ephemeral port range
         var resHostPortStart = 20001, resHostPortEnd = 25000, resHostPortRange = []
@@ -167,7 +167,15 @@ module.exports = function (app, db, passport) {
           var availablePorts = _.difference(resHostPortRange, results)
           data.set('hostPort', availablePorts[Math.floor(availablePorts.length * Math.random())])
           data.save(function (err) {
-            callback(err, data)
+            // TODO: call Jenkins DSL seed job to creat a new job - following few lines of code doesn't work yet
+            var postData = {
+              json: {parameter: [{name: 'ghProject', value: data.githubRepoOwner + '/' + data.githubRepo}]}
+            }
+            request.post(config.lab.jenkinsSeedJobBuildUrl + '?ghProject=sdf')
+              .auth(config.lab.jenkinsUser, config.lab.jenkinsApiToken)
+              .form(postData).on('response', function (response) {
+              callback(err, data)
+            })
           })
         })
       }

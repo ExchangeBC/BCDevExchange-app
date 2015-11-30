@@ -11,14 +11,10 @@ The [BCDevExchange website](http://bcdevexchange.org/) is the public facing site
 
 # Setting up Development Environment
 ## Overview
-This web app is built on the MEAN stack:
 
--  MongoDB
--  ExpressJS
--  AngularJS
--  NodeJS
-
-The app has been retrofitted with [Yeoman](http://yeoman.io/) [angular-fullstack generator](https://github.com/DaftMonk/generator-angular-fullstack) with one twist - phasing out bower in favor of browserify. Going forward, any client-side JS library should be added in `package.json` instead of `bower.json` and included by means of CommonJS.
+This web app is built on the [MEAN](https://en.wikipedia.org/wiki/MEAN_(software_bundle)) stack. The app has been retrofitted with [Yeoman](http://yeoman.io/) [angular-fullstack generator](https://github.com/DaftMonk/generator-angular-fullstack) except for a couple twists 
+- phasing out bower in favor of browserify. Going forward, any client-side JS library should be added in `package.json` instead of `bower.json` and included by means of CommonJS style whenever possible.
+- replaced server-side mocha unit test with Jasmine.
 
 ## Getting Started 
 
