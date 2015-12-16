@@ -57,22 +57,20 @@
           <table class="table table-striped">
             <thead>
             <tr>
-              <th>Organization</th>
+              <!--<th>Organization</th>-->
               <th>Project</th>
-              <th>Reward</th>
               <th>Labels</th>
-              <th>Forks</th>
-              <th>Pull Requests</th>
+              <!--<th>Forks</th>-->
+              <!--<th>Pull Requests</th>-->
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="issue in issues">
-              <td>ORG</td>
+              <!--<td>ORG</td>-->
               <td><a href="{{issue.html_url}}">{{issue.title}}</a></td>
-              <td>$1000</td>
               <td><span ng-repeat="label in issue.labels" style="background-color:#{{label.color}}" class="label">{{label.name}}</span></td>
-              <td>TBD</td>
-              <td>TBD</td>
+              <!--<td>TBD</td>
+              <td>TBD</td>-->
             </tr>
             </tbody>
           </table>

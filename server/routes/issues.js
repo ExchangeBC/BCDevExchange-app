@@ -29,9 +29,25 @@ module.exports = function (app, db, passport) {
     function (req, res) {
 
       if (req.params.program) {
-        getGitHubIssuesForRepo(req.params.program, function (results) {
+        var deferred = Q.defer();
+        db.getProgramByName(req.params.program).then(function (program) {
+
+          if (!program || !program.githubUrl) {
+            deferred.resolve([])
+          } else {
+            var githubUrl = program.githubUrl;
+            var ghRepo = githubUrl.substr(githubUrl.indexOf('github.com') + 11)
+
+            getGitHubIssuesForRepo(ghRepo, function (results) {
+              deferred.resolve(results);
+            })
+          }
+
+          return deferred.promise;
+
+        }).then(function (results) {
           res.send({issues: results});
-        });
+        })
       } else {
         // get all programs and then fire off parallel requests to get all issues
         var deferred = Q.defer();
@@ -56,10 +72,11 @@ module.exports = function (app, db, passport) {
           console.log("programData: " + programData.length);
           var deferred3 = Q.defer();
           async.concat(programData, function (program, callback) {
-            var githubUrl = program.githubUrl;
-            if (!program || !githubUrl) {
+
+            if (!program || !program.githubUrl) {
               callback(null, null);
             } else {
+              var githubUrl = program.githubUrl;
               var ghRepo = githubUrl.substr(githubUrl.indexOf('github.com') + 11)
               getGitHubIssuesForRepo(ghRepo, function (issues) {
                 callback(null, issues);
