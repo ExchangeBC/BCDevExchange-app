@@ -44,50 +44,41 @@
         </div>
       </div>
 
-      <h2 class="sub-header">Available Work</h2>
+      <hr>
 
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th>Organization</th>
-            <th>Project</th>
-            <th>Reward</th>
-            <th>Skills Required</th>
-            <th>Forks</th>
-            <th>Pull Requests</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>BC Laws API</td>
-            <td>Favourites Tree Threshold Limit Break</td>
-            <td>$1000</td>
-            <td><span class="label label-default">JavaScript</span><span class="label label-success">jQuery</span><span
-              class="label label-primary">XML</span></td>
-            <td>11</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>BC Laws API</td>
-            <td>Favourites Tree Threshold Limit Break</td>
-            <td>$1000</td>
-            <td><span class="label label-primary">XML</span></td>
-            <td>11</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>Bylaws API</td>
-            <td>API Specification</td>
-            <td>$1000</td>
-            <td><span class="label label-info">Swagger</span></td>
-            <td>1</td>
-            <td>1</td>
-          </tr>
-
-          </tbody>
-        </table>
+      <div ng-show="!issues.length">
+        <h2 class="sub-header">No work currently available.</h2>
       </div>
+
+      <div ng-show="issues.length">
+        <h2 class="sub-header">Available Work</h2>
+
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Organization</th>
+              <th>Project</th>
+              <th>Reward</th>
+              <th>Labels</th>
+              <th>Forks</th>
+              <th>Pull Requests</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="issue in issues">
+              <td>ORG</td>
+              <td><a href="{{issue.html_url}}">{{issue.title}}</a></td>
+              <td>$1000</td>
+              <td><span ng-repeat="label in issue.labels" style="background-color:#{{label.color}}" class="label">{{label.name}}</span></td>
+              <td>TBD</td>
+              <td>TBD</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
   </div>
 

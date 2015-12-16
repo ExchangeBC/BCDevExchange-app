@@ -244,10 +244,11 @@ exports.getProgramByName = function (programNm, cb) {
   models.program.findOne({
     'name': {$regex: new RegExp(programNm, "i")}
   }).select('-_id -__v').lean().exec(function (err, res) {
-    if (err)
+    if (err) {
       deferred.reject(err)
-    else
+    } else {
       deferred.resolve(res)
+    }
   })
   return deferred.promise.nodeify(cb)
 }
