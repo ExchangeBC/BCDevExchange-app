@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: DeveloperCtrl', function () {
+describe('Controller: DevelopersCtrl', function () {
 
   // load the controller's module
   beforeEach(module('bcdevxApp.developers'));
@@ -10,7 +10,7 @@ describe('Controller: DeveloperCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    DeveloperCtrl = $controller('DeveloperCtrl', {
+    DeveloperCtrl = $controller('DevelopersCtrl', {
       $scope: scope
     });
   }));
