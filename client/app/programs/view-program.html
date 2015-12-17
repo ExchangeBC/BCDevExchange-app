@@ -202,7 +202,13 @@ See the License for the specific language governing permissions and limitations 
                         </div>
                         <!-- .et_pb_row_inner -->
                         <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_6">
-                            <div inline-editable analytics-outbound-links ng-bind-html='program.content.tasks'></div>
+                          <div ng-show="!issues.length" inline-editable analytics-outbound-links ng-bind-html='program.content.tasks'></div>
+
+                          <div ng-show="issues.length" inline-editable analytics-outbound-links>
+                              <ul>
+                                <li ng-repeat="issue in issues"><a href="{{issue.html_url}}">{{issue.title}}</a>&nbsp;<span ng-repeat="label in issue.labels" style="background-color:#{{label.color}}" class="label">{{label.name}}</span></li>
+                              </ul>
+                            </div>
                         </div>
                     </div>
                     <!-- .et_pb_column -->
@@ -452,14 +458,14 @@ See the License for the specific language governing permissions and limitations 
         flex: 1 1 auto;
         align-self: auto;
         margin: 10px;
-    }  
+    }
     .fa-circle-border
     {
         border-radius: 50%;
         border: 3px solid white;
         padding:18px;
-        color: #ffffff; 
-        background-color: #494949; 
+        color: #ffffff;
+        background-color: #494949;
         font-size: 80px;
     }
 </style>

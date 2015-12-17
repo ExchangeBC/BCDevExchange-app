@@ -1,16 +1,16 @@
 /*
-Copyright 2015 Province of British Columbia
+ Copyright 2015 Province of British Columbia
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+ http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
-*/
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and limitations under the License.
+ */
 
 
 'use strict'
@@ -19,50 +19,57 @@ angular.module('bcdevxApp.programs').config(function ($sceProvider) {
     // fully trust content editor
     $sceProvider.enabled(false)
   })
-  .controller('ViewProgramCtrl', ['ProgramService', '$routeParams', '$rootScope', '$scope', 'Programs', 'usSpinnerService', '$sce', function (ProgramService, $routeParams, $rootScope, $scope, Programs, usSpinnerService, $sce) {
-      $scope.mdDisplay = ''
+  .factory('ProgramIssuesService', ['$resource', function ($resource) {
+    return $resource("/api/issues/:program");
+  }])
+  .controller('ViewProgramCtrl', ['ProgramService', '$routeParams', '$rootScope', '$scope', 'Programs', 'usSpinnerService', '$sce', 'ProgramIssuesService', function (ProgramService, $routeParams, $rootScope, $scope, Programs, usSpinnerService, $sce, ProgramIssuesService) {
+    $scope.mdDisplay = ''
 
-      var mdContentPromise = ProgramService.getProgramByName($routeParams.programName)
-      $scope.programName = $routeParams.programName
-      $scope.programs = Programs
-      mdContentPromise.then(function (program) {
-        usSpinnerService.stop('spinner-program-desc')
-        if (!!program) {
-          $scope.program = program
-          $scope.mdDisplay = program.markdown
-          var nButtons = 4
-          if(program.hideWorkWithUs) nButtons--
-          if(program.hideSkillsWeNeed) nButtons--
-          if(!program.githubUrl) nButtons--
-          $scope.nButtons = nButtons
-          // bottom buttons
-          var nButtons2 = 4
-          if(program.hideSkillsWeNeed) nButtons2--
-          if(program.hideCommunity) nButtons2--
-          if(program.hideNews) nButtons2--
-          $scope.nButtons2 = nButtons2
-          setTimeout(function(){
-            $rootScope.$broadcast('bdTocUpdate')
-            $scope.$broadcast('contentReady')
-          },0)
-        } else {
-          $scope.mdDisplay = 'No content found for program named \'' + $routeParams.programName + '\'.'
-        }
-
-      }, function (errorMessage) {
-        $scope.mdDisplay = errorMessage
-      })
-      
-      $scope.getGitterUrl = function(gitterId, fullSite){
-        return 'https://gitter.im/' + gitterId + (fullSite?'':'/~embed')
+    var mdContentPromise = ProgramService.getProgramByName($routeParams.programName)
+    $scope.programName = $routeParams.programName
+    $scope.programs = Programs
+    mdContentPromise.then(function (program) {
+      usSpinnerService.stop('spinner-program-desc')
+      if (!!program) {
+        $scope.program = program
+        $scope.mdDisplay = program.markdown
+        var nButtons = 4
+        if (program.hideWorkWithUs) nButtons--
+        if (program.hideSkillsWeNeed) nButtons--
+        if (!program.githubUrl) nButtons--
+        $scope.nButtons = nButtons
+        // bottom buttons
+        var nButtons2 = 4
+        if (program.hideSkillsWeNeed) nButtons2--
+        if (program.hideCommunity) nButtons2--
+        if (program.hideNews) nButtons2--
+        $scope.nButtons2 = nButtons2
+        setTimeout(function () {
+          $rootScope.$broadcast('bdTocUpdate')
+          $scope.$broadcast('contentReady')
+        }, 0)
+      } else {
+        $scope.mdDisplay = 'No content found for program named \'' + $routeParams.programName + '\'.'
       }
-}
-])
+
+    }, function (errorMessage) {
+      $scope.mdDisplay = errorMessage
+    })
+
+    $scope.getGitterUrl = function (gitterId, fullSite) {
+      return 'https://gitter.im/' + gitterId + (fullSite ? '' : '/~embed')
+    }
+
+    ProgramIssuesService.get({program: $routeParams.programName}, function(issues) {
+      $scope.issues = issues.issues
+    });
+  }
+  ])
 
 angular.module('bcdevxApp.programs').directive('inlineEditable', ['AccountService', function (AccountService) {
   // Turn off automatic editor creation first.
   window.CKEDITOR.disableAutoInline = true
-    // don't show tooltip besides cursor
+  // don't show tooltip besides cursor
   window.CKEDITOR.config.title = false
 
   return {
@@ -111,15 +118,15 @@ angular.module('bcdevxApp.programs').directive('analyticsOutboundLinks', ['$anal
   return {
     restrict: 'A',
     link: function ($scope, element, attrs) {
-      element.click(function(e) {
+      element.click(function (e) {
         if (e.target.href.indexOf(window.location.hostname) == -1) {
-          $analytics.eventTrack('click', { category: 'outbound', label: e.target.href });
+          $analytics.eventTrack('click', {category: 'outbound', label: e.target.href});
         }
       });
 
-      element.bind('contextmenu', function(e) {
+      element.bind('contextmenu', function (e) {
         if (e.target.href.indexOf(window.location.hostname) == -1) {
-          $analytics.eventTrack('right-click', { category: 'outbound', label: e.target.href });
+          $analytics.eventTrack('right-click', {category: 'outbound', label: e.target.href});
         }
       });
     }
