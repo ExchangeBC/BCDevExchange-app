@@ -45,7 +45,6 @@ module.exports = function (app, db, passport) {
 
     db.getProgramByName(req.params.title).then(function (data) {
       ProgramService.getProgramDetails(data, function (error, result) {
-        console.log("data, results" , data, result);
         res.send(_.merge({}, result, data))
       })
     })
