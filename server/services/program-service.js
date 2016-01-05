@@ -134,24 +134,36 @@ function getProgramDetails(progData, callback) {
   }
 
   var getGitHubStats = function (item, cb) {
-    console.log("getting github stats: ", item, githubStatsUrl)
     var ghRepo = githubStatsUrl.substr(githubStatsUrl.indexOf('github.com') + 11)
-    var options = {
-      url: 'https://api.github.com/repos/' + ghRepo + item + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
-      headers: {
-        'User-Agent': config.github.clientApplicationName
+    var url = 'https://api.github.com/repos/' + ghRepo + item + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret
+    var statsResArr = []
+    var queryGitHub = function (url, cb) {
+      var options = {
+        url: url,
+        headers: {
+          'User-Agent': config.github.clientApplicationName
+        }
       }
+      request(options, cb)
     }
-    request(options, function (error, response, body) {
+    var parseRes = function (error, response, body) {
       if (!error &&
         typeof response !== 'undefined' &&
         response.statusCode === 200) {
-        return cb(null, body)
+        Array.prototype.push.apply(statsResArr, JSON.parse(body))
+        var matchUrl
+        if (response.headers.link && (matchUrl = response.headers.link.match(/<(https:\/\/api.*)>;\s+rel="next"/))) {
+          queryGitHub(matchUrl[1], parseRes)
+        }
+        else {
+          return cb(null, statsResArr)
+        }
       } else {
         logger.error('Error fetching GitHub content for %s: %s. response: %s. body: %s', ghRepo + item, error, JSON.stringify(response), body)
         return cb(error || response.statusCode)
       }
-    })
+    }
+    queryGitHub(url, parseRes)
   }
 
   async.parallel([function (cb) {
@@ -162,11 +174,11 @@ function getProgramDetails(progData, callback) {
     }], function (err, resArr) {
     var res = {}
     try {
-      res.contributors = JSON.parse(resArr[0]).length
+      res.contributors = resArr[0].length
     } catch (ex) {
     }
     try {
-      var issuesPrArr = JSON.parse(resArr[1])
+      var issuesPrArr = resArr[1]
       var issuesPrCnt = issuesPrArr.length
       var prCnt = _.reduce(issuesPrArr, function (result, item) {
         return result + ((item.pull_request) ? 1 : 0)
