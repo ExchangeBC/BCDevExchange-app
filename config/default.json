@@ -206,8 +206,9 @@ The local files are intended to not be tracked in your version control system. E
     "proxyHostNameSuffix": ".bcdevexchange.org",
     "labInstanceProtocolAndHost": "http://127.0.0.1",
     "kongAdminUrl" : "http://localhost:8001/apis/",
-    "jenkinsSeedJobBuildUrl" : "https://ci.bcdevexchange.org/job/lab-dsl-seed/buildWithParameters",
-    "jenkinsUser" : "replace-me", 
+    "jenkinsUrl" : "https://ci.bcdevexchange.org",
+    "jenkinsSeedJobBuildUrlFragment" : "/job/lab-dsl-seed/buildWithParameters",
+    "jenkinsUser" : "replace-me",
     "jenkinsApiToken" : "replace-me"
   }
 }

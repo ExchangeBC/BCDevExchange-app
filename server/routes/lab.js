@@ -81,28 +81,28 @@ module.exports = function (app, db, passport) {
   )
 
   app.route('/api/lab/instances/:id?').all(auth.ensureAuthenticated).all(function (req, res, next) {
-    db.getAccountById(req.user._id, false, function (err, acct) {
-      if (err || acct.labRequestStatus !== 'approved') {
-        return res.sendStatus(403)
-      }
-// make sure instance belongs to user
-      var instId
-      if (req.method === 'DELETE' && req.params.id) {
-        instId = req.params.id
-      } else if (req.method === 'POST' && req.body) {
-        instId = req.body._id
-      }
-      if (!instId) {
-        return next()
-      }
-      db.models.labInstance.findById(instId).lean().exec(function (err, data) {
-        if (!data.creatorId || data.creatorId !== req.user._id) {
+      db.getAccountById(req.user._id, false, function (err, acct) {
+        if (err || acct.labRequestStatus !== 'approved') {
           return res.sendStatus(403)
         }
-        return next()
+// make sure instance belongs to user
+        var instId
+        if (req.method === 'DELETE' && req.params.id) {
+          instId = req.params.id
+        } else if (req.method === 'POST' && req.body) {
+          instId = req.body._id
+        }
+        if (!instId) {
+          return next()
+        }
+        db.models.labInstance.findById(instId).lean().exec(function (err, data) {
+          if (!data.creatorId || data.creatorId !== req.user._id) {
+            return res.sendStatus(403)
+          }
+          return next()
+        })
       })
     })
-  })
     .get(function (req, res, next) {
       db.getLabInstances(req.query.q ? JSON.parse(req.query.q, function (key, value) {
         if (value.toString().indexOf("__REGEXP ") == 0) {
@@ -140,6 +140,7 @@ module.exports = function (app, db, passport) {
           }
         })
       }
+
       // add Kong API
       function addKongApi(data, callback) {
         var postData = {
@@ -167,7 +168,7 @@ module.exports = function (app, db, passport) {
           var availablePorts = _.difference(resHostPortRange, results)
           data.set('hostPort', availablePorts[Math.floor(availablePorts.length * Math.random())])
           data.save(function (err) {
-            // call Jenkins DSL seed job to creat a new job
+            // call Jenkins DSL seed job to create a new job
             var postData = {
               name: data.get('name'),
               githubRepo: data.get('githubRepoOwner') + '/' + data.get('githubRepo'),
@@ -175,7 +176,7 @@ module.exports = function (app, db, passport) {
               dockerfilePath: data.get('dockerfilePath'),
               dockerPort: data.get('dockerPort')
             }
-            request.post(config.lab.jenkinsSeedJobBuildUrl)
+            request.post(config.lab.jenkinsUrl + config.lab.jenkinsSeedJobBuildUrlFragment)
               .auth(config.lab.jenkinsUser, config.lab.jenkinsApiToken)
               .form(postData).on('response', function (response) {
               callback(err, data)
@@ -183,6 +184,7 @@ module.exports = function (app, db, passport) {
           })
         })
       }
+
       // update instance
       function updateInstance(callback) {
 
@@ -194,6 +196,7 @@ module.exports = function (app, db, passport) {
           callback(err, doc)
         })
       }
+
       // update Kong API
       function updateKongApi(callback) {
         var patchData = {
@@ -205,6 +208,7 @@ module.exports = function (app, db, passport) {
           callback(err, {response: response, body: body})
         })
       }
+
       // TODO: update Jenkins job
       function updateJenkinsJob(callback) {
         callback(null, null)
@@ -240,18 +244,39 @@ module.exports = function (app, db, passport) {
             callback(err, null)
           })
         }
+
         // delete Kong API
         function deleteKongApi(callback) {
           request.del(config.lab.kongAdminUrl + data.get('kongId'), function (err, response, body) {
             callback(err, null)
           })
         }
-        // TODO: delete Jenkins job
+
+        // delete Jenkins job
         function deleteJenkinsJob(callback) {
-          callback(null, null)
+          request.post(config.lab.jenkinsUrl + '/job/' + data.get('name') + '/doDelete', {
+              auth: {
+                'user': config.lab.jenkinsUser,
+                'pass': config.lab.jenkinsApiToken,
+                'sendImmediately': true
+              }
+            },
+            function (err, response, body) {
+              callback(err, response)
+            })
         }
 
-        var parallelJobs = [deleteInstance, deleteKongApi, deleteJenkinsJob]
+        var parallelJobs = [deleteInstance]
+        switch (data.get('type')) {
+          case 'labInstance':
+            parallelJobs.push(deleteKongApi)
+            parallelJobs.push(deleteJenkinsJob)
+            break
+          case 'proxy':
+            parallelJobs.push(deleteKongApi)
+            break
+        }
+
         async.parallel(parallelJobs, function (err, results) {
           if (err) {
             return res.sendStatus(500)
