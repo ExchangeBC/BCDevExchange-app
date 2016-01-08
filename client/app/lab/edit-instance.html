@@ -60,8 +60,8 @@ See the License for the specific language governing permissions and limitations 
         <tr>
           <td>Git Branch</td>
           <td><input ng-model="item.gitBranch"
-                     uib-tooltip='The branch used to build docker image. Required.' tooltip-trigger='focus'
-                     tooltip-placement='top' required></td>
+                     uib-tooltip="The branch used to build docker image. If left blank, all branches will be examined for changes and built." tooltip-trigger='focus'
+                     tooltip-placement='top'></td>
         </tr>
         <tr>
           <td>Dockerfile Path</td>
