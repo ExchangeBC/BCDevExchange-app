@@ -143,9 +143,20 @@ module.exports = function (app, db, passport) {
 
       // add Kong API
       function addKongApi(data, callback) {
+        var upstreamUrl
+        if (data.get('type') === 'proxy') {
+          upstreamUrl = data.get('siteUrl')
+        }
+        if (data.get('type') === 'labInstance') {
+          if (!data.get('hostPort')) {
+            return callback(500, null)
+          }
+          upstreamUrl = config.lab.labInstanceProtocolAndHost + ":" + data.get('hostPort')
+        }
+
         var postData = {
           name: data.get('name'),
-          upstream_url: data.get('siteUrl'),
+          upstream_url: upstreamUrl,
           request_host: config.lab.proxyHostNamePrefix + data.get('name') + config.lab.proxyHostNameSuffix
         }
         request.post({url: config.lab.kongAdminUrl, form: postData}, function (err, response, body) {
