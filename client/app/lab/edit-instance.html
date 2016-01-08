@@ -24,13 +24,13 @@ See the License for the specific language governing permissions and limitations 
       <tbody>
         <tr>
           <td>Name</td>
-          <td>          
+          <td>
             https://lab-<input ng-model="item.name" name='instName'
                                uib-tooltip='{{nameTooltip}}' tooltip-trigger='focus' ng-pattern="/[a-zA-Z0-9_-]+/" unique-valid-name tooltip-placement='top'/>.bcdevexchange.org
           </td>
         </tr>
         <tr><td colspan="2">I want to:<br/>
-            <input type="radio" ng-model="item.type" value="nsOnly" />Reserve this namespace only<br />
+            <input type="radio" ng-model="item.type" value="nsOnly" required />Reserve this namespace only<br />
             <input type="radio" ng-model="item.type" value="proxy" />Proxy this namespace to an existing site<br />
             <input type="radio" ng-model="item.type" value="labInstance" />Proxy this namespace to a lab instance<br />
           </td>
