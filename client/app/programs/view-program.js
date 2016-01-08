@@ -35,12 +35,10 @@ angular.module('bcdevxApp.programs').config(function ($sceProvider) {
         $scope.mdDisplay = program.markdown
         var nButtons = 4
         if (program.hideWorkWithUs) nButtons--
-        if (program.hideSkillsWeNeed) nButtons--
         if (!program.githubUrl) nButtons--
         $scope.nButtons = nButtons
         // bottom buttons
-        var nButtons2 = 4
-        if (program.hideSkillsWeNeed) nButtons2--
+        var nButtons2 = 3
         if (program.hideCommunity) nButtons2--
         if (program.hideNews) nButtons2--
         $scope.nButtons2 = nButtons2
