@@ -135,7 +135,7 @@ function getProgramDetails(progData, callback) {
 
   var getGitHubStats = function (item, cb) {
     var ghRepo = githubStatsUrl.substr(githubStatsUrl.indexOf('github.com') + 11)
-    var url = 'https://api.github.com/repos/' + ghRepo + item + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret
+    var url = 'https://api.github.com/repos/' + ghRepo + item + "&client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret
     var statsResArr = []
     var queryGitHub = function (url, cb) {
       var options = {
@@ -167,10 +167,10 @@ function getProgramDetails(progData, callback) {
   }
 
   async.parallel([function (cb) {
-    getGitHubStats('/stats/contributors', cb)
+    getGitHubStats('/stats/contributors?', cb)
   },
     function (cb) {
-      getGitHubStats('/issues', cb)
+      getGitHubStats('/issues?state=all', cb)
     }], function (err, resArr) {
     var res = {}
     try {
@@ -179,15 +179,17 @@ function getProgramDetails(progData, callback) {
     }
     try {
       var issuesPrArr = resArr[1]
-      var issuesPrCnt = issuesPrArr.length
-      var prCnt = _.reduce(issuesPrArr, function (result, item) {
-        return result + ((item.pull_request) ? 1 : 0)
+      res.prs = _.reduce(issuesPrArr, function (result, item) {
+        return result + ((item.pull_request && item.state === 'closed') ? 1 : 0)
       }, 0)
-      res.issues = issuesPrCnt - prCnt
-      res.prs = prCnt
+
+      res.issues = _.reduce(issuesPrArr, function (result, item) {
+        return result + ((!item.pull_request && item.state === 'open') ? 1 : 0)
+      }, 0)
+
       // find help wanted issues
       res.helpWantedIssues = issuesPrArr.filter(function (e, i, a) {
-        if (e.pull_request) {
+        if (e.pull_request || e.state !== 'open') {
           return false
         }
         var helpIdx = _.findIndex(e.labels, function (e, i, a) {
