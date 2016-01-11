@@ -167,10 +167,10 @@ function getProgramDetails(progData, callback) {
   }
 
   async.parallel([function (cb) {
-    getGitHubStats('/stats/contributors?', cb)
+    getGitHubStats('/stats/contributors?per_page=100', cb)
   },
     function (cb) {
-      getGitHubStats('/issues?state=all', cb)
+      getGitHubStats('/issues?state=all&per_page=100', cb)
     }], function (err, resArr) {
     var res = {}
     try {
