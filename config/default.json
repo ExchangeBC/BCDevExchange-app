@@ -172,6 +172,9 @@ The local files are intended to not be tracked in your version control system. E
   "ui": {
       "headerImage": "header6.jpg",
       "headerImageLicenseHtml": "Monashee Mountain Range photo by <a href='https://www.flickr.com/photos/42373177@N07/' analytics-on>Jason Drury</a>. Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/' analytics-on>CC BY-NC-SA 2.0</a>)",
+      "developersCarouselImage": "developers.jpg",
+      "entrepreneursCarouselImage": "entrepreneurs.jpg",
+      "publicSectorCarouselImage": "public-sector.jpg",
       "discoveryBanner": false,
       "linkedinLogin": false,
       "resourcescallbackURLage": true,

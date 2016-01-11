@@ -11,7 +11,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
                                                                                                                                WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
-
 @import "../shared/bcdevx-variables.less";
 
 // top banner =================
@@ -20,7 +19,7 @@ See the License for the specific language governing permissions and limitations 
   padding: @splash-top-padding @splash-right-left-padding @splash-bottom-padding;
   background-color: @gray-darker;
   background-size: cover;
-  /*background-attachment: fixed;*/   //enable this if you want the image to stay fixed while page scrolls
+  /*background-attachment: fixed;*/ //enable this if you want the image to stay fixed while page scrolls
   background-repeat: no-repeat;
   background-position: left top;
   color: @splash-color;
@@ -44,9 +43,9 @@ See the License for the specific language governing permissions and limitations 
   color: #6f6f6f;
 }
 
-@media(max-width:@screen-xs-min){
+@media (max-width: @screen-xs-min) {
   .splash {
-    background-position:0% 0%;
+    background-position: 0% 0%;
   }
 }
 
@@ -54,13 +53,13 @@ See the License for the specific language governing permissions and limitations 
   &:extend(.btn);
   &:extend(.btn-lg);
   &:extend(.center-block);
-  background-color: @cta-btn-bg;
+  background-color: @brand-primary;
+  opacity: .6;
   color: @cta-text-colour;
 
 }
 
 // lab banner ================
-
 
 .jumbotron-lab {
   background-color: #339999;
@@ -121,7 +120,7 @@ See the License for the specific language governing permissions and limitations 
     }
 
     .text-muted {
-      display: inline-block!important;
+      display: inline-block !important;
     }
   }
 }
@@ -148,7 +147,7 @@ See the License for the specific language governing permissions and limitations 
   margin-top: 10px;
 }
 
-.site-footer-items li+li {
+.site-footer-items li + li {
   margin-left: 10px;
 }
 
@@ -232,15 +231,18 @@ See the License for the specific language governing permissions and limitations 
   border-top-width: 1px;
   border-top-style: ridge;
 }
+
 .navbar-title-displayBanner {
   font-size: 300%;
   color: white;
 }
-@media(max-width:@screen-md-min){
+
+@media (max-width: @screen-md-min) {
   .navbar-title-displayBanner {
     font-size: 200%;
   }
 }
+
 .navbar-text-displayBanner {
   padding-top: 5px;
   font-size: 125%;
@@ -250,10 +252,11 @@ See the License for the specific language governing permissions and limitations 
   }
 }
 
-@media(max-width:@screen-lg-min){
+@media (max-width: @screen-lg-min) {
   .navbar-title-displayBanner {
     font-size: 200%;
   }
+
   .navbar-text-displayBanner {
     padding-top: 5px;
     font-size: 80%;
@@ -387,13 +390,13 @@ See the License for the specific language governing permissions and limitations 
 
 // labs ===========
 
-.labs-list-group{
-  margin-top:15px;
+.labs-list-group {
+  margin-top: 15px;
 
-  .list-group-item{
-    border:none;
+  .list-group-item {
+    border: none;
 
-    strong{
+    strong {
       color: #2EA3F2;
     }
   }
@@ -409,7 +412,6 @@ See the License for the specific language governing permissions and limitations 
 [role="button"] {
   cursor: pointer;
 }
-
 
 .ui-match {
   background-color: yellow;
@@ -480,16 +482,18 @@ See the License for the specific language governing permissions and limitations 
 
 // text alignment classes based on screen size ==========
 
-
 .text-left-not-xs, .text-left-not-sm, .text-left-not-md, .text-left-not-lg {
   text-align: left;
 }
+
 .text-center-not-xs, .text-center-not-sm, .text-center-not-md, .text-center-not-lg {
   text-align: center;
 }
+
 .text-right-not-xs, .text-right-not-sm, .text-right-not-md, .text-right-not-lg {
   text-align: right;
 }
+
 .text-justify-not-xs, .text-justify-not-sm, .text-justify-not-md, .text-justify-not-lg {
   text-align: justify;
 }
@@ -498,66 +502,85 @@ See the License for the specific language governing permissions and limitations 
   .text-left-not-xs, .text-center-not-xs, .text-right-not-xs, .text-justify-not-xs {
     text-align: inherit;
   }
+
   .text-left-xs {
     text-align: left;
   }
+
   .text-center-xs {
     text-align: center;
   }
+
   .text-right-xs {
     text-align: right;
   }
+
   .text-justify-xs {
     text-align: justify;
   }
 }
+
 @media (min-width: 768px) and (max-width: 991px) {
   .text-left-not-sm, .text-center-not-sm, .text-right-not-sm, .text-justify-not-sm {
     text-align: inherit;
   }
+
   .text-left-sm {
     text-align: left;
   }
+
   .text-center-sm {
     text-align: center;
   }
+
   .text-right-sm {
     text-align: right;
   }
+
   .text-justify-sm {
     text-align: justify;
   }
 }
+
 @media (min-width: 992px) and (max-width: 1199px) {
   .text-left-not-md, .text-center-not-md, .text-right-not-md, .text-justify-not-md {
     text-align: inherit;
   }
+
   .text-left-md {
     text-align: left;
   }
+
   .text-center-md {
     text-align: center;
   }
+
   .text-right-md {
     text-align: right;
   }
+
   .text-justify-md {
     text-align: justify;
   }
 }
+
 @media (min-width: 1200px) {
   .text-left-not-lg, .text-center-not-lg, .text-right-not-lg, .text-justify-not-lg {
     text-align: inherit;
   }
+
   .text-left-lg {
     text-align: left;
   }
+
   .text-center-lg {
     text-align: center;
   }
+
   .text-right-lg {
     text-align: right;
   }
+
   .text-justify-lg {
     text-align: justify;
   }
@@ -591,12 +614,12 @@ See the License for the specific language governing permissions and limitations 
   }
 }
 
-.messages-overlay{
+.messages-overlay {
   z-index: 100;
   opacity: 0.9;
 }
 
-.cke_editable_inline:hover{
+.cke_editable_inline:hover {
   background-color: #eee;
   border-radius: 5px;
   background-image: url(/img/pen.png);
@@ -605,16 +628,15 @@ See the License for the specific language governing permissions and limitations 
   cursor: pointer;
 }
 
-.cke_focus{
+.cke_focus {
   border: 3px dashed orange;
-  background-color: inherit!important;
-  background-image: none!important;
-  cursor: auto!important;
+  background-color: inherit !important;
+  background-image: none !important;
+  cursor: auto !important;
 }
 
-.css-form{
-  input.ng-invalid:focus
-  {
+.css-form {
+  input.ng-invalid:focus {
     border: 2px solid #e9322d;
     box-shadow: 0 0 6px #f8b9b7;
   }
@@ -625,6 +647,18 @@ See the License for the specific language governing permissions and limitations 
   .process-connector {
     position: relative;
     top: 45px;
+  }
+}
+
+#home-page-carousel {
+  //max-height: 800px;
+  overflow: hidden;
+  .item img {
+    width: 100%;
+    height: auto;
+  }
+  .carousel-caption {
+    &:extend(.text-left);
   }
 }
 
