@@ -126,7 +126,7 @@ See the License for the specific language governing permissions and limitations 
 
     </div>
     <!-- .et_pb_section -->
-    <div ng-hide="program.hideWorkWithUs">
+    <div ng-show="issues.length">
       <!-- .et_pb_section -->
       <div
         class="et_pb_section et_pb_inner_shadow et_section_regular">
@@ -137,6 +137,13 @@ See the License for the specific language governing permissions and limitations 
               <h1 id="workwithus" analytics-on="scrollby" scrollby-offset="35%" analytics-event="scroll"
                   analytics-category="fragment" analytics-label="#workwithus" style="text-align: center;">Code With
                 Us</h1>
+              <h2>Pay for Pull <i class="fa fa-github"></i>
+              </h2>
+              Find work tagged with ‘$1000’. Submit the best code, and you can get paid.
+              <div>
+                <a class='btn btn-primary' href="https://github.com/BCDevExchange/rapid-adoption/wiki" target="_blank">How
+                  it works</a>
+              </div>
             </div>
             <!-- .et_pb_text -->
           </div>
@@ -146,41 +153,43 @@ See the License for the specific language governing permissions and limitations 
         <!-- .et_pb_row -->
 
         <div class="et_pb_row">
-          <div class="et_pb_column et_pb_column_1_2 et_pb_column_1 et_pb_column_single">
-            <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_3">
-
-              <h2>Work Underway</h2>
-
-            </div>
-            <!-- .et_pb_text -->
-            <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_4">
-              <div inline-editable analytics-outbound-links ng-bind-html='program.content.work'></div>
-            </div>
-            <!-- .et_pb_text -->
-          </div>
-          <!-- .et_pb_column -->
-          <div class="et_pb_column et_pb_column_1_2 et_pb_column_2">
-            <div class=" et_pb_row_inner et_pb_row_inner_0">
-              <div class="et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_0">
-                <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_5">
-                  <h2>Backlog</h2>
-                </div>
-                <!-- .et_pb_text -->
-              </div>
-              <!-- .et_pb_column -->
-            </div>
-            <!-- .et_pb_row_inner -->
+          <div class="et_pb_column et_pb_column_1_1">
             <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_6">
-              <div ng-show="!issues.length" inline-editable analytics-outbound-links
-                   ng-bind-html='program.content.tasks'></div>
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Issue</th>
+                  <th>Reward</th>
+                  <th>Skills Required</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="issue in issues">
+                  <td><a href="{{issue.html_url}}">{{issue.title | limitTo: 50}}<span ng-if="issue.title.length > 50">...</span></a>
+                  </td>
+                  <td>
+                    <div
+                      ng-repeat="label in issue.labels" ng-show="{{label.name==='help wanted'}}"
+                      style="background-color:#{{label.color}}" class="label">
+                      <i class="fa fa-tag"></i> {{label.name}}
+                    </div>
+                    <div
+                      ng-repeat="label in issue.labels" ng-show="{{label.color==='0052cc'}}"
+                      style="background-color:#{{label.color}}" class="label">
+                      <i class="fa fa-tag"></i> {{label.name}}
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      ng-repeat="label in issue.labels" ng-show="{{label.color==='fbca04'}}"
+                      style="background-color:#{{label.color}}" class="label">
+                      <i class="fa fa-tag"></i> {{label.name}}
+                    </div>
+                  </td>
+                </tr>
 
-              <div ng-show="issues.length" inline-editable analytics-outbound-links>
-                <ul>
-                  <li ng-repeat="issue in issues"><a href="{{issue.html_url}}">{{issue.title}}</a>&nbsp;<span
-                    ng-repeat="label in issue.labels" style="background-color:#{{label.color}}" class="label">{{label.name}}</span>
-                  </li>
-                </ul>
-              </div>
+                </tbody>
+              </table>
             </div>
           </div>
           <!-- .et_pb_column -->
