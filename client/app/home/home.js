@@ -45,4 +45,11 @@ angular.module('bcdevxApp.home', ['ngRoute'])
       });
     }
 
+    $scope.scrollTo = function (id) {
+      console.log("Scrolling to", id);
+      $location.hash(id);
+      $anchorScroll();
+    }
+
+
   }]);
