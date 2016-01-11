@@ -12,460 +12,465 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 -->
 <article>
-    <div class="entry-content">
-        <div class="et_pb_section et_pb_inner_shadow  et_pb_section_0 et_pb_with_background et_section_regular">
-            <div class=" et_pb_row et_pb_row_0">
+  <div class="entry-content">
+    <div class="et_pb_section et_pb_inner_shadow  et_pb_section_0 et_pb_with_background et_section_regular">
+      <div class=" et_pb_row et_pb_row_0">
 
-                <div class="et_pb_column et_pb_column_1_2">
-                    <div inline-editable ng-bind-html='program.content.logo' style='text-align: center'>
-                    </div>
-                    <!-- .et_pb_text -->
-                </div>
-                <!-- .et_pb_column -->
-                <div class="et_pb_column et_pb_column_1_2 et_pb_column_1">
-                    <span us-spinner="{radius:20, width:6, length: 15}" spinner-key="spinner-program-desc" spinner-start-active="true"></span>
-                    <div inline-editable class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_1" ng-bind-html='program.content.description' />
-                    <!-- .et_pb_text -->
-                </div>
-                <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_2">
+          <div inline-editable ng-bind-html='program.content.logo' style='text-align: center'>
+          </div>
+          <!-- .et_pb_text -->
+        </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_2 et_pb_column_1">
+          <span us-spinner="{radius:20, width:6, length: 15}" spinner-key="spinner-program-desc"
+                spinner-start-active="true"></span>
+          <div inline-editable class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_1"
+               ng-bind-html='program.content.description'/>
+          <!-- .et_pb_text -->
+        </div>
+        <!-- .et_pb_column -->
 
+      </div>
+      <!-- .et_pb_row -->
+
+    </div>
+    <!-- .et_pb_section -->
+    <div class="et_pb_section  et_pb_section_1 et_pb_with_background et_section_regular">
+      <div class="et_pb_row et_pb_row_1 et_pb_row_{{nButtons}}col">
+        <div class="et_pb_column et_pb_column_1_{{nButtons}}" ng-hide="program.hideWorkWithUs">
+          <div
+            class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_0 et_pb_blurb_position_top">
+            <div class="et_pb_blurb_content">
+              <a href="#workwithus" analytics-on analytics-event="click"
+                 analytics-category="fragment" analytics-label="#workwithus"
+                 du-smooth-scroll>
+                <div class="et_pb_main_blurb_image"><span
+                  class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated"
+                  style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span>
+                </div>
+                <div class="et_pb_blurb_container">
+                  <h4>Code With Us</h4>
+                </div>
+              </a>
             </div>
-            <!-- .et_pb_row -->
+            <!-- .et_pb_blurb_content -->
+          </div>
+          <!-- .et_pb_blurb -->
+        </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_{{nButtons}}">
+          <div
+            class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_1 et_pb_blurb_position_top">
+            <div class="et_pb_blurb_content">
+              <a href="#resources" analytics-on analytics-event="click"
+                 analytics-category="fragment" analytics-label="#resources"
+                 du-smooth-scroll>
+                <div class="et_pb_main_blurb_image"><span
+                  class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated"
+                  style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span>
+                </div>
+                <div class="et_pb_blurb_container">
+                  <h4>Resources</h4>
+                </div>
+              </a>
+            </div>
+            <!-- .et_pb_blurb_content -->
+          </div>
+          <!-- .et_pb_blurb -->
+        </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_{{nButtons}}">
+          <div
+            class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_2 et_pb_blurb_position_top">
+            <div class="et_pb_blurb_content">
+              <a href="#contacts" analytics-on analytics-event="click"
+                 analytics-category="fragment" analytics-label="#contacts"
+                 du-smooth-scroll>
+                <div class="et_pb_main_blurb_image"><span
+                  class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated"
+                  style="color: #ffffff; background-color: #494949; border-color: #ffffff;">&#xe010;</span>
+                </div>
+                <div class="et_pb_blurb_container">
+                  <h4>Contact Us</h4>
+                </div>
+              </a>
+            </div>
+            <!-- .et_pb_blurb_content -->
+          </div>
+          <!-- .et_pb_blurb -->
+        </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_{{nButtons}}" ng-show="program.githubUrl">
+          <div
+            class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_3 et_pb_blurb_position_top">
+            <div class="et_pb_blurb_content">
+              <a href="{{program.githubUrl}}" analytics-on analytics-event="click" analytics-category="outbound"
+                 analytics-label="{{program.githubUrl}}|id:1" target="_blank">
+                <div class="et_pb_main_blurb_image">
+                  <i class="fa-circle-border fa fa-github fa-lg et-waypoint et_pb_animation_top et-animated"></i>
+                </div>
+                <div class="et_pb_blurb_container">
+                  <h4>GitHub</h4>
+                </div>
+              </a>
+            </div>
+            <!-- .et_pb_blurb_content -->
+          </div>
+          <!-- .et_pb_blurb -->
+        </div>
+        <!-- .et_pb_column -->
+
+      </div>
+      <!-- .et_pb_row -->
+
+    </div>
+    <!-- .et_pb_section -->
+    <div ng-hide="program.hideWorkWithUs">
+      <!-- .et_pb_section -->
+      <div
+        class="et_pb_section et_pb_inner_shadow et_section_regular">
+        <div class=" et_pb_row et_pb_row_4">
+          <div class="et_pb_column et_pb_column_4_4 et_pb_column_10">
+            <div id="HPFont" class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_2">
+              <p></p>
+              <h1 id="workwithus" analytics-on="scrollby" scrollby-offset="35%" analytics-event="scroll"
+                  analytics-category="fragment" analytics-label="#workwithus" style="text-align: center;">Code With
+                Us</h1>
+            </div>
+            <!-- .et_pb_text -->
+          </div>
+          <!-- .et_pb_column -->
 
         </div>
-        <!-- .et_pb_section -->
-        <div class="et_pb_section  et_pb_section_1 et_pb_with_background et_section_regular">
-            <div class="et_pb_row et_pb_row_1 et_pb_row_{{nButtons}}col">
-                <div class="et_pb_column et_pb_column_1_{{nButtons}}" ng-hide="program.hideWorkWithUs">
-                    <div class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_0 et_pb_blurb_position_top">
-                        <div class="et_pb_blurb_content">
-                            <div class="et_pb_main_blurb_image"><a href="#workwithus" analytics-on analytics-event="click" analytics-category="fragment" analytics-label="#workwithus" du-smooth-scroll><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated" style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span></a>
-                            </div>
-                            <div class="et_pb_blurb_container">
-                                <h4><a href="#workwithus" analytics-on analytics-event="click" analytics-category="fragment" analytics-label="#workwithus" du-smooth-scroll>Work With Us</a></h4>
-                            </div>
-                        </div>
-                        <!-- .et_pb_blurb_content -->
-                    </div>
-                    <!-- .et_pb_blurb -->
-                </div>
-                <!-- .et_pb_column -->
-                <div class="et_pb_column et_pb_column_1_{{nButtons}}">
-                    <div class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_1 et_pb_blurb_position_top">
-                        <div class="et_pb_blurb_content">
-                            <div class="et_pb_main_blurb_image"><a href="#resources" analytics-on analytics-event="click" analytics-category="fragment" analytics-label="#resources"  du-smooth-scroll><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated" style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span></a>
-                            </div>
-                            <div class="et_pb_blurb_container">
-                                <h4><a href="#resources" analytics-on analytics-event="click" analytics-category="fragment" analytics-label="#resources"  du-smooth-scroll>Resources</a></h4>
+        <!-- .et_pb_row -->
 
-                            </div>
-                        </div>
-                        <!-- .et_pb_blurb_content -->
-                    </div>
-                    <!-- .et_pb_blurb -->
-                </div>
-                <!-- .et_pb_column -->
-                <div class="et_pb_column et_pb_column_1_{{nButtons}}" ng-hide="program.hideSkillsWeNeed">
-                    <div class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_2 et_pb_blurb_position_top">
-                        <div class="et_pb_blurb_content">
-                            <div class="et_pb_main_blurb_image"><a href="#skillsweneed" analytics-on analytics-event="click" analytics-category="fragment" analytics-label="#skillsweneed"  du-smooth-scroll><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border et-animated" style="color: #ffffff; background-color: #494949; border-color: #ffffff;"></span></a>
-                            </div>
-                            <div class="et_pb_blurb_container">
-                                <h4><a href="#skillsweneed" analytics-on analytics-event="click" analytics-category="fragment" analytics-label="#skillsweneed"  du-smooth-scroll>Skills We Need</a></h4>
+        <div class="et_pb_row">
+          <div class="et_pb_column et_pb_column_1_2 et_pb_column_1 et_pb_column_single">
+            <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_3">
 
-                            </div>
-                        </div>
-                        <!-- .et_pb_blurb_content -->
-                    </div>
-                    <!-- .et_pb_blurb -->
-                </div>
-                <!-- .et_pb_column -->
-                <div class="et_pb_column et_pb_column_1_{{nButtons}}" ng-show="program.githubUrl">
-                    <div class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_3 et_pb_blurb_position_top">
-                        <div class="et_pb_blurb_content">
-                            <div class="et_pb_main_blurb_image">
-                                <a href="{{program.githubUrl}}" analytics-on analytics-event="click" analytics-category="outbound" analytics-label="{{program.githubUrl}}|id:1" target="_blank"><i class="fa-circle-border fa fa-github fa-lg et-waypoint et_pb_animation_top et-animated"></i>
-                                </a>
-                            </div>
-                            <div class="et_pb_blurb_container">
-                                <h4><a href="{{program.githubUrl}}" analytics-on analytics-event="click" analytics-category="outbound" analytics-label="{{program.githubUrl}}|id:1" target="_blank">GitHub</a></h4>
-                            </div>
-                        </div>
-                        <!-- .et_pb_blurb_content -->
-                    </div>
-                    <!-- .et_pb_blurb -->
-                </div>
-                <!-- .et_pb_column -->
+              <h2>Work Underway</h2>
 
             </div>
-            <!-- .et_pb_row -->
+            <!-- .et_pb_text -->
+            <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_4">
+              <div inline-editable analytics-outbound-links ng-bind-html='program.content.work'></div>
+            </div>
+            <!-- .et_pb_text -->
+          </div>
+          <!-- .et_pb_column -->
+          <div class="et_pb_column et_pb_column_1_2 et_pb_column_2">
+            <div class=" et_pb_row_inner et_pb_row_inner_0">
+              <div class="et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_0">
+                <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_5">
+                  <h2>Backlog</h2>
+                </div>
+                <!-- .et_pb_text -->
+              </div>
+              <!-- .et_pb_column -->
+            </div>
+            <!-- .et_pb_row_inner -->
+            <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_6">
+              <div ng-show="!issues.length" inline-editable analytics-outbound-links
+                   ng-bind-html='program.content.tasks'></div>
 
+              <div ng-show="issues.length" inline-editable analytics-outbound-links>
+                <ul>
+                  <li ng-repeat="issue in issues"><a href="{{issue.html_url}}">{{issue.title}}</a>&nbsp;<span
+                    ng-repeat="label in issue.labels" style="background-color:#{{label.color}}" class="label">{{label.name}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- .et_pb_column -->
         </div>
-        <!-- .et_pb_section -->
-        <div class="et_pb_section  et_pb_section_2 et_section_regular" ng-hide="program.hideStatsSection || !program.githubUrl">
-            <div class=" et_pb_row et_pb_row_2">
-                <div class="et_pb_column et_pb_column_1_3 et_pb_column_6">
-                    <div class="et_pb_number_counter et_pb_module et_pb_bg_layout_light  et_pb_number_counter_0" ng-attr-data-number-value="{{::program.issues}}">
-                        <div class="percent" style="color:#7EBEC5">
-                            <p><span class="percent-value"></span>
-                            </p>
-                        </div>
-                        <h3>Issues</h3>
-                        <canvas height="0" width="0"></canvas>
-                    </div>
-                    <!-- .et_pb_number_counter -->
-                </div>
-                <!-- .et_pb_column -->
-                <div class="et_pb_column et_pb_column_1_3 et_pb_column_7">
-                    <div class="et_pb_number_counter et_pb_module et_pb_bg_layout_light  et_pb_number_counter_1" ng-attr-data-number-value="{{::program.prs}}">
-                        <div class="percent" style="color:#7EBEC5">
-                            <p><span class="percent-value"></span>
-                            </p>
-                        </div>
-                        <h3>Pull Request</h3>
-                        <canvas height="0" width="0"></canvas>
-                    </div>
-                    <!-- .et_pb_number_counter -->
-                </div>
-                <!-- .et_pb_column -->
-                <div class="et_pb_column et_pb_column_1_3 et_pb_column_8">
-                    <div class="et_pb_number_counter et_pb_module et_pb_bg_layout_light  et_pb_number_counter_2" ng-attr-data-number-value="{{::program.contributors}}">
-                        <div class="percent" style="color:#7EBEC5">
-                            <p><span class="percent-value"></span>
-                            </p>
-                        </div>
-                        <h3>Contributors</h3>
-                        <canvas height="0" width="0"></canvas>
-                    </div>
-                    <!-- .et_pb_number_counter -->
-                </div>
-                <!-- .et_pb_column -->
-
+        <!-- .et_pb_row -->
+      </div>
+    </div>
+    <!-- .et_pb_section -->
+    <div class="et_pb_section  et_pb_section_2 et_section_regular et_pb_bg_layout_dark"
+         ng-hide="program.hideStatsSection || !program.githubUrl">
+      <div class=" et_pb_row et_pb_row_2">
+        <div class="et_pb_column et_pb_column_1_3 et_pb_column_6">
+          <div class="et_pb_number_counter et_pb_module et_pb_number_counter_0"
+               ng-attr-data-number-value="{{::program.issues}}">
+            <div class="percent">
+              <p><span class="percent-value"></span>
+              </p>
             </div>
-            <!-- .et_pb_row -->
-
+            <h3>Issues</h3>
+            <canvas height="0" width="0"></canvas>
+          </div>
+          <!-- .et_pb_number_counter -->
         </div>
-        <!-- .et_pb_section -->
-        <div ng-hide="program.hideWorkWithUs">
-            <div class="et_pb_section  et_pb_section_3 et_pb_with_background et_section_regular" ng-show="program.githubUrl">
-                <div class=" et_pb_row et_pb_row_3">
-                    <div class="et_pb_column et_pb_column_4_4 et_pb_column_9">
-                        <div class="et_pb_promo et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_cta_0 et_pb_no_bg">
-                            <div class="et_pb_promo_description">
-                            </div>
-                            <a class="et_pb_promo_button et_pb_button" href="{{program.githubUrl}}" analytics-on analytics-event="click" analytics-category="outbound" analytics-label="{{program.githubUrl}}|id:2" target="_blank">Go To GitHub</a>
-                        </div>
-                    </div>
-                    <!-- .et_pb_column -->
-
-                </div>
-                <!-- .et_pb_row -->
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_3 et_pb_column_7">
+          <div class="et_pb_number_counter et_pb_module  et_pb_number_counter_1"
+               ng-attr-data-number-value="{{::program.prs}}">
+            <div class="percent">
+              <p><span class="percent-value"></span>
+              </p>
             </div>
-            <!-- .et_pb_section -->
-            <div class="et_pb_section et_pb_inner_shadow et_pb_section_parallax  et_pb_section_4 et_pb_with_background et_section_regular" style="background-color:#35394A">
-                <div class=" et_pb_row et_pb_row_4">
-                    <div class="et_pb_column et_pb_column_4_4 et_pb_column_10">
-                        <div id="HPFont" class="et_pb_text et_pb_module et_pb_bg_layout_dark et_pb_text_align_left  et_pb_text_2">
-                            <p></p>
-                            <h1 id="workwithus" analytics-on="scrollby" scrollby-offset="35%" analytics-event="scroll" analytics-category="fragment" analytics-label="#workwithus" style="text-align: center;">Work With Us</h1>
-                        </div>
-                        <!-- .et_pb_text -->
-                    </div>
-                    <!-- .et_pb_column -->
-
-                </div>
-                <!-- .et_pb_row -->
-
-                <div class="et_pb_row">
-                    <div class="et_pb_column et_pb_column_1_2 et_pb_column_1 et_pb_column_single">
-                        <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_3">
-
-                            <h2>Work Underway</h2>
-
-                        </div>
-                        <!-- .et_pb_text -->
-                        <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_4">
-                            <div inline-editable analytics-outbound-links ng-bind-html='program.content.work'></div>
-                        </div>
-                        <!-- .et_pb_text -->
-                    </div>
-                    <!-- .et_pb_column -->
-                    <div class="et_pb_column et_pb_column_1_2 et_pb_column_2">
-                        <div class=" et_pb_row_inner et_pb_row_inner_0">
-                            <div class="et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_0">
-                                <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_5">
-                                    <h2>Backlog</h2>
-                                </div>
-                                <!-- .et_pb_text -->
-                            </div>
-                            <!-- .et_pb_column -->
-                        </div>
-                        <!-- .et_pb_row_inner -->
-                        <div class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_6">
-                          <div ng-show="!issues.length" inline-editable analytics-outbound-links ng-bind-html='program.content.tasks'></div>
-
-                          <div ng-show="issues.length" inline-editable analytics-outbound-links>
-                              <ul>
-                                <li ng-repeat="issue in issues"><a href="{{issue.html_url}}">{{issue.title}}</a>&nbsp;<span ng-repeat="label in issue.labels" style="background-color:#{{label.color}}" class="label">{{label.name}}</span></li>
-                              </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- .et_pb_column -->
-                </div>
-                <!-- .et_pb_row -->
-            </div>
+            <h3>Pull Request</h3>
+            <canvas height="0" width="0"></canvas>
+          </div>
+          <!-- .et_pb_number_counter -->
         </div>
-        <!-- .et_pb_section -->
-        <div class="et_pb_section  et_pb_section_6 et_pb_with_background et_section_regular" ng-show="program.githubUrl">
-            <div class=" et_pb_row et_pb_row_5">
-                <div class="et_pb_column et_pb_column_4_4 et_pb_column_13">
-                    <div class="et_pb_promo et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_cta_1 et_pb_no_bg">
-                        <a class="et_pb_promo_button et_pb_button" href="{{program.githubUrl}}" analytics-on analytics-event="click" analytics-category="outbound" analytics-label="{{program.githubUrl}}|id:3" target="_blank">Go To GitHub</a>
-
-                    </div>
-                </div>
-                <!-- .et_pb_column -->
-
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_3 et_pb_column_8">
+          <div class="et_pb_number_counter et_pb_module  et_pb_number_counter_2"
+               ng-attr-data-number-value="{{::program.contributors}}">
+            <div class="percent">
+              <p><span class="percent-value"></span>
+              </p>
             </div>
-            <!-- .et_pb_row -->
-
+            <h3>Contributors</h3>
+            <canvas height="0" width="0"></canvas>
+          </div>
+          <!-- .et_pb_number_counter -->
         </div>
-        <!-- .et_pb_section -->
-        <div class="et_pb_section  et_pb_section_7 et_section_regular" analytics-on="scrollby" scrollby-offset="35%" analytics-event="scroll" analytics-category="fragment" analytics-label="#resources">
-            <div class="et_pb_row et_pb_row_6 et_pb_row_4col">
-                <div class="et_pb_column  et_pb_column_1_{{nButtons2}}">
-                    <div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_4 et_pb_blurb_position_top">
-                        <div class="et_pb_blurb_content" id="resources">
-                            <div class="et_pb_main_blurb_image"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span>
-                            </div>
-                            <div class="et_pb_blurb_container">
-                                <h4>Resources</h4>
-                                <div inline-editable analytics-outbound-links ng-bind-html='program.content.resources' style="text-align: left;">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .et_pb_blurb_content -->
-                    </div>
-                    <!-- .et_pb_blurb -->
-                </div>
-                <!-- .et_pb_column -->
-                <div class="et_pb_column et_pb_column_1_{{nButtons2}}" ng-hide="program.hideSkillsWeNeed">
-                    <div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_5 et_pb_blurb_position_top">
-                        <div id="skillsweneed" class="et_pb_blurb_content">
-                            <div class="et_pb_main_blurb_image"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span>
-                            </div>
-                            <div class="et_pb_blurb_container">
-                                <h4>Skills</h4>
-                                <div inline-editable analytics-outbound-links ng-bind-html='program.content.skills' style="text-align: left;">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .et_pb_blurb_content -->
-                    </div>
-                    <!-- .et_pb_blurb -->
-                </div>
-                <!-- .et_pb_column -->
-                <div class="et_pb_column et_pb_column_1_{{nButtons2}}" ng-hide="program.hideCommunity">
-                    <div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_6 et_pb_blurb_position_top">
-                        <div id="community" class="et_pb_blurb_content">
-                            <div class="et_pb_main_blurb_image"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;">w</span>
-                            </div>
-                            <div class="et_pb_blurb_container">
-                                <h4>Community</h4>
-                                <div inline-editable analytics-outbound-links ng-bind-html='program.content.community' style="text-align: left;">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .et_pb_blurb_content -->
-                    </div>
-                    <!-- .et_pb_blurb -->
-                </div>
-                <!-- .et_pb_column -->
-                <div class="et_pb_column et_pb_column_1_{{nButtons2}}"  ng-hide="program.hideNews">
-                    <div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_7 et_pb_blurb_position_top">
-                        <div id="news" class="et_pb_blurb_content">
-                            <div class="et_pb_main_blurb_image"><span class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border" style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span>
-                            </div>
-                            <div class="et_pb_blurb_container">
-                                <h4>News</h4>
-                                <div inline-editable analytics-outbound-links ng-bind-html='program.content.news' style="text-align: left;"></div>
-                            </div>
-                        </div>
-                        <!-- .et_pb_blurb_content -->
-                    </div>
-                    <!-- .et_pb_blurb -->
-                </div>
-                <!-- .et_pb_column -->
+        <!-- .et_pb_column -->
 
+      </div>
+      <!-- .et_pb_row -->
+
+    </div>
+    <!-- .et_pb_section -->
+    <div class="et_pb_section  et_pb_section_7 et_section_regular" analytics-on="scrollby" scrollby-offset="35%"
+         analytics-event="scroll" analytics-category="fragment" analytics-label="#resources">
+      <div class="et_pb_row et_pb_row_6 et_pb_row_4col">
+        <div class="et_pb_column  et_pb_column_1_{{nButtons2}}">
+          <div
+            class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_4 et_pb_blurb_position_top">
+            <div class="et_pb_blurb_content" id="resources">
+              <div class="et_pb_main_blurb_image"><span
+                class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border"
+                style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span>
+              </div>
+              <div class="et_pb_blurb_container">
+                <h4>Resources</h4>
+                <div inline-editable analytics-outbound-links ng-bind-html='program.content.resources'
+                     style="text-align: left;">
+                </div>
+              </div>
             </div>
-            <!-- .et_pb_row -->
-
+            <!-- .et_pb_blurb_content -->
+          </div>
+          <!-- .et_pb_blurb -->
         </div>
-        <!-- .et_pb_section -->
-        <div class="et_pb_section  et_pb_section_8 et_pb_with_background et_section_specialty">
-
-            <div class="et_pb_row" analytics-on="scrollby" scrollby-offset="35%" analytics-event="scroll" analytics-category="fragment" analytics-label="#contacts">
-
-                <div class="et_pb_column et_pb_column_1_2 et_pb_column_18 et_pb_column_single">
-                    <div class="et_pb_bg_layout_dark" inline-editable ng-bind-html='program.content.contact'>
-                    </div>
-                    <!-- .et_pb_text -->
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_{{nButtons2}}" ng-hide="program.hideCommunity">
+          <div
+            class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_6 et_pb_blurb_position_top">
+            <div id="community" class="et_pb_blurb_content">
+              <div class="et_pb_main_blurb_image"><span
+                class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border"
+                style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;">w</span>
+              </div>
+              <div class="et_pb_blurb_container">
+                <h4>Community</h4>
+                <div inline-editable analytics-outbound-links ng-bind-html='program.content.community'
+                     style="text-align: left;">
                 </div>
-                <!-- .et_pb_column -->
-                <div class="et_pb_column et_pb_column_1_2 et_pb_column_19 et_pb_specialty_column">
-                    <div class=" et_pb_row_inner et_pb_row_inner_2">
-                        <div class="et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_3">
-                            <div class="et_pb_bg_layout_dark" inline-editable ng-bind-html='program.content.techContact'>
-                            </div>
-                            <!-- .et_pb_text -->
-                        </div>
-                        <!-- .et_pb_column -->
-                    </div>
-                    <!-- .et_pb_row_inner -->
-                </div>
-                <!-- .et_pb_column -->
+              </div>
             </div>
-            <!-- .et_pb_row -->
+            <!-- .et_pb_blurb_content -->
+          </div>
+          <!-- .et_pb_blurb -->
         </div>
-        <!-- .et_pb_section -->
-        <div class="et_pb_section" ng-show="program.gitters">
-            <h1 class="et_pb_text_align_center">Engage With Us</h1>
-            <div id="engageWithUsContainer" class="flex-container">
-                <div ng-repeat="n in program.gitters" class="flex-item" style="padding: 4px; border-radius: 25px; border: 2px solid #8AC007;width:{{100 / program.gitters.length - 3}}%;">
-                    <h3 style="text-align: center;"><a ng-attr-href='{{getGitterUrl(n, true)}}' title='Open {{n}} gitter in new window'  target="_blank">{{n}}</a></h3><br/>
-                    <iframe ng-src="{{getGitterUrl(n)}}" style="height: 400px; width: 100%; display:none"></iframe>
-                </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_{{nButtons2}}" ng-hide="program.hideNews">
+          <div
+            class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_center  et_pb_blurb_7 et_pb_blurb_position_top">
+            <div id="news" class="et_pb_blurb_content">
+              <div class="et_pb_main_blurb_image"><span
+                class="et-pb-icon et-waypoint et_pb_animation_top et-pb-icon-circle et-pb-icon-circle-border"
+                style="color: #7EBEC5; background-color: #ffffff; border-color: #7EBEC5;"></span>
+              </div>
+              <div class="et_pb_blurb_container">
+                <h4>News</h4>
+                <div inline-editable analytics-outbound-links ng-bind-html='program.content.news'
+                     style="text-align: left;"></div>
+              </div>
             </div>
+            <!-- .et_pb_blurb_content -->
+          </div>
+          <!-- .et_pb_blurb -->
         </div>
-        <!-- .entry-content -->
+        <!-- .et_pb_column -->
+
+      </div>
+      <!-- .et_pb_row -->
+
+    </div>
+    <!-- .et_pb_section -->
+    <div class="et_pb_section  et_pb_section_8 et_pb_with_background et_section_specialty">
+
+      <div id="contacts" class="et_pb_row" analytics-on="scrollby" scrollby-offset="35%" analytics-event="scroll"
+           analytics-category="fragment" analytics-label="#contacts">
+        <div class="et_pb_column et_pb_column_1_2 et_pb_column_18 et_pb_column_single">
+          <div class="et_pb_bg_layout_dark" inline-editable ng-bind-html='program.content.contact'>
+          </div>
+          <!-- .et_pb_text -->
+        </div>
+        <!-- .et_pb_column -->
+        <div class="et_pb_column et_pb_column_1_2 et_pb_column_19 et_pb_specialty_column">
+          <div class=" et_pb_row_inner et_pb_row_inner_2">
+            <div class="et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_3">
+              <div class="et_pb_bg_layout_dark" inline-editable ng-bind-html='program.content.techContact'>
+              </div>
+              <!-- .et_pb_text -->
+            </div>
+            <!-- .et_pb_column -->
+          </div>
+          <!-- .et_pb_row_inner -->
+        </div>
+        <!-- .et_pb_column -->
+      </div>
+      <!-- .et_pb_row -->
+    </div>
+    <!-- .et_pb_section -->
+    <div class="et_pb_section" ng-show="program.gitters">
+      <h1 class="et_pb_text_align_center">Engage With Us</h1>
+      <div id="engageWithUsContainer" class="flex-container">
+        <div ng-repeat="n in program.gitters" class="flex-item"
+             style="padding: 4px; border-radius: 25px; border: 2px solid #8AC007;width:{{100 / program.gitters.length - 3}}%;">
+          <h3 style="text-align: center;"><a ng-attr-href='{{getGitterUrl(n, true)}}'
+                                             title='Open {{n}} gitter in new window' target="_blank">{{n}}</a></h3><br/>
+          <iframe ng-src="{{getGitterUrl(n)}}" style="height: 400px; width: 100%; display:none"></iframe>
+        </div>
+      </div>
+    </div>
+    <!-- .entry-content -->
+  </div>
 </article>
 
-<style type = "text/css" scoped>
-    .et_pb_blurb_5.et_pb_blurb {
-        font-size: 16px;
-    }
+<style type="text/css" scoped>
+  .et_pb_blurb_5.et_pb_blurb {
+    font-size: 16px;
+  }
 
-    .et_pb_blurb_5.et_pb_blurb h4 {
-        letter-spacing: 2px;
-        line-height: 2em;
-    }
+  .et_pb_blurb_5.et_pb_blurb h4 {
+    letter-spacing: 2px;
+    line-height: 2em;
+  }
 
-    .et_pb_blurb_4.et_pb_blurb {
-        font-size: 16px;
-    }
+  .et_pb_blurb_4.et_pb_blurb {
+    font-size: 16px;
+  }
 
-    .et_pb_blurb_6.et_pb_blurb h4 {
-        letter-spacing: 2px;
-        line-height: 2em;
-    }
+  .et_pb_blurb_6.et_pb_blurb h4 {
+    letter-spacing: 2px;
+    line-height: 2em;
+  }
 
-    .et_pb_blurb_6.et_pb_blurb {
-        font-size: 16px;
-    }
+  .et_pb_blurb_6.et_pb_blurb {
+    font-size: 16px;
+  }
 
-    .et_pb_section_8 {
-        background-color: #707070;
-    }
+  .et_pb_section_8 {
+    background-color: #707070;
+  }
 
-    .et_pb_blurb_7.et_pb_blurb {
-        font-size: 16px;
-    }
+  .et_pb_blurb_7.et_pb_blurb {
+    font-size: 16px;
+  }
 
-    .et_pb_blurb_7.et_pb_blurb h4 {
-        letter-spacing: 2px;
-        line-height: 2em;
-    }
+  .et_pb_blurb_7.et_pb_blurb h4 {
+    letter-spacing: 2px;
+    line-height: 2em;
+  }
 
-    .et_pb_blurb_4.et_pb_blurb h4 {
-        letter-spacing: 2px;
-        line-height: 2em;
-    }
+  .et_pb_blurb_4.et_pb_blurb h4 {
+    letter-spacing: 2px;
+    line-height: 2em;
+  }
 
-    .et_pb_section_6 {
-        background-color: #494949;
-    }
+  .et_pb_section_6 {
+    background-color: #494949;
+  }
 
-    .et_pb_blurb_0.et_pb_blurb h4 {
-        font-size: 20px;
-        letter-spacing: 2px;
-    }
+  .et_pb_blurb_0.et_pb_blurb h4 {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
 
+  .et_pb_section_1 {
+    background-color: #494949;
+  }
+
+  .et_pb_section_1 a:hover {
+    color: inherit;
+  }
+
+  .et_pb_blurb_1.et_pb_blurb h4 {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  .et_pb_blurb_2.et_pb_blurb h4 {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  .et_pb_section_2 {
+    background-color: #707070;
+  }
+
+  .et_pb_section_3 {
+    background-color: #494949;
+  }
+
+  .et_pb_blurb_3.et_pb_blurb h4 {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  .et_pb_section_parallax {
+    color: white;
+  }
+
+  .et_pb_section_parallax a {
+    color: white;
+  }
+
+  .et_pb_section_parallax h2 {
+    color: white;
+  }
+
+  .et_pb_column_1_1 {
+    float: inherit
+  }
+
+  @media only screen and ( min-width: 981px) {
     .et_pb_section_1 {
-        background-color: #494949;
+      padding-top: -50;
     }
+  }
 
-    .et_pb_section_1 a:hover {
-        color: inherit;
-    }
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: flex-start;
+  }
 
-    .et_pb_blurb_1.et_pb_blurb h4 {
-        font-size: 20px;
-        letter-spacing: 2px;
-    }
+  .flex-item {
+    order: 0;
+    flex: 1 1 auto;
+    align-self: auto;
+    margin: 10px;
+  }
 
-    .et_pb_blurb_2.et_pb_blurb h4 {
-        font-size: 20px;
-        letter-spacing: 2px;
-    }
-
-    .et_pb_section_4 {
-        background-color: #707070;
-    }
-
-    .et_pb_section_3 {
-        background-color: #494949;
-    }
-
-    .et_pb_blurb_3.et_pb_blurb h4 {
-        font-size: 20px;
-        letter-spacing: 2px;
-    }
-
-    .et_pb_section_parallax {
-        color: white;
-    }
-
-    .et_pb_section_parallax a {
-        color: white;
-    }
-
-    .et_pb_section_parallax h2 {
-        color: white;
-    }
-
-    .et_pb_column_1_1 {
-        float: inherit
-    }
-
-    @media only screen and ( min-width: 981px) {
-        .et_pb_section_1 {
-            padding-top: -50;
-        }
-    }
-
-    .flex-container {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        align-content: stretch;
-        align-items: flex-start;
-    }
-
-    .flex-item {
-        order: 0;
-        flex: 1 1 auto;
-        align-self: auto;
-        margin: 10px;
-    }
-    .fa-circle-border
-    {
-        border-radius: 50%;
-        border: 3px solid white;
-        padding:18px;
-        color: #ffffff;
-        background-color: #494949;
-        font-size: 80px;
-    }
+  .fa-circle-border {
+    border-radius: 50%;
+    border: 3px solid white;
+    padding: 18px;
+    color: #ffffff;
+    background-color: #494949;
+    font-size: 80px;
+  }
 </style>

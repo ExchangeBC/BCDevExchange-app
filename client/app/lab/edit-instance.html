@@ -24,13 +24,13 @@ See the License for the specific language governing permissions and limitations 
       <tbody>
         <tr>
           <td>Name</td>
-          <td>          
+          <td>
             https://lab-<input ng-model="item.name" name='instName'
                                uib-tooltip='{{nameTooltip}}' tooltip-trigger='focus' ng-pattern="/[a-zA-Z0-9_-]+/" unique-valid-name tooltip-placement='top'/>.bcdevexchange.org
           </td>
         </tr>
         <tr><td colspan="2">I want to:<br/>
-            <input type="radio" ng-model="item.type" value="nsOnly" />Reserve this namespace only<br />
+            <input type="radio" ng-model="item.type" value="nsOnly" required />Reserve this namespace only<br />
             <input type="radio" ng-model="item.type" value="proxy" />Proxy this namespace to an existing site<br />
             <input type="radio" ng-model="item.type" value="labInstance" />Proxy this namespace to a lab instance<br />
           </td>
@@ -60,8 +60,8 @@ See the License for the specific language governing permissions and limitations 
         <tr>
           <td>Git Branch</td>
           <td><input ng-model="item.gitBranch"
-                     uib-tooltip='The branch used to build docker image. Required.' tooltip-trigger='focus'
-                     tooltip-placement='top' required></td>
+                     uib-tooltip="The branch used to build docker image. If left blank, all branches will be examined for changes and built." tooltip-trigger='focus'
+                     tooltip-placement='top'></td>
         </tr>
         <tr>
           <td>Dockerfile Path</td>
