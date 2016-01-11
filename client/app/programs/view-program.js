@@ -34,7 +34,7 @@ angular.module('bcdevxApp.programs').config(function ($sceProvider) {
         $scope.program = program
         $scope.mdDisplay = program.markdown
         var nButtons = 4
-        if (program.hideWorkWithUs) nButtons--
+        if (!program.helpWantedIssues || program.helpWantedIssues.length < 1) nButtons--
         if (!program.githubUrl) nButtons--
         $scope.nButtons = nButtons
         // bottom buttons
@@ -57,10 +57,6 @@ angular.module('bcdevxApp.programs').config(function ($sceProvider) {
     $scope.getGitterUrl = function (gitterId, fullSite) {
       return 'https://gitter.im/' + gitterId + (fullSite ? '' : '/~embed')
     }
-
-    ProgramIssuesService.get({program: $routeParams.programName}, function(issues) {
-      $scope.issues = issues.issues
-    });
   }
   ])
 

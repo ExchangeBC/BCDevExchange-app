@@ -185,6 +185,17 @@ function getProgramDetails(progData, callback) {
       }, 0)
       res.issues = issuesPrCnt - prCnt
       res.prs = prCnt
+      // find help wanted issues
+      res.helpWantedIssues = issuesPrArr.filter(function (e, i, a) {
+        if (e.pull_request) {
+          return false
+        }
+        var helpIdx = _.findIndex(e.labels, function (e, i, a) {
+          var name = e.name
+          return name === 'help wanted'
+        })
+        return helpIdx >= 0
+      })
     } catch (ex) {
     }
     deferred.resolve(res)
