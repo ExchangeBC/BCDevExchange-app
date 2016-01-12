@@ -121,7 +121,8 @@ See the License for the specific language governing permissions and limitations 
   <div class="container">
     <h2 class="text-center">What's in it for me?</h2>
 
-    <p class="text-center"><a class="persona-button" ng-click="scrollTo('developers-value-props')" role="button">Developers</a>
+    <p class="text-center">
+      <a class="persona-button" ng-click="scrollTo('developers-value-props')" role="button">Developers</a>
       <a class="persona-button" ng-click="scrollTo('entrepreneurs-value-props')" role="button">Entrepreneurs</a>
       <a class="persona-button" ng-click="scrollTo('public-sector-value-props')" role="button">Public Sector</a>
     </p>
@@ -129,72 +130,86 @@ See the License for the specific language governing permissions and limitations 
 </div>
 
 <div class="container" id="developers-value-props">
-  <h2>
+  <h2 class="text-center">
     <a>Developers</a>
   </h2>
-  <!-- Example row of columns -->
   <div class="row">
-    <div class="col-md-4 col-lg-4">
-      <h2>Meet the Teams</h2>
+    <div class="col-md-offset-2 col-lg-offset-2 col-md-4 col-lg-4">
+      <h2>Make code, get paid.</h2>
 
-      <p>Meet the government organizations participating in the BCDevExchange who want to collaborate with
-        developers.</p>
+      <p>Are you a coder? Government agencies in British Columbia want your skills. Find work posted in GitHub labelled with ‘Help Wanted’ and ‘$1000’. Submit the best code, and you can get paid.</p>
 
-      <p><a class="btn btn-default" href="/programs" role="button">Browse Profiles</a>
+      <p><a class="btn btn-default" href="/developers" role="button">Code with Us</a>
       </p>
     </div>
     <div class="col-md-4 col-lg-4">
-      <h2>Collaborate</h2>
+      <h2>More code, less paperwork</h2>
 
-      <p>Learn how you can collaborate, contribute, and get rewarded for working on projects.</p>
+      <p>Think it’s too hard to work with government? Think again. Instead of bidding for work, government agencies on the BCDevExchange offer work at a fixed price ($1000) and pay for the best code. Spend less time on paperwork, more time coding.</p>
 
-      <p><a class="btn btn-default" href="{{config.rapidAdoptionUrl}}" role="button">Learn How to Participate</a></p>
+      <p><a class="btn btn-default" href="{{config.rapidAdoptionUrl}}" role="button">How it Works</a></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-offset-2 col-lg-offset-2 col-md-4 col-lg-4">
+      <h2>Code for your community</h2>
+
+      <p>Money is a motivator, but so is giving back to your community. Work on BCDevExchange projects and help make government services in British Columbia better for everyone.</p>
+
+      <p><a class="btn btn-default" href="/developers" role="button">Code with Us</a>
+      </p>
     </div>
     <div class="col-md-4 col-lg-4">
-      <h2>Explore APIs</h2>
+      <h2>APIs and code you can use</h2>
 
-      <p>Experiment with APIs from BCDevExchange organizations.</p>
+      <p>Looking to hone your coding skills? Or build the next big app? Explore APIs and code shared by government agencies in B.C.</p>
 
       <p><a class="btn btn-default" href="{{config.apiUrl}}" role="button">Explore</a>
       </p>
     </div>
   </div>
-
-
 </div>
+
 <div class="container" id="entrepreneurs-value-props">
   <!-- Example row of columns -->
-  <h2>
+  <h2 class="text-center">
     <a>Entrepreneurs</a>
   </h2>
   <div class="row">
-    <div class="col-md-4 col-lg-4">
-      <h2>Meet the Teams</h2>
+    <div class="col-md-offset-2 col-lg-offset-2 col-md-4 col-lg-4">
+      <h2>Earn a reference customer.</h2>
 
-      <p>Meet the government organizations participating in the BCDevExchange who want to collaborate with
-        developers.</p>
+      <p>On the hunt for new business opportunities? Government agencies in British Columbia are looking for innovative solutions to meet their business needs. They also want to spur the provincial economy. Win a reference customer in B.C., than sell your solution to the international market.</p>
 
-      <p><a class="btn btn-default" href="/programs" role="button">Browse Profiles</a>
+      <p><a class="btn btn-default" href="mailto:info@bcdevexchange.org" role="button">Contact Us</a>
       </p>
     </div>
     <div class="col-md-4 col-lg-4">
-      <h2>Collaborate</h2>
+      <h2>APIs and code you can use</h2>
 
-      <p>Learn how you can collaborate, contribute, and get rewarded for working on projects.</p>
+      <p>You see the market opportunity, we provide the raw ingredients. Explore APIs and code shared by government agencies in B.C. that can help seed your business.</p>
 
-      <p><a class="btn btn-default" href="{{config.rapidAdoptionUrl}}" role="button">Learn How to Participate</a></p>
+      <p><a class="btn btn-default" href="{{config.apiUrl}}" role="button">Explore</a>
     </div>
-    <div class="col-md-4 col-lg-4">
-      <h2>Explore APIs</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-offset-2 col-lg-offset-2 col-md-4 col-lg-4">
+      <h2>Leverage open IP</h2>
 
-      <p>Experiment with APIs from BCDevExchange organizations.</p>
+      <p>Whenever possible, the code and APIs you find on the BCDevExchange are under open source licenses. The idea is to let you add value and take your solution to market.</p>
 
       <p><a class="btn btn-default" href="{{config.apiUrl}}" role="button">Explore</a>
       </p>
     </div>
+    <div class="col-md-4 col-lg-4">
+      <h2>Government Partners</h2>
+
+      <p>Meet the government agencies in British Columbia exploring a new way to develop tech. Understand their business, from pain points to tech stack, and start the conversation.</p>
+
+      <p><a class="btn btn-default" href="/programs" role="button">Profiles</a>
+      </p>
+    </div>
   </div>
-
-
 </div>
 <div class="container" id="public-sector-value-props">
   <!-- Example row of columns -->
