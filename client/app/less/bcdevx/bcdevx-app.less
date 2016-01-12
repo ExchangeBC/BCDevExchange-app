@@ -691,11 +691,11 @@ See the License for the specific language governing permissions and limitations 
 
 
 #home-page-carousel {
-  //max-height: 800px;
-  overflow: hidden;
   .item img {
-    width: 100%;
-    height: auto;
+    //todo fix this - we want images that are actually 1900 wide so we don't stretch
+    width: 1900px;
+    max-height: 30%;
+    margin: auto;
   }
   .carousel-caption {
     &:extend(.text-left);
