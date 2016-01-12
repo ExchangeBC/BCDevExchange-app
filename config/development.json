@@ -34,10 +34,10 @@ See the License for the specific language governing permissions and limitations 
     "linkedinLogin": false,
     "resourcesPage": false,
     "projectsPage": false,
-    "programsPage": true,
+    "programsPage": false,
     "peoplePage": false,
-    "numbersPage": true,
-    "labLink": true,
+    "numbersPage": false,
+    "labLink": false,
     "explorationContent": true,
     "labURL": "http://localhost:8000"
   },
