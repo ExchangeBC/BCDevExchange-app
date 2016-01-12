@@ -166,7 +166,7 @@ See the License for the specific language governing permissions and limitations 
                 <tr>
                   <th>Issue</th>
                   <th></th>
-                  <th>Reward</th>
+                  <th>Earn</th>
                   <th>Skills Required</th>
                 </tr>
                 </thead>
@@ -176,21 +176,26 @@ See the License for the specific language governing permissions and limitations 
                   </td>
                   <td style="text-align: right">
                     <div
-                      ng-repeat="label in issue.labels" ng-show="{{label.name==='help wanted'}}"
+                      ng-repeat="label in issue.labels | filter: {name: 'help wanted'}"
                       style="background-color:#{{label.color}}" class="label">
                       <i class="fa fa-tag"></i> {{label.name}}
                     </div>
                   </td>
                   <td>
                     <div
-                      ng-repeat="label in issue.labels" ng-show="{{label.color==='0052cc'}}"
+                      ng-repeat="label in issue.labels | filter:{color:'0052cc'} as results"
                       style="background-color:#{{label.color}}" class="label">
                       <i class="fa fa-tag"></i> {{label.name}}
                     </div>
+                    <div  ng-if="results.length === 0"
+                      style="color:red" class="label">
+                      <i class="fa fa-heart"></i>
+                    </div>
+
                   </td>
                   <td>
                     <span
-                      ng-repeat="label in issue.labels" ng-show="{{label.color==='fbca04'}}">
+                      ng-repeat="label in issue.labels  | filter: {color: 'eb6420'}">
                       <span
                         style="background-color:#{{label.color}}" class="label">
                         <i class="fa fa-tag"></i> {{label.name}}
@@ -201,6 +206,8 @@ See the License for the specific language governing permissions and limitations 
 
                 </tbody>
               </table>
+            </div>
+            <div inline-editable ng-bind-html='program.content.codeWithUs'>
             </div>
           </div>
           <!-- .et_pb_column -->

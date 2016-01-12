@@ -74,9 +74,12 @@ angular.module('bcdevxApp.programs').directive('inlineEditable', ['AccountServic
           if (!currUser.siteAdmin && (!$scope.program.editors || $scope.program.editors.indexOf(currUser.id) < 0)) {
             return
           }
-
           element.addClass('cke_editable_inline')
           element.attr('title', 'Double click to edit')
+          // make sure editable region is clickable
+          if(!element.html() || element.html().match(/^\s*$/)) {
+            element.html('&nbsp;')
+          }
           element.dblclick(function () {
             var element = $(this)
             element.attr('contenteditable', true)
