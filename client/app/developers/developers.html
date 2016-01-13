@@ -24,42 +24,41 @@
       <p></p>
       <div>
         <h2 class="sub-header">Projects</h2>
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-            <tr>
-              <th>Partner</th>
-              <th>Issue</th>
-              <th></th>
-              <th>Earn</th>
-              <th>Skills Required</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="issue in issues">
-              <td><a href="/programs/{{issue.devXProgramNm}}">{{issue.devXProgramNm}}</a></td>
-              <td><a href="{{issue.html_url}}">{{issue.title}}</a>
-              </td>
-              <td style="text-align: right">
-                <div
-                  ng-repeat="label in issue.labels | filter: {name: 'help wanted'}"
-                  style="background-color:#{{label.color}}" class="label">
-                  <i class="fa fa-tag"></i> {{label.name}}
-                </div>
-              </td>
-              <td>
-                <div
-                  ng-repeat="label in issue.labels | filter:{color:'0052cc'} as results"
-                  style="background-color:#{{label.color}}" class="label">
-                  <i class="fa fa-tag"></i> {{label.name}}
-                </div>
-                <div ng-if="results.length === 0"
-                     style="color:red" class="label">
-                  <i class="fa fa-heart"></i>
-                </div>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Partner</th>
+            <th>Issue</th>
+            <th></th>
+            <th>Earn</th>
+            <th>Skills Required</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="issue in issues">
+            <td><a href="/programs/{{issue.devXProgramNm}}">{{issue.devXProgramNm}}</a></td>
+            <td><a href="{{issue.html_url}}">{{issue.title}}</a>
+            </td>
+            <td style="text-align: right">
+              <div
+                ng-repeat="label in issue.labels | filter: {name: 'help wanted'}"
+                style="background-color:#{{label.color}}" class="label">
+                <i class="fa fa-tag"></i> {{label.name}}
+              </div>
+            </td>
+            <td>
+              <div
+                ng-repeat="label in issue.labels | filter:{color:'0052cc'} as results"
+                style="background-color:#{{label.color}}" class="label">
+                <i class="fa fa-tag"></i> {{label.name}}
+              </div>
+              <div ng-if="results.length === 0"
+                   style="color:red" class="label">
+                <i class="fa fa-heart"></i>
+              </div>
 
-              </td>
-              <td>
+            </td>
+            <td>
                     <span
                       ng-repeat="label in issue.labels  | filter: {color: 'eb6420'}">
                       <span
@@ -67,17 +66,14 @@
                         <i class="fa fa-tag"></i> {{label.name}}
                       </span>
                     </span>
-              </td>
-            </tr>
-            <tr ng-if="issues.length === 0">
-              <td colspan="5">List is empty.</td>
-            </tr>
-            </tbody>
-          </table>
-
-        </div>
+            </td>
+          </tr>
+          <tr ng-if="issues.length === 0">
+            <td colspan="5">List is empty.</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
-
     </div>
   </div>
 
