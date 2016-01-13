@@ -696,16 +696,16 @@ See the License for the specific language governing permissions and limitations 
     margin: auto;
   }
   .carousel-caption {
-    &:extend(.text-left);
+    h1, p {
+      color: white !important;
+    }
   }
 }
 
 .persona-button {
   &:extend(.btn);
   &:extend(.btn-lg);
-  background-color: @brand-primary;
-  color: @cta-text-colour;
-
+  &:extend(.btn-primary);
 }
 
 #warm-and-fuzzy {
