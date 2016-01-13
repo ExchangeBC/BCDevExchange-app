@@ -124,6 +124,7 @@ function parseGitHubFileResults(result, callback) {
 exports.getGitHubList = function (ghRepo, item, cb) {
   var url = 'https://api.github.com/repos/' + ghRepo + item + "&client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret
   var statsResArr = []
+  var retryCnt = 0
   var queryGitHub = function (url, cb) {
     var options = {
       url: url,
@@ -138,23 +139,26 @@ exports.getGitHubList = function (ghRepo, item, cb) {
       typeof response !== 'undefined') {
       switch (response.statusCode) {
         case 200:
+          retryCnt = 0
           Array.prototype.push.apply(statsResArr, JSON.parse(body))
           var matchUrl
           if (response.headers.link && (matchUrl = response.headers.link.match(/<(https:\/\/api.*)>;\s+rel="next"/))) {
             url = matchUrl[1]
-            queryGitHub(matchUrl[1], parseRes)
+            queryGitHub(url, parseRes)
           }
           else {
             return cb(null, statsResArr)
           }
-          break;
+          break
         case 202:
-          // retry in 100ms
-          console.info('received response code 202. Retry.')
-          setTimeout(function () {
-            queryGitHub(url, parseRes)
-          }, 100)
-          break;
+          if(retryCnt++ < 5){
+            // retry in 100ms
+            console.info('received response code 202. Retry.')
+            setTimeout(function () {
+              queryGitHub(url, parseRes)
+            }, 100)
+            break
+          }
         default:
           console.error('Error fetching GitHub content for %s: %s. response: %s. body: %s', ghRepo + item, error, JSON.stringify(response), body)
           return cb(error || response.statusCode)
