@@ -37,7 +37,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="issue in issues">
-              <td><a href="/programs/{{issue.devXProgramNm}}">{{issue.devXProgramNm}}</a>
+              <td><a href="/programs/{{issue.devXProgramNm}}">{{issue.devXProgramNm}}</a></td>
               <td><a href="{{issue.html_url}}">{{issue.title | limitTo: 50}}<span
                 ng-if="issue.title.length > 50">...</span></a>
               </td>
@@ -66,7 +66,7 @@
                       <span
                         style="background-color:#{{label.color}}" class="label">
                         <i class="fa fa-tag"></i> {{label.name}}
-                      </span> &nbsp;
+                      </span>
                     </span>
               </td>
             </tr>
@@ -99,4 +99,8 @@
     font-size: 40pt;
   }
 
+  .label {
+    margin: 0 3px 3px 0;
+    display: inline-block;
+  }
 </style>
