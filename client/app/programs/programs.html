@@ -12,81 +12,126 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 -->
 
-
-<div class="container">
-    <div class="row page-header">
-        <div class="col-lg-12">
-            <h1>Profiles</h1>
-        </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 devx-partner-header">
+      <h1>Government Partners</h1>
+      Meet government innovators open to new ways to develop technology.
     </div>
-    <div class="resource-list row">
-        <div class="col-lg-12">
-                <form>
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <label class="sr-only" for="query_search">Search for keywords</label>
-                            <input type="text" placeholder="Search for keywords" class="form-control" id="query_search" ng-model="query" />
-                            <div class="btn-group">
-                              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <span ng-show="predicateTitle == ''">Sort by</span><span class="source-name" ng-bind="predicateTitle"></span> <span class="caret"></span>
-                              </button>
-                              <ul class="dropdown-menu" role="menu">
-                               <li><a href="" ng-click="predicate = 'title'; predicateTitle = 'Title A-Z'">Title A-Z</a></li>
-                                <li><a href="" ng-click="predicate = '-title'; predicateTitle = 'Title Z-A'">Title Z-A</a></li>
-                              </ul>
-                            </div>
-                            <input type="reset" class="btn btn-default" value="Reset" ng-click="selectedSource = ''; selectedSourceTitle = ''; query = ''; predicate = ''; predicateTitle = '';" />
-                        </div>
-                        <div class="clearfix">
-                            <ng-pluralize class="pull-left" ng-show="filtered.length > 0" count="filtered.length"
-                                          when="{'0': '',
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      Discover government innovators from British Columbia experimenting with technology development. Explore APIs and
+      code you can use, and find opportunities to work together.
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row page-header">
+    <div class="col-lg-12">
+      <h1>Partners</h1>
+    </div>
+  </div>
+  <div class="resource-list row">
+    <div class="col-lg-12">
+      <form>
+        <div class="form-inline">
+          <div class="form-group">
+            <label class="sr-only" for="query_search">Search for keywords</label>
+            <input type="text" placeholder="Search for keywords" class="form-control" id="query_search"
+                   ng-model="query"/>
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                      aria-expanded="false">
+                <span ng-show="predicateTitle == ''">Sort by</span><span class="source-name"
+                                                                         ng-bind="predicateTitle"></span> <span
+                class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="" ng-click="predicate = 'title'; predicateTitle = 'Title A-Z'">Title A-Z</a></li>
+                <li><a href="" ng-click="predicate = '-title'; predicateTitle = 'Title Z-A'">Title Z-A</a></li>
+              </ul>
+            </div>
+            <input type="reset" class="btn btn-default" value="Reset"
+                   ng-click="selectedSource = ''; selectedSourceTitle = ''; query = ''; predicate = ''; predicateTitle = '';"/>
+          </div>
+          <div class="clearfix">
+            <ng-pluralize class="pull-left" ng-show="filtered.length > 0" count="filtered.length"
+                          when="{'0': '',
                                                  '1': '1 result',
                                                  'other': '{{filtered.length}} results'}">
-                            </ng-pluralize>
-                            <div ng-show="false" class="pull-right">{{ loadedSources.length }} / {{ sources.length }} sources loaded</div>
-                        </div>
-                    </div>
-                </form>
+            </ng-pluralize>
+            <div ng-show="false" class="pull-right">{{ loadedSources.length }} / {{ sources.length }} sources loaded
             </div>
-            <div class="col-lg-12">
-                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><span ng-bind-html="alert.msg"></span></alert>
-            </div>
-        <div class="col-md-12">
-            <ul class="resource-list list-unstyled table-bordered">
-                <span us-spinner="{radius:30, width:6, length: 18}" spinner-key="spinner-programs" spinner-start-active="true"></span>
-
-                <li class="resource" ng-repeat="program in filtered = (programs | filter:query | orderBy:predicate)">
-                    <div class="row">
-                        <div class="col-md-9 col-lg-10">
-                            <img ng-show="program.logo" ng-src="{{program.logo}}" alt="{{program.title}}" class="img-responsive program_logo" />
-                            <h3 ng-show="!program.logo" ng-bind-html="program.title | highlight:query"></h3>
-                            <br>
-                        </div>
-                        <div class="col-md-3 col-lg-2">
-                            <a href="/programs/{{ program.title|encodeUri }}" class="btn btn-primary btn-block" ng-bind-html="'View'"></a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-9 col-lg-10">
-                            <p ng-bind-html="program.description | highlight:query"></p>
-                            <div class="tags" ng-if="program.tags.length > 0">
-                                <span class="label label-default" ng-repeat="tag in program.tags" style="background-color: #{{ tag.id|limitTo:6 }};"  ng-bind-html="tag.display_name | highlight:query">
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li ng-if="projects.length == 0 && projectsLoaded" class="empty">
-                    <div class="col-md-12">
-                        No programs available.
-                    </div>
-                </li>
-                <li ng-show="filtered.length == 0 && projectsLoaded && query" class="empty">
-                    <div class="col-md-12">
-                        No results for "{{ query }}".
-                    </div>
-                </li>
-            </ul>
+          </div>
         </div>
+      </form>
     </div>
+    <div class="col-lg-12">
+      <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><span
+        ng-bind-html="alert.msg"></span></alert>
+    </div>
+    <div class="col-md-12">
+      <ul class="resource-list list-unstyled table-bordered">
+        <span us-spinner="{radius:30, width:6, length: 18}" spinner-key="spinner-programs"
+              spinner-start-active="true"></span>
+
+        <li class="resource" ng-repeat="program in filtered = (programs | filter:query | orderBy:(predicate||'title'))">
+          <div class="row">
+            <div class="col-md-9 col-lg-10">
+              <img ng-show="program.logo" ng-src="{{program.logo}}" alt="{{program.title}}"
+                   class="img-responsive program_logo"/>
+              <h3 ng-show="!program.logo" ng-bind-html="program.title | highlight:query"></h3>
+              <br>
+            </div>
+            <div class="col-md-3 col-lg-2">
+              <a href="/programs/{{ program.title|encodeUri }}" class="btn btn-primary btn-block"
+                 ng-bind-html="'View'"></a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-9 col-lg-10">
+              <p ng-bind-html="program.description | highlight:query"></p>
+              <div class="tags" ng-if="program.tags.length > 0">
+                                <span class="label label-default" ng-repeat="tag in program.tags"
+                                      style="background-color: #{{ tag.id|limitTo:6 }};"
+                                      ng-bind-html="tag.display_name | highlight:query">
+                                </span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li ng-if="projects.length == 0 && projectsLoaded" class="empty">
+          <div class="col-md-12">
+            No programs available.
+          </div>
+        </li>
+        <li ng-show="filtered.length == 0 && projectsLoaded && query" class="empty">
+          <div class="col-md-12">
+            No results for "{{ query }}".
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
+<style type="text/css" scoped>
+  .devx-partner-header {
+    background-image: url('/img/public-sector.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: black;
+    color: white;
+    padding: 50px 20px;
+  }
+
+  .devx-partner-header h1 {
+    color: white;
+    font-size: 40pt;
+  }
+
+  .label {
+    margin: 0 3px 3px 0;
+    display: inline-block;
+  }
+</style>
