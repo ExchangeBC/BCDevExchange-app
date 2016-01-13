@@ -32,19 +32,21 @@ module.exports = function (app, db, passport) {
         var deferred = Q.defer();
         db.getProgramByName(req.params.program).then(function (program) {
 
-          if (!program || !program.githubUrl) {
+          if (!program) {
             deferred.resolve([])
-          } else {
-            var githubUrl = program.githubUrl;
-            var ghRepo = githubUrl.substr(githubUrl.indexOf('github.com') + 11)
-
-            getGitHubIssuesForRepo(ghRepo, function (results) {
-              deferred.resolve(results);
-            })
           }
-
+          else {
+            var githubUrl = program.githubStatsUrl || program.githubUrl
+            if (!githubUrl) {
+              deferred.resolve([])
+            } else {
+              var ghRepo = githubUrl.substr(githubUrl.indexOf('github.com') + 11)
+              getGitHubIssuesForRepo(ghRepo, function (results) {
+                deferred.resolve(results);
+              })
+            }
+          }
           return deferred.promise;
-
         }).then(function (results) {
           res.send({issues: results});
         })
@@ -72,16 +74,22 @@ module.exports = function (app, db, passport) {
           console.log("programData: " + programData.length);
           var deferred3 = Q.defer();
           async.concat(programData, function (program, callback) {
-
-            if (!program || !program.githubUrl) {
-              callback(null, null);
-            } else {
-              var githubUrl = program.githubUrl;
-              var ghRepo = githubUrl.substr(githubUrl.indexOf('github.com') + 11)
-              getGitHubIssuesForRepo(ghRepo, function (issues) {
-                callback(null, issues);
-              });
+            if (!program) {
+              return callback(null, null)
             }
+            var githubUrl = program.githubStatsUrl || program.githubUrl
+            if (!githubUrl) {
+              return callback(null, null)
+            }
+            var ghRepo = githubUrl.substr(githubUrl.indexOf('github.com') + 11)
+            ProgramService.getGitHubList(ghRepo, '/issues?labels=help wanted&per_page=100', function (err, issues) {
+              callback(err, issues.map(function(e){
+                // populate BCDevX program name to the issue
+                e.devXProgramNm = program.name
+                return e
+              }));
+            });
+
           }, function (err, issues) {
             if (err) {
               deferred3.reject(err);
@@ -100,27 +108,5 @@ module.exports = function (app, db, passport) {
         });
       }
     });
-
-  var getGitHubIssuesForRepo = function (repoName, callback) {
-    var options = {
-      url: 'https://api.github.com/repos/' + repoName + '/issues?labels=help wanted&client_id=' + config.github.clientID + "&client_secret=" + config.github.clientSecret,
-      headers: {
-        'User-Agent': config.github.clientApplicationName
-      }
-    };
-    console.log("url: " + options.url)
-
-    request(options, function (error, response, body) {
-      if (!error && typeof response !== 'undefined' && response.statusCode === 200) {
-
-        var json = JSON.parse(body)
-        callback(json);
-      } else {
-        // not sure what happened, but we don't have any issues, so return an empty array
-        console.error("error retrieving issues for repo '" + repoName + "'")
-        callback([])
-      }
-    });
-  }
 }
-;
+

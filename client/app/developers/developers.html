@@ -1,84 +1,101 @@
 <div class="container-fluid">
   <div class="row">
+    <div class="col-sm-12 devx-developer-header">
+      <h1>Code with us</h1>
+      Contribute code and help make services in British Columbia better for everyone.
+    </div>
+  </div>
+  <div class="row">
     <div class="col-sm-12 col-md-12 main">
-      <h1 class="page-header">Developer's Process</h1>
-
-
-      <div class="developer-process row">
-        <div class="col-xs-2 text-center">
-          <span class="align-center fa-stack fa-5x">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-search fa-stack-1x fa-inverse fa-lg"></i>
-          </span>
-          <h4>Find Work</h4>
-        </div>
-        <div class="col-xs-1">
-          <i class="process-connector fa fa-chevron-right fa-5x"></i>
-        </div>
-        <div class="col-xs-2 text-center">
-          <span class="fa-stack fa-5x">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-wrench fa-stack-1x fa-inverse fa-lg"></i>
-          </span>
-          <h4>Fork and Work</h4>
-        </div>
-        <div class="col-xs-1">
-          <i class="process-connector fa fa-chevron-right fa-5x"></i>
-        </div>
-        <div class="col-xs-2 text-center">
-          <span class="fa-stack fa-5x">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-level-up fa-stack-1x fa-inverse fa-lg"></i>
-          </span>
-          <h4>Submit Pull Request</h4>
-        </div>
-        <div class="col-xs-1">
-          <i class="process-connector fa fa-chevron-right fa-5x"></i>
-        </div>
-        <div class="col-xs-2 text-center">
-          <span class="fa-stack fa-5x">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-dollar fa-stack-1x fa-inverse fa-lg"></i>
-          </span>
-          <h4>Get Paid</h4>
-        </div>
+      <p></p>
+      <h2>Pay for Pull <i class="fa fa-github"></i>
+      </h2>
+      <p></p>
+      <p></p>
+      Find a project with a reward tag, submit the best code on GitHub, and you can get paid.
+      <p></p>
+      <p></p>
+      <div>
+        <a class='btn btn-primary' href="https://github.com/BCDevExchange/rapid-adoption/wiki">How
+          it works</a>
       </div>
+      <p></p>
+      <p></p>
+      <p></p>
+      <div>
+        <h2 class="sub-header">Open Opportunities</h2>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Partner</th>
+            <th>Issue</th>
+            <th></th>
+            <th>Earn</th>
+            <th>Skills Required</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="issue in issues">
+            <td><a href="/programs/{{issue.devXProgramNm}}">{{issue.devXProgramNm}}</a></td>
+            <td><a href="{{issue.html_url}}">{{issue.title}}</a>
+            </td>
+            <td style="text-align: right">
+              <div
+                ng-repeat="label in issue.labels | filter: {name: 'help wanted'}"
+                style="background-color:#{{label.color}}" class="label">
+                <i class="fa fa-tag"></i> {{label.name}}
+              </div>
+            </td>
+            <td>
+              <div
+                ng-repeat="label in issue.labels | filter:{color:'0052cc'} as results"
+                style="background-color:#{{label.color}}" class="label">
+                <i class="fa fa-tag"></i> {{label.name}}
+              </div>
+              <div ng-if="results.length === 0"
+                   style="color:red" class="label">
+                <i class="fa fa-heart"></i>
+              </div>
 
-      <hr>
-
-      <div ng-show="!issues.length">
-        <h2 class="sub-header">No work currently available.</h2>
+            </td>
+            <td>
+                    <span
+                      ng-repeat="label in issue.labels  | filter: {color: 'eb6420'}">
+                      <span
+                        style="background-color:#{{label.color}}" class="label">
+                        <i class="fa fa-tag"></i> {{label.name}}
+                      </span>
+                    </span>
+            </td>
+          </tr>
+          <tr ng-if="issues.length === 0">
+            <td colspan="5">List is empty.</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
-
-      <div ng-show="issues.length">
-        <h2 class="sub-header">Available Work</h2>
-
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-            <tr>
-              <!--<th>Organization</th>-->
-              <th>Project</th>
-              <th>Labels</th>
-              <!--<th>Forks</th>-->
-              <!--<th>Pull Requests</th>-->
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="issue in issues">
-              <!--<td>ORG</td>-->
-              <td><a href="{{issue.html_url}}">{{issue.title}}</a></td>
-              <td><span ng-repeat="label in issue.labels" style="background-color:#{{label.color}}" class="label">{{label.name}}</span></td>
-              <!--<td>TBD</td>
-              <td>TBD</td>-->
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
     </div>
   </div>
 
 </div>
 
+<style type="text/css" scoped>
+  .devx-developer-header {
+    background-image: url('/img/Developers.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: black;
+    color: white;
+    padding: 50px 20px;
+  }
+
+  .devx-developer-header h1 {
+    color: white;
+    font-size: 40pt;
+  }
+
+  .label {
+    margin: 0 3px 3px 0;
+    display: inline-block;
+  }
+</style>

@@ -146,7 +146,7 @@ See the License for the specific language governing permissions and limitations 
               <p></p>
               <p></p>
               <div>
-                <a class='btn btn-primary' href="https://github.com/BCDevExchange/rapid-adoption/wiki" target="_blank">How
+                <a class='btn btn-primary' href="https://github.com/BCDevExchange/rapid-adoption/wiki">How
                   it works</a>
               </div>
 
@@ -172,7 +172,7 @@ See the License for the specific language governing permissions and limitations 
                 </thead>
                 <tbody>
                 <tr ng-repeat="issue in program.helpWantedIssues">
-                  <td><a href="{{issue.html_url}}">{{issue.title | limitTo: 50}}<span ng-if="issue.title.length > 50">...</span></a>
+                  <td><a href="{{issue.html_url}}">{{issue.title}}</a>
                   </td>
                   <td style="text-align: right">
                     <div
@@ -199,7 +199,7 @@ See the License for the specific language governing permissions and limitations 
                       <span
                         style="background-color:#{{label.color}}" class="label">
                         <i class="fa fa-tag"></i> {{label.name}}
-                      </span> &nbsp;
+                      </span>
                     </span>
                   </td>
                 </tr>
@@ -499,5 +499,10 @@ See the License for the specific language governing permissions and limitations 
     color: #ffffff;
     background-color: #494949;
     font-size: 80px;
+  }
+
+  .label {
+    margin: 0 3px 3px 0;
+    display: inline-block;
   }
 </style>

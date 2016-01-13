@@ -22,8 +22,8 @@ var Q = require('q')
 var _ = require('lodash')
 
 
-function getProgramsFromArray(programList, success, error) {
-  async.concat(programList, getPrograms, function (err, results) {
+exports.getProgramsFromArray = function(programList, success, error) {
+  async.concat(programList, exports.getPrograms, function (err, results) {
     if (err)
       error(err)
     else {
@@ -49,17 +49,17 @@ function getProgramsFromArray(programList, success, error) {
   })
 }
 
-function getPrograms(program, callback) {
+exports.getPrograms = function(program, callback) {
 
   if (program.type === "github-file") {
-    getGitHubFileProgram(program, callback)
+    exports.getGitHubFileProgram(program, callback)
   } else {
     logger.error("Configuration error, unknown program type: " + program.type)
   }
 
 }
 
-function getGitHubFileProgram(ghConfig, callback) {
+exports.getGitHubFileProgram = function(ghConfig, callback) {
   var options = {
     url: 'https://api.github.com/' + ghConfig.url + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
     headers: {
@@ -121,7 +121,40 @@ function parseGitHubFileResults(result, callback) {
 
 }
 
-function getProgramDetails(progData, callback) {
+exports.getGitHubList = function (ghRepo, item, cb) {
+  var url = 'https://api.github.com/repos/' + ghRepo + item + "&client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret
+  var statsResArr = []
+  var queryGitHub = function (url, cb) {
+    var options = {
+      url: url,
+      headers: {
+        'User-Agent': config.github.clientApplicationName
+      }
+    }
+    request(options, cb)
+  }
+  var parseRes = function (error, response, body) {
+    if (!error &&
+      typeof response !== 'undefined' &&
+      response.statusCode === 200) {
+      Array.prototype.push.apply(statsResArr, JSON.parse(body))
+      var matchUrl
+      if (response.headers.link && (matchUrl = response.headers.link.match(/<(https:\/\/api.*)>;\s+rel="next"/))) {
+        queryGitHub(matchUrl[1], parseRes)
+      }
+      else {
+        return cb(null, statsResArr)
+      }
+    } else {
+      logger.error('Error fetching GitHub content for %s: %s. response: %s. body: %s', ghRepo + item, error, JSON.stringify(response), body)
+      return cb(error || response.statusCode)
+    }
+  }
+  queryGitHub(url, parseRes)
+}
+
+
+exports.getProgramDetails = function(progData, callback) {
 
   var deferred = Q.defer()
   // Call github for stats
@@ -133,44 +166,12 @@ function getProgramDetails(progData, callback) {
     return deferred.promise.nodeify(callback)
   }
 
-  var getGitHubStats = function (item, cb) {
-    var ghRepo = githubStatsUrl.substr(githubStatsUrl.indexOf('github.com') + 11)
-    var url = 'https://api.github.com/repos/' + ghRepo + item + "&client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret
-    var statsResArr = []
-    var queryGitHub = function (url, cb) {
-      var options = {
-        url: url,
-        headers: {
-          'User-Agent': config.github.clientApplicationName
-        }
-      }
-      request(options, cb)
-    }
-    var parseRes = function (error, response, body) {
-      if (!error &&
-        typeof response !== 'undefined' &&
-        response.statusCode === 200) {
-        Array.prototype.push.apply(statsResArr, JSON.parse(body))
-        var matchUrl
-        if (response.headers.link && (matchUrl = response.headers.link.match(/<(https:\/\/api.*)>;\s+rel="next"/))) {
-          queryGitHub(matchUrl[1], parseRes)
-        }
-        else {
-          return cb(null, statsResArr)
-        }
-      } else {
-        logger.error('Error fetching GitHub content for %s: %s. response: %s. body: %s', ghRepo + item, error, JSON.stringify(response), body)
-        return cb(error || response.statusCode)
-      }
-    }
-    queryGitHub(url, parseRes)
-  }
-
+  var ghRepo = githubStatsUrl.substr(githubStatsUrl.indexOf('github.com') + 11)
   async.parallel([function (cb) {
-    getGitHubStats('/stats/contributors?per_page=100', cb)
+    exports.getGitHubList(ghRepo, '/stats/contributors?per_page=100', cb)
   },
     function (cb) {
-      getGitHubStats('/issues?state=all&per_page=100', cb)
+      exports.getGitHubList(ghRepo, '/issues?state=all&per_page=100', cb)
     }], function (err, resArr) {
     var res = {}
     try {
@@ -204,13 +205,3 @@ function getProgramDetails(progData, callback) {
   })
   return deferred.promise.nodeify(callback)
 }
-
-var ProgramService = {
-  getProgramsFromArray: getProgramsFromArray,
-  getPrograms: getPrograms,
-  getGitHubFileProgram: getGitHubFileProgram,
-  getProgramDetails: getProgramDetails
-}
-
-module.exports = ProgramService;
-
