@@ -172,7 +172,7 @@ See the License for the specific language governing permissions and limitations 
                 </thead>
                 <tbody>
                 <tr ng-repeat="issue in program.helpWantedIssues">
-                  <td><a href="{{issue.html_url}}">{{issue.title | limitTo: 50}}<span ng-if="issue.title.length > 50">...</span></a>
+                  <td><a href="{{issue.html_url}}">{{issue.title}}</a>
                   </td>
                   <td style="text-align: right">
                     <div

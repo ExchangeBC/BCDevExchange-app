@@ -38,8 +38,7 @@
             <tbody>
             <tr ng-repeat="issue in issues">
               <td><a href="/programs/{{issue.devXProgramNm}}">{{issue.devXProgramNm}}</a></td>
-              <td><a href="{{issue.html_url}}">{{issue.title | limitTo: 50}}<span
-                ng-if="issue.title.length > 50">...</span></a>
+              <td><a href="{{issue.html_url}}">{{issue.title}}</a>
               </td>
               <td style="text-align: right">
                 <div
