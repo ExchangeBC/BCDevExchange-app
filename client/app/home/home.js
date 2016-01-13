@@ -21,29 +21,27 @@ angular.module('bcdevxApp.home', ['ngRoute'])
 
   .controller('HomeCtrl', ['$rootScope', '$scope', '$location', '$anchorScroll', 'NumbersCountService', function ($rootScope, $scope, $location, $anchorScroll, NumbersCountService) {
 
-    if ($rootScope.config.enableNumbersBar) {
-      $scope.numbers = {
-        isLoaded: false,
-        accounts: '-',
-        resources: '-',
-        projects: '-',
-        analytics: {
-          users: '-'
-        },
-        tweet_count: '-',
-        total_stars: '-'
-      };
+    $scope.numbers = {
+      isLoaded: false,
+      accounts: '-',
+      resources: '-',
+      projects: '-',
+      analytics: {
+        users: '-'
+      },
+      tweet_count: '-',
+      total_stars: '-'
+    };
 
-      NumbersCountService.get({}, function (data) {
-        $scope.numbers.isLoaded = true;
-        $scope.numbers.accounts = data.githubAccounts;
-        $scope.numbers.resources = data.resources;
-        $scope.numbers.projects = data.projects;
-        $scope.numbers.analytics = data.analytics || $scope.numbers.analytics;
-        $scope.numbers.tweet_count = data.twitter_bcdev.count;
-        $scope.numbers.total_stars = data.bcdevx.stargazers + data.bcgov.stargazers;
-      });
-    }
+    NumbersCountService.get({}, function (data) {
+      $scope.numbers.isLoaded = true;
+      $scope.numbers.accounts = data.githubAccounts;
+      $scope.numbers.resources = data.resources;
+      $scope.numbers.projects = data.projects;
+      $scope.numbers.analytics = data.analytics || $scope.numbers.analytics;
+      $scope.numbers.tweet_count = data.twitter_bcdev.count;
+      $scope.numbers.total_stars = data.bcdevx.stargazers + data.bcgov.stargazers;
+    });
 
     $scope.scrollTo = function (id) {
       console.log("Scrolling to", id);
