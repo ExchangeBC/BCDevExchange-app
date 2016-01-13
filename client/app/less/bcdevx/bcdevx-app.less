@@ -692,12 +692,15 @@ See the License for the specific language governing permissions and limitations 
   .item img {
     //todo fix this - we want images that are actually 1900 wide so we don't stretch
     width: 1900px;
-    max-height: 30%;
+    max-height: 50%;
     margin: auto;
   }
   .carousel-caption {
     h1, p {
       color: white !important;
+      font-size: 40pt;
+      padding-bottom: 50px;
+      &:extend(.text-left);
     }
   }
 }
@@ -712,28 +715,75 @@ See the License for the specific language governing permissions and limitations 
   min-height: 30%;
 }
 
+.devx-label {
+  margin: 0 3px 3px 0;
+  display: inline-block;
+}
+
+.resource-list {
+  .label {
+    &:extend(.devx-label);
+  }
+}
+
+.opportunity-list {
+  .label {
+    &:extend(.devx-label);
+  }
+}
+
+.devx-header {
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-color: black;
+  color: white;
+  padding: 50px 20px;
+  h1, h2 {
+    color: white;
+    font-size: 40pt;
+  }
+}
+
+.devx-developer-header {
+  &:extend(.devx-header all);
+  background-image: url('/img/developers.jpg');
+}
+
+.devx-entrepreneur-header {
+  &:extend(.devx-header all);
+  background-image: url(/img/entrepreneurs.jpg);
+}
+
+.devx-partner-header {
+  &:extend(.devx-header all);
+  background-image: url(/img/public-sector.jpg);
+}
+
 .value-prop-section {
-  > h2 {
-    height: 200px;
+  .value-prop-section-caption {
+    &:extend(.text-center);
+    margin-bottom: 100px;
   }
 }
 
 #developers-value-props {
-  > h2 {
-    background-image: url(/img/developers.jpg);
+  .value-prop-section-caption {
+    &:extend(.devx-developer-header all);
   }
 }
+
 #entrepreneurs-value-props {
-   > h2 {
-     background-image: url(/img/entrepreneurs.jpg);
-   }
+  .value-prop-section-caption {
+    &:extend(.devx-entrepreneur-header all);
+  }
 }
 
 #public-sector-value-props {
-  > h2 {
-    background-image: url(/img/public-sector.jpg);
+  .value-prop-section-caption {
+    &:extend(.devx-partner-header all);
   }
 }
+
 
 
 
