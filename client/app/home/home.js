@@ -15,38 +15,20 @@
 'use strict';
 angular.module('bcdevxApp.home', ['ngRoute'])
 
-  .factory('NumbersCountService', ['$resource', function ($resource) {
-    return $resource('/api/numbers');
-  }])
-
   .controller('HomeCtrl', ['$rootScope', '$scope', '$location', '$anchorScroll', 'NumbersCountService', function ($rootScope, $scope, $location, $anchorScroll, NumbersCountService) {
 
-    $scope.numbers = {
-      isLoaded: false,
-      accounts: '-',
-      resources: '-',
-      projects: '-',
-      analytics: {
-        users: '-'
-      },
-      tweet_count: '-',
-      total_stars: '-'
-    };
-
-    NumbersCountService.get({}, function (data) {
-      $scope.numbers.isLoaded = true;
-      $scope.numbers.accounts = data.githubAccounts;
-      $scope.numbers.resources = data.resources;
-      $scope.numbers.projects = data.projects;
-      $scope.numbers.analytics = data.analytics || $scope.numbers.analytics;
-      $scope.numbers.tweet_count = data.twitter_bcdev.count;
-      $scope.numbers.total_stars = data.bcdevx.stargazers + data.bcgov.stargazers;
-    });
-
     $scope.scrollTo = function (id) {
-      console.log("Scrolling to", id);
-      $location.hash(id);
-      $anchorScroll();
+
+      if ($location.hash() !== id) {
+        console.log("Scrolling to", id);
+        // set the $location.hash to `id` and
+        // $anchorScroll will automatically scroll to it
+        $location.hash(id);
+      } else {
+        // call $anchorScroll() explicitly,
+        // since $location.hash hasn't changed
+        $anchorScroll();
+      }
     }
 
 

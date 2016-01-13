@@ -56,7 +56,7 @@ See the License for the specific language governing permissions and limitations 
   </div>
 </div>
 
-<div id="home-page-carousel" class="carousel slide" data-ride="carousel">
+<div id="home-page-carousel" class="carousel slide" data-ride="carousel" ng-cloak>
   <!-- Indicators -->
   <ol class="carousel-indicators">
     <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -133,17 +133,15 @@ See the License for the specific language governing permissions and limitations 
     <h2 class="text-center">What's in it for me?</h2>
 
     <p class="text-center">
-      <a class="persona-button" ng-click="scrollTo('developers-value-props')" role="button">Developers</a>
-      <a class="persona-button" ng-click="scrollTo('entrepreneurs-value-props')" role="button">Entrepreneurs</a>
-      <a class="persona-button" ng-click="scrollTo('public-sector-value-props')" role="button">Public Sector</a>
+      <a href="" class="persona-button" ng-click="scrollTo('developers-value-props')" role="button">Developers</a>
+      <a href="" class="persona-button" ng-click="scrollTo('entrepreneurs-value-props')" role="button">Entrepreneurs</a>
+      <a href="" class="persona-button" ng-click="scrollTo('public-sector-value-props')" role="button">Public Sector</a>
     </p>
   </div>
 </div>
 
-<div class="container" id="developers-value-props">
-  <h2 class="text-center">
-    <a>Developers</a>
-  </h2>
+<div class="value-prop-section" id="developers-value-props">
+  <h2 class="text-center">Developers</h2>
 
   <div class="row feature-matrix">
     <div class="col-md-offset-2 col-lg-offset-2 col-md-4 col-lg-4">
@@ -194,12 +192,9 @@ See the License for the specific language governing permissions and limitations 
     </div>
   </div>
 </div>
-
-<div class="container" id="entrepreneurs-value-props">
+<div class="value-prop-section" id="entrepreneurs-value-props">
   <!-- Example row of columns -->
-  <h2 class="text-center">
-    <a>Entrepreneurs</a>
-  </h2>
+  <h2 class="text-center">Entrepreneurs</h2>
 
   <div class="row feature-matrix">
     <div class="col-md-offset-2 col-lg-offset-2 col-md-4 col-lg-4">
@@ -257,11 +252,9 @@ See the License for the specific language governing permissions and limitations 
     </div>
   </div>
 </div>
-<div class="container" id="public-sector-value-props">
+<div class="value-prop-section" id="public-sector-value-props">
   <!-- Example row of columns -->
-  <h2 class="text-center">
-    <a>Public Sector Partners</a>
-  </h2>
+  <h2 class="text-center">Public Sector Partners</h2>
 
   <div class="row feature-matrix">
     <div class="col-md-offset-2 col-lg-offset-2 col-md-4 col-lg-4">
