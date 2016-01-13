@@ -22,7 +22,7 @@ var Q = require('q')
 var _ = require('lodash')
 
 
-exports.getProgramsFromArray = function(programList, success, error) {
+exports.getProgramsFromArray = function (programList, success, error) {
   async.concat(programList, exports.getPrograms, function (err, results) {
     if (err)
       error(err)
@@ -49,17 +49,17 @@ exports.getProgramsFromArray = function(programList, success, error) {
   })
 }
 
-exports.getPrograms = function(program, callback) {
+exports.getPrograms = function (program, callback) {
 
   if (program.type === "github-file") {
     exports.getGitHubFileProgram(program, callback)
   } else {
-    logger.error("Configuration error, unknown program type: " + program.type)
+    console.error("Configuration error, unknown program type: " + program.type)
   }
 
 }
 
-exports.getGitHubFileProgram = function(ghConfig, callback) {
+exports.getGitHubFileProgram = function (ghConfig, callback) {
   var options = {
     url: 'https://api.github.com/' + ghConfig.url + "?client_id=" + config.github.clientID + "&client_secret=" + config.github.clientSecret,
     headers: {
@@ -81,7 +81,7 @@ exports.getGitHubFileProgram = function(ghConfig, callback) {
 
       } catch (requestError) {
         var message = 'Error while parsing yaml program file from: ' + options.url + '. message: ' + requestError.message
-        logger.error(message)
+        console.error(message)
         return callback(message)
       }
       // remove extraneous info from result
@@ -89,7 +89,7 @@ exports.getGitHubFileProgram = function(ghConfig, callback) {
         return callback(err, results)
       })
     } else {
-      logger.error('Error while fetching GitHub content: %s. response: %s. body: %s', error, response, body)
+      console.error('Error while fetching GitHub content: %s. response: %s. body: %s', error, response, body)
       return callback(error)
     }
   })
@@ -135,18 +135,32 @@ exports.getGitHubList = function (ghRepo, item, cb) {
   }
   var parseRes = function (error, response, body) {
     if (!error &&
-      typeof response !== 'undefined' &&
-      response.statusCode === 200) {
-      Array.prototype.push.apply(statsResArr, JSON.parse(body))
-      var matchUrl
-      if (response.headers.link && (matchUrl = response.headers.link.match(/<(https:\/\/api.*)>;\s+rel="next"/))) {
-        queryGitHub(matchUrl[1], parseRes)
-      }
-      else {
-        return cb(null, statsResArr)
+      typeof response !== 'undefined') {
+      switch (response.statusCode) {
+        case 200:
+          Array.prototype.push.apply(statsResArr, JSON.parse(body))
+          var matchUrl
+          if (response.headers.link && (matchUrl = response.headers.link.match(/<(https:\/\/api.*)>;\s+rel="next"/))) {
+            url = matchUrl[1]
+            queryGitHub(matchUrl[1], parseRes)
+          }
+          else {
+            return cb(null, statsResArr)
+          }
+          break;
+        case 202:
+          // retry in 100ms
+          console.info('received response code 202. Retry.')
+          setTimeout(function () {
+            queryGitHub(url, parseRes)
+          }, 100)
+          break;
+        default:
+          console.error('Error fetching GitHub content for %s: %s. response: %s. body: %s', ghRepo + item, error, JSON.stringify(response), body)
+          return cb(error || response.statusCode)
       }
     } else {
-      logger.error('Error fetching GitHub content for %s: %s. response: %s. body: %s', ghRepo + item, error, JSON.stringify(response), body)
+      console.error('Error fetching GitHub content for %s: %s. response: %s. body: %s', ghRepo + item, error, JSON.stringify(response), body)
       return cb(error || response.statusCode)
     }
   }
@@ -154,7 +168,7 @@ exports.getGitHubList = function (ghRepo, item, cb) {
 }
 
 
-exports.getProgramDetails = function(progData, callback) {
+exports.getProgramDetails = function (progData, callback) {
 
   var deferred = Q.defer()
   // Call github for stats
