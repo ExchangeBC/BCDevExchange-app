@@ -23,7 +23,7 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
 
       // Array of blog entries
       $scope.blog = []
-      $scope.blogLoaded = true
+      $scope.blogLoaded = false
       $scope.predicateOrder = function (post) {
         var date = new Date(post.pubDate[0])
         return -(date.getTime())
@@ -47,21 +47,11 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
       var blogListDeferred = $q.defer()
       var blogPromise = blogListDeferred.promise
 
-      var sourceListDeferred = $q.defer()
-      var sourcePromise = sourceListDeferred.promise
-
       blogPromise.then(
         function () {
           usSpinnerService.stop('spinner-blog')
         }
       )
-
-      sourcePromise.then(
-        function () {
-          usSpinnerService.stop('spinner-sources')
-        }
-      )
-
 
       $scope.lastReached = false
       $scope.page = 1
@@ -69,11 +59,8 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
         if ($scope.lastReached)
           return
         var opt = ($scope.page === 1 ? {} : {p: $scope.page})
-        if (!$scope.blogLoaded) {
-          return
-        }
-        $scope.blogLoaded = false
         BlogListService.get(opt, function (data) {
+          $scope.blogLoaded = true
           if (!data.blog || data.blog.length < 50) {
             $scope.lastReached = true
             if (!data.blog) {
