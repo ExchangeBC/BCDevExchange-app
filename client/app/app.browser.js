@@ -143,6 +143,15 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider',
         templateUrl: '/app/disclaimer/disclaimer.html',
         controller: 'DisclaimerCtrl'
       })
+      .when('/privacy', {
+        templateUrl: '/app/footer/privacy.html'
+      })
+      .when('/copyright', {
+        templateUrl: '/app/footer/copyright.html'
+      })
+      .when('/accessibility', {
+        templateUrl: '/app/footer/accessibility.html'
+      })
       .when('/numbers', {
         templateUrl: '/app/numbers/numbers.html',
         controller: 'NumbersCtrl'
