@@ -64,11 +64,11 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
 
 
       $scope.lastReached = false
+      $scope.page = 1
       $scope.paginate = function () {
         if ($scope.lastReached)
           return
-        var page = Math.ceil($scope.blog.length / 50) + 1
-        var opt = (page === 1 ? {} : {p: page})
+        var opt = ($scope.page === 1 ? {} : {p: $scope.page})
         if (!$scope.blogLoaded) {
           return
         }
@@ -80,10 +80,15 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
               return
             }
           }
-          $scope.blog = $scope.blog.concat(data.blog)
+          // filter out uncategorized pages
+          var parsedBlog = _.filter(data.blog, function(e){
+            return e.category.indexOf('BCDev') >= 0
+          })
+          $scope.blog = $scope.blog.concat(parsedBlog)
           blogListDeferred.resolve('resource list length: ' + $scope.blog.length)
           $scope.blogLoaded = true
           if ($scope.blog.length < 1000 && !$scope.lastReached) {
+            $scope.page += 1
             setTimeout($scope.paginate, 100)
           }
         }, function (error) {
