@@ -42,51 +42,63 @@ The local files are intended to not be tracked in your version control system. E
  */
 {
   "node": {
-      "clusterEnabled": true,
-      "workers": 2
+    "clusterEnabled": true,
+    "workers": 2
   },
   "http": {
-      "port": 8000,
-      "session": {
-          "secret": "change me in local.json"
-      },
-	  "serveStatic": false,
-      "static": {
-        "maxage": "1h"
-      },
-      "cookieOptions": {
-        "httpOnly": true,
-        "secure": true,
-        "domain": ".bcdevexchange.org"
-      }
+    "port": 8000,
+    "session": {
+      "secret": "change me in local.json"
+    },
+    "serveStatic": false,
+    "static": {
+      "maxage": "1h"
+    },
+    "cookieOptions": {
+      "httpOnly": true,
+      "secure": true,
+      "domain": ".bcdevexchange.org"
+    }
   },
   "access": {
-      "admin": [
-        "5509ebed689961d420ae7086", // Greg on localhost
-        "5509ffd557cd3a30f55561a7", // Greg on prod
-        "55107ac46cf1c6bad4713f41", // Devin
-        "550c7213b57aeabb35edd9e0", // Peter
-        "5539799570244d30a26cc453", // Loren
-        "552807030c7ea51a52aea2ea", // David H
-        "552c49070c7ea51a52aea2ed", // Todd W
-        "553ab11e70244d30a26cc45f", // Paul R
-        "550b0ca2064c3ab3f556815b" // Alex
-      ]
+    "admin": [
+      "5509ebed689961d420ae7086",
+      // Greg on localhost
+      "5509ffd557cd3a30f55561a7",
+      // Greg on prod
+      "55107ac46cf1c6bad4713f41",
+      // Devin
+      "550c7213b57aeabb35edd9e0",
+      // Peter
+      "5539799570244d30a26cc453",
+      // Loren
+      "552807030c7ea51a52aea2ea",
+      // David H
+      "552c49070c7ea51a52aea2ed",
+      // Todd W
+      "553ab11e70244d30a26cc45f",
+      // Paul R
+      "550b0ca2064c3ab3f556815b"
+      // Alex
+    ]
   },
   "github": {
     "clientID": "overwrite_clientID",
     "clientSecret": "overwrite_clientSecret",
     "callbackURL": "https://bcdevexchange.org/auth/github/callback",
-    "clientApplicationName": "BCDevExchange", // application name associated with the clientID in github settings
+    "clientApplicationName": "BCDevExchange",
+    // application name associated with the clientID in github settings
     "baseURL": "https://api.github.com",
     "name": "github",
-    "cacheMaxAge": "5" // Cache max-age in seconds
+    "cacheMaxAge": "5"
+    // Cache max-age in seconds
   },
   "linkedin": {
     "clientID": "overwrite_clientID",
     "clientSecret": "overwrite_clientSecret",
     "callbackURL": "https://bcdevexchange.org/auth/linkedin/callback",
-    "clientApplicationName": "", // application name associated with the clientID in linkedin settings
+    "clientApplicationName": "",
+    // application name associated with the clientID in linkedin settings
     "baseURL": "https://api.linkedin.com/v1",
     "name": "linkedin"
   },
@@ -170,31 +182,35 @@ The local files are intended to not be tracked in your version control system. E
     "sessionStoreUrl": "mongodb://localhost/session-store"
   },
   "ui": {
-      "headerImage": "header6.jpg",
-      "headerImageLicenseHtml": "Monashee Mountain Range photo by <a href='https://www.flickr.com/photos/42373177@N07/' analytics-on>Jason Drury</a>. Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/' analytics-on>CC BY-NC-SA 2.0</a>)",
-      "developersCarouselImage": "developers.jpg",
-      "entrepreneursCarouselImage": "entrepreneurs.jpg",
-      "publicSectorCarouselImage": "public-sector.jpg",
-      "discoveryBanner": false,
-      "linkedinLogin": false,
-      "resourcescallbackURLage": true,
-      "resourcesPage": false,
-      "programsPage": false,
-      "blogPage": true,
-      "projectsPage": false,
-      "peoplePage": false,
-      "numbersPage": false,
-      "labLink": false,
-      "rapidAdoptionPage": false,
-      "communityMenu": false,
-      "explorationContent": true,
-      "labURL": "https://lab.bcdevexchange.org",
-      "enableNumbersBar" : false
-
+    "headerImageLicenseHtml": "Monashee Mountain Range photo by <a href='https://www.flickr.com/photos/42373177@N07/' analytics-on>Jason Drury</a>. Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/' analytics-on>CC BY-NC-SA 2.0</a>)",
+    "developersCarouselImage": "developers.jpg",
+    "entrepreneursCarouselImage": "entrepreneurs.jpg",
+    "publicSectorCarouselImage": "public-sector.jpg",
+    "contactUsEmail": "BCDevelopersExchange@gov.bc.ca",
+    "labURL": "https://lab.bcdevexchange.org",
+    "rapidAdoptionUrl": "https://github.com/BCDevExchange/rapid-adoption-2/wiki",
+    "apiUrl" : "http://api.bcdevexchange.org/",
+    "blogPage": true,
+    "resourcescallbackURLage": true,
+    "enableLogin": true,
+    "enableNumbersBar": false,
+    "explorationContent": true,
+    "discoveryBanner": false,
+    "linkedinLogin": false,
+    "resourcesPage": false,
+    "programsPage": false,
+    "projectsPage": false,
+    "peoplePage": false,
+    "numbersPage": false,
+    "labLink": false,
+    "rapidAdoptionPage": false,
+    "communityMenu": false
   },
   "google_analytics": {
-    "api_email": "GOOGLE_API_EMAIL", // in Google Developer console (Service Account)
-    "analytics_view_id": "GOOGLE_ANALYTICS_VIEW_ID", //in Google Analytics Console : Admin -> View -> View Settings -> View ID
+    "api_email": "GOOGLE_API_EMAIL",
+    // in Google Developer console (Service Account)
+    "analytics_view_id": "GOOGLE_ANALYTICS_VIEW_ID",
+    //in Google Analytics Console : Admin -> View -> View Settings -> View ID
     "client_id": "UA-XXXXXXX-X"
   },
   "twitter": {
@@ -204,17 +220,17 @@ The local files are intended to not be tracked in your version control system. E
     "access_token_secret": "twitter_access_token_secret"
   },
   "lab": {
-    "email":{
+    "email": {
       "sender": "donotreply@bcdevexchange.org",
       "recipients": []
     },
     "proxyHostNamePrefix": "lab-",
     "proxyHostNameSuffix": ".bcdevexchange.org",
     "labInstanceProtocolAndHost": "http://127.0.0.1",
-    "kongAdminUrl" : "http://localhost:8001/apis/",
-    "jenkinsUrl" : "https://ci.bcdevexchange.org",
-    "jenkinsSeedJobBuildUrlFragment" : "/job/lab-dsl-seed/buildWithParameters",
-    "jenkinsUser" : "replace-me",
-    "jenkinsApiToken" : "replace-me"
+    "kongAdminUrl": "http://localhost:8001/apis/",
+    "jenkinsUrl": "https://ci.bcdevexchange.org",
+    "jenkinsSeedJobBuildUrlFragment": "/job/lab-dsl-seed/buildWithParameters",
+    "jenkinsUser": "replace-me",
+    "jenkinsApiToken": "replace-me"
   }
 }
