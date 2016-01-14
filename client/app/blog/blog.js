@@ -47,21 +47,11 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
       var blogListDeferred = $q.defer()
       var blogPromise = blogListDeferred.promise
 
-      var sourceListDeferred = $q.defer()
-      var sourcePromise = sourceListDeferred.promise
-
       blogPromise.then(
         function () {
           usSpinnerService.stop('spinner-blog')
         }
       )
-
-      sourcePromise.then(
-        function () {
-          usSpinnerService.stop('spinner-sources')
-        }
-      )
-
 
       $scope.lastReached = false
       $scope.page = 1
