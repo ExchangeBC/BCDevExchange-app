@@ -12,253 +12,246 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 -->
 
+<div id="home-page" class="container-fluid">
+  <div class="row no-pad">
+    <div class="col-xs-12">
+      <div id="home-page-carousel" class="carousel slide" data-ride="carousel" ng-cloak>
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+        </ol>
 
-<div class="splash">
-  <div ng-if="config.enableNumbersBar" class="navbar navbar-default navbar-stats">
-    <div class="container">
-      <div class="navbar-header visible-xs">
-        <div class="col-xs-4">
-          <i class="fa fa-users"></i> <span>{{ numbers.accounts }}</span> <span class="text-muted">Users</span>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+          <div class="item active">
+            <img src="img/header6.jpg" alt="BC Mountain Scene">
+
+            <div class="carousel-caption">
+              <h1>The BC Developers' Exchange
+                <small><sup>
+                  <small><span class="label label-warning">BETA</span></small>
+                </sup></small>
+              </h1>
+            </div>
+          </div>
+          <div class="item">
+            <img src="img/developers.jpg" alt="Developers Image">
+
+            <div class="carousel-caption">
+              <h1>Make code, get paid.</h1>
+            </div>
+          </div>
+          <div class="item">
+            <img src="img/entrepreneurs.jpg" alt="Entrepreneurs Image">
+
+            <div class="carousel-caption">
+              <h1>Find new business opportunities.</h1>
+            </div>
+          </div>
+          <div class="item">
+            <img src="img/partner.jpg" alt="Public Sector Image">
+
+            <div class="carousel-caption">
+              <h1>More code, less paperwork.</h1>
+            </div>
+          </div>
         </div>
-        <div class="col-xs-4">
-          <i class="fa fa-area-chart"></i> <span>{{ numbers.analytics.users }}</span> <span
-          class="text-muted">Visits</span>
-        </div>
-        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-stats">
-          More stats
-        </button>
-      </div>
-      <div class="navbar-collapse collapse" id="navbar-stats">
-        <div class="row">
-          <div class="col-sm-3 col-md-2 hidden-xs">
-            <i class="fa fa-users"></i> <span>{{ numbers.accounts }}</span> <span class="text-muted">Users</span>
-          </div>
-          <!--div class="col-sm-2">
-              <i class="fa fa-cubes"></i> <span>{{ numbers.resources }}</span> <span class="text-muted">resources</span>
-          </div>
-          <div class="col-sm-2">
-              <i class="fa fa-cogs"></i> <span>{{ numbers.projects }}</span> <span class="text-muted">projects</span>
-          </div-->
-          <div class="col-sm-3 col-md-2 hidden-xs">
-            <i class="fa fa-area-chart"></i> <span>{{ numbers.analytics.users }}</span> <span
-            class="text-muted">Visits</span>
-          </div>
-          <div class="col-sm-3 col-md-2">
-            <i class="fa fa-twitter"></i> <span>{{ numbers.tweet_count }}</span> <span class="text-muted">tweets</span>
-          </div>
-          <div class="col-sm-3 col-md-2">
-            <i class="fa fa-star"></i> <span>{{ numbers.total_stars }}</span> <span class="text-muted"><span
-            class="hidden-md">GitHub</span> stars</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div id="home-page-carousel" class="carousel slide" data-ride="carousel" ng-cloak>
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-  </ol>
-
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner" role="listbox">
-    <div class="item active">
-      <img src="img/header6.jpg" alt="BC Mountain Scene">
-
-      <div class="carousel-caption">
-        <h1>The BC Developers' Exchange
-          <small><sup>
-            <small><span class="label label-warning">BETA</span></small>
-          </sup></small>
-        </h1>
-      </div>
-    </div>
-    <div class="item">
-      <img src="img/developers.jpg" alt="Developers Image">
-
-      <div class="carousel-caption">
-        <h1>Make code, get paid.</h1>
-      </div>
-    </div>
-    <div class="item">
-      <img src="img/entrepreneurs.jpg" alt="Entrepreneurs Image">
-
-      <div class="carousel-caption">
-        <h1>Find new business opportunities.</h1>
-      </div>
-    </div>
-    <div class="item">
-      <img src="img/partner.jpg" alt="Public Sector Image">
-
-      <div class="carousel-caption">
-        <h1>More code, less paperwork.</h1>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#home-page-carousel" role="button" ng-non-bindable data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#home-page-carousel" role="button" ng-non-bindable data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- Controls -->
-  <a class="left carousel-control" href="#home-page-carousel" role="button" ng-non-bindable data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#home-page-carousel" role="button" ng-non-bindable data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
+  <div class="row no-pad">
+    <div class="col-xs-12">
+      <div class="jumbotron">
 
-<div class="jumbotron">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
         <h2>
           The experiment - A new way for innovators in the tech sector and government to work together, grow B.C.’s
           economy, and make services for British Columbians better.
         </h2>
-      </div>
-    </div>
 
-  </div>
-</div>
-
-
-<div class="jumbotron">
-  <div class="container">
-    <h2 class="text-center">What's in it for me?</h2>
-
-    <p class="text-center">
-      <a href="" class="persona-button" ng-click="scrollTo('developers-value-props')" role="button">Developers</a>
-      <a href="" class="persona-button" ng-click="scrollTo('entrepreneurs-value-props')" role="button">Entrepreneurs</a>
-      <a href="" class="persona-button" ng-click="scrollTo('public-sector-value-props')" role="button">Public Sector</a>
-    </p>
-  </div>
-</div>
-
-
-<div class="value-prop-section" id="developers-value-props">
-  <div class="value-prop-section-caption">
-    <h2>Developers</h2>
-  </div>
-
-  <div class="row value-prop-set">
-    <div class="col-md-offset-2 col-lg-offset-2 col-md-4 col-lg-4 ">
-      <div class="value-prop-card developers">
-        <h2>Make code, get paid.</h2>
-
-        <p>Are you a coder? Government agencies in B.C. want your skills. Find work posted in GitHub labelled with
-          ‘$1000’. Submit the best code, and you can get paid.</p>
-      </div>
-      <div class="value-prop-card developers">
-        <h2>Code for your community</h2>
-
-        <p>Money is a motivator, but so is giving back to your community. Work on BCDevExchange projects and help make
-          government services in British Columbia better for everyone.</p>
-
-      </div>
-
-      <div class="value-prop-cta">
-        <a class="cta-button" href="/developers">CODE WITH US</a>
-      </div>
-    </div>
-    <div class="col-md-4 col-lg-4">
-      <div class="value-prop-card developers">
-        <h2>More code, less paperwork</h2>
-
-        <p>Think it’s too hard to work with government? Think again. Instead of bidding for work, government agencies on
-          the BCDevExchange offer work at a fixed price ($1000) and pay for the best code. Spend less time on paperwork,
-          more time coding.</p>
-      </div>
-      <div class="value-prop-card developers">
-        <h2>APIs and code you can use</h2>
-
-        <p>Looking to hone your coding skills? Or build the next big app? Explore APIs and code shared by government
-          agencies in B.C.</p>
-      </div>
-
-      <div class="value-prop-cta">
-        <a class="cta-button" href="{{config.apiUrl}}">EXPLORE APIs</a>
       </div>
     </div>
   </div>
 
-</div>
-<div class="value-prop-section" id="entrepreneurs-value-props">
-  <div class="value-prop-section-caption">
-    <h2>Entrepreneurs</h2>
-  </div>
+  <div class="row no-pad">
+    <div class="col-xs-12">
+      <div class="jumbotron">
+        <div class="container">
+          <h2 class="text-center">What's in it for me?</h2>
 
-  <div class="row value-prop-set">
-    <div class="col-md-offset-2 col-lg-offset-2 col-md-4 col-lg-4">
-      <div class="value-prop-card entrepreneurs">
-
-        <h2>Earn a reference customer.</h2>
-
-        <p>On the hunt for new business? Earn a reference from a B.C. government agency. Then sell your solution to the international market.</p>
-      </div>
-
-      <div class="value-prop-card entrepreneurs">
-        <h2>Government Partners</h2>
-
-        <p>Meet government innovators exploring new ways to develop tech. Understand their business, from pain points to tech stack, and start the conversation.</p>
-      </div>
-      <div class="value-prop-cta">
-        <a class="cta-button" href="/programs">VIEW PARTNERS</a>
-      </div>
-    </div>
-    <div class="col-md-4 col-lg-4">
-      <div class="value-prop-card entrepreneurs">
-        <h2>APIs and code you can use</h2>
-
-        <p>You see the market opportunity,we provide raw ingredients. Explore APIs and code from government that can help seed your business.</p>
-      </div>
-      <div class="value-prop-card entrepreneurs">
-
-        <h2>Leverage open IP</h2>
-
-        <p>Whenever possible, the code and APIs you find on the BCDevExchange use open source licenses, so you can add value and take your solution to market.</p>
-      </div>
-      <div class="value-prop-cta">
-        <a class="cta-button" href="{{config.apiUrl}}">EXPLORE APIs</a>
+          <p class="text-center">
+            <a href="" class="persona-button" ng-click="scrollTo('developers-value-props')" role="button">Developers</a>
+            <a href="" class="persona-button" ng-click="scrollTo('entrepreneurs-value-props')"
+               role="button">Entrepreneurs</a>
+            <a href="" class="persona-button" ng-click="scrollTo('public-sector-value-props')" role="button">Public
+              Sector</a>
+          </p>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="value-prop-section" id="public-sector-value-props">
-  <div class="value-prop-section-caption">
-    <h2>Public Sector Partners</h2>
-  </div>
-  <div class="row value-prop-set">
-    <div class="col-md-offset-2 col-lg-offset-2 col-md-4 col-lg-4">
-      <div class="value-prop-card public-sector">
-        <h2>Get the best tech talent and ideas</h2>
 
-        <p>The BCDevExchange is making it easier for government agencies to tap into the B.C. tech sector’s talent and innovative ideas, and grow the economy too.</p>
-      </div>
-      <div class="value-prop-card public-sector">
-        <h2>Get Agile.</h2>
+  <div class="row no-pad">
+    <div class="col-xs-12">
+      <div class="value-prop-section" id="developers-value-props">
+        <div class="value-prop-section-caption">
+          <h2>Developers</h2>
+        </div>
 
-        <p>Looking for a better way to do IT? The BCDevExchange is experimenting with more agile, iterative, and collaborative development. Lower your risk, and innovate faster. </p>
-      </div>
+        <div class="row value-prop-set">
+          <div class="col-md-offset-2 col-lg-offset-2 col-md-4 col-lg-4 ">
+            <div class="value-prop-card developers">
+              <h2>Make code, get paid.</h2>
 
-      <div class="value-prop-cta">
-        <a class="cta-button" href="mailto:info@bcdevexchange.org">BECOME A PARTNER</a>
+              <p>Are you a coder? Government agencies in B.C. want your skills. Find work posted in GitHub labelled with
+                ‘$1000’. Submit the best code, and you can get paid.</p>
+            </div>
+            <div class="value-prop-card developers">
+              <h2>Code for your community</h2>
+
+              <p>Money is a motivator, but so is giving back to your community. Work on BCDevExchange projects and help
+                make
+                government services in British Columbia better for everyone.</p>
+
+            </div>
+
+            <div class="value-prop-cta">
+              <a class="cta-button" href="/developers">CODE WITH US</a>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4">
+            <div class="value-prop-card developers">
+              <h2>More code, less paperwork</h2>
+
+              <p>Think it’s too hard to work with government? Think again. Instead of bidding for work, government
+                agencies
+                on
+                the BCDevExchange offer work at a fixed price ($1000) and pay for the best code. Spend less time on
+                paperwork,
+                more time coding.</p>
+            </div>
+            <div class="value-prop-card developers">
+              <h2>APIs and code you can use</h2>
+
+              <p>Looking to hone your coding skills? Or build the next big app? Explore APIs and code shared by government
+                agencies in B.C.</p>
+            </div>
+
+            <div class="value-prop-cta">
+              <a class="cta-button" href="{{config.apiUrl}}">EXPLORE APIs</a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
-    <div class="col-md-4 col-lg-4">
-      <div class="value-prop-card public-sector">
-        <h2>More code, less paperwork</h2>
+  </div>
 
-        <p>Do you have a capacity crunch? The BCDevExchange is piloting a new way to engage skilled developers. Post work for a fixed price ($1000) and pay to get the best code.</p>
+  <div class="row no-pad">
+    <div class="col-xs-12">
+      <div class="value-prop-section" id="entrepreneurs-value-props">
+        <div class="value-prop-section-caption">
+          <h2>Entrepreneurs</h2>
+        </div>
+
+        <div class="row value-prop-set">
+          <div class="col-md-offset-2 col-lg-offset-2 col-md-4 col-lg-4">
+            <div class="value-prop-card entrepreneurs">
+
+              <h2>Earn a reference customer.</h2>
+
+              <p>On the hunt for new business? Earn a reference from a B.C. government agency. Then sell your solution to
+                the international market.</p>
+            </div>
+
+            <div class="value-prop-card entrepreneurs">
+              <h2>Government Partners</h2>
+
+              <p>Meet government innovators exploring new ways to develop tech. Understand their business, from pain
+                points
+                to tech stack, and start the conversation.</p>
+            </div>
+            <div class="value-prop-cta">
+              <a class="cta-button" href="/programs">VIEW PARTNERS</a>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4">
+            <div class="value-prop-card entrepreneurs">
+              <h2>APIs and code you can use</h2>
+
+              <p>You see the market opportunity,we provide raw ingredients. Explore APIs and code from government that can
+                help seed your business.</p>
+            </div>
+            <div class="value-prop-card entrepreneurs">
+
+              <h2>Leverage open IP</h2>
+
+              <p>Whenever possible, the code and APIs you find on the BCDevExchange use open source licenses, so you can
+                add
+                value and take your solution to market.</p>
+            </div>
+            <div class="value-prop-cta">
+              <a class="cta-button" href="{{config.apiUrl}}">EXPLORE APIs</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="value-prop-card public-sector placeholder">
-      </div>
-      <div class="value-prop-cta">
-        <a class="cta-button" href="/programs">VIEW PARTNERS</a>
+    </div>
+  </div>
+
+  <div class="row no-pad">
+    <div class="col-xs-12">
+      <div class="value-prop-section" id="public-sector-value-props">
+        <div class="value-prop-section-caption">
+          <h2>Public Sector Partners</h2>
+        </div>
+        <div class="row value-prop-set">
+          <div class="col-md-offset-2 col-lg-offset-2 col-md-4 col-lg-4">
+            <div class="value-prop-card public-sector">
+              <h2>Get the best tech talent and ideas</h2>
+
+              <p>The BCDevExchange is making it easier for government agencies to tap into the B.C. tech sector’s talent
+                and
+                innovative ideas, and grow the economy too.</p>
+            </div>
+            <div class="value-prop-card public-sector">
+              <h2>Get Agile.</h2>
+
+              <p>Looking for a better way to do IT? The BCDevExchange is experimenting with more agile, iterative, and
+                collaborative development. Lower your risk, and innovate faster. </p>
+            </div>
+
+            <div class="value-prop-cta">
+              <a class="cta-button" href="mailto:info@bcdevexchange.org">BECOME A PARTNER</a>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4">
+            <div class="value-prop-card public-sector">
+              <h2>More code, less paperwork</h2>
+
+              <p>Do you have a capacity crunch? The BCDevExchange is piloting a new way to engage skilled developers. Post
+                work for a fixed price ($1000) and pay to get the best code.</p>
+            </div>
+            <div class="value-prop-card public-sector placeholder">
+            </div>
+            <div class="value-prop-cta">
+              <a class="cta-button" href="/programs">VIEW PARTNERS</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

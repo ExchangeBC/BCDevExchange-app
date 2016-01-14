@@ -639,7 +639,15 @@ See the License for the specific language governing permissions and limitations 
   }
 }
 
+#home-page.container-fluid {
+  .row.no-pad > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+  }
+}
+
 #home-page-carousel {
+
   .item img {
     margin: auto;
   }
@@ -750,7 +758,6 @@ See the License for the specific language governing permissions and limitations 
     &:extend(.devx-partner-header all);
   }
 }
-
 
 
 
