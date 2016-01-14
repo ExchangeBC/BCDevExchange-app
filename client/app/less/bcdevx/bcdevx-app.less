@@ -728,12 +728,21 @@ See the License for the specific language governing permissions and limitations 
   .value-prop-section-caption {
     &:extend(.text-center);
     margin-bottom: 50px;
+    .goto-top {
+      margin-top: -50px;
+      opacity: .5;
+      vertical-align: top;
+      color: black;
+      &:hover {
+        opacity: .8;
+      }
+    }
   }
 }
 
 .value-prop-set {
   .value-prop-card {
-    height: 200px;
+    height: 180px;
     margin-bottom: 50px;
   }
   .value-prop-cta {
