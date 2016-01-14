@@ -53,10 +53,7 @@ See the License for the specific language governing permissions and limitations 
   &:extend(.btn);
   &:extend(.btn-lg);
   &:extend(.center-block);
-  background-color: @brand-primary;
-  opacity: .6;
-  color: @cta-text-colour;
-
+  &:extend(.btn-primary);
 }
 
 // lab banner ================
@@ -642,57 +639,11 @@ See the License for the specific language governing permissions and limitations 
   }
 }
 
-.developer-process {
-  min-width: 800px;
-  .process-connector {
-    position: relative;
-    top: 45px;
-  }
-}
-
-.feature-matrix {
-  .value-prop-card {
-    position: relative;
-    overflow: hidden;
-    height: 300px;
-    //background-color: lightgrey;
-    margin-bottom: 20px;
-    .caption {
-      position: absolute;
-      top: 0;
-      right: 0;
-      background: rgba(90, 90, 90, 0.75);
-      width: 100%;
-      height: 100%;
-      padding: 2%;
-      display: none;
-      text-align: left;
-      color: #fff !important;
-      z-index: 2;
-    }
-    .btn {
-
-    }
-  }
-  //.value-prop-card.public-sector {
-  //  background-color: rgba(73, 34, 221, 0.33);
-  //}
-  //.value-prop-card.entrepreneurs {
-  //  background-color: #00A000;
-  //}
-  //.value-prop-card.developers {
-  //  background-color: #82c0f3;
-  //}
-  //.value-prop-card.highlight{
-  //  background-color: #0000cc;
-  //}
-}
-
 #home-page-carousel {
   .item img {
     //todo fix this - we want images that are actually 1900 wide so we don't stretch
     width: 1900px;
-    max-height: 50%;
+    max-height: 45%;
     margin: auto;
   }
   .carousel-caption {
@@ -744,6 +695,15 @@ See the License for the specific language governing permissions and limitations 
   }
 }
 
+.devx-partner-title {
+  padding-top: 17px;
+}
+
+.devx-partner-desc {
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
 .devx-developer-header {
   &:extend(.devx-header all);
   background-image: url('/img/developers.jpg');
@@ -762,7 +722,17 @@ See the License for the specific language governing permissions and limitations 
 .value-prop-section {
   .value-prop-section-caption {
     &:extend(.text-center);
-    margin-bottom: 100px;
+    margin-bottom: 50px;
+  }
+}
+
+.value-prop-set {
+  .value-prop-card {
+    height: 200px;
+    margin-bottom: 50px;
+  }
+  .value-prop-cta {
+    margin-bottom: 50px;
   }
 }
 
