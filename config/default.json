@@ -184,9 +184,9 @@ The local files are intended to not be tracked in your version control system. E
   "ui": {
     "headerImageLicenseHtml": "Cityscape photo adapted from Foggy Vancouver from West Vancouver by <a href='https://www.flickr.com/photos/gotovan/' analytics-on>GoToVan</a>. Used under license (<a href='https://creativecommons.org/licenses/by/2.0/' analytics-on>CC BY 2.0</a>)",
     "developersCarouselImage": "developers.jpg",
-    "developersImageLicenseHtml": "Developers photo adapted from ... by ... Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/' analytics-on>CC BY-NC-SA 2.0</a>)",
+    "developersImageLicenseHtml": "Developers photo adapted from image by <a href='http://hackny.org/' analytics-on>hackny.org</a> Used under license (<a href='https://creativecommons.org/licenses/by-sa/2.0/' analytics-on>CC BY-SA 2.0</a>)",
     "entrepreneursCarouselImage": "entrepreneurs.jpg",
-    "entrepreneursImageLicenseHtml": "Entrepreneur photo adapted from ... by ... Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/' analytics-on>CC BY-NC-SA 2.0</a>)",
+    "entrepreneursImageLicenseHtml": "Entrepreneur photo adapted from The DEMO Conference by <a href='https://www.flickr.com/photos/democonference/17237592182/in/datetaken/' analytics-on>DEMO-Rentalroost-3673</a>. Used under license (<a href='https://creativecommons.org/licenses/by-nc-nd/2.0/' analytics-on>CC BY-NC-ND 2.0</a>)",
     "publicSectorCarouselImage": "public-sector.jpg",
     "contactUsEmail": "BCDevelopersExchange@gov.bc.ca",
     "labURL": "https://lab.bcdevexchange.org",
