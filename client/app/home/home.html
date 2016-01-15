@@ -13,7 +13,18 @@ See the License for the specific language governing permissions and limitations 
 -->
 
 <div id="home-page" class="container-fluid">
-  <div class="row no-pad">
+
+  <div id="mobile-header" class="visible-xs row no-pad">
+    <div class="col-xs-12">
+        <div class="mobile-header-caption">
+          <h2>The BC Developers' Exchange <small><sup>
+            <small><span class="label label-warning">BETA</span></small>
+          </sup></small></h2>
+        </div>
+      </div>
+    </div>
+
+  <div class="hidden-xs row no-pad">
     <div class="col-xs-12">
       <div id="home-page-carousel" class="carousel slide" data-ride="carousel" ng-cloak>
         <!-- Indicators -->
@@ -73,9 +84,9 @@ See the License for the specific language governing permissions and limitations 
     </div>
   </div>
 
-  <div class="row no-pad">
+  <div id="hook" class="row no-pad">
     <div class="col-xs-12">
-      <div class="jumbotron">
+      <div  class="jumbotron">
 
         <p class="lead">
           <strong>The experiment</strong> - a new way for innovators in the tech sector and government to work together, grow B.C.’s
@@ -86,29 +97,30 @@ See the License for the specific language governing permissions and limitations 
     </div>
   </div>
 
-  <div class="row no-pad">
+  <div id="persona-selector" class="row no-pad">
     <div class="col-xs-12">
       <div class="jumbotron">
         <div class="container">
-          <h2 class="text-center">What's in it for me?</h2>
+          <h2 class="lead text-center"><strong>What's in it for me?</strong></h2>
 
-          <p class="text-center">
+          <div class="persona-buttons">
+            <p class="text-center">
             <a href="" class="persona-button" ng-click="scrollTo('developers-value-props')" role="button">Developers</a>
             <a href="" class="persona-button" ng-click="scrollTo('entrepreneurs-value-props')"
                role="button">Entrepreneurs</a>
             <a href="" class="persona-button" ng-click="scrollTo('public-sector-value-props')" role="button">Public
               Sector</a>
-          </p>
+          </p></div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="row no-pad">
+  <div id="developers-value-props" class="row no-pad">
     <div class="col-xs-12">
-      <div class="value-prop-section" id="developers-value-props">
+      <div class="value-prop-section" >
         <div class="value-prop-section-caption">
-          <div class="goto-top fa fa-chevron-up fa-4x" ng-click="scrollTo('navbar-main')"></div>
+          <div class="goto-top fa fa-chevron-up fa-3x" ng-click="scrollTo('navbar-main')"></div>
           <h2>Developers</h2>
         </div>
 
@@ -152,9 +164,9 @@ See the License for the specific language governing permissions and limitations 
     </div>
   </div>
 
-  <div class="row no-pad">
+  <div id="entrepreneurs-value-props" class="row no-pad">
     <div class="col-xs-12">
-      <div class="value-prop-section" id="entrepreneurs-value-props">
+      <div class="value-prop-section">
         <div class="value-prop-section-caption">
           <div class="goto-top fa fa-chevron-up fa-4x" ng-click="scrollTo('navbar-main')"></div>
           <h2>Entrepreneurs</h2>
@@ -199,12 +211,12 @@ See the License for the specific language governing permissions and limitations 
     </div>
   </div>
 
-  <div class="row no-pad">
+  <div id="public-sector-value-props" class="row no-pad">
     <div class="col-xs-12">
-      <div class="value-prop-section" id="public-sector-value-props">
+      <div class="value-prop-section" >
         <div class="value-prop-section-caption">
           <div class="goto-top fa fa-chevron-up fa-4x" ng-click="scrollTo('navbar-main')"></div>
-          <h2>Public Sector Partners</h2>
+          <h2>Public Sector</h2>
         </div>
         <div class="row value-prop-set">
           <div class="col-md-offset-2 col-lg-offset-2 col-md-4 col-lg-4">
