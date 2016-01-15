@@ -182,9 +182,11 @@ The local files are intended to not be tracked in your version control system. E
     "sessionStoreUrl": "mongodb://localhost/session-store"
   },
   "ui": {
-    "headerImageLicenseHtml": "Monashee Mountain Range photo by <a href='https://www.flickr.com/photos/42373177@N07/' analytics-on>Jason Drury</a>. Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/' analytics-on>CC BY-NC-SA 2.0</a>)",
+    "headerImageLicenseHtml": "Cityscape photo adapted from Foggy Vancouver from West Vancouver by <a href='https://www.flickr.com/photos/gotovan/' analytics-on>GoToVan</a>. Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/' analytics-on>CC BY-NC-SA 2.0</a>)",
     "developersCarouselImage": "developers.jpg",
+    "developersImageLicenseHtml": "Developers photo adapted from ... by ... Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/' analytics-on>CC BY-NC-SA 2.0</a>)",
     "entrepreneursCarouselImage": "entrepreneurs.jpg",
+    "entrepreneursImageLicenseHtml": "Entrepreneur photo adapted from ... by ... Used under license (<a href='https://creativecommons.org/licenses/by-nc-sa/2.0/' analytics-on>CC BY-NC-SA 2.0</a>)",
     "publicSectorCarouselImage": "public-sector.jpg",
     "contactUsEmail": "BCDevelopersExchange@gov.bc.ca",
     "labURL": "https://lab.bcdevexchange.org",
