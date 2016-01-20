@@ -143,23 +143,31 @@ module.exports = function (app, db, passport) {
 
       // add Kong API
       function addKongApi(data, callback) {
-        var upstreamUrl
-        if (data.get('type') === 'proxy') {
-          upstreamUrl = data.get('siteUrl')
-        }
-        if (data.get('type') === 'labInstance') {
-          if (!data.get('hostPort')) {
-            return callback(500, null)
-          }
-          upstreamUrl = config.lab.labInstanceProtocolAndHost + ":" + data.get('hostPort')
+        var upstreamUrl, preserve_host
+        switch (data.get('type')) {
+          case 'proxy':
+            upstreamUrl = data.get('siteUrl')
+            preserve_host = false
+            break
+          case 'labInstance':
+            if (!data.get('hostPort')) {
+              return callback(500, null)
+            }
+            upstreamUrl = config.lab.labInstanceProtocolAndHost + ":" + data.get('hostPort')
+            preserve_host = true
+            break
         }
 
         var postData = {
           name: 'lab-' + data.get('name'),
           upstream_url: upstreamUrl,
+          preserve_host: preserve_host,
           request_host: config.lab.proxyHostNamePrefix + data.get('name') + config.lab.proxyHostNameSuffix
         }
         request.post({url: config.lab.kongAdminUrl, form: postData}, function (err, response, body) {
+          if(err){
+            return callback(err, null)
+          }
           var bodyObj = JSON.parse(body)
           db.models.labInstance.findByIdAndUpdate(data._id, {kongId: bodyObj.id}, function (err, savedData) {
             callback(err, savedData)
