@@ -188,7 +188,7 @@ module.exports = function (app, db, passport) {
               dockerPort: data.get('dockerPort'),
               hostPort: data.get('hostPort')
             }
-            request.post(config.lab.jenkinsUrl + config.lab.jenkinsSeedJobBuildUrlFragment)
+            request.post(config.lab.jenkinsUrl + config.lab.jenkinsJobCreatorBuildUrlFragment)
               .auth(config.lab.jenkinsUser, config.lab.jenkinsApiToken)
               .form(postData).on('response', function (response) {
               callback(err, data)
@@ -266,16 +266,19 @@ module.exports = function (app, db, passport) {
 
         // delete Jenkins job
         function deleteJenkinsJob(callback) {
-          request.post(config.lab.jenkinsUrl + '/job/lab-' + data.get('name') + '/doDelete', {
-              auth: {
-                'user': config.lab.jenkinsUser,
-                'pass': config.lab.jenkinsApiToken,
-                'sendImmediately': true
-              }
+          request.post({
+            url: config.lab.jenkinsUrl + config.lab.jenkinsJobTerminatorBuildUrlFragment,
+            form: {
+              name: data.get('name')
             },
-            function (err, response, body) {
-              callback(err, response)
-            })
+            auth: {
+              'user': config.lab.jenkinsUser,
+              'pass': config.lab.jenkinsApiToken,
+              'sendImmediately': true
+            }
+          }, function (err, response, body) {
+            callback(err, response)
+          })
         }
 
         var parallelJobs = [deleteInstance]
