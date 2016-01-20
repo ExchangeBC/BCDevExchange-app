@@ -155,7 +155,7 @@ module.exports = function (app, db, passport) {
         }
 
         var postData = {
-          name: data.get('name'),
+          name: 'lab-' + data.get('name'),
           upstream_url: upstreamUrl,
           request_host: config.lab.proxyHostNamePrefix + data.get('name') + config.lab.proxyHostNameSuffix
         }
@@ -212,7 +212,7 @@ module.exports = function (app, db, passport) {
       // update Kong API
       function updateKongApi(callback) {
         var patchData = {
-          name: data.name,
+          name: 'lab-' + data.name,
           upstream_url: data.siteUrl,
           request_host: config.lab.proxyHostNamePrefix + data.name + config.lab.proxyHostNameSuffix
         }
@@ -266,7 +266,7 @@ module.exports = function (app, db, passport) {
 
         // delete Jenkins job
         function deleteJenkinsJob(callback) {
-          request.post(config.lab.jenkinsUrl + '/job/' + data.get('name') + '/doDelete', {
+          request.post(config.lab.jenkinsUrl + '/job/lab-' + data.get('name') + '/doDelete', {
               auth: {
                 'user': config.lab.jenkinsUser,
                 'pass': config.lab.jenkinsApiToken,
