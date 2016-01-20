@@ -185,7 +185,8 @@ module.exports = function (app, db, passport) {
               githubRepo: data.get('githubRepoOwner') + '/' + data.get('githubRepo'),
               gitBranch: data.get('gitBranch'),
               dockerfilePath: data.get('dockerfilePath'),
-              dockerPort: data.get('dockerPort')
+              dockerPort: data.get('dockerPort'),
+              hostPort: data.get('hostPort')
             }
             request.post(config.lab.jenkinsUrl + config.lab.jenkinsSeedJobBuildUrlFragment)
               .auth(config.lab.jenkinsUser, config.lab.jenkinsApiToken)
