@@ -230,7 +230,7 @@ The local files are intended to not be tracked in your version control system. E
     "labInstanceProtocolAndHost": "http://127.0.0.1",
     "kongAdminUrl": "http://localhost:8001/apis/",
     "jenkinsUrl": "https://ci.bcdevexchange.org",
-    "jenkinsJobCreatorBuildUrlFragment": "/job/job-creator/buildWithParameters",
+    "jenkinsJobCreatorBuildUrlFragment": "/job/job-creator-updator/buildWithParameters",
     "jenkinsJobTerminatorBuildUrlFragment": "/job/job-terminator/buildWithParameters",
     "jenkinsUser": "replace-me",
     "jenkinsApiToken": "replace-me"

@@ -165,7 +165,7 @@ module.exports = function (app, db, passport) {
           request_host: config.lab.proxyHostNamePrefix + data.get('name') + config.lab.proxyHostNameSuffix
         }
         request.post({url: config.lab.kongAdminUrl, form: postData}, function (err, response, body) {
-          if(err){
+          if (err) {
             return callback(err, null)
           }
           var bodyObj = JSON.parse(body)
@@ -206,12 +206,21 @@ module.exports = function (app, db, passport) {
       }
 
       // update instance
-      function updateInstance(callback) {
+      function updateInstanceAndJenkins(callback) {
+        db.models.labInstance.findById(data._id, function (err, instance) {
+          if (instance.get('name') !== data.name) {
+            data.previousName = instance.get('name')
+          }
+          async.parallel([updateInstance, updateJenkinsJob], function (err, results) {
+            callback(err, results[0])
+          })
+        })
+      }
 
+      function updateInstance(callback) {
         var id = data._id
         delete data._id
         delete data.__v
-
         db.models.labInstance.findByIdAndUpdate(id, data, function (err, doc) {
           callback(err, doc)
         })
@@ -229,23 +238,46 @@ module.exports = function (app, db, passport) {
         })
       }
 
-      // TODO: update Jenkins job
       function updateJenkinsJob(callback) {
-        callback(null, null)
+        var postData = {
+          name: data.name,
+          githubRepo: data.githubRepoOwner + '/' + data.githubRepo,
+          gitBranch: data.gitBranch,
+          dockerfilePath: data.dockerfilePath,
+          dockerPort: data.dockerPort,
+          hostPort: data.hostPort
+        }
+        if (data.previousName) {
+          postData.previousName = data.previousName
+        }
+        request.post({
+          url: config.lab.jenkinsUrl + config.lab.jenkinsJobCreatorBuildUrlFragment,
+          form: postData,
+          auth: {
+            'user': config.lab.jenkinsUser,
+            'pass': config.lab.jenkinsApiToken,
+            'sendImmediately': true
+          }
+        }, function (err, response, body) {
+          callback(err, response)
+        })
       }
 
-      var parallelJobs
+      var parallelJobs = []
       if (!data._id) {
         parallelJobs = [createInstance]
       } else {
-        parallelJobs = [updateInstance]
         switch (data.type) {
           case 'labInstance':
+            parallelJobs.push(updateInstanceAndJenkins)
             parallelJobs.push(updateKongApi)
-            parallelJobs.push(updateJenkinsJob)
             break
           case 'proxy':
+            parallelJobs.push(updateInstance)
             parallelJobs.push(updateKongApi)
+            break
+          default:
+            parallelJobs.push(updateInstance)
             break
         }
       }
