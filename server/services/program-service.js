@@ -186,7 +186,7 @@ exports.getProgramDetails = function (progData, callback) {
 
   var ghRepo = githubStatsUrl.substr(githubStatsUrl.indexOf('github.com') + 11)
   async.parallel([function (cb) {
-    exports.getGitHubList(ghRepo, '/stats/contributors?per_page=100', cb)
+    exports.getGitHubList(ghRepo, '/contributors?per_page=100', cb)
   },
     function (cb) {
       exports.getGitHubList(ghRepo, '/issues?state=all&per_page=100', cb)
