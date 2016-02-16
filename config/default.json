@@ -174,7 +174,7 @@ The local files are intended to not be tracked in your version control system. E
     //},
     {
       "type": "github-file",
-      "url": "repos/BCDevExchange/BCDevExchange-Programs/contents/directory.yml"
+      "url": "repos/BCDevExchange/BCDevExchange-Programs/contents/Code/directory.yml"
     }
   ],
   "mongodb": {
