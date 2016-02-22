@@ -15,7 +15,7 @@ VOLUME /data/db
 # Build app
 RUN npm upgrade -g npm && npm install -g bower@1.4.1 grunt-cli@0.1.3
 COPY . /usr/src/app
-RUN npm install && bower install ; grunt build
+RUN npm install BCDevExchange/swagger-editor && npm install && bower install ; grunt build
 
 EXPOSE 8000
 CMD mongod & npm start
