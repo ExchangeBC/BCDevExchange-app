@@ -1,16 +1,16 @@
 /*
-Copyright 2015 Province of British Columbia
+ Copyright 2015 Province of British Columbia
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+ http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
-*/
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and limitations under the License.
+ */
 
 
 'use strict'
@@ -129,12 +129,12 @@ exports.createAccount = function (extProfile, accessToken, refreshToken, callbac
 
     var user = new models.account({
       identities: [{
-          origin: extProfile.provider,
-          identifier: extProfile.id, // User's identifier from origin
-          accessToken: accessToken,
-          refreshToken: refreshToken,
-          attributes: []
-        }],
+        origin: extProfile.provider,
+        identifier: extProfile.id, // User's identifier from origin
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        attributes: []
+      }],
       profiles: [profile]
     })
     user.save(function (err) {
@@ -194,10 +194,10 @@ exports.countDualAccounts = function (callback) {
   // get all accounts which have a github AND linkedin identity
   models.account.where({
     $and: [{
-        'identities.origin': 'github'
-      }, {
-        'identities.origin': 'linkedin'
-      }]
+      'identities.origin': 'github'
+    }, {
+      'identities.origin': 'linkedin'
+    }]
   }).count(function (err, result) {
     callback(err, result)
   })
@@ -242,7 +242,7 @@ exports.getProgram = function (programId, cb) {
 exports.getProgramByName = function (programNm, cb) {
   var deferred = Q.defer()
   models.program.findOne({
-    'name': {$regex: new RegExp(programNm, "i")}
+    'name': {$regex: new RegExp("^" + programNm + "$", "i")}
   }).select('-_id -__v').lean().exec(function (err, res) {
     if (err) {
       deferred.reject(err)
@@ -280,7 +280,8 @@ exports.updateProgram = function (programId, programPatch, cb) {
 }
 
 exports.Number = models.number
-exports.deleteProgram = function (programId, cb) {}
+exports.deleteProgram = function (programId, cb) {
+}
 
 exports.getNumber = function (query, cb) {
   var deferred = Q.defer()
