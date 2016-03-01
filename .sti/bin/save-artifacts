@@ -1,0 +1,2 @@
+#!/bin/bash
+tar cf - node_modules client/bower_components

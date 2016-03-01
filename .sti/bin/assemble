@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Prevent running assemble in builders different than official STI image.
+# The official nodejs:0.10-onbuild already run npm install and use different
+# application folder.
+[ -d "/usr/src/app" ] && exit 0
+
+set -e
+
+# restore build artifacts
+if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
+    echo "---> restore build artifacts"
+    mv /tmp/artifacts/* ./
+fi
+
+echo "---> ls -la /tmp"
+ls -la /tmp
+
+echo "---> Installing application source"
+cp -Rf /tmp/src/. ./
+
+if [ ! -z $HTTP_PROXY ]; then
+	echo "---> Setting npm http proxy to $HTTP_PROXY"
+	npm config set proxy $HTTP_PROXY
+fi
+
+if [ ! -z $http_proxy ]; then
+	echo "---> Setting npm http proxy to $http_proxy"
+	npm config set proxy $http_proxy
+fi
+
+if [ ! -z $HTTPS_PROXY ]; then
+	echo "---> Setting npm https proxy to $HTTPS_PROXY"
+	npm config set https-proxy $HTTPS_PROXY
+fi
+
+if [ ! -z $https_proxy ]; then
+	echo "---> Setting npm https proxy to $https_proxy"
+	npm config set https-proxy $https_proxy
+fi
+
+echo "---> Building your Node application from source"
+git --version
+git config --global url.https://.insteadOf git://
+npm install bower@1.4.1 grunt-cli@0.1.3
+export PATH=$PATH:node_modules/.bin
+npm install BCDevExchange/swagger-editor && bower install ; npm install &&  grunt build
