@@ -217,6 +217,19 @@ exports.getProgramDetails = function (progData, callback) {
         })
         return helpIdx >= 0
       })
+
+      // find closed help wanted issues
+      res.closedHelpWantedIssues = issuesPrArr.filter(function (e, i, a) {
+        if (e.pull_request || e.state !== 'closed') {
+          return false
+        }
+        var helpIdx = _.findIndex(e.labels, function (e, i, a) {
+          var name = e.name
+          return name === 'help wanted'
+        })
+        return helpIdx >= 0
+      })
+
     } catch (ex) {
     }
     deferred.resolve(res)
