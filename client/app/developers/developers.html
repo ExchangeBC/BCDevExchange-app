@@ -82,7 +82,7 @@
           <tr>
             <th>Partner</th>
             <th>Issue</th>
-            <th></th>
+            <th>Closed Date</th>
             <th>Earn</th>
             <th>Skills Required</th>
           </tr>
@@ -92,12 +92,8 @@
             <td><a href="/programs/{{issue.devXProgramNm}}">{{issue.devXProgramNm}}</a></td>
             <td><a href="{{issue.html_url}}">{{issue.title}}</a>
             </td>
-            <td style="text-align: right">
-              <div
-                ng-repeat="label in issue.labels | filter: {name: 'help wanted'}"
-                style="background-color:#{{label.color}}" class="label">
-                <i class="fa fa-tag"></i> {{label.name}}
-              </div>
+            <td style="white-space: nowrap">
+              {{issue.closed_at | date:'yyyy-MM-dd' }}
             </td>
             <td>
               <div

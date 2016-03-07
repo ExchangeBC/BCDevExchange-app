@@ -206,17 +206,14 @@ See the License for the specific language governing permissions and limitations 
                   </td>
                 </tr>
                 <tr ng-if="program.closedHelpWantedIssues && program.closedHelpWantedIssues.length>0">
-                  <td colspan="4">Closed</td>
+                  <td>Closed</td>
+                  <td>Closed Date</td>
                 </tr>
                 <tr ng-repeat="issue in program.closedHelpWantedIssues" ng-if="program.closedHelpWantedIssues && program.closedHelpWantedIssues.length>0">
                   <td><a href="{{issue.html_url}}">{{issue.title}}</a>
                   </td>
-                  <td style="text-align: right">
-                    <div
-                      ng-repeat="label in issue.labels | filter: {name: 'help wanted'}"
-                      style="background-color:#{{label.color}}" class="label">
-                      <i class="fa fa-tag"></i> {{label.name}}
-                    </div>
+                  <td style="white-space: nowrap">
+                    {{issue.closed_at | date:'yyyy-MM-dd' }}
                   </td>
                   <td>
                     <div
