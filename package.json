@@ -131,7 +131,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "postinstall": "npm prune && bower prune && bower install",
+    "postinstall": "npm prune --production=false && bower prune && bower install",
     "start": "node server/app.js",
     "test": "grunt test",
     "install": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
