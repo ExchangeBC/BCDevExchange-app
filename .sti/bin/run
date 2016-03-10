@@ -1,2 +1,2 @@
 #!/bin/bash
-npm start
+node dist/server/app.js
