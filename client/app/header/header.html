@@ -13,47 +13,73 @@ See the License for the specific language governing permissions and limitations 
 -->
 <div class="navbar navbar-default">
   <div class="container">
-    <div class="navbar-header">
-      <a href="/home" class="navbar-brand">BCDevExchange <small><sup><small><span class="beta-label label label-warning">BETA</span></small></sup></small></a>
-      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-    <div class="navbar-collapse collapse pull-right" id="navbar-main">
-      <ul class='nav navbar-nav'>
-        <li ng-show="config.resourcesPage" ng-cloak><a href="/resources" ng-cloak>Resources</a>
+  <div class="dropdown">
+    <a class="btn" data-toggle="dropdown">
+      <span class="glyphicon glyphicon-menu-hamburger"></span>
+    </a>
+    <div class="dropdown-menu">
+      <ul>
+        <li>Developers
+        <ul>
+          <li><a href="/developers">Code With Us</a></li>
+          <li><a href="http://api.bcdevexchange.org/">Explore API's</a></li>
+        </ul>
         </li>
-        <li ng-show="config.projectsPage" ng-cloak><a href="/projects" ng-cloak>Projects</a>
+        <li>Entrepreneurs
+        <ul>
+          <li><a href="/programs">View Partners</a></li>
+          <li><a href="http://api.bcdevexchange.org/">Explore API's</a></li>
+        </ul>
         </li>
-        <li ng-show="config.programsPage" ng-cloak><a href="/programs" ng-cloak>Profiles</a>
+        <li>Public Sector
+        <ul>
+          <li><a href="mailto:BCDevelopersExchange@gov.bc.ca">Become a Partner</a></li>
+          <li><a href="/programs">View Partners</a></li>
+        </ul>
         </li>
-        <li ng-show="config.peoplePage" ng-cloak><a href="/people" ng-cloak>People</a>
-        </li>
-        <li ng-show="config.numbersPage" ng-cloak><a href="/numbers" ng-cloak>Numbers</a>
-        </li>
-        <li ng-show="config.developersPage" ng-cloak><a href="/developers" ng-cloak>Developers</a>
-        </li>
-        <li ng-show="config.rapidAdoptionPage" ng-cloak><a href="{{config.rapidAdoptionUrl}}" ng-cloak>Pay for Pull</a>
-        </li>
-        <li ng-show="config.labLink" ng-cloak><a href="/lab" ng-cloak>Labs</a>
-        </li>
-        <li class="pull-right" ng-show="config.blogPage" ng-cloak><a href="/blog" ng-cloak>Blog</a>
-        </li>
-        <li ng-show="config.communityMenu" class="dropdown">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Community <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li ng-cloak><a href="http://blog.data.gov.bc.ca/" target="_blank" ng-cloak>Blog</a>
-            </li>
-            <li ng-cloak><a href="https://www.linkedin.com/grp/home?gid=8316252" target="_blank" ng-cloak>Community</a>
-            </li>
-            <li ng-cloak><a href="/signup" ng-cloak>Sign Up</a>
-            </li>
-          </ul>
-        </li>
+        <li><a href="/blog">Blog</a></li>
       </ul>
-      <devx-login-list ng-show="config.enableLogin" class="nav navbar-nav"></devx-login-list>
     </div>
+  </div>
+  <a href="/home" class="navbar-brand">BCDevExchange
+    <small><sup>
+      <small><span class="beta-label label label-warning">BETA</span></small>
+    </sup></small>
+  </a>
+  <div class="pull-right" id="navbar-main">
+    <ul class='nav navbar-nav'>
+      <li ng-show="config.resourcesPage" ng-cloak><a href="/resources" ng-cloak>Resources</a>
+      </li>
+      <li ng-show="config.projectsPage" ng-cloak><a href="/projects" ng-cloak>Projects</a>
+      </li>
+      <li ng-show="config.programsPage" ng-cloak><a href="/programs" ng-cloak>Profiles</a>
+      </li>
+      <li ng-show="config.peoplePage" ng-cloak><a href="/people" ng-cloak>People</a>
+      </li>
+      <li ng-show="config.numbersPage" ng-cloak><a href="/numbers" ng-cloak>Numbers</a>
+      </li>
+      <li ng-show="config.developersPage" ng-cloak><a href="/developers" ng-cloak>Developers</a>
+      </li>
+      <li ng-show="config.rapidAdoptionPage" ng-cloak><a href="{{config.rapidAdoptionUrl}}" ng-cloak>Pay for Pull</a>
+      </li>
+      <li ng-show="config.labLink" ng-cloak><a href="/lab" ng-cloak>Labs</a>
+      </li>
+      <li class="pull-right" ng-show="config.blogPage" ng-cloak><a href="/blog" ng-cloak>Blog</a>
+      </li>
+      <li ng-show="config.communityMenu" class="dropdown">
+        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Community <span
+          class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          <li ng-cloak><a href="http://blog.data.gov.bc.ca/" target="_blank" ng-cloak>Blog</a>
+          </li>
+          <li ng-cloak><a href="https://www.linkedin.com/grp/home?gid=8316252" target="_blank" ng-cloak>Community</a>
+          </li>
+          <li ng-cloak><a href="/signup" ng-cloak>Sign Up</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <devx-login-list ng-show="config.enableLogin" class="nav navbar-nav"></devx-login-list>
+  </div>
   </div>
 </div>
