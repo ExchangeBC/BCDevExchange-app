@@ -4,7 +4,7 @@
     padding-left: 0;
     max-width: none;
   }
-  .dropdown, .dropdown.open {
+  .dropdown {
     float: left;
     .btn {
       background: transparent;
@@ -12,9 +12,11 @@
       font-size: x-large;
     }
     .dropdown-menu {
+      background: #333 linear-gradient(#333, #666);
       border-radius: 10px;
-      background: #333333;
       color: white;
+      opacity: 0;
+      display: block;
       a {
         color: white;
       }
@@ -29,6 +31,11 @@
       > ul {
         font-weight: bold;
       }
+    }
+
+    &.open .dropdown-menu{
+      opacity: 1;
+      transition: opacity 1000ms ease-out;
     }
   }
   .pull-right {
