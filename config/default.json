@@ -192,7 +192,7 @@ The local files are intended to not be tracked in your version control system. E
     "labURL": "https://lab.bcdevexchange.org",
     "rapidAdoptionUrl": "https://github.com/BCDevExchange/rapid-adoption-2/wiki",
     "apiUrl" : "http://api.bcdevexchange.org/",
-    "blogPage": false,
+    "blogPage": true,
     "resourcescallbackURLage": true,
     "enableLogin": true,
     "enableNumbersBar": false,

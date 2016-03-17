@@ -39,8 +39,14 @@
     }
   }
   .pull-right {
-    .navbar-nav > li {
-      float: left;
+    .navbar-nav{
+      display: inline-block;
+      margin: 0;
+      > li {
+        float: left;
+        display: inline;
+        clear: none;
+      }
     }
   }
 }
