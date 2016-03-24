@@ -127,6 +127,10 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider',
         templateUrl: '/app/blog/blog.html',
         controller: 'BlogCtrl'
       })
+      .when('/blogs:blogPath*', {
+        templateUrl: '/app/blog/blogs.html',
+        controller: 'ViewBlogCtrl'
+      })
       .when('/projects', {
         templateUrl: '/app/projects/projects.html',
         controller: 'ProjectsCtrl'

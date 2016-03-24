@@ -85,3 +85,6 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
         })
       }
     }])
+  .controller('ViewBlogCtrl', ['$scope', '$routeParams', function ($scope, $routeParams) {
+    $scope.blogPath = $routeParams.blogPath
+  }])
