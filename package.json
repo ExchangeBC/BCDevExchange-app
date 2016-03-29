@@ -21,6 +21,7 @@
     "connect-mongo": "^0.8.0",
     "cookie-parser": "~1.0.1",
     "ejs": "~0.8.4",
+    "ellipsize": "0.0.2",
     "errorhandler": "~1.0.0",
     "escape-string-regexp": "^1.0.3",
     "express": "^4.12.3",

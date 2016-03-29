@@ -33,6 +33,8 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
 
       $scope.predicateTitle = ''
 
+      $scope.truncate = require('ellipsize')
+
       // Array of alerts
       $scope.alerts = []
 
@@ -61,19 +63,21 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
         var opt = ($scope.page === 1 ? {} : {p: $scope.page})
         BlogListService.get(opt, function (data) {
           $scope.blogLoaded = true
-          if (!data.blog || data.blog.length < 50) {
+          var largestSz = data.blog.reduce(function(pv,e){return Math.max(e && e.length, pv)},0)
+          if (largestSz < 50) {
             $scope.lastReached = true
-            if (!data.blog) {
+            if (largestSz === 0) {
               return
             }
           }
           // filter out uncategorized pages
-          var parsedBlog = _.filter(data.blog, function(e){
-            return e.category.indexOf('BCDev') >= 0
-          })
-          $scope.blog = $scope.blog.concat(parsedBlog)
+          for(var i=0;i<data.blog.length;i++){
+            var parsedBlog = _.filter(data.blog[i], function(e){
+              return e.category.indexOf('BCDev') >= 0
+            })
+            $scope.blog = $scope.blog.concat(parsedBlog)
+          }
           blogListDeferred.resolve('resource list length: ' + $scope.blog.length)
-          $scope.blogLoaded = true
           if ($scope.blog.length < 1000 && !$scope.lastReached) {
             $scope.page += 1
             setTimeout($scope.paginate, 100)
