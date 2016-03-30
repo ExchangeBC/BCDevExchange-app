@@ -24,6 +24,7 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
       // Array of blog entries
       $scope.blog = []
       $scope.blogLoaded = false
+      $scope.blogLoading = false
       $scope.predicateOrder = function (post) {
         var date = new Date(post.pubDate[0])
         return -(date.getTime())
@@ -38,14 +39,6 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
       // Array of alerts
       $scope.alerts = []
 
-      $scope.startSpin = function () {
-        usSpinnerService.spin('spinner-1')
-      }
-
-      $scope.stopSpin = function () {
-        usSpinnerService.stop('spinner-1')
-      }
-
       var blogListDeferred = $q.defer()
       var blogPromise = blogListDeferred.promise
 
@@ -58,11 +51,17 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
       $scope.lastReached = false
       $scope.page = 1
       $scope.paginate = function () {
-        if ($scope.lastReached)
+        if($scope.blogLoading){
           return
+        }
+        $scope.blogLoading = true
+        if ($scope.lastReached){
+          return
+        }
         var opt = ($scope.page === 1 ? {} : {p: $scope.page})
         BlogListService.get(opt, function (data) {
           $scope.blogLoaded = true
+          $scope.blogLoading = false
           var largestSz = data.blog.reduce(function(pv,e){return Math.max(e && e.length, pv)},0)
           if (largestSz < 50) {
             $scope.lastReached = true
@@ -86,6 +85,7 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
           $scope.alerts.push({type: 'warning', msg: 'There was an error accessing data from <strong>' + error.config.url + '</strong>.'})
           blogListDeferred.resolve('error retrieving blog for  ' + error.config.url)
           $scope.blogLoaded = true
+          $scope.blogLoading = false
         })
       }
     }])
