@@ -25,7 +25,7 @@ module.exports = function (app, db, passport) {
         url: url
       }
       request(options, function (error, response, body) {
-        if(error){
+        if (error) {
           // error from one data source should be tolerated
           return cb(null, null)
         }
@@ -42,7 +42,7 @@ module.exports = function (app, db, passport) {
         if (!isNaN(page) && page > 1) {
           return cb(null, null)
         }
-        getBlogs(config.ui.jekyllBlogUrl + '/feed.xml' + (req.query.p ? ('?paged=' + req.query.p) : ''), cb)
+        getBlogs((config.jekyllBlogUrl || config.ui.jekyllBlogUrl) + '/feed.xml' + (req.query.p ? ('?paged=' + req.query.p) : ''), cb)
       },
       function (cb) {
         getBlogs('http://blog.data.gov.bc.ca/feed/?category=BCDev' + (req.query.p ? ('&paged=' + req.query.p) : ''), cb)
