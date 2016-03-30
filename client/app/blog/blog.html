@@ -68,7 +68,7 @@ See the License for the specific language governing permissions and limitations 
                     </div>
                     <div class="row">
                         <div class="col-md-9 col-lg-10">
-                            <p ng-bind-html="truncate(post.description[0],500)  | highlight:query"></p>
+                            <p ng-bind-html="truncate(post.description[0],500, {ellipse: ' [...]' })  | highlight:query"></p>
                         </div>
                     </div>
                 </li>
