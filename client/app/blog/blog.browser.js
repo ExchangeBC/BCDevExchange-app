@@ -18,9 +18,13 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
   .factory('BlogListService', ['$resource', function ($resource) {
       return $resource('/api/blog')
     }])
-  .controller('BlogCtrl', ['$scope', 'BlogListService', '$q', 'usSpinnerService', '$filter',
-    function ($scope, BlogListService, $q, usSpinnerService, $filter) {
-
+  .controller('BlogCtrl', ['$scope', 'BlogListService', '$q', 'usSpinnerService', '$filter', '$routeParams',
+    function ($scope, BlogListService, $q, usSpinnerService, $filter, $routeParams) {
+      $scope.blogPath = $routeParams.blogPath && $routeParams.blogPath.replace(/^\//, '')
+      if($scope.blogPath){
+        // specific blog
+        return
+      }
       // Array of blog entries
       $scope.blog = []
       $scope.blogLoaded = false
@@ -89,6 +93,3 @@ angular.module('bcdevxApp.blog', ['ngRoute', 'ngResource'])
         })
       }
     }])
-  .controller('ViewBlogCtrl', ['$scope', '$routeParams', function ($scope, $routeParams) {
-    $scope.blogPath = $routeParams.blogPath
-  }])
