@@ -135,6 +135,12 @@ if (config.node.clusterEnabled && cluster.isMaster) {
   proxy.api(app, db, passport)
   require('./routes/lab')(app, db, passport)
   require('./routes/issues')(app, db, passport)
+
+  // redirect all non .html /blog URLs to jekyle
+  app.all(/^\/blog\/(?!.*\.html$)(.+)$/, function(req,res){
+    return res.redirect(301,config.ui.jekyllBlogUrl + '/' + req.params[0])
+  })
+
   // Angular Routes supporting html5 mode
   app.all('/*', function (req, res) {
     res.render('index.html')

@@ -12,7 +12,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 -->
 
-<div ng-if="blogPath" class="container" ng-include="config.jekyllBlogUrl + '/' + blogPath" ></div>
+<div ng-if="blogPath" class="container" >
+  <br />
+  <div ng-include="config.jekyllBlogUrl + '/' + blogPath"></div>
+</div>
 <div ng-if="!blogPath" class="container">
   <div class="row page-header">
         <div class="col-lg-12">
