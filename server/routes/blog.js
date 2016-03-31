@@ -25,14 +25,19 @@ module.exports = function (app, db, passport) {
         url: url
       }
       request(options, function (error, response, body) {
-        if (error) {
-          // error from one data source should be tolerated
-          return cb(null, null)
+        try {
+          if (error) {
+            // error from one data source should be tolerated
+            return cb(null, null)
+          }
+          var parseString = require('xml2js').parseString
+          parseString(body, function (err, result) {
+            cb(null, result.rss.channel[0].item)
+          })
         }
-        var parseString = require('xml2js').parseString
-        parseString(body, function (err, result) {
-          cb(null, result.rss.channel[0].item)
-        })
+        catch (e) {
+          cb(null, null)
+        }
       })
     }
 
