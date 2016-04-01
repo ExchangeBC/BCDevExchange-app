@@ -1,0 +1,106 @@
+#home-page.container-fluid {
+  .row.no-pad > [class*='col-'] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+#home-page-carousel {
+
+  .item img {
+    margin: auto;
+  }
+  .carousel-caption {
+    h1, p {
+      color: white !important;
+      font-size: 4vw;
+      padding-bottom: 12%;
+      text-shadow: 1px 2px black;
+      .label {
+        font-size: 100%;
+      }
+    }
+  }
+}
+
+#home-page {
+  #hook {
+    @media (max-width: @screen-xs-min) {
+      .lead {
+        font-size: 1em;
+      }
+    }
+  }
+
+  #persona-selector {
+    .jumbotron {
+      background-color: white;
+      padding: 2%;
+    }
+    .persona-buttons {
+      margin-bottom: 5%;
+    }
+    .persona-button {
+      &:extend(.btn);
+      &:extend(.btn-lg);
+      &:extend(.btn-primary);
+      //todo make this responsive
+      width: 200px;
+      margin-bottom: 5% !important;
+    }
+  }
+
+  .value-prop-section {
+    .value-prop-section-caption {
+      &:extend(.text-center);
+      text-shadow: 1px 2px black;
+      .goto-top {
+        margin-top: -6%;
+        opacity: .5;
+        vertical-align: top;
+        color: black;
+        &:hover {
+          opacity: .8;
+        }
+      }
+    }
+    .value-prop-set {
+      .value-prop-card {
+        min-height: 25%;
+        margin: 12%;
+      }
+      .value-prop-cta {
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-top: 20%;
+        margin-bottom: 25%;
+      }
+    }
+  }
+  #developers-value-props {
+    .value-prop-section-caption {
+      &:extend(.devx-developer-header all);
+    }
+  }
+
+  #entrepreneurs-value-props {
+    .value-prop-section-caption {
+      &:extend(.devx-entrepreneur-header all);
+    }
+  }
+
+  #public-sector-value-props {
+    .value-prop-section-caption {
+      &:extend(.devx-partner-header all);
+    }
+  }
+
+  #experiment-banner {
+    .cta-button {
+      margin-left: 20%;
+      margin-right: 20%;
+    }
+  }
+
+
+}
