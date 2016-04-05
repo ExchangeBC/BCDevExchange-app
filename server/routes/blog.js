@@ -53,6 +53,12 @@ module.exports = function (app, db, passport) {
         getBlogs('http://blog.data.gov.bc.ca/feed/?category=BCDev' + (req.query.p ? ('&paged=' + req.query.p) : ''), cb)
       }
     ], function (err, data) {
+      // force blogs in BCDevExchange/blog belong to BCDev category
+      if(data[0] && data[0].length>0){
+        data[0].forEach(function(e){
+          e.category=['BCDev']
+        })
+      }
       var parsedRes = {'blog': data}
       res.send(parsedRes)
     })
