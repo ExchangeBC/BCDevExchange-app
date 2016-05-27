@@ -15,7 +15,7 @@ We are using a "pay for pull" model for some of the issues in this repository. F
 
 Please read the [Rapid Adoption Guide](https://github.com/BCDevExchange/rapid-adoption/wiki) for everything you need to know to participate in a Pay for Pull.
 
-For your pull request to be considered for payment, you must include a copy of the Terms completed with your information and a PayPal email link in the comments section of the of the pull request. Please read the Pay for Pull [Terms](https://github.com/bcgov/citizen-engagement-web-toolkit/blob/master/TERMS.md). 
+For your pull request to be considered for payment, you must include a copy of the Terms completed with your information and a PayPal email link in the comments section of the of the pull request. Please read the Pay for Pull [Terms](https://github.com/BCDevExchange/BCDevExchange-app/blob/master/TERMS.md). 
 
 ## Code Contributions
 
