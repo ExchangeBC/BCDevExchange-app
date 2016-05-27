@@ -11,7 +11,7 @@ property, trademark and high level project questions should move to the
 instead.
 
 ## Pay for pull
-We are using a "pay for pull" model for some of the issues in this repository. For issues labelled with a “Help Wanted” AND a “$ Amount" we will pay a flat dollar amount if we merge your contribution. 
+We are using a "pay for pull" model for some of the issues in this repository. For issues labelled with a "Help Wanted" AND a "$ Amount" we will pay a flat dollar amount if we merge your contribution. 
 
 Please read the [Rapid Adoption Guide](https://github.com/BCDevExchange/rapid-adoption/wiki) for everything you need to know to participate in a Pay for Pull.
 
