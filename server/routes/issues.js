@@ -82,7 +82,7 @@ module.exports = function (app, db, passport) {
               return callback(null, null)
             }
             var ghRepo = githubUrl.substr(githubUrl.indexOf('github.com') + 11)
-            var state = req.query.state || 'open'
+            var state = req.query.state || 'open';
             ProgramService.getGitHubList(ghRepo, '/issues?labels=help wanted&per_page=100&state='+state, function (err, issues) {
               callback(err, issues.map(function(e){
                 // populate BCDevX program name to the issue

@@ -254,3 +254,9 @@ select {
 #page-container{
   padding-top: 0px !important;
 }
+
+.ghAvatar_small {
+  width: 48px;
+  height: 48px;
+  border-radius: 5px;
+}
