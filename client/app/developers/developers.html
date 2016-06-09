@@ -2,72 +2,125 @@
   <div class="row">
     <div class="col-sm-12 devx-developer-header">
       <h1>Code with us</h1>
-      Contribute code and help make services in British Columbia better for everyone.
+      Find opportunities to contribute to government projects.
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12 col-md-12 main">
-      <h3>Find opportunities to contribute to government projects.</h3>
+      <div class="jumbotron">
 
-      <h5>Open Source</h5>
+        <p class="lead">
+          We use open source licenses to receive, innovate and share your contributions. Contribute to issues marked
+          with a
+          <i class="fa fa-heart" style="color:red;"></i> at your own pace. Contributions to issues tagged with <span
+          class="label" style="background-color:#0052cc;"><i class="fa fa-tag"></i>$1000</span> are accepted according
+          to
+          our <a href="https://github.com/BCDevExchange/rapid-adoption/wiki">Pay for Pull Terms</a>. Let’s avoid
+          duplicating
+          effort. If you see an issue in progress, please give people time to work on it.
+        </p>
 
-      <p>We use open source licenses to share, innovate and receive your code contributions.</p>
-
-      <h5>Contribute as a Volunteer</h5>
-
-      <p>Contribute to government open source projects using a timeline that aligns with your needs as a volunteer
-        contributor. Look for work tagged with a heart.</p>
-
-      <h5>Contribute for Payment</h5>
-
-      <p>Submit the best code for work tagged with ‘$1000’, and you can get paid. <a
-        href="https://github.com/BCDevExchange/rapid-adoption/wiki">Learn more here.</a></p>
-
-      <h5>Support the Community</h5>
-
-      <p>Let’s avoid duplicating effort. If you see that someone has committed to work on an issue, please give them
-        time to complete the work.</p>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12 col-md-12 main">
-      <div>
-        <h2 class="sub-header">Open</h2>
-        <table class="table table-striped opportunity-list">
-          <thead>
-          <tr>
-            <th style="width:10%" >Partner</th>
-            <th style="width:20%" >Issue</th>
-            <th></th>
-            <th>Earn</th>
-            <th>Skills Required</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr ng-repeat="issue in issues">
-            <td><a href="/programs/{{issue.devXProgramNm}}">{{issue.devXProgramNm}}</a></td>
-            <td><a href="{{issue.html_url}}">{{issue.title}}</a>
-            </td>
-            <td style="text-align: right">
-              <div
+      <div id="open-issues-panel" class="panel panel-default">
+        <div class="panel-heading"><b>Open</b></div>
+
+        <div class="panel-body">
+          <table class="table table-striped opportunity-list">
+            <thead>
+            <tr>
+              <th style="width:10%">Partner</th>
+              <th style="width:20%">Issue</th>
+              <th></th>
+              <th></th>
+              <th>Earn</th>
+              <th>Skills Required</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="issue in issues">
+              <td><a href="/programs/{{issue.devXProgramNm}}">{{issue.devXProgramNm}}</a></td>
+              <td><a href="{{issue.html_url}}">{{issue.title}}</a></td>
+              <td colspan="2" style="text-align: right">
+                <div
+                  ng-repeat="label in issue.labels | filter: {name: 'help wanted'}"
+                  style="background-color:#{{label.color}}" class="label">
+                  <i class="fa fa-tag"></i> {{label.name}}
+                </div>
+              </td>
+              <td>
+                <div
+                  ng-repeat="label in issue.labels | filter:{color:'0052cc'} as results"
+                  style="background-color:#{{label.color}}" class="label">
+                  <i class="fa fa-tag"></i> {{label.name}}
+                </div>
+                <div ng-if="results.length === 0"
+                     style="color:red" class="label">
+                  <i class="fa fa-heart"></i>
+                </div>
+
+              </td>
+              <td>
+                    <span
+                      ng-repeat="label in issue.labels  | filter: {color: 'eb6420'}">
+                      <span
+                        style="background-color:#{{label.color}}" class="label">
+                        <i class="fa fa-tag"></i> {{label.name}}
+                      </span>
+                    </span>
+              </td>
+            </tr>
+            <tr ng-if="issues.length === 0">
+              <td colspan="6">There are currently no open issues.</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="assigned-issues-panel" class="panel panel-default" ng-if="assignedIssues && assignedIssues.length>0">
+        <div class="panel-heading"><b>In Progress</b></div>
+
+        <div class="panel-body">
+          <table class="table table-striped opportunity-list">
+            <thead>
+            <tr>
+              <th style="width:10%">Partner</th>
+              <th style="width:20%">Issue</th>
+              <th></th>
+              <th>Earn</th>
+              <th>Skills Required</th>
+              <th>Claimed by</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="issue in assignedIssues">
+              <td><a href="/programs/{{issue.devXProgramNm}}">{{issue.devXProgramNm}}</a></td>
+              <td><a href="{{issue.html_url}}">{{issue.title}}</a></td>
+              <td>
+              <span
                 ng-repeat="label in issue.labels | filter: {name: 'help wanted'}"
                 style="background-color:#{{label.color}}" class="label">
                 <i class="fa fa-tag"></i> {{label.name}}
-              </div>
-            </td>
-            <td>
-              <div
+              </span>
+              </td>
+              <td>
+              <span
                 ng-repeat="label in issue.labels | filter:{color:'0052cc'} as results"
                 style="background-color:#{{label.color}}" class="label">
                 <i class="fa fa-tag"></i> {{label.name}}
-              </div>
-              <div ng-if="results.length === 0"
-                   style="color:red" class="label">
-                <i class="fa fa-heart"></i>
-              </div>
+              </span>
 
-            </td>
-            <td>
+                <div ng-if="results.length === 0"
+                     style="color:red" class="label">
+                  <i class="fa fa-heart"></i>
+                </div>
+
+              </td>
+              <td>
                     <span
                       ng-repeat="label in issue.labels  | filter: {color: 'eb6420'}">
                       <span
@@ -75,53 +128,53 @@
                         <i class="fa fa-tag"></i> {{label.name}}
                       </span>
                     </span>
-            </td>
-          </tr>
-          <tr ng-if="issues.length === 0">
-            <td colspan="5">List is empty.</td>
-          </tr>
-          </tbody>
-        </table>
+              </td>
+              <td style="white-space: nowrap">
+                <img alt="{{issue.assignee.login}}" class="ghAvatar_small" src="{{issue.assignee.avatar_url }}"/>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
 
       </div>
-      <div ng-if="assignedIssues && assignedIssues.length>0">
-        <h2 class="sub-header">In Progress</h2>
-        <table class="table table-striped opportunity-list">
-          <thead>
-          <tr>
-            <th style="width:10%">Partner</th>
-            <th style="width:20%">Issue</th>
-            <th></th>
-            <th>Earn</th>
-            <th>Skills Required</th>
-            <th>Claimed by</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr ng-repeat="issue in assignedIssues">
-            <td><a href="/programs/{{issue.devXProgramNm}}">{{issue.devXProgramNm}}</a></td>
-            <td><a href="{{issue.html_url}}">{{issue.title}}</a>
-            </td>
-            <td style="text-align: right">
-              <div
-                ng-repeat="label in issue.labels | filter: {name: 'help wanted'}"
-                style="background-color:#{{label.color}}" class="label">
-                <i class="fa fa-tag"></i> {{label.name}}
-              </div>
-            </td>
-            <td>
-              <div
+
+      <div id="closed-issues-panel" class="panel panel-default">
+        <div class="panel-heading"><b>Done</b></div>
+
+        <div class="panel-body">
+          <div ng-if="closedIssues && closedIssues.length>0">
+            <table class="table table-striped opportunity-list">
+              <thead>
+              <tr>
+                <th style="width:10%">Partner</th>
+                <th style="width:20%" style="width:10%">Issue</th>
+                <th>Closed Date</th>
+                <th>Earned</th>
+                <th>Skills Required</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="issue in closedIssues">
+                <td><a href="/programs/{{issue.devXProgramNm}}">{{issue.devXProgramNm}}</a></td>
+                <td><a href="{{issue.html_url}}">{{issue.title}}</a>
+                </td>
+                <td style="white-space: nowrap">
+                  {{issue.closed_at | date:'yyyy-MM-dd' }}
+                </td>
+                <td>
+              <span
                 ng-repeat="label in issue.labels | filter:{color:'0052cc'} as results"
                 style="background-color:#{{label.color}}" class="label">
                 <i class="fa fa-tag"></i> {{label.name}}
-              </div>
-              <div ng-if="results.length === 0"
-                   style="color:red" class="label">
+              </span>
+              <span ng-if="results.length === 0"
+                    style="color:red" class="label">
                 <i class="fa fa-heart"></i>
-              </div>
+              </span>
 
-            </td>
-            <td>
+                </td>
+                <td>
                     <span
                       ng-repeat="label in issue.labels  | filter: {color: 'eb6420'}">
                       <span
@@ -129,63 +182,19 @@
                         <i class="fa fa-tag"></i> {{label.name}}
                       </span>
                     </span>
-            </td>
-            <td style="white-space: nowrap">
-              <img alt="{{issue.assignee.login}}" class="ghAvatar_small" src="{{issue.assignee.avatar_url }}"/>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
 
-      <div ng-if="closedIssues && closedIssues.length>0">
-        <h2 class="sub-header">Done</h2>
-        <table class="table table-striped opportunity-list">
-          <thead>
-          <tr>
-            <th style="width:10%">Partner</th>
-            <th style="width:20%"style="width:10%">Issue</th>
-            <th>Closed Date</th>
-            <th>Earned</th>
-            <th>Skills Required</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr ng-repeat="issue in closedIssues">
-            <td><a href="/programs/{{issue.devXProgramNm}}">{{issue.devXProgramNm}}</a></td>
-            <td><a href="{{issue.html_url}}">{{issue.title}}</a>
-            </td>
-            <td style="white-space: nowrap">
-              {{issue.closed_at | date:'yyyy-MM-dd' }}
-            </td>
-            <td>
-              <div
-                ng-repeat="label in issue.labels | filter:{color:'0052cc'} as results"
-                style="background-color:#{{label.color}}" class="label">
-                <i class="fa fa-tag"></i> {{label.name}}
-              </div>
-              <div ng-if="results.length === 0"
-                   style="color:red" class="label">
-                <i class="fa fa-heart"></i>
-              </div>
-
-            </td>
-            <td>
-                    <span
-                      ng-repeat="label in issue.labels  | filter: {color: 'eb6420'}">
-                      <span
-                        style="background-color:#{{label.color}}" class="label">
-                        <i class="fa fa-tag"></i> {{label.name}}
-                      </span>
-                    </span>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
       <div style="position: relative" us-spinner="{radius:20, width:6, length: 15}" spinner-key="spinner-issues-list"
            spinner-start-active="true"></div>
-    </div>
-  </div>
 
+    </div>
+
+  </div>
 </div>
