@@ -34,17 +34,17 @@
             <tr>
               <th style="width:10%">Partner</th>
               <th style="width:20%">Issue</th>
-              <th></th>
-              <th></th>
+              <th style="width: 10%;"></th>
               <th>Earn</th>
               <th>Skills Required</th>
+              <th style="width: 10%;"></th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="issue in issues">
               <td><a href="/programs/{{issue.devXProgramNm}}">{{issue.devXProgramNm}}</a></td>
               <td><a href="{{issue.html_url}}">{{issue.title}}</a></td>
-              <td colspan="2" style="text-align: right">
+              <td style="text-align: left">
                 <div
                   ng-repeat="label in issue.labels | filter: {name: 'help wanted'}"
                   style="background-color:#{{label.color}}" class="label">
@@ -72,6 +72,8 @@
                       </span>
                     </span>
               </td>
+              <td></td>
+
             </tr>
             <tr ng-if="issues.length === 0">
               <td colspan="6">There are currently no open issues.</td>
@@ -90,17 +92,17 @@
             <tr>
               <th style="width:10%">Partner</th>
               <th style="width:20%">Issue</th>
-              <th></th>
+              <th style="width: 10%;"></th>
               <th>Earn</th>
               <th>Skills Required</th>
-              <th>Claimed by</th>
+              <th style="width: 10%;">Claimed by</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="issue in assignedIssues">
               <td><a href="/programs/{{issue.devXProgramNm}}">{{issue.devXProgramNm}}</a></td>
               <td><a href="{{issue.html_url}}">{{issue.title}}</a></td>
-              <td>
+              <td style="text-align: left">
               <span
                 ng-repeat="label in issue.labels | filter: {name: 'help wanted'}"
                 style="background-color:#{{label.color}}" class="label">
