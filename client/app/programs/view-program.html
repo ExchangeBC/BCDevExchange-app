@@ -25,6 +25,7 @@ See the License for the specific language governing permissions and limitations 
         <div class="et_pb_column et_pb_column_1_2 et_pb_column_1">
           <span us-spinner="{radius:20, width:6, length: 15}" spinner-key="spinner-program-desc"
                 spinner-start-active="true"></span>
+
           <div inline-editable class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_1"
                ng-bind-html='program.content.description'/>
           <!-- .et_pb_text -->
@@ -38,7 +39,8 @@ See the License for the specific language governing permissions and limitations 
     <!-- .et_pb_section -->
     <div class="et_pb_section  et_pb_section_1 et_pb_with_background et_section_regular">
       <div class="et_pb_row et_pb_row_1 et_pb_row_{{nButtons}}col">
-        <div class="et_pb_column et_pb_column_1_{{nButtons}}" ng-show="program.helpWantedIssues && program.helpWantedIssues.length > 0">
+        <div class="et_pb_column et_pb_column_1_{{nButtons}}"
+             ng-show="program.helpWantedIssues && program.helpWantedIssues.length > 0">
           <div
             class="et_pb_blurb et_pb_module et_pb_bg_layout_dark et_pb_text_align_center  et_pb_blurb_0 et_pb_blurb_position_top">
             <div class="et_pb_blurb_content">
@@ -134,16 +136,23 @@ See the License for the specific language governing permissions and limitations 
           <div class="et_pb_column et_pb_column_4_4 et_pb_column_10">
             <div id="HPFont" class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_2">
               <p></p>
+
               <h1 id="workwithus" analytics-on="scrollby" scrollby-offset="35%" analytics-event="scroll"
                   analytics-category="fragment" analytics-label="#workwithus" style="text-align: center;">Code With
                 Us</h1>
+
               <h2>Pay for Pull <i class="fa fa-github"></i></h2>
+
               <p></p>
+
               <p></p>
               Find open issue tagged with ‘$1000’. Submit the best code, and you can get paid.
               <p></p>
+
               <p></p>
+
               <p></p>
+
               <div>
                 <a class='btn btn-primary' href="https://github.com/BCDevExchange/rapid-adoption/wiki">How
                   it will work</a>
@@ -170,10 +179,11 @@ See the License for the specific language governing permissions and limitations 
                 </tr>
                 </thead>
                 <tbody>
+                <!--open issues-->
                 <tr>
                   <td colspan="4">Open</td>
                 </tr>
-                <tr ng-repeat="issue in program.helpWantedIssues">
+                <tr ng-repeat="issue in program.openIssues">
                   <td><a href="{{issue.html_url}}">{{issue.title}}</a>
                   </td>
                   <td style="text-align: right">
@@ -189,8 +199,8 @@ See the License for the specific language governing permissions and limitations 
                       style="background-color:#{{label.color}}" class="label">
                       <i class="fa fa-tag"></i> {{label.name}}
                     </div>
-                    <div  ng-if="results.length === 0"
-                      style="color:red" class="label">
+                    <div ng-if="results.length === 0"
+                         style="color:red" class="label">
                       <i class="fa fa-heart"></i>
                     </div>
 
@@ -205,11 +215,55 @@ See the License for the specific language governing permissions and limitations 
                     </span>
                   </td>
                 </tr>
+                </tbody>
+                <tbody ng-if="program.inProgressIssues.length > 0">
+                <!--in progress issues-->
+                <tr>
+                  <td colspan="4">In Progress</td>
+                </tr>
+                <tr ng-repeat="issue in program.inProgressIssues">
+                  <td><a href="{{issue.html_url}}">{{issue.title}}</a>
+                  </td>
+                  <td style="text-align: right">
+                    <div
+                      ng-repeat="label in issue.labels | filter: {name: 'help wanted'}"
+                      style="background-color:#{{label.color}}" class="label">
+                      <i class="fa fa-tag"></i> {{label.name}}
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      ng-repeat="label in issue.labels | filter:{color:'0052cc'} as results"
+                      style="background-color:#{{label.color}}" class="label">
+                      <i class="fa fa-tag"></i> {{label.name}}
+                    </div>
+                    <div ng-if="results.length === 0"
+                         style="color:red" class="label">
+                      <i class="fa fa-heart"></i>
+                    </div>
+
+                  </td>
+                  <td>
+                    <span
+                      ng-repeat="label in issue.labels  | filter: {color: 'eb6420'}">
+                      <span
+                        style="background-color:#{{label.color}}" class="label">
+                        <i class="fa fa-tag"></i> {{label.name}}
+                      </span>
+                    </span>
+                  </td>
+                </tr>
+                <tbody>
+                <tbody>
+                <!--closed issues-->
                 <tr ng-if="program.closedHelpWantedIssues && program.closedHelpWantedIssues.length>0">
                   <td>Closed</td>
                   <td>Closed Date</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
                 </tr>
-                <tr ng-repeat="issue in program.closedHelpWantedIssues" ng-if="program.closedHelpWantedIssues && program.closedHelpWantedIssues.length>0">
+                <tr ng-repeat="issue in program.closedHelpWantedIssues"
+                    ng-if="program.closedHelpWantedIssues && program.closedHelpWantedIssues.length>0">
                   <td><a href="{{issue.html_url}}">{{issue.title}}</a>
                   </td>
                   <td style="white-space: nowrap">
@@ -221,8 +275,8 @@ See the License for the specific language governing permissions and limitations 
                       style="background-color:#{{label.color}}" class="label">
                       <i class="fa fa-tag"></i> {{label.name}}
                     </div>
-                    <div  ng-if="results.length === 0"
-                          style="color:red" class="label">
+                    <div ng-if="results.length === 0"
+                         style="color:red" class="label">
                       <i class="fa fa-heart"></i>
                     </div>
 
@@ -310,6 +364,7 @@ See the License for the specific language governing permissions and limitations 
               </div>
               <div class="et_pb_blurb_container">
                 <h4>APIs &amp; Resources</h4>
+
                 <div inline-editable analytics-outbound-links ng-bind-html='program.content.resources'
                      style="text-align: left;">
                 </div>
@@ -330,6 +385,7 @@ See the License for the specific language governing permissions and limitations 
               </div>
               <div class="et_pb_blurb_container">
                 <h4>Community</h4>
+
                 <div inline-editable analytics-outbound-links ng-bind-html='program.content.community'
                      style="text-align: left;">
                 </div>
@@ -350,6 +406,7 @@ See the License for the specific language governing permissions and limitations 
               </div>
               <div class="et_pb_blurb_container">
                 <h4>News</h4>
+
                 <div inline-editable analytics-outbound-links ng-bind-html='program.content.news'
                      style="text-align: left;"></div>
               </div>
@@ -393,6 +450,7 @@ See the License for the specific language governing permissions and limitations 
     <!-- .et_pb_section -->
     <div class="et_pb_section" ng-show="program.gitters">
       <h1 class="et_pb_text_align_center">Engage With Us</h1>
+
       <div id="engageWithUsContainer" class="flex-container">
         <div ng-repeat="n in program.gitters" class="flex-item"
              style="padding: 4px; border-radius: 25px; border: 2px solid #8AC007;width:{{100 / program.gitters.length - 3}}%;">

@@ -31,7 +31,12 @@ angular.module('bcdevxApp.programs').config(function ($sceProvider) {
     mdContentPromise.then(function (program) {
       usSpinnerService.stop('spinner-program-desc')
       if (!!program) {
+
+
         $scope.program = program
+
+
+
         $scope.mdDisplay = program.markdown
         var nButtons = 4
         if (!program.helpWantedIssues || program.helpWantedIssues.length < 1) nButtons--
@@ -42,6 +47,17 @@ angular.module('bcdevxApp.programs').config(function ($sceProvider) {
         if (program.hideCommunity) nButtons2--
         if (program.hideNews) nButtons2--
         $scope.nButtons2 = nButtons2
+
+        // this is for populating "Work In Progress " - it will contain all open, *assigned* issues labelled "help wanted", with or without an amount label
+        $scope.program.inProgressIssues = (program.helpWantedIssues && program.helpWantedIssues.length > 0) ? _.filter(program.helpWantedIssues, function (issue) {
+          return issue.assignee != null;
+        }) : {};
+
+        // this is for populating "Open Issues" - it will contain all open, *unassigned* issues labelled "help wanted", with or without an amount label
+        $scope.program.openIssues = (program.helpWantedIssues && program.helpWantedIssues.length > 0) ? _.filter(program.helpWantedIssues, function (issue) {
+          return issue.assignee == null;
+        }) : {};
+
         setTimeout(function () {
           $rootScope.$broadcast('bdTocUpdate')
           $scope.$broadcast('contentReady')
@@ -77,7 +93,7 @@ angular.module('bcdevxApp.programs').directive('inlineEditable', ['AccountServic
           element.addClass('cke_editable_inline')
           element.attr('title', 'Double click to edit')
           // make sure editable region is clickable
-          if(!element.html() || element.html().match(/^\s*$/)) {
+          if (!element.html() || element.html().match(/^\s*$/)) {
             element.html('&nbsp;')
           }
           element.dblclick(function () {

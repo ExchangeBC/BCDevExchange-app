@@ -16,7 +16,6 @@ angular.module('bcdevxApp.developers', ['ngRoute', 'ngResource', 'bcdevxApp.serv
 
       // this is for populating "Work In Progress " - it will contain all open, *assigned* issues labelled "help wanted", with or without an amount label
       $scope.assignedIssues = _.filter(openIssues, function (issue) {
-        console.log("assignee: " + issue.assignee);
         return issue.assignee != null;
       });
 
