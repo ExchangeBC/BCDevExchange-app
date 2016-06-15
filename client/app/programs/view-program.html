@@ -128,7 +128,7 @@ See the License for the specific language governing permissions and limitations 
 
     </div>
     <!-- .et_pb_section -->
-    <div ng-show="program.helpWantedIssues && program.helpWantedIssues.length>0">
+    <div ng-show="program.helpWantedIssues && program.helpWantedIssues.length>0" class="opportunity-list">
       <!-- .et_pb_section -->
       <div
         class="et_pb_section et_pb_inner_shadow et_section_regular">
@@ -170,17 +170,17 @@ See the License for the specific language governing permissions and limitations 
                   <table class="table table-striped">
                     <thead>
                     <tr>
-                      <th>Issue</th>
-                      <th></th>
-                      <th>Earn</th>
-                      <th>Skills Required</th>
+                      <th style="width: 20%;">Issue</th>
+                      <th style="width: 10%;" class="hidden-phone"></th>
+                      <th style="width: 10%;" >Earn</th>
+                      <th class="hidden-phone">Skills Required</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="issue in program.openIssues">
                       <td><a href="{{issue.html_url}}">{{issue.title}}</a>
                       </td>
-                      <td style="text-align: right">
+                      <td class="hidden-phone" style="text-align: right">
                         <div
                           ng-repeat="label in issue.labels | filter: {name: 'help wanted'}"
                           style="background-color:#{{label.color}}" class="label">
@@ -199,7 +199,7 @@ See the License for the specific language governing permissions and limitations 
                         </div>
 
                       </td>
-                      <td>
+                      <td class="hidden-phone">
                     <span
                       ng-repeat="label in issue.labels  | filter: {color: 'eb6420'}">
                       <span
@@ -208,6 +208,9 @@ See the License for the specific language governing permissions and limitations 
                       </span>
                     </span>
                       </td>
+                    </tr>
+                    <tr ng-if="program.openIssues.length === 0">
+                      <td colspan="6">There are currently no open issues.</td>
                     </tr>
                     </tbody>
                   </table>
@@ -220,18 +223,18 @@ See the License for the specific language governing permissions and limitations 
                   <table class="table table-striped">
                     <thead>
                     <tr>
-                      <th>Issue</th>
-                      <th></th>
-                      <th>Earn</th>
-                      <th>Skills Required</th>
-                      <th>Claimed by</th>
+                      <th style="width: 20%;">Issue</th>
+                      <th style="width: 10%;" class="hidden-phone"></th>
+                      <th style="width: 10%;">Earn</th>
+                      <th class="hidden-phone">Skills Required</th>
+                      <th class="hidden-phone">Claimed by</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="issue in program.inProgressIssues">
                       <td><a href="{{issue.html_url}}">{{issue.title}}</a>
                       </td>
-                      <td style="text-align: right">
+                      <td class="hidden-phone" style="text-align: right">
                         <div
                           ng-repeat="label in issue.labels | filter: {name: 'help wanted'}"
                           style="background-color:#{{label.color}}" class="label">
@@ -250,7 +253,7 @@ See the License for the specific language governing permissions and limitations 
                         </div>
 
                       </td>
-                      <td>
+                      <td class="hidden-phone">
                     <span
                       ng-repeat="label in issue.labels  | filter: {color: 'eb6420'}">
                       <span
@@ -259,7 +262,7 @@ See the License for the specific language governing permissions and limitations 
                       </span>
                     </span>
                       </td>
-                      <td style="white-space: nowrap">
+                      <td class="hidden-phone" style="white-space: nowrap">
                         <img alt="{{issue.assignee.login}}" class="ghAvatar_small" src="{{issue.assignee.avatar_url }}"/>
                       </td>
                     </tr>
@@ -278,10 +281,10 @@ See the License for the specific language governing permissions and limitations 
                   <table class="table table-striped">
                     <thead>
                     <tr>
-                      <th>Issue</th>
-                      <th>Closed Date</th>
-                      <th>Earned</th>
-                      <th>Skills Required</th>
+                      <th style="width: 20%;">Issue</th>
+                      <th style="width: 10%;" class="hidden-phone">Closed Date</th>
+                      <th style="width: 10%;">Earned</th>
+                      <th class="hidden-phone">Skills Required</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -290,7 +293,7 @@ See the License for the specific language governing permissions and limitations 
                         ng-if="program.closedHelpWantedIssues && program.closedHelpWantedIssues.length>0">
                       <td><a href="{{issue.html_url}}">{{issue.title}}</a>
                       </td>
-                      <td style="white-space: nowrap">
+                      <td class="hidden-phone" style="white-space: nowrap">
                         {{issue.closed_at | date:'yyyy-MM-dd' }}
                       </td>
                       <td>
@@ -305,7 +308,7 @@ See the License for the specific language governing permissions and limitations 
                         </div>
 
                       </td>
-                      <td>
+                      <td class="hidden-phone">
                     <span
                       ng-repeat="label in issue.labels  | filter: {color: 'eb6420'}">
                       <span

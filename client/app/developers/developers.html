@@ -23,9 +23,9 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row opportunity-list">
     <div class="col-sm-12 col-md-12 main">
-      <div id="open-issues-panel" class="panel panel-default opportunity-list">
+      <div id="open-issues-panel" class="panel panel-default">
         <div class="panel-heading"><b>Open</b></div>
 
         <div class="panel-body">
@@ -33,8 +33,8 @@
             <table class="table table-striped">
               <thead>
               <tr>
-                <th style="width:10%">Partner</th>
-                <th style="width:20%">Issue</th>
+                <th style="width: 10%">Partner</th>
+                <th style="width: 20%">Issue</th>
                 <th style="width: 10%;" class="hidden-phone"></th>
                 <th>Earn</th>
                 <th class="hidden-phone">Skills Required</th>
@@ -85,17 +85,17 @@
         </div>
       </div>
 
-      <div id="assigned-issues-panel" class="panel panel-default opportunity-list"
+      <div id="assigned-issues-panel" class="panel panel-default"
            ng-if="assignedIssues && assignedIssues.length>0">
         <div class="panel-heading"><b>In Progress</b></div>
 
         <div class="panel-body">
           <div class="table-responsive-bleh">
-            <table class="table table-striped opportunity-list">
+            <table class="table table-striped">
               <thead>
               <tr>
-                <th style="width:10%">Partner</th>
-                <th style="width:20%">Issue</th>
+                <th style="width: 10%">Partner</th>
+                <th style="width: 20%">Issue</th>
                 <th style="width: 10%;" class="hidden-phone"></th>
                 <th>Earn</th>
                 <th class="hidden-phone">Skills Required</th>
@@ -146,21 +146,22 @@
 
       </div>
 
-      <div id="closed-issues-panel" class="panel panel-default opportunity-list">
+      <div id="closed-issues-panel" class="panel panel-default">
         <div class="panel-heading"><b>Done</b></div>
 
         <div class="panel-body">
           <div ng-if="closedIssues && closedIssues.length>0">
             <div class="table-responsive-bleh">
-              <table class="table table-striped opportunity-list">
+              <table class="table table-striped">
                 <thead>
                 <tr>
                   <th style="width:10%">Partner</th>
-                  <th style="width:20%" style="width:10%">Issue</th>
-                  <th style="width:10%"   class="hidden-phone">Closed Date</th>
-                  <th>Earned</th>
+                  <th style="width:20%">Issue</th>
+                  <th style="width:10%" class="hidden-phone">Closed Date</th>
+                  <!--column alignment hack - cover your eyes!-->
+                  <th style="width:11%"  >Earned</th>
                   <th class="hidden-phone">Skills Required</th>
-                  <th></th>
+                  <th style="width:10%" ></th>
                 </tr>
                 </thead>
                 <tbody>
