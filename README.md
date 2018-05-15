@@ -1,3 +1,5 @@
+*NOTE: This repo is deprecated* and retained only for archival/informational purposes.  The repo containing the current BC Developers' Exchange app is https://github.com/bcdevexchange/devex. Head over there to see the latest code.*
+
 [![Stories in Ready](https://badge.waffle.io/BCDevExchange/BCDevExchange-app.png?label=ready&title=Ready)](https://waffle.io/BCDevExchange/BCDevExchange-app)
 [![Build Status](https://cis.data.gov.bc.ca/job/uat-BCDevExchange-app/badge/icon)](https://cis.data.gov.bc.ca/job/uat-BCDevExchange-app/)
 # BCDevExchange Organization Web Site #
